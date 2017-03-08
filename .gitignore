@@ -1,4 +1,10 @@
+# Netbeans
 /nbproject/
 /manifest.mf
-/build.xml
 /build/
+/lib/nblibraries.properties
+/build.xml
+
+# Lib
+/lib/CopyLibs/
+/lib/hamcrest/
