@@ -5,6 +5,7 @@
  */
 
 import be.ac.ulb.infof307.g01.Pokemon;
+import java.io.File;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -55,6 +56,13 @@ public class PokemonTest {
         Pokemon testPokemon2 = new Pokemon("test", "typeTest");
         
         assertTrue(testPokemon1.equals(testPokemon2));
+    }
+    
+    @Test
+    public void test_getPathImage() {
+        Pokemon testPokemon = new Pokemon("test", "typeTest");
+        assertEquals(testPokemon.getPathImage(), "typeTest" + File.separator + 
+                "test" + ".png");
     }
     
     
