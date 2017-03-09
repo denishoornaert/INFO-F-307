@@ -5,6 +5,7 @@
  */
 package be.ac.ulb.infof307.g01;
 
+import be.ac.ulb.infof307.g01.gui.Pin;
 import java.sql.Timestamp;
 
 /**
@@ -16,10 +17,12 @@ public class Marker {
     private final Pokemon _pokemon;
     private final Coordinate _coordinate;
     private Timestamp _timestamp;
+    private final Pin _pin;
     
     public Marker(Pokemon pokemon, Coordinate coordinate) {
         _pokemon = pokemon;
         _coordinate = coordinate;
+        _pin = new Pin(this);
         
         Long currentTime = System.currentTimeMillis();
         _timestamp = new Timestamp(currentTime);
@@ -31,6 +34,10 @@ public class Marker {
     
     public String getPathImage() {
         return _pokemon.getPathImage();
+    }
+    
+    public Coordinate getCoordinate() {
+        return _coordinate;
     }
     
 }

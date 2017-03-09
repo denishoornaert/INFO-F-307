@@ -4,6 +4,7 @@ import be.ac.ulb.infof307.g01.gui.MapView;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -22,8 +23,14 @@ public class Main extends Application {
         stage.show();
         _map.adatpToScene(scene.widthProperty());
     }
-  
+    
     public static void main(String[] args) {
         launch(args);
-    }  
+    }
+    
+    public static StackPane getStackPane() {
+        return new StackPane();
+    }
+    
+    
 }
