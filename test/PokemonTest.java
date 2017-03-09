@@ -60,9 +60,9 @@ public class PokemonTest {
     
     @Test
     public void test_getPathImage() {
-        Pokemon testPokemon = new Pokemon("test", "typeTest");
-        assertEquals(testPokemon.getPathImage(), "typeTest" + File.separator + 
-                "test" + ".png");
+        Pokemon testPokemon = new Pokemon("pikachu", "typeTest");
+        File file = new File(testPokemon.getPathImage());
+        assertTrue(file.exists());
     }
     
     

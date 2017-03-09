@@ -26,8 +26,7 @@ public class Pokemon {
     }
     
     private String findCorrespondingImagePath() {
-        // TODO à modifier
-        return _type + File.separator + _name + ".png";
+        return "assets" + File.separator + "sprites" + File.separator + _name + ".png";
     }
     
     
