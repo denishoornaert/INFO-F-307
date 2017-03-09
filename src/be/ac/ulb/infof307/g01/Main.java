@@ -34,9 +34,5 @@ public class Main extends Application {
         launch(args);
     }
     
-    public static StackPane getStackPane() {
-        return new StackPane();
-    }
-    
     
 }

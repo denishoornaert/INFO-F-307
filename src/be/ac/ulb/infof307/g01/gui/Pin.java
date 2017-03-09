@@ -46,6 +46,7 @@ public class Pin extends ImageView {
     }
     
     private void movePin() {
+        // Currently not adapted to pin anchor
         Coordinate markerCoord = _marker.getCoordinate();
         setTranslateX(markerCoord.getX());
         setTranslateY(markerCoord.getY());
