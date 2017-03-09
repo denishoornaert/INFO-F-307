@@ -3,12 +3,9 @@ package be.ac.ulb.infof307.g01;
 import be.ac.ulb.infof307.g01.gui.MapView;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-import sun.swing.SwingUtilities2;
 
 public class Main extends Application {
   
