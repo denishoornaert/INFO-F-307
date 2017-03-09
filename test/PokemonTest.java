@@ -41,20 +41,21 @@ public class PokemonTest {
     
     @Test
     public void test_getName() {
-        Pokemon testPokemon = new Pokemon("arceus", PokemonType.FLIGHT);
+        Pokemon testPokemon = new Pokemon("arceus", PokemonType.FLYING);
         assertEquals(testPokemon.getName(), "arceus");
     }
     
     @Test
     public void test_getType() {
         Pokemon testPokemon = new Pokemon("arceus", PokemonType.FIRE);
-        assertEquals(testPokemon.getType(), PokemonType.FIRE);
+        assertEquals(testPokemon.getType()[0], PokemonType.FIRE);
+        assertEquals(testPokemon.getType()[1], PokemonType.NONE);
     }
     
     @Test
     public void test_equals() {
         Pokemon testPokemon1 = new Pokemon("arceus", PokemonType.FIRE);
-        Pokemon testPokemon2 = new Pokemon("arceus", PokemonType.FIRE);
+        Pokemon testPokemon2 = new Pokemon("arceus", PokemonType.FIRE,PokemonType.NONE);
         
         assertTrue(testPokemon1.equals(testPokemon2));
     }

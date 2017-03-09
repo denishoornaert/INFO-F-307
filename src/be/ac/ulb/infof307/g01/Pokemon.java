@@ -6,6 +6,7 @@
 package be.ac.ulb.infof307.g01;
 
 import java.io.File;
+import java.util.Arrays;
 
 /**
  *
@@ -14,14 +15,17 @@ import java.io.File;
 public class Pokemon {
     
     private final String _name;
-    private final PokemonType _type; // TODO transform to enum ?
+    private final PokemonType[] _type;
     private final String _pathImage;
     
     
     public Pokemon(String name, PokemonType type) {
+        this(name,type,PokemonType.NONE);
+    }
+    
+    public Pokemon(String name, PokemonType type1, PokemonType type2) {
         _name = name;
-        _type = type;
-        
+        _type = new PokemonType[]{type1, type2};
         _pathImage = findCorrespondingImagePath();
     }
     
@@ -34,7 +38,7 @@ public class Pokemon {
         return _name;
     }
     
-    public PokemonType getType() {
+    public PokemonType[] getType() {
         return _type;
     }
     
@@ -46,12 +50,12 @@ public class Pokemon {
     /**
      * Test if two pokemon have same name and type
      * 
-     * @param testPokemon the pokemon which must be tested
+     * @param otherPokemon the pokemon which must be compared
      * @return True if it's the same pokemon
      */
-    public boolean equals(Pokemon testPokemon) {
-        return testPokemon._name.equals(_name) && 
-                testPokemon._type.equals(_type);
+    public boolean equals(Pokemon otherPokemon) {
+        return otherPokemon._name.equals(_name) && 
+                Arrays.equals(otherPokemon._type, _type);
     }
     
 }
