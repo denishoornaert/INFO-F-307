@@ -1,6 +1,7 @@
 package be.ac.ulb.infof307.g01;
 
 import be.ac.ulb.infof307.g01.gui.MapView;
+import be.ac.ulb.infof307.g01.gui.PinPopUp;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.scene.Scene;
@@ -23,6 +24,8 @@ public class Main extends Application {
         Scene scene = new Scene(_map);
         stage.setScene(scene);
         stage.show();
+        Marker tmp = new Marker(new Pokemon("name", "type"), new Coordinate(69, 69));
+        PinPopUp tmp2 = new PinPopUp(tmp);
         //_map.adaptToScene(scene.widthProperty()); Center image
     }
     
@@ -33,4 +36,5 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }  
+
 }
