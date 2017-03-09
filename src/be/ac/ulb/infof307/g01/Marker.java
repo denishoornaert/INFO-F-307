@@ -29,8 +29,20 @@ public class Marker {
         _timestamp = newTimestamp;
     }
     
+    public Timestamp getTimestamp() {
+        return _timestamp;
+    }
+    
+    public String getPokemonName() {
+        return _pokemon.getName();
+    }
+    
     public String getPathImage() {
         return _pokemon.getPathImage();
+    }
+    
+    public Coordinate getCoordinate() {
+        return _coordinate;
     }
     
 }
