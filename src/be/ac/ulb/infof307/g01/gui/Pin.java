@@ -46,10 +46,14 @@ public class Pin extends ImageView {
     }
     
     private void movePin() {
-        // Currently not adapted to pin anchor
+        // Find the offset because the image is center automatically
+        double heighOffset = this.getImage().getHeight()/2;
+        // Move the picture
         Coordinate markerCoord = _marker.getCoordinate();
         setTranslateX(markerCoord.getX());
-        setTranslateY(markerCoord.getY());
+        setTranslateY(markerCoord.getY() - heighOffset);
+        // TODO : voir si on utiliserai un système d'ancrage au lieu de décaller
+
     }
     
     

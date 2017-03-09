@@ -24,6 +24,16 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.show();
         //_map.adaptToScene(scene.widthProperty()); Center image
+        
+        /* GUI tests
+        new Marker(new Pokemon("AA", "BB"), new Coordinate(0, 0));
+        new Marker(new Pokemon("AA", "BB"), new Coordinate(10, 0));
+        Circle circle = new Circle();
+        circle.setRadius(10.0f);
+        circle.setCenterX(0);
+        circle.setCenterY(0);
+        getStackPane().getChildren().add(circle);
+        */
     }
     
     public static StackPane getStackPane() {

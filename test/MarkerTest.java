@@ -45,7 +45,7 @@ public class MarkerTest {
         Pokemon testPokemon = new Pokemon("arceus", PokemonType.FIRE);
         Coordinate testCoordinate = new Coordinate(69, 42);
         
-        Marker testMarker = new Marker(testPokemon, testCoordinate);
+        Marker testMarker = new Marker(testPokemon, testCoordinate, false); // For test we must don't use the picture
         assertEquals(testMarker.getPathImage(), testPokemon.getPathImage());        
     }
     
