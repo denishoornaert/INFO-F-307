@@ -17,15 +17,31 @@ public class Marker {
     private final Pokemon _pokemon;
     private final Coordinate _coordinate;
     private Timestamp _timestamp;
-    private final Pin _pin;
+    private Pin _pin = null;
     
-    public Marker(Pokemon pokemon, Coordinate coordinate) {
+    
+    public Marker(Pokemon pokemon, Coordinate coordinate, boolean createPin) {
         _pokemon = pokemon;
         _coordinate = coordinate;
-        _pin = new Pin(this);
         
         Long currentTime = System.currentTimeMillis();
         _timestamp = new Timestamp(currentTime);
+        
+        if (createPin) {
+            createPin();
+        }
+    }
+    
+    public Marker(Pokemon pokemon, Coordinate coordinate) {
+        this(pokemon, coordinate, true);
+    }
+    
+    private void createPin() {
+        if(_pin == null) {
+            _pin = new Pin(this);
+        } else {
+            throw new RuntimeException("pin allready created");
+        }
     }
     
     public void setTimestamp(Timestamp newTimestamp) {
