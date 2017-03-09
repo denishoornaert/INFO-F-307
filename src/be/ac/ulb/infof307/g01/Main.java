@@ -29,8 +29,14 @@ public class Main extends Application {
     public static StackPane getStackPane() {
         return _layout;
     }
-  
+    
     public static void main(String[] args) {
         launch(args);
-    }  
+    }
+    
+    public static StackPane getStackPane() {
+        return new StackPane();
+    }
+    
+    
 }
