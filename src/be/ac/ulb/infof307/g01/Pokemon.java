@@ -14,11 +14,11 @@ import java.io.File;
 public class Pokemon {
     
     private final String _name;
-    private final String _type; // TODO transform to enum ?
+    private final PokemonType _type; // TODO transform to enum ?
     private final String _pathImage;
     
     
-    public Pokemon(String name, String type) {
+    public Pokemon(String name, PokemonType type) {
         _name = name;
         _type = type;
         
@@ -34,7 +34,7 @@ public class Pokemon {
         return _name;
     }
     
-    public String getType() {
+    public PokemonType getType() {
         return _type;
     }
     
