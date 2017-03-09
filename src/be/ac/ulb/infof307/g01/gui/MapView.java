@@ -5,7 +5,12 @@
  */
 package be.ac.ulb.infof307.g01.gui;
 
+import be.ac.ulb.infof307.g01.Main;
+import be.ac.ulb.infof307.g01.MapController;
+import java.io.File;
 import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -18,18 +23,26 @@ import javafx.scene.layout.StackPane;
  */
 public class MapView extends ScrollPane {
     
+    private MapController _map;
+    private ImageView _imageView;
+    
     public MapView() {
         super();
-        init();
+        _map = new MapController();
+        setImageView();
+        initLayout();
     }
     
-    private void init() {
-        StackPane layout = new StackPane();
-        layout.getChildren().add(
-                new ImageView(new Image(
-                    "https://www.evl.uic.edu/pape/data/Earth/4096/PathfinderMap.jpg")));
+    private void setImageView() {
+        String imageUri = _map.getImagePath();
+        _imageView = new ImageView(new Image(imageUri));
+    }
+    
+    private void initLayout() {
+        StackPane layout = Main.getStackPane();
+        ObservableList<Node> child = layout.getChildren();
+        child.add(_imageView);
         createScrollPane(layout);
-        
     }
     
     /** @return a ScrollPane which scrolls the layout. */
@@ -41,7 +54,7 @@ public class MapView extends ScrollPane {
         setContent(layout);
     }
     
-    public void adatpToScene(ReadOnlyDoubleProperty property) {
+    public void adaptToScene(ReadOnlyDoubleProperty property) {
         // bind the preferred size of the scroll area to the size of the scene.
         prefWidthProperty().bind(property);
         prefHeightProperty().bind(property);
