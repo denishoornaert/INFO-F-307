@@ -5,6 +5,7 @@
  */
 package be.ac.ulb.infof307.g01.gui;
 
+import be.ac.ulb.infof307.g01.Main;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -25,6 +26,7 @@ public class PopUp extends Stage {
         _layout = new StackPane();
         _layout.setPrefSize(150, 150);
         setScene(new Scene(_layout));
+        initOwner(Main.getStage());
         initStyle();
     }
     
@@ -35,6 +37,10 @@ public class PopUp extends Stage {
     
     private void initStyle() {
         _layout.setStyle("-fx-background-color: #d2d7dd;-fx-padding: 15;-fx-spacing: 10;-fx-background-radius: 10 10 10 10;");
+    }
+    
+    public void setSize(int x, int y) {
+        _layout.setPrefSize(x, y);
     }
     
 }
