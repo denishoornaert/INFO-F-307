@@ -12,13 +12,10 @@ import java.io.File;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  *
@@ -74,19 +71,8 @@ public class Pin extends ImageView implements EventHandler<MouseEvent> {
     @Override
     public void handle(MouseEvent e) {
         System.out.println("MouseEvent on pin");
-        Stage stage = new Stage(StageStyle.UNDECORATED);
-        ///stage.initOwner(Main.getStackPane());
-
-        stage.setX(e.getScreenX());
-        stage.setY(e.getScreenY());
-
-        StackPane layout = new StackPane();
-        layout.setStyle("-fx-background-color: paleturquoise;");
-        layout.setPrefSize(40, 40);
-        //layout.setOnMouseClicked(e-> stage.close());
-        stage.setScene(new Scene(layout));
-
-        stage.show();
+        PinPopUp popUp = new PinPopUp(_marker);
+        popUp.show();
     }
 
 }
