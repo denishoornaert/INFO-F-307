@@ -5,8 +5,15 @@
  */
 package be.ac.ulb.infof307.g01.gui;
 
+import be.ac.ulb.infof307.g01.MapController;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.util.Calendar;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -27,19 +34,22 @@ public class NewMarkerPopUp extends PopUp {
     private ComboBox _dateMinute;
     private final int _hours = 24;
     private final int _minutes = 60;
+    private Button _closeButton;
     
-    public NewMarkerPopUp() {
+    public NewMarkerPopUp(MapController map) {
         super();
         setSize(250, 150);
-        initWidget();
+        initWidget(map);
         placeWidgets();
         show();
     }
 
-    private void initWidget() {
+    private void initWidget(MapController map) {
         initTextField();
+        // TODO set to current time
         initDatePicker();
         initComboBoxes();
+        initCloseButton(map);
     }
 
     private void initTextField() {
@@ -75,6 +85,38 @@ public class NewMarkerPopUp extends PopUp {
         }
     }
     
+    private Integer getSelection(ComboBox combobox) {
+        Object object = combobox.getValue();
+        String value = object.toString();
+        return Integer.parseInt(value);
+    }
+    
+    private Timestamp getSelectedTime() {
+        LocalDate localDate = _dateMonthYear.getValue();
+        Integer hours = getSelection(_dateHour);
+        Integer minute = getSelection(_dateMinute);
+        
+        Calendar currentDate = Calendar.getInstance();
+        currentDate.set(localDate.getYear(), localDate.getMonth().getValue(), 
+                localDate.getDayOfMonth(), hours, minute);
+        
+        Timestamp resTimestamp = new Timestamp(currentDate.getTimeInMillis());
+        
+        return resTimestamp;
+    }
+    
+    private void initCloseButton(MapController map) {
+        _closeButton = new Button("close");
+        _closeButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent t) {
+                Timestamp selectedDate = getSelectedTime();
+                map.endPopUpCreateMarker(_pokemonName.getText(), selectedDate);
+                // Only when cancel (and not create marker)
+                // map.cancelPopUpCreateMarker();
+            }
+        });
+    }
+    
     private void placeWidgets() {
         _vbox = new VBox();
         _hbox = new HBox();
@@ -85,6 +127,7 @@ public class NewMarkerPopUp extends PopUp {
         childrenH.add(_dateHour);
         childrenH.add(_dateMinute);
         childrenV.add(_hbox);
+        childrenV.add(_closeButton);
         add(_vbox);
     }
     

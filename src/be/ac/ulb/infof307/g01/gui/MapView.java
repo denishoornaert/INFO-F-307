@@ -25,13 +25,14 @@ import javafx.scene.layout.StackPane;
  */
 public class MapView extends ScrollPane implements EventHandler<MouseEvent> {
     
-    private MapController _map;
+    private MapController _mapController;
     private ImageView _imageView;
     
     
-    public MapView() {
+    public MapView(MapController mapController) {
         super();
-        _map = new MapController();
+        _mapController = mapController;
+        
         setImageView();
         initLayout();
         initEvent();
@@ -42,7 +43,7 @@ public class MapView extends ScrollPane implements EventHandler<MouseEvent> {
     }
     
     private void setImageView() {
-        String imageUri = _map.getImagePath();
+        String imageUri = _mapController.getImagePath();
         _imageView = new ImageView(new Image(imageUri));
     }
     
@@ -72,11 +73,14 @@ public class MapView extends ScrollPane implements EventHandler<MouseEvent> {
         setVvalue(getVmin()+(getVmax()-getVmin())/2);
     }
     
+    ///////// EVENT ///////// 
+    
     @Override
     public void handle(MouseEvent event) {
         if(event.getButton().equals(MouseButton.SECONDARY)) {
             System.out.println("Clic on Map " +
                     "(" + event.getX()+ ", " + event.getY() + ")");
+            _mapController.actionWhenPlayerRightClick(event.getX(), event.getY());
         }
     }
     
