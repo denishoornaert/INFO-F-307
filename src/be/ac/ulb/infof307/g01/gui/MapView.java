@@ -77,6 +77,7 @@ public class MapView extends ScrollPane implements EventHandler<MouseEvent> {
         if(event.getButton().equals(MouseButton.SECONDARY)) {
             System.out.println("Clic on Map " +
                     "(" + event.getX()+ ", " + event.getY() + ")");
+            NewMarkerPopUp popUp = new NewMarkerPopUp();
         }
     }
     
