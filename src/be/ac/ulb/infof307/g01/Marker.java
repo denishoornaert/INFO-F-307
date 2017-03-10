@@ -5,6 +5,7 @@
  */
 package be.ac.ulb.infof307.g01;
 
+import be.ac.ulb.infof307.g01.gui.Pin;
 import java.sql.Timestamp;
 
 /**
@@ -22,19 +23,34 @@ public class Marker {
      * and the date.
      */
     private boolean _isValid = false;
+    private Pin _pin = null;
+
+    public Marker() {
+        this(null, null);
+    }
     
     public Marker(Pokemon pokemon, Coordinate coordinate) {
+        this(pokemon, coordinate, true);
+    }
+    
+    public Marker(Pokemon pokemon, Coordinate coordinate, boolean createPin) {
         _pokemon = pokemon;
         _coordinate = coordinate;
         
         Long currentTime = System.currentTimeMillis();
         _timestamp = new Timestamp(currentTime);
         _isValid = true;
+        if (createPin) {
+            createPin();
+        }
     }
-
-    public Marker() {
-        _pokemon = null;
-        _coordinate = null;
+    
+    private void createPin() {
+        if(_pin == null) {
+            _pin = new Pin(this);
+        } else {
+            throw new RuntimeException("pin allready created");
+        }
     }
     
     public void setTimestamp(Timestamp newTimestamp) {
@@ -43,6 +59,10 @@ public class Marker {
     
     public String getPathImage() {
         return _pokemon.getPathImage();
+    }
+    
+    public Coordinate getCoordinate() {
+        return _coordinate;
     }
     
 }
