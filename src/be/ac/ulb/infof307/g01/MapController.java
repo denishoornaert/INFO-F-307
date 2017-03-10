@@ -53,6 +53,10 @@ public class MapController {
         }
     }
     
+    public void cancelPopUpCreateMarker() {
+        _newMarkerPopUpOpen = false;
+    }
+    
     public void endPopUpCreateMarker(String pokemonName, Timestamp dateView, 
             int coordinateX, int coordinateY) {
         _newMarkerPopUpOpen = false;
