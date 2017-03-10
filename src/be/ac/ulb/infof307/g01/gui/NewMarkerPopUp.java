@@ -6,7 +6,10 @@
 package be.ac.ulb.infof307.g01.gui;
 
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -27,6 +30,7 @@ public class NewMarkerPopUp extends PopUp {
     private ComboBox _dateMinute;
     private final int _hours = 24;
     private final int _minutes = 60;
+    private Button _closeButton;
     
     public NewMarkerPopUp() {
         super();
@@ -40,6 +44,7 @@ public class NewMarkerPopUp extends PopUp {
         initTextField();
         initDatePicker();
         initComboBoxes();
+        initCloseButton();
     }
 
     private void initTextField() {
@@ -75,6 +80,16 @@ public class NewMarkerPopUp extends PopUp {
         }
     }
     
+    private void initCloseButton() {
+        _closeButton = new Button("close");
+        _closeButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent t) {
+                //
+                close();
+            }
+        });
+    }
+    
     private void placeWidgets() {
         _vbox = new VBox();
         _hbox = new HBox();
@@ -85,6 +100,7 @@ public class NewMarkerPopUp extends PopUp {
         childrenH.add(_dateHour);
         childrenH.add(_dateMinute);
         childrenV.add(_hbox);
+        childrenV.add(_closeButton);
         add(_vbox);
     }
     
