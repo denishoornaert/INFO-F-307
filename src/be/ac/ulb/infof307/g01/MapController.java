@@ -5,9 +5,11 @@
  */
 package be.ac.ulb.infof307.g01;
 
+import be.ac.ulb.infof307.g01.gui.MapView;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.File;
+import java.sql.Timestamp;
 
 /**
  *
@@ -17,10 +19,17 @@ public class MapController {
     
     private String _imagePath;
     private List<Marker> _markers;
+    private MapView _mapView;
+    
+    private boolean _newMarkerPopUpOpen;
+    
     
     public MapController() {
         _imagePath = new File("assets/Map.jpg").toURI().toString();
         _markers = new ArrayList<>();
+        _mapView = new MapView(this);
+        
+        _newMarkerPopUpOpen = false;
     }
     
     public String getImagePath() {
@@ -30,6 +39,28 @@ public class MapController {
     public void createMarker() {
         Marker newMarker = new Marker();
         _markers.add(newMarker);
+    }
+    
+    public MapView getMapView() {
+        return _mapView;
+    }
+    
+    
+    public void actionWhenPlayerRightClick(double coordinateX, double coordinateY) {
+        if(!_newMarkerPopUpOpen) {
+            // TODO open popup
+            _newMarkerPopUpOpen = true;
+        }
+    }
+    
+    public void endPopUpCreateMarker(String pokemonName, Timestamp dateView, 
+            int coordinateX, int coordinateY) {
+        _newMarkerPopUpOpen = false;
+        
+        // TODO create real marker
+        Pokemon pokemon = new Pokemon(pokemonName, PokemonType.DARK);
+        Coordinate coordinate = new Coordinate(coordinateX, coordinateY);
+        new Marker(pokemon, coordinate);
     }
     
 }
