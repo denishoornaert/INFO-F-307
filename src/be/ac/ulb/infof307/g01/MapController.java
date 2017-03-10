@@ -5,6 +5,7 @@
  */
 package be.ac.ulb.infof307.g01;
 
+import be.ac.ulb.infof307.g01.gui.MapView;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.File;
@@ -17,10 +18,13 @@ public class MapController {
     
     private String _imagePath;
     private List<Marker> _markers;
+    private MapView _mapView;
+    
     
     public MapController() {
         _imagePath = new File("assets/Map.jpg").toURI().toString();
         _markers = new ArrayList<>();
+        _mapView = new MapView(this);
     }
     
     public String getImagePath() {
@@ -30,6 +34,11 @@ public class MapController {
     public void createMarker() {
         Marker newMarker = new Marker();
         _markers.add(newMarker);
+    }
+    
+    
+    public MapView getMapView() {
+        return _mapView;
     }
     
 }
