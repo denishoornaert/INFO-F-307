@@ -7,13 +7,15 @@ package be.ac.ulb.infof307.g01.gui;
 
 import be.ac.ulb.infof307.g01.Main;
 import be.ac.ulb.infof307.g01.MapController;
-import java.io.File;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
@@ -21,16 +23,22 @@ import javafx.scene.layout.StackPane;
  *
  * @author hoornaert
  */
-public class MapView extends ScrollPane {
+public class MapView extends ScrollPane implements EventHandler<MouseEvent> {
     
     private MapController _map;
     private ImageView _imageView;
+    
     
     public MapView() {
         super();
         _map = new MapController();
         setImageView();
         initLayout();
+        initEvent();
+    }
+    
+    private void initEvent() {
+        _imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, this);
     }
     
     private void setImageView() {
@@ -63,5 +71,14 @@ public class MapView extends ScrollPane {
         setHvalue(getHmin()+(getHmax()-getHmin())/2);
         setVvalue(getVmin()+(getVmax()-getVmin())/2);
     }
-
+    
+    @Override
+    public void handle(MouseEvent event) {
+        if(event.getButton().equals(MouseButton.SECONDARY)) {
+            System.out.println("Clic on Map " +
+                    "(" + event.getX()+ ", " + event.getY() + ")");
+        }
+    }
+    
+    
 }
