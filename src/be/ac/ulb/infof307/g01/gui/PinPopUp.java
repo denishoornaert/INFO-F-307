@@ -6,51 +6,65 @@
 package be.ac.ulb.infof307.g01.gui;
 
 import be.ac.ulb.infof307.g01.Coordinate;
-import be.ac.ulb.infof307.g01.Main;
 import be.ac.ulb.infof307.g01.Marker;
 import java.sql.Timestamp;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 /**
  *
  * @author hoornaert
  */
-public class PinPopUp extends ContextMenu {
+public class PinPopUp extends PopUp {
     
-    private HBox _hbox;
+    private VBox _vbox;
     private Label _pokemonName;
     private Label _date;
     private Button _closeButton;
-    
+        
     public PinPopUp(Marker marker) {
+        initPosition(marker);
         initWidgets(marker);
         placeWidgets();
-        initStyle();
+        initCloseButtonEvent();
+        show();
+    }
+    
+    private void initPosition(Marker marker) {
+        Coordinate coord = marker.getCoordinate();
+        setX(coord.getX());
+        setY(coord.getY());
     }
     
     private void initWidgets(Marker marker) {
-        _hbox = new HBox();
+        _vbox = new VBox();
+        _vbox.setAlignment(Pos.CENTER);
         _pokemonName = new Label("Name : "+marker.getPokemonName());
         Timestamp date = marker.getTimestamp();
         _date = new Label("Date : "+date.toString());
+        _closeButton = new Button("Close");
     }
     
     private void placeWidgets() {
-        ObservableList<Node> children = _hbox.getChildren();
+        ObservableList<Node> children = _vbox.getChildren();
         children.add(_pokemonName);
         children.add(_date);
         children.add(_closeButton);
+        add(_vbox);
     }
 
-    private void initStyle() {
-        setStyle("-fx-background-color: #2f4f4f;-fx-padding: 15;-fx-spacing: 10;");
+    private void initCloseButtonEvent() {
+        _closeButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent t) {
+                close();
+            }
+        });
     }
-    
+
 }
