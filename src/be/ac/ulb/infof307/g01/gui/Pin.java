@@ -11,16 +11,17 @@ import be.ac.ulb.infof307.g01.Marker;
 import java.io.File;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 
 /**
  *
  * @author remy
  */
+<<<<<<< HEAD
 public class Pin extends ImageView implements EventHandler<MouseEvent> {
 
     private final Marker _marker;
@@ -43,7 +44,7 @@ public class Pin extends ImageView implements EventHandler<MouseEvent> {
         Image image = new Image(imagePath);
         setImage(image);
     }
-
+    
     private void drawPin() {
         StackPane stackPane = Main.getStackPane();
         ObservableList<Node> children = stackPane.getChildren();
