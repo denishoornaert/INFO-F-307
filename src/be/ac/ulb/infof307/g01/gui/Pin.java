@@ -21,7 +21,7 @@ import javafx.scene.layout.StackPane;
  *
  * @author remy
  */
-<<<<<<< HEAD
+
 public class Pin extends ImageView implements EventHandler<MouseEvent> {
 
     private final Marker _marker;
