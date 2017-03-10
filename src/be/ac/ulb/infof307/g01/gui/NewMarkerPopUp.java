@@ -8,7 +8,7 @@ package be.ac.ulb.infof307.g01.gui;
 import be.ac.ulb.infof307.g01.MapController;
 import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -93,11 +93,16 @@ public class NewMarkerPopUp extends PopUp {
     
     private Timestamp getSelectedTime() {
         LocalDate localDate = _dateMonthYear.getValue();
-        Integer hour = getSelection(_dateHour);
-        localDate.plus(hour, ChronoUnit.HOURS);
+        Integer hours = getSelection(_dateHour);
         Integer minute = getSelection(_dateMinute);
-        localDate.plus(minute, ChronoUnit.MINUTES);
-        return Timestamp.valueOf(localDate.atStartOfDay());
+        
+        Calendar currentDate = Calendar.getInstance();
+        currentDate.set(localDate.getYear(), localDate.getMonth().getValue(), 
+                localDate.getDayOfMonth(), hours, minute);
+        
+        Timestamp resTimestamp = new Timestamp(currentDate.getTimeInMillis());
+        
+        return resTimestamp;
     }
     
     private void initCloseButton(MapController map) {
@@ -106,7 +111,8 @@ public class NewMarkerPopUp extends PopUp {
             @Override public void handle(ActionEvent t) {
                 Timestamp selectedDate = getSelectedTime();
                 map.endPopUpCreateMarker(_pokemonName.getText(), selectedDate);
-                close();
+                // Only when cancel (and not create marker)
+                // map.cancelPopUpCreateMarker();
             }
         });
     }

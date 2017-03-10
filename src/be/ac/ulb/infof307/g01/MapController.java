@@ -22,7 +22,8 @@ public class MapController {
     private List<Marker> _markers;
     private MapView _mapView;
     
-    private boolean _newMarkerPopUpOpen;
+    private NewMarkerPopUp _newMarkerPopUp;
+    private Coordinate _newMarkerCoordinate;
     
     
     public MapController() {
@@ -30,7 +31,8 @@ public class MapController {
         _markers = new ArrayList<>();
         _mapView = new MapView(this);
         
-        _newMarkerPopUpOpen = false;
+        _newMarkerPopUp = null;
+        _newMarkerCoordinate = null;
     }
     
     public String getImagePath() {
@@ -48,24 +50,26 @@ public class MapController {
     
     
     public void actionWhenPlayerRightClick(double coordinateX, double coordinateY) {
-        if(!_newMarkerPopUpOpen) {
-            NewMarkerPopUp popUp = new NewMarkerPopUp(this);
-            _newMarkerPopUpOpen = true;
+        if(_newMarkerPopUp == null) {
+            _newMarkerPopUp = new NewMarkerPopUp(this);
+            
+            _newMarkerCoordinate = new Coordinate((int) coordinateX, (int) coordinateY);
         }
     }
     
     public void cancelPopUpCreateMarker() {
-        _newMarkerPopUpOpen = false;
+        _newMarkerPopUp.close();
+        _newMarkerPopUp = null;
     }
     
-    public void endPopUpCreateMarker(String pokemonName, Timestamp date, 
-            int coordinateX, int coordinateY) {
-        _newMarkerPopUpOpen = false;
+    public void endPopUpCreateMarker(String pokemonName, Timestamp dateView) {
+        _newMarkerPopUp.close();
+        _newMarkerPopUp = null;
         
         // TODO create real marker
         Pokemon pokemon = new Pokemon(pokemonName, PokemonType.DARK);
-        Coordinate coordinate = new Coordinate(coordinateX, coordinateY);
-        new Marker(pokemon, coordinate);
+        new Marker(pokemon, _newMarkerCoordinate);
+        _newMarkerCoordinate = null;
     }
     
 }
