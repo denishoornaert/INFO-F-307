@@ -6,6 +6,7 @@
 package be.ac.ulb.infof307.g01;
 
 import be.ac.ulb.infof307.g01.gui.MapView;
+import be.ac.ulb.infof307.g01.gui.NewMarkerPopUp;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.File;
@@ -48,7 +49,7 @@ public class MapController {
     
     public void actionWhenPlayerRightClick(double coordinateX, double coordinateY) {
         if(!_newMarkerPopUpOpen) {
-            // TODO open popup
+            NewMarkerPopUp popUp = new NewMarkerPopUp(this);
             _newMarkerPopUpOpen = true;
         }
     }
@@ -57,7 +58,7 @@ public class MapController {
         _newMarkerPopUpOpen = false;
     }
     
-    public void endPopUpCreateMarker(String pokemonName, Timestamp dateView, 
+    public void endPopUpCreateMarker(String pokemonName, Timestamp date, 
             int coordinateX, int coordinateY) {
         _newMarkerPopUpOpen = false;
         

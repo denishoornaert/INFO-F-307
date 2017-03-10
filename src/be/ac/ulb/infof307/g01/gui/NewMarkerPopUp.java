@@ -5,6 +5,10 @@
  */
 package be.ac.ulb.infof307.g01.gui;
 
+import be.ac.ulb.infof307.g01.MapController;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -32,19 +36,20 @@ public class NewMarkerPopUp extends PopUp {
     private final int _minutes = 60;
     private Button _closeButton;
     
-    public NewMarkerPopUp() {
+    public NewMarkerPopUp(MapController map) {
         super();
         setSize(250, 150);
-        initWidget();
+        initWidget(map);
         placeWidgets();
         show();
     }
 
-    private void initWidget() {
+    private void initWidget(MapController map) {
         initTextField();
+        // TODO set to current time
         initDatePicker();
         initComboBoxes();
-        initCloseButton();
+        initCloseButton(map);
     }
 
     private void initTextField() {
@@ -80,11 +85,27 @@ public class NewMarkerPopUp extends PopUp {
         }
     }
     
-    private void initCloseButton() {
+    private Integer getSelection(ComboBox combobox) {
+        Object object = combobox.getValue();
+        String value = object.toString();
+        return Integer.parseInt(value);
+    }
+    
+    private Timestamp getSelectedTime() {
+        LocalDate localDate = _dateMonthYear.getValue();
+        Integer hour = getSelection(_dateHour);
+        localDate.plus(hour, ChronoUnit.HOURS);
+        Integer minute = getSelection(_dateMinute);
+        localDate.plus(minute, ChronoUnit.MINUTES);
+        return Timestamp.valueOf(localDate.atStartOfDay());
+    }
+    
+    private void initCloseButton(MapController map) {
         _closeButton = new Button("close");
         _closeButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent t) {
-                //
+                Timestamp selectedDate = getSelectedTime();
+                map.endPopUpCreateMarker(_pokemonName.getText(), selectedDate);
                 close();
             }
         });
