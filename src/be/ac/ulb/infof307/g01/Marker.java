@@ -16,6 +16,12 @@ public class Marker {
     private final Pokemon _pokemon;
     private final Coordinate _coordinate;
     private Timestamp _timestamp;
+    /**
+     * Indicates whether this marker contains valid information.
+     * If false, the display shows input fields to select the pokemon
+     * and the date.
+     */
+    private boolean _isValid = false;
     
     public Marker(Pokemon pokemon, Coordinate coordinate) {
         _pokemon = pokemon;
@@ -23,6 +29,12 @@ public class Marker {
         
         Long currentTime = System.currentTimeMillis();
         _timestamp = new Timestamp(currentTime);
+        _isValid = true;
+    }
+
+    public Marker() {
+        _pokemon = null;
+        _coordinate = null;
     }
     
     public void setTimestamp(Timestamp newTimestamp) {
