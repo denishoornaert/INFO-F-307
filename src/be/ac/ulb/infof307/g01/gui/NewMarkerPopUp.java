@@ -59,6 +59,7 @@ public class NewMarkerPopUp extends PopUp {
 
     private void initDatePicker() {
         _dateMonthYear = new DatePicker();
+        setDatePicker(_dateMonthYear);
     }
     
     private void initComboBoxes() {
@@ -83,6 +84,10 @@ public class NewMarkerPopUp extends PopUp {
         for (int i = 1; i < limit+1; i++) {
             items.add(""+i);
         }
+    }
+    
+    private void setDatePicker(DatePicker picker) {
+        picker.setValue(LocalDate.now());
     }
     
     private Integer getSelection(ComboBox combobox) {
