@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -20,12 +21,16 @@ import javafx.stage.StageStyle;
 public class PopUp extends Stage {
     
     private final StackPane _layout;
+    private final Scene _scene;
     
     public PopUp() {
-        super(StageStyle.UNDECORATED);
+        super.initStyle(StageStyle.TRANSPARENT);
         _layout = new StackPane();
+        _scene = new Scene(_layout);
         _layout.setPrefSize(150, 150);
-        setScene(new Scene(_layout));
+        _scene.setFill(Color.TRANSPARENT);
+        setScene(_scene);
+        
         initOwner(Main.getStage());
         initStyle();
     }
@@ -36,7 +41,12 @@ public class PopUp extends Stage {
     }
     
     private void initStyle() {
-        _layout.setStyle("-fx-background-color: #d2d7dd;-fx-padding: 15;-fx-spacing: 10;-fx-background-radius: 10 10 10 10;");
+        _layout.setStyle(""
+                + "-fx-background-color: #d2d7dd;"
+                + "-fx-padding: 5;-fx-spacing: 5;"
+                + "-fx-background-radius: 5 5 5 5;"
+                + "-fx-border-radius: 5 5 5 5;"
+        );
     }
     
     public void setSize(int x, int y) {

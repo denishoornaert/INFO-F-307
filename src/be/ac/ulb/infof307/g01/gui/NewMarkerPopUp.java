@@ -48,7 +48,6 @@ public class NewMarkerPopUp extends PopUp {
 
     private void initWidget(MapController map) {
         initTextField();
-        // TODO set to current time
         initDatePicker();
         initComboBoxes();
         initCloseButton(map);
