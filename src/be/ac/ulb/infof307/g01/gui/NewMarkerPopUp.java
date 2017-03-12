@@ -34,7 +34,7 @@ public class NewMarkerPopUp extends PopUp {
     private VBox _vbox;
     private TextField _pokemonName;
     private DatePicker _dateMonthYear;
-    private HBox _hbox;
+    private HBox _hboxDates;
     private ComboBox _dateHour;
     private ComboBox _dateMinute;
     private Label _dateHourLabel;
@@ -42,6 +42,8 @@ public class NewMarkerPopUp extends PopUp {
     private final int _hours = 24;
     private final int _minutes = 60;
     private Button _closeButton;
+    private Button _okButton;
+    private HBox _hboxButtons;
     
     public NewMarkerPopUp(MapController map) {
         super();
@@ -57,6 +59,7 @@ public class NewMarkerPopUp extends PopUp {
         initComboBoxes();
         initLabels();
         initCloseButton(map);
+        initokButton(map);
     }
 
     private void initTextField() {
@@ -136,9 +139,9 @@ public class NewMarkerPopUp extends PopUp {
         return resTimestamp;
     }
     
-    private void initCloseButton(MapController map) {
-        _closeButton = new Button("ok");
-        _closeButton.setOnAction(new EventHandler<ActionEvent>() {
+    private void initokButton(MapController map) {
+        _okButton = new Button("ok");
+        _okButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent t) {
                 Timestamp selectedDate = getSelectedTime();
                 map.endPopUpCreateMarker(_pokemonName.getText(), selectedDate);
@@ -146,25 +149,44 @@ public class NewMarkerPopUp extends PopUp {
                 // map.cancelPopUpCreateMarker();
             }
         });
-        _closeButton.getStyleClass().add("primary");
+        _okButton.getStyleClass().add("primary");
+        HBox.setHgrow(_okButton, Priority.ALWAYS);
+        _okButton.setMaxWidth(Double.MAX_VALUE);
+    }
+    
+    private void initCloseButton(MapController map) {
+        _closeButton = new Button("cancel");
+        _closeButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent t) {
+                // Only when cancel (and not create marker)
+                map.cancelPopUpCreateMarker();
+            }
+        });
+        _closeButton.getStyleClass().add("danger");
+        HBox.setHgrow(_closeButton, Priority.ALWAYS);
+        _closeButton.setMaxWidth(Double.MAX_VALUE);
     }
     
     private void placeWidgets() {
         _vbox = new VBox();
-        _hbox = new HBox();
-        _hbox.setAlignment(Pos.CENTER);
+        _hboxDates = new HBox();
+        _hboxButtons = new HBox();
+        _hboxDates.setAlignment(Pos.CENTER);
         ObservableList<Node> childrenV = _vbox.getChildren();
         childrenV.addAll(_pokemonName, _dateMonthYear);
-        ObservableList<Node> childrenH = _hbox.getChildren();
-        childrenH.addAll(_dateHour, _dateHourLabel, _dateMinute, _dateMinuteLabel);
-        childrenV.addAll(_hbox, _closeButton);
+        ObservableList<Node> childrenHboxDates = _hboxDates.getChildren();
+        childrenHboxDates.addAll(_dateHour, _dateHourLabel, _dateMinute, _dateMinuteLabel);
+        ObservableList<Node> childrenHboxButtons = _hboxButtons.getChildren();
+        childrenHboxButtons.addAll(_closeButton, _okButton);
+        childrenV.addAll(_hboxDates, _hboxButtons);
         add(_vbox);
     }
 
     private void initStyle() {
         setSize(250, 150);
         _vbox.setSpacing(10);
-        _hbox.setSpacing(10);
+        _hboxDates.setSpacing(10);
+        _hboxButtons.setSpacing(10);
     }
     
 }
