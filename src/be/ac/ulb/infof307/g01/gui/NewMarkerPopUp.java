@@ -151,16 +151,12 @@ public class NewMarkerPopUp extends PopUp {
     private void placeWidgets() {
         _vbox = new VBox();
         _hbox = new HBox();
+        _hbox.setAlignment(Pos.CENTER);
         ObservableList<Node> childrenV = _vbox.getChildren();
-        childrenV.add(_pokemonName);
-        childrenV.add(_dateMonthYear);
+        childrenV.addAll(_pokemonName, _dateMonthYear);
         ObservableList<Node> childrenH = _hbox.getChildren();
-        childrenH.add(_dateHour);
-        childrenH.add(_dateHourLabel);
-        childrenH.add(_dateMinute);
-        childrenH.add(_dateMinuteLabel);
-        childrenV.add(_hbox);
-        childrenV.add(_closeButton);
+        childrenH.addAll(_dateHour, _dateHourLabel, _dateMinute, _dateMinuteLabel);
+        childrenV.addAll(_hbox, _closeButton);
         add(_vbox);
     }
 
