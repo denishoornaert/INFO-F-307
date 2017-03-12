@@ -146,6 +146,7 @@ public class NewMarkerPopUp extends PopUp {
                 // map.cancelPopUpCreateMarker();
             }
         });
+        _closeButton.getStyleClass().add("primary");
     }
     
     private void placeWidgets() {

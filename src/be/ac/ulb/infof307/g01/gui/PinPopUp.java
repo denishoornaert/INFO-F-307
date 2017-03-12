@@ -68,6 +68,7 @@ public class PinPopUp extends PopUp {
                 close();
             }
         });
+        _closeButton.getStyleClass().add("danger");
     }
 
 }
