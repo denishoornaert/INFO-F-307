@@ -14,12 +14,15 @@ import java.util.GregorianCalendar;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 /**
@@ -34,15 +37,17 @@ public class NewMarkerPopUp extends PopUp {
     private HBox _hbox;
     private ComboBox _dateHour;
     private ComboBox _dateMinute;
+    private Label _dateHourLabel;
+    private Label _dateMinuteLabel;
     private final int _hours = 24;
     private final int _minutes = 60;
     private Button _closeButton;
     
     public NewMarkerPopUp(MapController map) {
         super();
-        setSize(250, 150);
         initWidget(map);
         placeWidgets();
+        initStyle();
         show();
     }
 
@@ -50,6 +55,7 @@ public class NewMarkerPopUp extends PopUp {
         initTextField();
         initDatePicker();
         initComboBoxes();
+        initLabels();
         initCloseButton(map);
     }
 
@@ -61,12 +67,21 @@ public class NewMarkerPopUp extends PopUp {
     private void initDatePicker() {
         _dateMonthYear = new DatePicker();
         setDatePicker(_dateMonthYear);
+        HBox.setHgrow(_dateMonthYear, Priority.ALWAYS);
+        _dateMonthYear.setMaxWidth(Double.MAX_VALUE);
     }
     
     private void initComboBoxes() {
         Calendar calendar = initCalendar();
         initComboBoxHour(calendar.get(Calendar.HOUR_OF_DAY));
         initComboBoxMinutes(calendar.get(Calendar.MINUTE));
+    }
+    
+    private void initLabels() {
+        _dateHourLabel = new Label(" h ");
+        _dateHourLabel.setAlignment(Pos.BOTTOM_CENTER);
+        _dateMinuteLabel = new Label("min");
+        _dateMinuteLabel.setAlignment(Pos.CENTER);
     }
     
     private Calendar initCalendar() {
@@ -95,6 +110,8 @@ public class NewMarkerPopUp extends PopUp {
             items.add(""+i);
         }
         if (value != -1) combo.setValue(value);
+        HBox.setHgrow(combo, Priority.ALWAYS);
+        combo.setMaxWidth(Double.MAX_VALUE);
     }
     
     private void setDatePicker(DatePicker picker) {
@@ -122,7 +139,7 @@ public class NewMarkerPopUp extends PopUp {
     }
     
     private void initCloseButton(MapController map) {
-        _closeButton = new Button("close");
+        _closeButton = new Button("ok");
         _closeButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent t) {
                 Timestamp selectedDate = getSelectedTime();
@@ -141,10 +158,19 @@ public class NewMarkerPopUp extends PopUp {
         childrenV.add(_dateMonthYear);
         ObservableList<Node> childrenH = _hbox.getChildren();
         childrenH.add(_dateHour);
+        childrenH.add(_dateHourLabel);
         childrenH.add(_dateMinute);
+        childrenH.add(_dateMinuteLabel);
         childrenV.add(_hbox);
         childrenV.add(_closeButton);
         add(_vbox);
+    }
+
+    private void initStyle() {
+        setSize(250, 150);
+        _vbox.setSpacing(10);
+        _hbox.setSpacing(10);
+        _closeButton.setAlignment(Pos.CENTER);
     }
     
 }
