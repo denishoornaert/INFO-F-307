@@ -9,6 +9,8 @@ import be.ac.ulb.infof307.g01.MapController;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -63,27 +65,37 @@ public class NewMarkerPopUp extends PopUp {
     }
     
     private void initComboBoxes() {
-        initComboBoxHour();
-        initComboBoxMinutes();
+        Calendar calendar = initCalendar();
+        initComboBoxHour(calendar.get(Calendar.HOUR_OF_DAY));
+        initComboBoxMinutes(calendar.get(Calendar.MINUTE));
     }
     
-    private void initComboBoxHour() {
+    private Calendar initCalendar() {
+        Date date = new Date();
+        Calendar calendar = GregorianCalendar.getInstance();
+        calendar.setTime(date);
+        return calendar;
+    }
+    
+    private void initComboBoxHour(int hour) {
         _dateHour = new ComboBox();
-        setComboBox(_dateHour, _hours);
-        _dateHour.setPromptText("Hour");
+        setComboBox(_dateHour, _hours, hour);
+        _dateHour.setPromptText(Integer.toString(hour));
+        
     }
 
-    private void initComboBoxMinutes() {
+    private void initComboBoxMinutes(int minute) {
         _dateMinute = new ComboBox();
-        setComboBox(_dateMinute, _minutes);
-        _dateMinute.setPromptText("Min");
+        setComboBox(_dateMinute, _minutes, minute);
+        _dateMinute.setPromptText(Integer.toString(minute));
     }
     
-    private void setComboBox(ComboBox combo, int limit) {
+    private void setComboBox(ComboBox combo, int limit, int value) {
         ObservableList items = combo.getItems();
         for (int i = 1; i < limit+1; i++) {
             items.add(""+i);
         }
+        if (value != -1) combo.setValue(value);
     }
     
     private void setDatePicker(DatePicker picker) {
