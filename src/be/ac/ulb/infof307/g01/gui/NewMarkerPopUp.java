@@ -79,9 +79,7 @@ public class NewMarkerPopUp extends PopUp {
     
     private void initLabels() {
         _dateHourLabel = new Label(" h ");
-        _dateHourLabel.setAlignment(Pos.BOTTOM_CENTER);
         _dateMinuteLabel = new Label("min");
-        _dateMinuteLabel.setAlignment(Pos.CENTER);
     }
     
     private Calendar initCalendar() {
@@ -170,7 +168,6 @@ public class NewMarkerPopUp extends PopUp {
         setSize(250, 150);
         _vbox.setSpacing(10);
         _hbox.setSpacing(10);
-        _closeButton.setAlignment(Pos.CENTER);
     }
     
 }
