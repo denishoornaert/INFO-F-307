@@ -8,6 +8,7 @@ package be.ac.ulb.infof307.g01.gui;
 import be.ac.ulb.infof307.g01.Coordinate;
 import be.ac.ulb.infof307.g01.Marker;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -33,6 +34,7 @@ public class PinPopUp extends PopUp {
         initWidgets(marker);
         placeWidgets();
         initCloseButtonEvent();
+        _vbox.setSpacing(10);
         show();
     }
     
@@ -47,7 +49,8 @@ public class PinPopUp extends PopUp {
         _vbox.setAlignment(Pos.CENTER);
         _pokemonName = new Label("Name : "+marker.getPokemonName());
         Timestamp date = marker.getTimestamp();
-        _date = new Label("Date : "+date.toString());
+        String formatingDate = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(date);
+        _date = new Label("Date : "+formatingDate);
         _closeButton = new Button("Close");
     }
     
