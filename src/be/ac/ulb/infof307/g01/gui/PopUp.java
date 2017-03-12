@@ -47,6 +47,7 @@ public class PopUp extends Stage {
                 + "-fx-background-radius: 5 5 5 5;"
                 + "-fx-border-radius: 5 5 5 5;"
         );
+        setSize(250, 150);
     }
     
     public void setSize(int x, int y) {
