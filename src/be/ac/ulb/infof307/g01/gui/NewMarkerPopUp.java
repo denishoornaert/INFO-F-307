@@ -8,7 +8,6 @@ package be.ac.ulb.infof307.g01.gui;
 import be.ac.ulb.infof307.g01.MapController;
 import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -32,6 +31,7 @@ import javafx.scene.layout.VBox;
  */
 public class NewMarkerPopUp extends PopUp {
     
+    private VBox _vbox;
     private TextField _pokemonName;
     private DatePicker _dateMonthYear;
     private HBox _hboxDates;
@@ -54,7 +54,6 @@ public class NewMarkerPopUp extends PopUp {
     }
 
     private void initWidget(MapController map) {
-        initLabel();
         initTextField();
         initDatePicker();
         initComboBoxes();
@@ -145,16 +144,9 @@ public class NewMarkerPopUp extends PopUp {
         _okButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent t) {
                 Timestamp selectedDate = getSelectedTime();
-                if (!"".equals(_pokemonName.getText())){
-                    map.endPopUpCreateMarker(_pokemonName.getText(), selectedDate);
-                }
-            }
-        });
-        _cancelButton = new Button("Cancel");
-        _cancelButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent t) {
+                map.endPopUpCreateMarker(_pokemonName.getText(), selectedDate);
                 // Only when cancel (and not create marker)
-                map.cancelPopUpCreateMarker();
+                // map.cancelPopUpCreateMarker();
             }
         });
         _okButton.getStyleClass().add("primary");
