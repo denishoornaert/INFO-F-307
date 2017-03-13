@@ -11,7 +11,11 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
+import javafx.scene.control.Button;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
+//import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -22,12 +26,12 @@ import javafx.stage.StageStyle;
  */
 public class PopUp extends Stage {
     
-    private final StackPane _layout;
+    private final GridPane _layout;
     private final Scene _scene;
     
     public PopUp() {
         super.initStyle(StageStyle.TRANSPARENT);
-        _layout = new StackPane();
+        _layout = new GridPane();
         _scene = new Scene(_layout);
         _layout.setPrefSize(150, 150);
         _scene.setFill(Color.TRANSPARENT);
@@ -37,9 +41,13 @@ public class PopUp extends Stage {
         initStyle();
     }
     
-    public void add(Node node) {
-        ObservableList<Node> children = _layout.getChildren();
-        children.add(node);
+    public void add(Node node, int one, int two, int w1, int w2) {
+        _layout.add(node,one,two,w1,w2);
+    }
+    
+    public void addConstraints(ArrayList<ColumnConstraints> col,ArrayList<RowConstraints> row) {
+        for (int i=0; i<col.size(); i++) _layout.getColumnConstraints().add(col.get(i));
+        for (int i=0; i<row.size(); i++) _layout.getRowConstraints().add(row.get(i));
     }
     
     private void initStyle() {
