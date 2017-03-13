@@ -8,3 +8,7 @@
 # Lib
 /lib/CopyLibs/
 /lib/hamcrest/
+/lib/junit_4-2/junit-4.12-javadoc.jar
+/lib/junit_4-2/junit-4.12.jar
+/lib/junit_4-2/junit-4.12-sources.jar
+/dist/

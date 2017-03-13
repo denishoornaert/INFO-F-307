@@ -16,10 +16,12 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
@@ -27,14 +29,16 @@ import javafx.scene.layout.StackPane;
  *
  * @author hoornaert
  */
-public class MapView extends ScrollPane implements EventHandler<MouseEvent> {
+public class MapView extends BorderPane implements EventHandler<MouseEvent> {
     
     private MapController _mapController;
     /** This StackPane will contain all elements that the map needs to display.
      * This is in this layout that we will add the map image or pins.
      */
     private StackPane _contentLayout;
+    private ScrollPane _scrollPane;
     private ImageView _imageView;
+    private Slider _imageSlider;
     private List<Pin> _pins;
     
     
@@ -44,37 +48,45 @@ public class MapView extends ScrollPane implements EventHandler<MouseEvent> {
         _mapController = mapController;
         _pins = new ArrayList<>();
         
+        
+        setupScrollPane();
         setImageView();
+        setImageSlider();
         initLayout();
         initEvent();
-        setupScrollPane();
+        
     }
     
-    private void initEvent() {
-        _imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, this);
+    private void setupScrollPane() {
+        _scrollPane = new ScrollPane();
+        _scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        _scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        _scrollPane.setPannable(true);
+        setPrefSize(800, 600);
     }
     
     private void setImageView() {
-        String imageUri = _mapController.getImagePath();
-        _imageView = new ImageView(new Image(imageUri));
+        String imagePath = _mapController.getImagePath();
+        _imageView = new ImageView(new Image(imagePath));
+    }
+    
+    private void setImageSlider() {
+        _imageSlider = new Slider();
     }
     
     private void initLayout() {
         // Set the stack pane as the internal container for MapView
-        setContent(_contentLayout);
+        _scrollPane.setContent(_contentLayout);
         // Add the image to the stack pane
         _contentLayout.getChildren().add(_imageView);
         
         // Add ourselve to the main layout
         StackPane mainLayout = Main.getStackPane();
-        mainLayout.getChildren().add(this);
+        mainLayout.getChildren().add(_scrollPane);
     }
     
-    private void setupScrollPane() {
-        setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        setPannable(true);
-        setPrefSize(800, 600);
+    private void initEvent() {
+        _imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, this);
     }
     
     public void adaptToScene(ReadOnlyDoubleProperty property) {
