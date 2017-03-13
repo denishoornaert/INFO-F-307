@@ -1,6 +1,5 @@
 package be.ac.ulb.infof307.g01;
 
-import java.io.File;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.scene.Scene;
@@ -25,7 +24,6 @@ public class Main extends Application {
         MapController mapController = new MapController();
         
         _scene = new Scene(mapController.getMapView());
-        _scene.getStylesheets().add(new File("assets/bootstrap.css").toURI().toString());
         stage.setScene(_scene);
         stage.show();
         //_map.adaptToScene(scene.widthProperty()); Center image

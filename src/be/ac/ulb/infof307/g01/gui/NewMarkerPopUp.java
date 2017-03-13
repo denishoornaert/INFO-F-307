@@ -15,16 +15,13 @@ import java.util.GregorianCalendar;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.RowConstraints;
 
 /**
  *
@@ -34,22 +31,23 @@ public class NewMarkerPopUp extends PopUp {
     
     private TextField _pokemonName;
     private DatePicker _dateMonthYear;
-    private HBox _hboxDates;
     private ComboBox _dateHour;
     private ComboBox _dateMinute;
-    private Label _dateHourLabel;
-    private Label _dateMinuteLabel;
+    private Button _cancelButton;
+    private Button _saveButton;
+    private Label _nameLabel;
+    private Label _dateLabel;
+    private Label _hourLabel;
+    
     private final int _hours = 24;
     private final int _minutes = 60;
-    private Button _closeButton;
-    private Button _okButton;
-    private HBox _hboxButtons;
+    
     
     public NewMarkerPopUp(MapController map) {
         super();
+        setSize(250, 150);
         initWidget(map);
         placeWidgets();
-        initStyle();
         show();
     }
 
@@ -58,9 +56,13 @@ public class NewMarkerPopUp extends PopUp {
         initTextField();
         initDatePicker();
         initComboBoxes();
-        initLabels();
-        initCloseButton(map);
-        initokButton(map);
+        initButton(map);
+    }
+    
+    private void initLabel() {
+        _nameLabel = new Label("Name : ");
+        _dateLabel = new Label("Date : ");
+        _hourLabel = new Label("Hour : ");
     }
 
     private void initTextField() {
@@ -71,19 +73,12 @@ public class NewMarkerPopUp extends PopUp {
     private void initDatePicker() {
         _dateMonthYear = new DatePicker();
         setDatePicker(_dateMonthYear);
-        HBox.setHgrow(_dateMonthYear, Priority.ALWAYS);
-        _dateMonthYear.setMaxWidth(Double.MAX_VALUE);
     }
     
     private void initComboBoxes() {
         Calendar calendar = initCalendar();
         initComboBoxHour(calendar.get(Calendar.HOUR_OF_DAY));
         initComboBoxMinutes(calendar.get(Calendar.MINUTE));
-    }
-    
-    private void initLabels() {
-        _dateHourLabel = new Label(" h ");
-        _dateMinuteLabel = new Label("min");
     }
     
     private Calendar initCalendar() {
@@ -112,8 +107,6 @@ public class NewMarkerPopUp extends PopUp {
             items.add(""+i);
         }
         if (value != -1) combo.setValue(value);
-        HBox.setHgrow(combo, Priority.ALWAYS);
-        combo.setMaxWidth(Double.MAX_VALUE);
     }
     
     private void setDatePicker(DatePicker picker) {
@@ -140,9 +133,9 @@ public class NewMarkerPopUp extends PopUp {
         return resTimestamp;
     }
     
-    private void initokButton(MapController map) {
-        _okButton = new Button("ok");
-        _okButton.setOnAction(new EventHandler<ActionEvent>() {
+    private void initButton(MapController map) {
+        _saveButton = new Button("Save");
+        _saveButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent t) {
                 Timestamp selectedDate = getSelectedTime();
                 if (!"".equals(_pokemonName.getText())){
@@ -157,43 +150,43 @@ public class NewMarkerPopUp extends PopUp {
                 map.cancelPopUpCreateMarker();
             }
         });
-        _okButton.getStyleClass().add("primary");
-        HBox.setHgrow(_okButton, Priority.ALWAYS);
-        _okButton.setMaxWidth(Double.MAX_VALUE);
-    }
-    
-    private void initCloseButton(MapController map) {
-        _closeButton = new Button("cancel");
-        _closeButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent t) {
-                // Only when cancel (and not create marker)
-                map.cancelPopUpCreateMarker();
-            }
-        });
-        _closeButton.getStyleClass().add("danger");
-        HBox.setHgrow(_closeButton, Priority.ALWAYS);
-        _closeButton.setMaxWidth(Double.MAX_VALUE);
     }
     
     private void placeWidgets() {
-        _vbox = new VBox();
-        _hboxDates = new HBox();
-        _hboxButtons = new HBox();
-        _hboxDates.setAlignment(Pos.CENTER);
-        ObservableList<Node> childrenV = _vbox.getChildren();
-        childrenV.addAll(_pokemonName, _dateMonthYear);
-        ObservableList<Node> childrenHboxDates = _hboxDates.getChildren();
-        childrenHboxDates.addAll(_dateHour, _dateHourLabel, _dateMinute, _dateMinuteLabel);
-        ObservableList<Node> childrenHboxButtons = _hboxButtons.getChildren();
-        childrenHboxButtons.addAll(_closeButton, _okButton);
-        childrenV.addAll(_hboxDates, _hboxButtons);
-        add(_vbox);
+        add(_nameLabel,0,0,1,1);
+        add(_dateLabel,0,1,1,1);
+        add(_hourLabel,0,2,1,1);
+        add(_pokemonName,1,0,2,1);
+        add(_dateMonthYear,1,1,2,1);
+        add(_dateHour,1,2,1,1);
+        add(_dateMinute,2,2,1,1);
+        add(_cancelButton,1,3,1,1);
+        add(_saveButton,2,3,1,1);
+        setConstraints();
     }
-
-    private void initStyle() {
-        _vbox.setSpacing(10);
-        _hboxDates.setSpacing(10);
-        _hboxButtons.setSpacing(10);
+    
+    private void setConstraints() {
+        ArrayList<ColumnConstraints> col = new ArrayList<>();
+        ColumnConstraints column0 = new ColumnConstraints();
+        column0.setPercentWidth(26);
+        col.add(column0);
+        ColumnConstraints column1 = new ColumnConstraints();
+        column1.setPercentWidth(37);
+        col.add(column1);
+        ColumnConstraints column2 = new ColumnConstraints();
+        column2.setPercentWidth(37);
+        col.add(column2);
+        ArrayList<RowConstraints> row = new ArrayList<>();
+        RowConstraints row0 = new RowConstraints();
+        row0.setPercentHeight(25);
+        row.add(row0);
+        RowConstraints row1 = new RowConstraints();
+        row1.setPercentHeight(25);
+        row.add(row1);
+        RowConstraints row2 = new RowConstraints();
+        row2.setPercentHeight(25);
+        row.add(row2);
+        addConstraints(col,row);
     }
     
 }
