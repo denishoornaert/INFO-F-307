@@ -5,6 +5,7 @@
  */
 package be.ac.ulb.infof307.g01.gui;
 
+import be.ac.ulb.infof307.g01.Coordinate;
 import be.ac.ulb.infof307.g01.Main;
 import be.ac.ulb.infof307.g01.MapController;
 import javafx.beans.property.ReadOnlyDoubleProperty;
@@ -73,6 +74,11 @@ public class MapView extends ScrollPane implements EventHandler<MouseEvent> {
         setVvalue(getVmin()+(getVmax()-getVmin())/2);
     }
     
+    /** Returns the size of the map */
+    public Coordinate getSize() {
+        return new Coordinate((int) getPrefViewportWidth(), (int) getPrefViewportHeight());
+    }
+    
     ///////// EVENT ///////// 
     
     @Override
@@ -80,7 +86,7 @@ public class MapView extends ScrollPane implements EventHandler<MouseEvent> {
         if(event.getButton().equals(MouseButton.SECONDARY)) {
             System.out.println("Clic on Map " +
                     "(" + event.getX()+ ", " + event.getY() + ")");
-            _mapController.actionWhenPlayerRightClick(event.getX(), event.getY());
+            _mapController.askForCreateMarker(event.getX(), event.getY());
         }
     }
     

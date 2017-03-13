@@ -22,7 +22,12 @@ public class MapController {
     private List<Marker> _markers;
     private MapView _mapView;
     
+    /** Instance of the current popup. Is equal to null if no popup is open,
+     *  and is set to null when the popup is closed.
+     */
     private NewMarkerPopUp _newMarkerPopUp;
+    
+    /** Coordinates associated to the current popup. */
     private Coordinate _newMarkerCoordinate;
     
     
@@ -48,12 +53,21 @@ public class MapController {
         return _mapView;
     }
     
+    private Coordinate convertEventCoordinate(double coordinateX, double coordinateY) {
+        return new Coordinate((int) coordinateX, (int) coordinateY);
+    }
     
-    public void actionWhenPlayerRightClick(double coordinateX, double coordinateY) {
+    
+    public void askForCreateMarker(double coordinateX, double coordinateY) {
         if(_newMarkerPopUp == null) {
+            // Converts from event coordinate (centered in the upper left corner)
+            // to marker coordinate (centered in the middle of the image)
+            Coordinate eventCoordinate = new Coordinate((int) coordinateX, (int) coordinateY);
+            Coordinate mapSize = getMapView().getSize();
+            _newMarkerCoordinate = eventCoordinate.add(mapSize.multiply(-0.5));
             _newMarkerPopUp = new NewMarkerPopUp(this);
-            
-            _newMarkerCoordinate = new Coordinate((int) coordinateX, (int) coordinateY);
+            System.out.println("map size " +
+                    "(" + mapSize.getX()+ ", " + mapSize.getY() + ")");
         }
     }
     
