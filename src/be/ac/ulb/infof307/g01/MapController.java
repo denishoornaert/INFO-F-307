@@ -27,7 +27,7 @@ public class MapController {
     
     
     public MapController() {
-        _imagePath = new File("assets/Map.jpg").toURI().toString();
+        _imagePath = new File("assets/Brussels_map.jpg").toURI().toString();
         _markers = new ArrayList<>();
         _mapView = new MapView(this);
         
