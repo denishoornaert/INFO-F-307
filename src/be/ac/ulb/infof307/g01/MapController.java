@@ -72,4 +72,10 @@ public class MapController {
         _newMarkerCoordinate = null;
     }
     
+    public void updateDimensions() {
+        if(_newMarkerPopUp != null)
+            _newMarkerPopUp.centerOnParent();
+        // MAYBE: update each maker
+    }
+    
 }
