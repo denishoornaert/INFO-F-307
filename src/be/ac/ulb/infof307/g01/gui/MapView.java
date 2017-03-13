@@ -30,18 +30,24 @@ import javafx.scene.layout.StackPane;
 public class MapView extends ScrollPane implements EventHandler<MouseEvent> {
     
     private MapController _mapController;
+    /** This StackPane will contain all elements that the map needs to display.
+     * This is in this layout that we will add the map image or pins.
+     */
+    private StackPane _contentLayout;
     private ImageView _imageView;
     private List<Pin> _pins;
     
     
     public MapView(MapController mapController) {
         super();
+        _contentLayout = new StackPane();
         _mapController = mapController;
         _pins = new ArrayList<>();
         
         setImageView();
         initLayout();
         initEvent();
+        setupScrollPane();
     }
     
     private void initEvent() {
@@ -54,11 +60,14 @@ public class MapView extends ScrollPane implements EventHandler<MouseEvent> {
     }
     
     private void initLayout() {
-        StackPane layout = Main.getStackPane();
-        ObservableList<Node> children = layout.getChildren();
-        children.add(_imageView);
-        children.add(this);
-        setupScrollPane();
+        // Set the stack pane as the internal container for MapView
+        setContent(_contentLayout);
+        // Add the image to the stack pane
+        _contentLayout.getChildren().add(_imageView);
+        
+        // Add ourselve to the main layout
+        StackPane mainLayout = Main.getStackPane();
+        mainLayout.getChildren().add(this);
     }
     
     private void setupScrollPane() {
@@ -86,9 +95,7 @@ public class MapView extends ScrollPane implements EventHandler<MouseEvent> {
     public Pin createPin(Marker marker) {
         Pin newPin = new Pin(marker);
         _pins.add(newPin);
-    
-        getChildren().add(newPin);
-        
+        _contentLayout.getChildren().add(newPin);
         return newPin;
     }
     
