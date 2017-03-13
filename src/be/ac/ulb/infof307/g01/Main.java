@@ -26,7 +26,7 @@ public class Main extends Application {
         // create MapController
         MapController mapController = new MapController();
         
-        _scene = new Scene(mapController.getMapView());
+        _scene = new Scene(_layout);
         stage.setScene(_scene);
         stage.show();
         //_map.adaptToScene(scene.widthProperty()); Center image

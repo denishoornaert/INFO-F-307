@@ -8,6 +8,9 @@ package be.ac.ulb.infof307.g01.gui;
 import be.ac.ulb.infof307.g01.Coordinate;
 import be.ac.ulb.infof307.g01.Main;
 import be.ac.ulb.infof307.g01.MapController;
+import be.ac.ulb.infof307.g01.Marker;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -28,11 +31,13 @@ public class MapView extends ScrollPane implements EventHandler<MouseEvent> {
     
     private MapController _mapController;
     private ImageView _imageView;
+    private List<Pin> _pins;
     
     
     public MapView(MapController mapController) {
         super();
         _mapController = mapController;
+        _pins = new ArrayList<>();
         
         setImageView();
         initLayout();
@@ -50,18 +55,17 @@ public class MapView extends ScrollPane implements EventHandler<MouseEvent> {
     
     private void initLayout() {
         StackPane layout = Main.getStackPane();
-        ObservableList<Node> child = layout.getChildren();
-        child.add(_imageView);
-        createScrollPane(layout);
+        ObservableList<Node> children = layout.getChildren();
+        children.add(_imageView);
+        children.add(this);
+        setupScrollPane();
     }
     
-    /** @return a ScrollPane which scrolls the layout. */
-    private void createScrollPane(Pane layout) {
+    private void setupScrollPane() {
         setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         setPannable(true);
         setPrefSize(800, 600);
-        setContent(layout);
     }
     
     public void adaptToScene(ReadOnlyDoubleProperty property) {
@@ -76,7 +80,16 @@ public class MapView extends ScrollPane implements EventHandler<MouseEvent> {
     
     /** Returns the size of the map */
     public Coordinate getSize() {
-        return new Coordinate((int) getPrefViewportWidth(), (int) getPrefViewportHeight());
+        return new Coordinate((int) _imageView.getImage().getWidth(), (int) _imageView.getImage().getHeight());
+    }
+    
+    public Pin createPin(Marker marker) {
+        Pin newPin = new Pin(marker);
+        _pins.add(newPin);
+    
+        getChildren().add(newPin);
+        
+        return newPin;
     }
     
     ///////// EVENT ///////// 

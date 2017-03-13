@@ -7,6 +7,7 @@ package be.ac.ulb.infof307.g01;
 
 import be.ac.ulb.infof307.g01.gui.MapView;
 import be.ac.ulb.infof307.g01.gui.NewMarkerPopUp;
+import be.ac.ulb.infof307.g01.gui.Pin;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.File;
@@ -80,10 +81,13 @@ public class MapController {
         _newMarkerPopUp.close();
         _newMarkerPopUp = null;
         
-        // TODO create real marker
         Pokemon pokemon = new Pokemon(pokemonName, PokemonType.DARK);
-        new Marker(pokemon, _newMarkerCoordinate);
+        Marker newMarker = new Marker(pokemon, _newMarkerCoordinate);
         _newMarkerCoordinate = null;
+        _markers.add(newMarker);
+        
+        Pin newPin = getMapView().createPin(newMarker);
+        newMarker.setPin(newPin);
     }
     
 }
