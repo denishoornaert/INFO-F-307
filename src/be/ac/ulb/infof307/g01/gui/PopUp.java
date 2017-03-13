@@ -6,8 +6,9 @@
 package be.ac.ulb.infof307.g01.gui;
 
 import be.ac.ulb.infof307.g01.Main;
-import java.util.ArrayList;
+import java.io.File;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -50,14 +51,14 @@ public class PopUp extends Stage {
     }
     
     private void initStyle() {
+        _scene.getStylesheets().add(new File("assets/bootstrap.css").toURI().toString());
         _layout.setStyle(""
                 + "-fx-background-color: #d2d7dd;"
-                + "-fx-padding: 5;-fx-spacing: 5;"
+                + "-fx-padding: 10;-fx-spacing: 5;"
                 + "-fx-background-radius: 5 5 5 5;"
                 + "-fx-border-radius: 5 5 5 5;"
         );
-        _layout.setHgap(8);
-        _layout.setVgap(4);
+        setSize(250, 150);
     }
     
     public void setSize(int x, int y) {

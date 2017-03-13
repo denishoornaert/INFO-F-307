@@ -9,8 +9,6 @@ import be.ac.ulb.infof307.g01.Coordinate;
 import be.ac.ulb.infof307.g01.Marker;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -40,6 +38,7 @@ public class PinPopUp extends PopUp {
         initWidgets(marker);
         placeWidgets();
         initCloseButtonEvent();
+        _vbox.setSpacing(10);
         show();
     }
     
@@ -50,16 +49,12 @@ public class PinPopUp extends PopUp {
     }
     
     private void initWidgets(Marker marker) {
-        Timestamp timestamp = marker.getTimestamp();
-        String date = new SimpleDateFormat("dd-MM-yyyy").format(timestamp);
-        String hour = new SimpleDateFormat("HH:mm").format(timestamp);
-        
-        _pokemonLabel = new Label("Name");
-        _pokemon = new Label(marker.getPokemonName());
-        _dateLabel = new Label("Date");
-        _date = new Label(date);
-        _hourLabel = new Label("Hour");
-        _hour = new Label(hour);
+        _vbox = new VBox();
+        _vbox.setAlignment(Pos.CENTER);
+        _pokemonName = new Label("Name : "+marker.getPokemonName());
+        Timestamp date = marker.getTimestamp();
+        String formatingDate = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(date);
+        _date = new Label("Date : "+formatingDate);
         _closeButton = new Button("Close");
     }
     
@@ -104,6 +99,7 @@ public class PinPopUp extends PopUp {
                 close();
             }
         });
+        _closeButton.getStyleClass().add("danger");
     }
 
 }
