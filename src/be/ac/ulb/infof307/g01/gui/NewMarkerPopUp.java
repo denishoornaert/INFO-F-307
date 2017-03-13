@@ -183,7 +183,6 @@ public class NewMarkerPopUp extends PopUp {
     }
 
     private void initStyle() {
-        setSize(250, 150);
         _vbox.setSpacing(10);
         _hboxDates.setSpacing(10);
         _hboxButtons.setSpacing(10);
