@@ -40,17 +40,6 @@ public class Marker {
         Long currentTime = System.currentTimeMillis();
         _timestamp = new Timestamp(currentTime);
         _isValid = true;
-        if (createPin) {
-            createPin();
-        }
-    }
-    
-    private void createPin() {
-        if(_pin == null) {
-            _pin = new Pin(this);
-        } else {
-            throw new RuntimeException("pin allready created");
-        }
     }
     
     public void setTimestamp(Timestamp newTimestamp) {
@@ -71,6 +60,10 @@ public class Marker {
     
     public Coordinate getCoordinate() {
         return _coordinate;
+    }
+
+    void setPin(Pin newPin) {
+        _pin = newPin;
     }
     
 }

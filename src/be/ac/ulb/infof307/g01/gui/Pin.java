@@ -33,7 +33,6 @@ public class Pin extends ImageView implements EventHandler<MouseEvent> {
         _marker = marker;
 
         initImage();
-        drawPin();
         movePin();
 
         initEvent();
@@ -43,12 +42,6 @@ public class Pin extends ImageView implements EventHandler<MouseEvent> {
         String imagePath = new File("assets/pin.png").toURI().toString();
         Image image = new Image(imagePath);
         setImage(image);
-    }
-    
-    private void drawPin() {
-        StackPane stackPane = Main.getStackPane();
-        ObservableList<Node> children = stackPane.getChildren();
-        children.add(this);
     }
 
     private void movePin() {

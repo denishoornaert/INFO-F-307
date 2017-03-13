@@ -39,4 +39,27 @@ public class CoordinateTest extends TestCase {
         Coordinate tmp = new Coordinate(1, 0);
         assertEquals(tmp.getY(), 0);
     }
+
+    @Test
+    public void test_add() {
+        Coordinate tmp1 = new Coordinate(34, 34);
+        Coordinate tmp2 = new Coordinate(23, -36);
+        Coordinate result = tmp1.add(tmp2);
+        Coordinate expectedResult = new Coordinate(57, -2);
+        assertEquals(result, expectedResult);
+        
+        tmp2 = new Coordinate(23, -32);
+        result = tmp1.add(tmp2);
+        expectedResult = new Coordinate(57, 2);
+        assertEquals(result, expectedResult);
+    }
+    
+    @Test
+    public void test_multiply() {
+        Coordinate tmp1 = new Coordinate(10, 15);
+        Coordinate result = tmp1.multiply(1.5);
+        Coordinate expectedResult = new Coordinate(15, 22);
+        assertEquals(result, expectedResult);
+    }
+    
 }
