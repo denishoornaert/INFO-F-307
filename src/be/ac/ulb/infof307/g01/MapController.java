@@ -59,7 +59,9 @@ public class MapController {
             // Converts from event coordinate (centered in the upper left corner)
             // to marker coordinate (centered in the middle of the image)
             CoordinateModel eventCoordinate = new CoordinateModel((int) coordinateX, (int) coordinateY);
-            CoordinateModel mapSize = getMapView().getSize();
+            int width = getMapView().getImageViewWidth();
+            int height = getMapView().getImageViewHeight();
+            CoordinateModel mapSize = new CoordinateModel(width, height);
             _newMarkerCoordinate = eventCoordinate.add(mapSize.multiply(-0.5));
             _newMarkerPopUp = new NewMarkerPopUp(this);
             System.out.println("map size " +

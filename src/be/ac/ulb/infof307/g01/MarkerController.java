@@ -18,9 +18,13 @@ public class MarkerController {
     public MarkerController(PokemonModel pokemon, CoordinateModel _newMarkerCoordinate) {
         _marker = new MarkerModel(pokemon, _newMarkerCoordinate);
     }
-
-    public CoordinateModel getCoordinate() {
-        return _marker.getCoordinate();
+    
+    public int getX() {
+        return _marker.getCoordinate().getX();
+    }
+    
+    public int getY() {
+        return _marker.getCoordinate().getY();
     }
 
     public Timestamp getTimestamp() {

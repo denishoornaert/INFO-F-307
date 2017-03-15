@@ -5,7 +5,6 @@
  */
 package be.ac.ulb.infof307.g01.gui;
 
-import be.ac.ulb.infof307.g01.CoordinateModel;
 import be.ac.ulb.infof307.g01.MarkerController;
 import java.io.File;
 import javafx.event.EventHandler;
@@ -44,9 +43,8 @@ public class Pin extends ImageView implements EventHandler<MouseEvent> {
         // Find the offset because the image is center automatically
         double heighOffset = this.getImage().getHeight()/2;
         // Move the picture
-        CoordinateModel markerCoord = _marker.getCoordinate();
-        setTranslateX(markerCoord.getX());
-        setTranslateY(markerCoord.getY() - heighOffset);
+        setTranslateX(_marker.getX());
+        setTranslateY(_marker.getY() - heighOffset);
         // TODO : voir si on utiliserai un système d'ancrage au lieu de décaller
 
     }

@@ -5,9 +5,7 @@
  */
 package be.ac.ulb.infof307.g01.gui;
 
-import be.ac.ulb.infof307.g01.CoordinateModel;
 import be.ac.ulb.infof307.g01.MarkerController;
-import be.ac.ulb.infof307.g01.MarkerModel;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import javafx.collections.ObservableList;
@@ -40,9 +38,8 @@ public class PinPopUp extends PopUp {
     }
     
     private void initPosition(MarkerController marker) {
-        CoordinateModel coord = marker.getCoordinate();
-        setX(coord.getX());
-        setY(coord.getY());
+        setX(marker.getX());
+        setY(marker.getY());
     }
     
     private void initWidgets(MarkerController marker) {

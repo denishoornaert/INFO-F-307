@@ -5,7 +5,6 @@
  */
 package be.ac.ulb.infof307.g01.gui;
 
-import be.ac.ulb.infof307.g01.CoordinateModel;
 import be.ac.ulb.infof307.g01.Main;
 import be.ac.ulb.infof307.g01.MapController;
 import java.util.ArrayList;
@@ -153,9 +152,22 @@ public class MapView extends BorderPane implements EventHandler<MouseEvent> {
         _scrollPane.setVvalue(_scrollPane.getVmin()+(_scrollPane.getVmax()-_scrollPane.getVmin())/2);
     }
     
-    /** Returns the size of the map */
-    public CoordinateModel getSize() {
-        return new CoordinateModel((int) _imageView.getImage().getWidth(), (int) _imageView.getImage().getHeight());
+    /**
+     * Return the width of the map
+     * 
+     * @return int of the width size
+     */
+    public int getImageViewWidth() {
+        return (int) _imageView.getImage().getWidth();
+    }
+    
+    /**
+     * Return the height of the map
+     * 
+     * @return int of the height size
+     */
+    public int getImageViewHeight() {
+        return (int) _imageView.getImage().getHeight();
     }
     
     public Pin addPin(Pin newPin) {
