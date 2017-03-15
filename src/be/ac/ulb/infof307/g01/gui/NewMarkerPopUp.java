@@ -31,10 +31,8 @@ import javafx.scene.layout.VBox;
  */
 public class NewMarkerPopUp extends PopUp {
     
-    private VBox _vbox;
     private TextField _pokemonName;
     private DatePicker _dateMonthYear;
-    private HBox _hboxDates;
     private ComboBox _dateHour;
     private ComboBox _dateMinute;
     private Label _dateHourLabel;
@@ -43,7 +41,6 @@ public class NewMarkerPopUp extends PopUp {
     private final int _minutes = 60;
     private Button _closeButton;
     private Button _okButton;
-    private HBox _hboxButtons;
     
     public NewMarkerPopUp(MapController map) {
         super();
@@ -140,7 +137,7 @@ public class NewMarkerPopUp extends PopUp {
     }
     
     private void initokButton(MapController map) {
-        _okButton = new Button("ok");
+        _okButton = new Button("save");
         _okButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent t) {
                 Timestamp selectedDate = getSelectedTime();
