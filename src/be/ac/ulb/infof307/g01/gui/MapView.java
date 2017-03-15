@@ -8,17 +8,14 @@ package be.ac.ulb.infof307.g01.gui;
 import be.ac.ulb.infof307.g01.CoordinateModel;
 import be.ac.ulb.infof307.g01.Main;
 import be.ac.ulb.infof307.g01.MapController;
-import be.ac.ulb.infof307.g01.MarkerModel;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
@@ -26,7 +23,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
 /**
@@ -162,8 +158,7 @@ public class MapView extends BorderPane implements EventHandler<MouseEvent> {
         return new CoordinateModel((int) _imageView.getImage().getWidth(), (int) _imageView.getImage().getHeight());
     }
     
-    public Pin createPin(MarkerModel marker) {
-        Pin newPin = new Pin(marker);
+    public Pin addPin(Pin newPin) {
         _pins.add(newPin);
         _contentLayout.getChildren().add(newPin);
         return newPin;

@@ -24,10 +24,6 @@ public class MarkerModel {
      */
     private boolean _isValid = false;
     private Pin _pin = null;
-
-    public MarkerModel() {
-        this(null, null);
-    }
     
     public MarkerModel(PokemonModel pokemon, CoordinateModel coordinate) {
         this(pokemon, coordinate, true);

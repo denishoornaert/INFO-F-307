@@ -20,7 +20,7 @@ import java.sql.Timestamp;
 public class MapController {
     
     private String _imagePath;
-    private List<MarkerModel> _markers;
+    private List<MarkerController> _markers;
     private MapView _mapView;
     
     /** Instance of the current popup. Is equal to null if no popup is open,
@@ -43,11 +43,6 @@ public class MapController {
     
     public String getImagePath() {
         return _imagePath;
-    } 
-    
-    public void createMarker() {
-        MarkerModel newMarker = new MarkerModel();
-        _markers.add(newMarker);
     }
     
     public MapView getMapView() {
@@ -82,12 +77,13 @@ public class MapController {
         _newMarkerPopUp = null;
         
         PokemonModel pokemon = new PokemonModel(pokemonName, PokemonTypeModel.DARK);
-        MarkerModel newMarker = new MarkerModel(pokemon, _newMarkerCoordinate);
+        MarkerController newMarker = new MarkerController(pokemon, _newMarkerCoordinate);
         _newMarkerCoordinate = null;
         _markers.add(newMarker);
         
-        Pin newPin = getMapView().createPin(newMarker);
-        newMarker.setPin(newPin);
+        Pin newPin = new Pin(newMarker);
+        getMapView().addPin(newPin);
+        //newMarker.setPin(newPin); TODO utile ??!!
     }
     
 }

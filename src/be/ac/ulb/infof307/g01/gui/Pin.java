@@ -6,7 +6,7 @@
 package be.ac.ulb.infof307.g01.gui;
 
 import be.ac.ulb.infof307.g01.CoordinateModel;
-import be.ac.ulb.infof307.g01.MarkerModel;
+import be.ac.ulb.infof307.g01.MarkerController;
 import java.io.File;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
@@ -20,10 +20,10 @@ import javafx.scene.image.ImageView;
 
 public class Pin extends ImageView implements EventHandler<MouseEvent> {
 
-    private final MarkerModel _marker;
+    private final MarkerController _marker;
 
 
-    public Pin(MarkerModel marker) {
+    public Pin(MarkerController marker) {
         super();
 
         _marker = marker;

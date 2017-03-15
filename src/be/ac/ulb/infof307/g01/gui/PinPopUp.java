@@ -6,6 +6,7 @@
 package be.ac.ulb.infof307.g01.gui;
 
 import be.ac.ulb.infof307.g01.CoordinateModel;
+import be.ac.ulb.infof307.g01.MarkerController;
 import be.ac.ulb.infof307.g01.MarkerModel;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -29,7 +30,7 @@ public class PinPopUp extends PopUp {
     private Label _date;
     private Button _closeButton;
         
-    public PinPopUp(MarkerModel marker) {
+    public PinPopUp(MarkerController marker) {
         initPosition(marker);
         initWidgets(marker);
         placeWidgets();
@@ -38,13 +39,13 @@ public class PinPopUp extends PopUp {
         show();
     }
     
-    private void initPosition(MarkerModel marker) {
+    private void initPosition(MarkerController marker) {
         CoordinateModel coord = marker.getCoordinate();
         setX(coord.getX());
         setY(coord.getY());
     }
     
-    private void initWidgets(MarkerModel marker) {
+    private void initWidgets(MarkerController marker) {
         _vbox = new VBox();
         _vbox.setAlignment(Pos.CENTER);
         _pokemonName = new Label("Name : "+marker.getPokemonName());
