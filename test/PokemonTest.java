@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 
-import be.ac.ulb.infof307.g01.Pokemon;
-import be.ac.ulb.infof307.g01.PokemonType;
+import be.ac.ulb.infof307.g01.PokemonModel;
+import be.ac.ulb.infof307.g01.PokemonTypeModel;
 import java.io.File;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -41,28 +41,28 @@ public class PokemonTest {
     
     @Test
     public void test_getName() {
-        Pokemon testPokemon = new Pokemon("arceus", PokemonType.FLYING);
+        PokemonModel testPokemon = new PokemonModel("arceus", PokemonTypeModel.FLYING);
         assertEquals(testPokemon.getName(), "arceus");
     }
     
     @Test
     public void test_getType() {
-        Pokemon testPokemon = new Pokemon("arceus", PokemonType.FIRE);
-        assertEquals(testPokemon.getType()[0], PokemonType.FIRE);
-        assertEquals(testPokemon.getType()[1], PokemonType.NONE);
+        PokemonModel testPokemon = new PokemonModel("arceus", PokemonTypeModel.FIRE);
+        assertEquals(testPokemon.getType()[0], PokemonTypeModel.FIRE);
+        assertEquals(testPokemon.getType()[1], PokemonTypeModel.NONE);
     }
     
     @Test
     public void test_equals() {
-        Pokemon testPokemon1 = new Pokemon("arceus", PokemonType.FIRE);
-        Pokemon testPokemon2 = new Pokemon("arceus", PokemonType.FIRE,PokemonType.NONE);
+        PokemonModel testPokemon1 = new PokemonModel("arceus", PokemonTypeModel.FIRE);
+        PokemonModel testPokemon2 = new PokemonModel("arceus", PokemonTypeModel.FIRE,PokemonTypeModel.NONE);
         
         assertTrue(testPokemon1.equals(testPokemon2));
     }
     
     @Test
     public void test_getPathImage() {
-        Pokemon testPokemon = new Pokemon("pikachu", PokemonType.ELECTRIC);
+        PokemonModel testPokemon = new PokemonModel("pikachu", PokemonTypeModel.ELECTRIC);
         File file = new File(testPokemon.getPathImage());
         assertTrue(file.exists());
     }
