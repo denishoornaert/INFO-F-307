@@ -168,24 +168,31 @@ public class NewMarkerPopUp extends PopUp {
     }
     
     private void placeWidgets() {
-        _vbox = new VBox();
-        _hboxDates = new HBox();
-        _hboxButtons = new HBox();
-        _hboxDates.setAlignment(Pos.CENTER);
-        ObservableList<Node> childrenV = _vbox.getChildren();
-        childrenV.addAll(_pokemonName, _dateMonthYear);
-        ObservableList<Node> childrenHboxDates = _hboxDates.getChildren();
-        childrenHboxDates.addAll(_dateHour, _dateHourLabel, _dateMinute, _dateMinuteLabel);
-        ObservableList<Node> childrenHboxButtons = _hboxButtons.getChildren();
-        childrenHboxButtons.addAll(_closeButton, _okButton);
-        childrenV.addAll(_hboxDates, _hboxButtons);
-        add(_vbox);
+        HBox hboxDates = placeInLine(_dateHour, _dateHourLabel, _dateMinute, _dateMinuteLabel);
+        HBox hboxButtons = placeInLine(_closeButton, _okButton);
+        VBox vbox = placeInColumn(_pokemonName, _dateMonthYear, hboxDates, hboxButtons);
+        add(vbox);
+    }
+    
+    private VBox placeInColumn(Node... nodes) {
+        VBox vbox = new VBox();
+        ObservableList<Node> childrenV = vbox.getChildren();
+        childrenV.addAll(nodes);
+        vbox.setSpacing(10);
+        return vbox;
+    }
+    
+    private HBox placeInLine(Node... nodes) {
+        HBox hbox = new HBox();
+        ObservableList<Node> childrenHboxDates = hbox.getChildren();
+        childrenHboxDates.addAll(nodes);
+        hbox.setAlignment(Pos.CENTER);
+        hbox.setSpacing(10);
+        return hbox;
     }
 
     private void initStyle() {
-        _vbox.setSpacing(10);
-        _hboxDates.setSpacing(10);
-        _hboxButtons.setSpacing(10);
+        //
     }
     
 }
