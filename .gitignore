@@ -8,3 +8,4 @@
 # Lib
 /lib/CopyLibs/
 /lib/hamcrest/
+/nbdist/
