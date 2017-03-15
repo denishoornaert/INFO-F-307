@@ -12,10 +12,10 @@ import java.sql.Timestamp;
  *
  * @author remy
  */
-public class Marker {
+public class MarkerModel {
     
-    private final Pokemon _pokemon;
-    private final Coordinate _coordinate;
+    private final PokemonModel _pokemon;
+    private final CoordinateModel _coordinate;
     private Timestamp _timestamp;
     /**
      * Indicates whether this marker contains valid information.
@@ -25,15 +25,15 @@ public class Marker {
     private boolean _isValid = false;
     private Pin _pin = null;
 
-    public Marker() {
+    public MarkerModel() {
         this(null, null);
     }
     
-    public Marker(Pokemon pokemon, Coordinate coordinate) {
+    public MarkerModel(PokemonModel pokemon, CoordinateModel coordinate) {
         this(pokemon, coordinate, true);
     }
     
-    public Marker(Pokemon pokemon, Coordinate coordinate, boolean createPin) {
+    public MarkerModel(PokemonModel pokemon, CoordinateModel coordinate, boolean createPin) {
         _pokemon = pokemon;
         _coordinate = coordinate;
         
@@ -58,7 +58,7 @@ public class Marker {
         return _pokemon.getPathImage();
     }
     
-    public Coordinate getCoordinate() {
+    public CoordinateModel getCoordinate() {
         return _coordinate;
     }
 

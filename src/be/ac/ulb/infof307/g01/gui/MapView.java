@@ -5,10 +5,10 @@
  */
 package be.ac.ulb.infof307.g01.gui;
 
-import be.ac.ulb.infof307.g01.Coordinate;
+import be.ac.ulb.infof307.g01.CoordinateModel;
 import be.ac.ulb.infof307.g01.Main;
 import be.ac.ulb.infof307.g01.MapController;
-import be.ac.ulb.infof307.g01.Marker;
+import be.ac.ulb.infof307.g01.MarkerModel;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.property.ReadOnlyDoubleProperty;
@@ -158,11 +158,11 @@ public class MapView extends BorderPane implements EventHandler<MouseEvent> {
     }
     
     /** Returns the size of the map */
-    public Coordinate getSize() {
-        return new Coordinate((int) _imageView.getImage().getWidth(), (int) _imageView.getImage().getHeight());
+    public CoordinateModel getSize() {
+        return new CoordinateModel((int) _imageView.getImage().getWidth(), (int) _imageView.getImage().getHeight());
     }
     
-    public Pin createPin(Marker marker) {
+    public Pin createPin(MarkerModel marker) {
         Pin newPin = new Pin(marker);
         _pins.add(newPin);
         _contentLayout.getChildren().add(newPin);
