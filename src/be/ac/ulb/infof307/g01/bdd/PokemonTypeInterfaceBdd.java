@@ -5,7 +5,7 @@
  */
 package be.ac.ulb.infof307.g01.bdd;
 
-import be.ac.ulb.infof307.g01.PokemonType;
+import be.ac.ulb.infof307.g01.PokemonTypeModel;
 
 /**
  *
@@ -13,6 +13,6 @@ import be.ac.ulb.infof307.g01.PokemonType;
  */
 public interface PokemonTypeInterfaceBdd {
     
-    public PokemonType[] getTypesByName(String name);
+    public PokemonTypeModel[] getTypesByName(String name);
     
 }

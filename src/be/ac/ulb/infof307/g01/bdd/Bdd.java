@@ -5,9 +5,9 @@
  */
 package be.ac.ulb.infof307.g01.bdd;
 
-import be.ac.ulb.infof307.g01.Marker;
-import be.ac.ulb.infof307.g01.Pokemon;
-import be.ac.ulb.infof307.g01.PokemonType;
+import be.ac.ulb.infof307.g01.MarkerModel;
+import be.ac.ulb.infof307.g01.PokemonModel;
+import be.ac.ulb.infof307.g01.PokemonTypeModel;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -16,7 +16,8 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Bdd implements PokemonInterfaceBdd,PokemonTypeInterfaceBdd,MarkerInterfaceBdd {
+
+public class Bdd implements PokemonInterfaceBdd, PokemonTypeInterfaceBdd, MarkerInterfaceBdd {
     
     private String _path;
     private Connection connection;
@@ -51,7 +52,7 @@ public class Bdd implements PokemonInterfaceBdd,PokemonTypeInterfaceBdd,MarkerIn
     @Override
     // TODO Pokemon type doit être changé en classé
     // TODO Récupérer le type du pokémon
-    public Pokemon getPokemonByName(String name) {
+    public PokemonModel getPokemonByName(String name) {
         ResultSet resultSet = this.query("SELECT * FROM Pokemon WHERE Name='"+name+"'");
         String nomPokemon = "";
         try {
@@ -60,17 +61,19 @@ public class Bdd implements PokemonInterfaceBdd,PokemonTypeInterfaceBdd,MarkerIn
         } catch (SQLException ex) {
             Logger.getLogger(Bdd.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return new Pokemon(nomPokemon,PokemonType.DARK);
+        return new PokemonModel(nomPokemon, PokemonTypeModel.DARK);
     }
 
     @Override
-    public Marker getMarkerByName(String name) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public MarkerModel getMarkerByName(String name) {
+        throw new UnsupportedOperationException("Not supported yet."); 
+        //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public PokemonType[] getTypesByName(String name) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public PokemonTypeModel[] getTypesByName(String name) {
+        throw new UnsupportedOperationException("Not supported yet."); 
+        //To change body of generated methods, choose Tools | Templates.
     }
     
 }

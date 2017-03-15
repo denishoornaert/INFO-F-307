@@ -5,7 +5,7 @@
  */
 package be.ac.ulb.infof307.g01.bdd;
 
-import be.ac.ulb.infof307.g01.Marker;
+import be.ac.ulb.infof307.g01.MarkerModel;
 
 /**
  *
@@ -13,6 +13,6 @@ import be.ac.ulb.infof307.g01.Marker;
  */
 public interface MarkerInterfaceBdd {
     
-    public Marker getMarkerByName(String name);
+    public MarkerModel getMarkerByName(String name);
     
 }
