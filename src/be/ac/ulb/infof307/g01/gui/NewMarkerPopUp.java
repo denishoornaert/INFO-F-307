@@ -21,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -40,6 +41,10 @@ public class NewMarkerPopUp extends PopUp {
     private ComboBox _dateMinute;
     private Label _dateHourLabel;
     private Label _dateMinuteLabel;
+    private Spinner<Integer> _lifeSpinner;
+    private Spinner<Integer> _attackSpinner;
+    private Label _lifeLabel;
+    private Label _attackLabel;
     private final int _hours = 24;
     private final int _minutes = 60;
     private Button _closeButton;
@@ -56,6 +61,7 @@ public class NewMarkerPopUp extends PopUp {
     private void initWidget(MapController map) {
         initImage();
         initDatePicker();
+        initSpinners();
         initComboBoxes();
         initLabels();
         initCloseButton(map);
@@ -76,6 +82,21 @@ public class NewMarkerPopUp extends PopUp {
         _dateMonthYear.setMaxWidth(Double.MAX_VALUE);
     }
     
+    private void initSpinners() {
+        initLifeSpinner();
+        initAttackSpinner();
+    }
+    
+    private void initLifeSpinner() {
+        _lifeSpinner = new Spinner<>(0, Integer.MAX_VALUE, 0);
+        _lifeSpinner.setPrefWidth(100);
+    }
+
+    private void initAttackSpinner() {
+        _attackSpinner = new Spinner<>(0, Integer.MAX_VALUE, 0);
+        _attackSpinner.setPrefWidth(100);
+    }
+    
     private void initComboBoxes() {
         initComboBoxPokemonName();
         Calendar calendar = initCalendar();
@@ -86,6 +107,8 @@ public class NewMarkerPopUp extends PopUp {
     private void initLabels() {
         _dateHourLabel = new Label(" h ");
         _dateMinuteLabel = new Label("min");
+        _lifeLabel = new Label("life : ");
+        _attackLabel = new Label("atk : ");
     }
     
     
@@ -186,8 +209,9 @@ public class NewMarkerPopUp extends PopUp {
     
     private void placeWidgets() {
         HBox hboxDates = placeInRow(_dateHour, _dateHourLabel, _dateMinute, _dateMinuteLabel);
+        HBox hboxSpinner = placeInRow(_lifeLabel, _lifeSpinner, _attackLabel, _attackSpinner);
         HBox hboxButtons = placeInRow(_closeButton, _okButton);
-        VBox vboxDataEntries = placeInColumn(_pokemonName, _dateMonthYear, hboxDates, hboxButtons);
+        VBox vboxDataEntries = placeInColumn(_pokemonName, _dateMonthYear, hboxDates, hboxSpinner, hboxButtons);
         HBox generalEntries = placeInRow(_selectedPokemonView, vboxDataEntries);
         add(generalEntries);
     }
@@ -210,7 +234,7 @@ public class NewMarkerPopUp extends PopUp {
     }
 
     private void initStyle() {
-        setSize(400, 150);
+        setSize(500, 150);
     }
     
 }
