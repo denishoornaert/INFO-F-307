@@ -9,7 +9,7 @@ package be.ac.ulb.infof307.g01;
  *
  * @author mytra
  */
-public enum PokemonType {
+public enum PokemonTypeModel {
     NORMAL,FIRE,WATER,ELECTRIC,GRASS,ICE,FIGHTING,POISON,GROUND,FLYING,PSYCHIC,
     BUG,ROCK,GHOST,DRAGON,DARK,STEEL,FAIRY,NONE
 }
