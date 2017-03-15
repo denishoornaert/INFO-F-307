@@ -8,7 +8,6 @@ package be.ac.ulb.infof307.g01.gui;
 import be.ac.ulb.infof307.g01.Main;
 import java.io.File;
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
