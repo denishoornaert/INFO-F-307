@@ -6,7 +6,6 @@
 package be.ac.ulb.infof307.g01.bdd;
 
 import be.ac.ulb.infof307.g01.Pokemon;
-import be.ac.ulb.infof307.g01.PokemonType;
 
 /**
  *
