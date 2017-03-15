@@ -5,20 +5,16 @@
  */
 package be.ac.ulb.infof307.g01.gui;
 
-import be.ac.ulb.infof307.g01.Coordinate;
 import be.ac.ulb.infof307.g01.Main;
 import be.ac.ulb.infof307.g01.MapController;
-import be.ac.ulb.infof307.g01.Marker;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
@@ -26,7 +22,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
 /**
@@ -157,13 +152,25 @@ public class MapView extends BorderPane implements EventHandler<MouseEvent> {
         _scrollPane.setVvalue(_scrollPane.getVmin()+(_scrollPane.getVmax()-_scrollPane.getVmin())/2);
     }
     
-    /** Returns the size of the map */
-    public Coordinate getSize() {
-        return new Coordinate((int) _imageView.getImage().getWidth(), (int) _imageView.getImage().getHeight());
+    /**
+     * Return the width of the map
+     * 
+     * @return int of the width size
+     */
+    public int getImageViewWidth() {
+        return (int) _imageView.getImage().getWidth();
     }
     
-    public Pin createPin(Marker marker) {
-        Pin newPin = new Pin(marker);
+    /**
+     * Return the height of the map
+     * 
+     * @return int of the height size
+     */
+    public int getImageViewHeight() {
+        return (int) _imageView.getImage().getHeight();
+    }
+    
+    public Pin addPin(Pin newPin) {
         _pins.add(newPin);
         _contentLayout.getChildren().add(newPin);
         return newPin;

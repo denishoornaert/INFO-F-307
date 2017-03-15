@@ -12,20 +12,20 @@ import java.util.Arrays;
  *
  * @author remy
  */
-public class Pokemon {
+public class PokemonModel {
     
     private final String _name;
-    private final PokemonType[] _type;
+    private final PokemonTypeModel[] _type;
     private final String _pathImage;
     
     
-    public Pokemon(String name, PokemonType type) {
-        this(name,type,PokemonType.NONE);
+    public PokemonModel(String name, PokemonTypeModel type) {
+        this(name,type,PokemonTypeModel.NONE);
     }
     
-    public Pokemon(String name, PokemonType type1, PokemonType type2) {
+    public PokemonModel(String name, PokemonTypeModel type1, PokemonTypeModel type2) {
         _name = name;
-        _type = new PokemonType[]{type1, type2};
+        _type = new PokemonTypeModel[]{type1, type2};
         _pathImage = findCorrespondingImagePath();
     }
     
@@ -38,7 +38,7 @@ public class Pokemon {
         return _name;
     }
     
-    public PokemonType[] getType() {
+    public PokemonTypeModel[] getType() {
         return _type;
     }
     
@@ -53,7 +53,7 @@ public class Pokemon {
      * @param otherPokemon the pokemon which must be compared
      * @return True if it's the same pokemon
      */
-    public boolean equals(Pokemon otherPokemon) {
+    public boolean equals(PokemonModel otherPokemon) {
         return otherPokemon._name.equals(_name) && 
                 Arrays.equals(otherPokemon._type, _type);
     }

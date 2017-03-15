@@ -20,7 +20,7 @@ import java.sql.Timestamp;
 public class MapController {
     
     private String _imagePath;
-    private List<Marker> _markers;
+    private List<MarkerController> _markers;
     private MapView _mapView;
     
     /** Instance of the current popup. Is equal to null if no popup is open,
@@ -29,7 +29,7 @@ public class MapController {
     private NewMarkerPopUp _newMarkerPopUp;
     
     /** Coordinates associated to the current popup. */
-    private Coordinate _newMarkerCoordinate;
+    private CoordinateModel _newMarkerCoordinate;
     
     
     public MapController() {
@@ -43,19 +43,14 @@ public class MapController {
     
     public String getImagePath() {
         return _imagePath;
-    } 
-    
-    public void createMarker() {
-        Marker newMarker = new Marker();
-        _markers.add(newMarker);
     }
     
     public MapView getMapView() {
         return _mapView;
     }
     
-    private Coordinate convertEventCoordinate(double coordinateX, double coordinateY) {
-        return new Coordinate((int) coordinateX, (int) coordinateY);
+    private CoordinateModel convertEventCoordinate(double coordinateX, double coordinateY) {
+        return new CoordinateModel((int) coordinateX, (int) coordinateY);
     }
     
     
@@ -63,8 +58,10 @@ public class MapController {
         if(_newMarkerPopUp == null) {
             // Converts from event coordinate (centered in the upper left corner)
             // to marker coordinate (centered in the middle of the image)
-            Coordinate eventCoordinate = new Coordinate((int) coordinateX, (int) coordinateY);
-            Coordinate mapSize = getMapView().getSize();
+            CoordinateModel eventCoordinate = new CoordinateModel((int) coordinateX, (int) coordinateY);
+            int width = getMapView().getImageViewWidth();
+            int height = getMapView().getImageViewHeight();
+            CoordinateModel mapSize = new CoordinateModel(width, height);
             _newMarkerCoordinate = eventCoordinate.add(mapSize.multiply(-0.5));
             _newMarkerPopUp = new NewMarkerPopUp(this);
             System.out.println("map size " +
@@ -81,13 +78,14 @@ public class MapController {
         _newMarkerPopUp.close();
         _newMarkerPopUp = null;
         
-        Pokemon pokemon = new Pokemon(pokemonName, PokemonType.DARK);
-        Marker newMarker = new Marker(pokemon, _newMarkerCoordinate);
+        PokemonModel pokemon = new PokemonModel(pokemonName, PokemonTypeModel.DARK);
+        MarkerController newMarker = new MarkerController(pokemon, _newMarkerCoordinate);
         _newMarkerCoordinate = null;
         _markers.add(newMarker);
         
-        Pin newPin = getMapView().createPin(newMarker);
-        newMarker.setPin(newPin);
+        Pin newPin = new Pin(newMarker);
+        getMapView().addPin(newPin);
+        //newMarker.setPin(newPin); TODO utile ??!!
     }
     
 }

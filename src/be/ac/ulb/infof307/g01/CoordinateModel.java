@@ -9,12 +9,12 @@ package be.ac.ulb.infof307.g01;
  *
  * @author hoornaert
  */
-public class Coordinate {
+public class CoordinateModel {
     
     private final int _x;
     private final int _y;
     
-    public Coordinate(int x, int y) {
+    public CoordinateModel(int x, int y) {
         _x = x;
         _y = y;
     }
@@ -27,16 +27,16 @@ public class Coordinate {
         return _y;
     }
     
-    public Coordinate add(Coordinate other) {
-        return new Coordinate(getX() + other.getX(), getY() + other.getY());
+    public CoordinateModel add(CoordinateModel other) {
+        return new CoordinateModel(getX() + other.getX(), getY() + other.getY());
     }
     
-    public Coordinate multiply(double factor) {
-        return new Coordinate((int) (getX() * factor), (int) (getY() * factor));
+    public CoordinateModel multiply(double factor) {
+        return new CoordinateModel((int) (getX() * factor), (int) (getY() * factor));
     }
     
     public boolean equals(Object object){
-        Coordinate other = (Coordinate) object;
+        CoordinateModel other = (CoordinateModel) object;
         return getX() == other.getX() && getY() == other.getY();
     }
     

@@ -5,17 +5,12 @@
  */
 package be.ac.ulb.infof307.g01.gui;
 
-import be.ac.ulb.infof307.g01.Coordinate;
-import be.ac.ulb.infof307.g01.Main;
-import be.ac.ulb.infof307.g01.Marker;
+import be.ac.ulb.infof307.g01.MarkerController;
 import java.io.File;
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
 
 /**
  *
@@ -24,10 +19,10 @@ import javafx.scene.layout.StackPane;
 
 public class Pin extends ImageView implements EventHandler<MouseEvent> {
 
-    private final Marker _marker;
+    private final MarkerController _marker;
 
 
-    public Pin(Marker marker) {
+    public Pin(MarkerController marker) {
         super();
 
         _marker = marker;
@@ -48,9 +43,8 @@ public class Pin extends ImageView implements EventHandler<MouseEvent> {
         // Find the offset because the image is center automatically
         double heighOffset = this.getImage().getHeight()/2;
         // Move the picture
-        Coordinate markerCoord = _marker.getCoordinate();
-        setTranslateX(markerCoord.getX());
-        setTranslateY(markerCoord.getY() - heighOffset);
+        setTranslateX(_marker.getX());
+        setTranslateY(_marker.getY() - heighOffset);
         // TODO : voir si on utiliserai un système d'ancrage au lieu de décaller
 
     }
