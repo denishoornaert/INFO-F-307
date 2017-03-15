@@ -6,6 +6,7 @@
 package be.ac.ulb.infof307.g01.gui;
 
 import be.ac.ulb.infof307.g01.MapController;
+import java.io.File;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.Calendar;
@@ -20,6 +21,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -30,6 +33,7 @@ import javafx.scene.layout.VBox;
  */
 public class NewMarkerPopUp extends PopUp {
     
+    private ImageView _selectedPokemonView;
     private ComboBox _pokemonName;
     private DatePicker _dateMonthYear;
     private ComboBox _dateHour;
@@ -50,6 +54,7 @@ public class NewMarkerPopUp extends PopUp {
     }
 
     private void initWidget(MapController map) {
+        initImage();
         initDatePicker();
         initComboBoxes();
         initLabels();
@@ -57,6 +62,13 @@ public class NewMarkerPopUp extends PopUp {
         initokButton(map);
     }
 
+    private void initImage() {
+        String path = new File("assets/unknown_pokemon.png").toURI().toString();
+        _selectedPokemonView = new ImageView(new Image(path));
+        _selectedPokemonView.setFitHeight(150);
+        _selectedPokemonView.setFitWidth(150);
+    }
+    
     private void initDatePicker() {
         _dateMonthYear = new DatePicker();
         setDatePicker(_dateMonthYear);
@@ -175,8 +187,9 @@ public class NewMarkerPopUp extends PopUp {
     private void placeWidgets() {
         HBox hboxDates = placeInRow(_dateHour, _dateHourLabel, _dateMinute, _dateMinuteLabel);
         HBox hboxButtons = placeInRow(_closeButton, _okButton);
-        VBox vbox = placeInColumn(_pokemonName, _dateMonthYear, hboxDates, hboxButtons);
-        add(vbox);
+        VBox vboxDataEntries = placeInColumn(_pokemonName, _dateMonthYear, hboxDates, hboxButtons);
+        HBox generalEntries = placeInRow(_selectedPokemonView, vboxDataEntries);
+        add(generalEntries);
     }
     
     private VBox placeInColumn(Node... nodes) {
@@ -197,7 +210,7 @@ public class NewMarkerPopUp extends PopUp {
     }
 
     private void initStyle() {
-        //
+        setSize(400, 150);
     }
     
 }
