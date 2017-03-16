@@ -22,8 +22,8 @@ public class ResearchController {
     * @parameters the pattern
     * @return the list of pokemon names that matches the pattern
     */
-    public ArrayList<String> getPokemonByName(String researchpattern) {
-        return new ArrayList<String>();
+    public String[] getPokemonByName(String researchPattern) {
+        return new String[]{};
     }
     
 }
