@@ -43,8 +43,10 @@ public class NewMarkerPopUp extends PopUp {
     private Label _dateMinuteLabel;
     private Spinner<Integer> _lifeSpinner;
     private Spinner<Integer> _attackSpinner;
+    private Spinner<Integer> _defenseSpinner;
     private Label _lifeLabel;
     private Label _attackLabel;
+    private Label _defenseLabel;
     private final int _hours = 24;
     private final int _minutes = 60;
     private Button _closeButton;
@@ -83,18 +85,18 @@ public class NewMarkerPopUp extends PopUp {
     }
     
     private void initSpinners() {
-        initLifeSpinner();
-        initAttackSpinner();
+        initSpinner(_lifeSpinner);
+        initSpinner(_defenseSpinner);
+        initSpinner(_attackSpinner);
     }
     
-    private void initLifeSpinner() {
-        _lifeSpinner = new Spinner<>(0, Integer.MAX_VALUE, 0);
-        _lifeSpinner.setPrefWidth(100);
+    private int getSpinnerValue(Spinner spin) {
+        return (Integer) spin.getValue();
     }
-
-    private void initAttackSpinner() {
-        _attackSpinner = new Spinner<>(0, Integer.MAX_VALUE, 0);
-        _attackSpinner.setPrefWidth(100);
+    
+    private void initSpinner(Spinner spin) {
+        spin = new Spinner<>(0, Integer.MAX_VALUE, 0);
+        spin.setPrefWidth(100);
     }
     
     private void initComboBoxes() {
@@ -109,6 +111,7 @@ public class NewMarkerPopUp extends PopUp {
         _dateMinuteLabel = new Label("min");
         _lifeLabel = new Label("life : ");
         _attackLabel = new Label("atk : ");
+        _defenseLabel = new Label("def : ");
     }
     
     
@@ -184,7 +187,11 @@ public class NewMarkerPopUp extends PopUp {
         _okButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent t) {
                 Timestamp selectedDate = getSelectedTime();
-                map.endPopUpCreateMarker(getSelectedString(_pokemonName), selectedDate);
+                String name = getSelectedString(_pokemonName);
+                int life = getSpinnerValue(_lifeSpinner);
+                int attack = getSpinnerValue(_attackSpinner);
+                int defense = getSpinnerValue(_defenseSpinner);
+                map.endPopUpCreateMarker(name, life, attack, defense, selectedDate);
                 // Only when cancel (and not create marker)
                 // map.cancelPopUpCreateMarker();
             }
