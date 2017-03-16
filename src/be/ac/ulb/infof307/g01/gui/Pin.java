@@ -43,8 +43,8 @@ public class Pin extends ImageView implements EventHandler<MouseEvent> {
         // Find the offset because the image is center automatically
         double heighOffset = this.getImage().getHeight()/2;
         // Move the picture
-        setTranslateX(_marker.getX());
-        setTranslateY(_marker.getY() - heighOffset);
+        setTranslateX(_marker.getLatitude());
+        setTranslateY(_marker.getLongitude() - heighOffset);
         // TODO : voir si on utiliserai un système d'ancrage au lieu de décaller
 
     }

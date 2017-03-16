@@ -38,8 +38,8 @@ public class PinPopUp extends PopUp {
     }
     
     private void initPosition(MarkerController marker) {
-        setX(marker.getX());
-        setY(marker.getY());
+        setX(marker.getLatitude());
+        setY(marker.getLongitude());
     }
     
     private void initWidgets(MarkerController marker) {

@@ -73,7 +73,7 @@ public class MapView extends Pane {
     public void createPin(MarkerController marker) {
         String pokemonName = marker.getPokemonName();
         JSObject window = (JSObject) _webEngine.executeScript("window");
-        window.call("addMarker", marker.getX(), marker.getY(), pokemonName, 1300);
+        window.call("addMarker", marker.getLatitude(), marker.getLongitude(), pokemonName, 1300);
     }
 
     /** Allows JavaScript code to call Java functions. */
