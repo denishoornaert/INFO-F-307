@@ -3,7 +3,10 @@
     <head>
         <style>
             #map {
-                height: 400px;
+                position: absolute;
+                top: 0; /* Header Height */
+                bottom: 0; /* Footer Height */
+                left: 0;
                 width: 100%;
             }
         </style>
@@ -19,7 +22,7 @@
             }
 
             function initMap() {
-                var initcoords = {lat: 50.838679, lng: 4.2933658};
+                var initcoords = {lat: 50.812273, lng: 4.3805383};
                 map = new google.maps.Map(document.getElementById('map'), {
                     zoom: 12,
                     center: initcoords,
