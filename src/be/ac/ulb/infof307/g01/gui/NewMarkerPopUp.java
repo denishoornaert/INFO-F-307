@@ -216,7 +216,7 @@ public class NewMarkerPopUp extends PopUp {
     
     private void placeWidgets() {
         HBox hboxDates = placeInRow(_dateHour, _dateHourLabel, _dateMinute, _dateMinuteLabel);
-        HBox hboxSpinner = placeInRow(_lifeLabel, _lifeSpinner, _attackLabel, _attackSpinner);
+        HBox hboxSpinner = placeInRow(_lifeLabel, _lifeSpinner, _attackLabel, _attackSpinner, _defenseLabel, _defenseSpinner);
         HBox hboxButtons = placeInRow(_closeButton, _okButton);
         VBox vboxDataEntries = placeInColumn(_pokemonName, hboxSpinner, _dateMonthYear, hboxDates, hboxButtons);
         HBox generalEntries = placeInRow(_selectedPokemonView, vboxDataEntries);
