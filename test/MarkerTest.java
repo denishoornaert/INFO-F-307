@@ -4,10 +4,10 @@
  * and open the template in the editor.
  */
 
-import be.ac.ulb.infof307.g01.Coordinate;
-import be.ac.ulb.infof307.g01.Marker;
-import be.ac.ulb.infof307.g01.Pokemon;
-import be.ac.ulb.infof307.g01.PokemonType;
+import be.ac.ulb.infof307.g01.CoordinateModel;
+import be.ac.ulb.infof307.g01.MarkerModel;
+import be.ac.ulb.infof307.g01.PokemonModel;
+import be.ac.ulb.infof307.g01.PokemonTypeModel;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -42,10 +42,10 @@ public class MarkerTest {
 
     @Test
     public void test_getPathImage() {
-        Pokemon testPokemon = new Pokemon("arceus", PokemonType.FIRE);
-        Coordinate testCoordinate = new Coordinate(69, 42);
+        PokemonModel testPokemon = new PokemonModel("arceus", PokemonTypeModel.FIRE,10,10,10,10,1,10);
+        CoordinateModel testCoordinate = new CoordinateModel(69, 42);
         
-        Marker testMarker = new Marker(testPokemon, testCoordinate, false); // For test we must don't use the picture
+        MarkerModel testMarker = new MarkerModel(testPokemon, testCoordinate, false); // For test we must don't use the picture
         assertEquals(testMarker.getPathImage(), testPokemon.getPathImage());        
     }
     

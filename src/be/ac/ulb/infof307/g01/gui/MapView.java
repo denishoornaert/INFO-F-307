@@ -5,10 +5,10 @@
  */
 package be.ac.ulb.infof307.g01.gui;
 
-import be.ac.ulb.infof307.g01.Coordinate;
+import be.ac.ulb.infof307.g01.CoordinateModel;
 import be.ac.ulb.infof307.g01.Main;
 import be.ac.ulb.infof307.g01.MapController;
-import be.ac.ulb.infof307.g01.Marker;
+import be.ac.ulb.infof307.g01.MarkerController;
 import java.net.URL;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -70,11 +70,10 @@ public class MapView extends Pane {
         _mapController.askForCreateMarker(latitude, longitude);
     }
     
-    public void createPin(Marker marker) {
-        Coordinate coordinates = marker.getCoordinate();
+    public void createPin(MarkerController marker) {
         String pokemonName = marker.getPokemonName();
         JSObject window = (JSObject) webEngine.executeScript("window");
-        window.call("addMarker", coordinates.getX(), coordinates.getY(), pokemonName);
+        window.call("addMarker", marker.getX(), marker.getY(), pokemonName);
     }
 
     /** Allows JavaScript code to call Java functions. */

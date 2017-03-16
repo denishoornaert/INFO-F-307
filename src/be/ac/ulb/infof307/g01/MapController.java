@@ -20,7 +20,7 @@ import java.sql.Timestamp;
 public class MapController {
     
     private String _imagePath;
-    private List<Marker> _markers;
+    private List<MarkerController> _markers;
     private MapView _mapView;
     
     /** Instance of the current popup. Is equal to null if no popup is open,
@@ -29,7 +29,7 @@ public class MapController {
     private NewMarkerPopUp _newMarkerPopUp;
     
     /** Coordinates associated to the current popup. */
-    private Coordinate _newMarkerCoordinate;
+    private CoordinateModel _newMarkerCoordinate;
     
     
     public MapController() {
@@ -43,22 +43,17 @@ public class MapController {
     
     public String getImagePath() {
         return _imagePath;
-    } 
-    
-    public void createMarker() {
-        Marker newMarker = new Marker();
-        _markers.add(newMarker);
     }
     
     public MapView getMapView() {
         return _mapView;
     }
-    
+
     public void askForCreateMarker(double coordinateX, double coordinateY) {
         if(_newMarkerPopUp == null) {
             // Converts from event coordinate (centered in the upper left corner)
             // to marker coordinate (centered in the middle of the image)
-            _newMarkerCoordinate = new Coordinate(coordinateX, coordinateY);
+            _newMarkerCoordinate = new CoordinateModel(coordinateX, coordinateY);
             _newMarkerPopUp = new NewMarkerPopUp(this);
         }
     }
@@ -71,9 +66,9 @@ public class MapController {
     public void endPopUpCreateMarker(String pokemonName, Timestamp dateView) {
         _newMarkerPopUp.close();
         _newMarkerPopUp = null;
-        
-        Pokemon pokemon = new Pokemon(pokemonName, PokemonType.DARK);
-        Marker newMarker = new Marker(pokemon, _newMarkerCoordinate);
+        // TODO relier popUp pokemon avec la creation des pokemons 
+        PokemonModel pokemon = new PokemonModel(pokemonName, PokemonTypeModel.DARK,-1,-1,-1,-1,-1,-1);
+        MarkerController newMarker = new MarkerController(pokemon, _newMarkerCoordinate);
         _newMarkerCoordinate = null;
         _markers.add(newMarker);
         
