@@ -19,13 +19,14 @@ import static org.junit.Assert.*;
  *
  * @author remy
  */
-public class MarkerTest {
+public class MarkerModelTest {
     
-    public MarkerTest() {
+    public MarkerModelTest() {
     }
     
     @BeforeClass
     public static void setUpClass() {
+        new PokemonTypeModel("FIRE");
     }
     
     @AfterClass
@@ -42,10 +43,12 @@ public class MarkerTest {
 
     @Test
     public void test_getPathImage() {
-        PokemonModel testPokemon = new PokemonModel("arceus", PokemonTypeModel.FIRE);
+        PokemonModel testPokemon = new PokemonModel("arceus", 
+                PokemonTypeModel.getPokemonTypeByTypName("FIRE"));
         CoordinateModel testCoordinate = new CoordinateModel(69, 42);
         
-        MarkerModel testMarker = new MarkerModel(testPokemon, testCoordinate, false); // For test we must don't use the picture
+        // For test we must not use the picture
+        MarkerModel testMarker = new MarkerModel(testPokemon, testCoordinate, false); 
         assertEquals(testMarker.getPathImage(), testPokemon.getPathImage());        
     }
     

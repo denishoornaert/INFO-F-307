@@ -78,7 +78,7 @@ public class MapController {
         _newMarkerPopUp.close();
         _newMarkerPopUp = null;
         
-        PokemonModel pokemon = new PokemonModel(pokemonName, PokemonTypeModel.DARK);
+        PokemonModel pokemon = new PokemonModel(pokemonName, PokemonTypeModel.getPokemonTypeByTypName("NONE"));
         MarkerController newMarker = new MarkerController(pokemon, _newMarkerCoordinate);
         _newMarkerCoordinate = null;
         _markers.add(newMarker);

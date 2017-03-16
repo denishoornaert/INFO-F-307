@@ -12,9 +12,9 @@ import org.junit.Test;
  *
  * @author hoornaert
  */
-public class CoordinateTest extends TestCase {
+public class CoordinateModelTest extends TestCase {
     
-    public CoordinateTest(String testName) {
+    public CoordinateModelTest(String testName) {
         super(testName);
     }
     

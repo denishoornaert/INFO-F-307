@@ -18,13 +18,16 @@ import static org.junit.Assert.*;
  *
  * @author remy
  */
-public class PokemonTest {
+public class PokemonModelTest {
     
-    public PokemonTest() {
+    public PokemonModelTest() {
     }
     
     @BeforeClass
     public static void setUpClass() {
+        new PokemonTypeModel("DARK");
+        new PokemonTypeModel("FIRE");
+        new PokemonTypeModel("ELECTRIC");
     }
     
     @AfterClass
@@ -41,28 +44,35 @@ public class PokemonTest {
     
     @Test
     public void test_getName() {
-        PokemonModel testPokemon = new PokemonModel("arceus", PokemonTypeModel.FLYING);
+        PokemonModel testPokemon = new PokemonModel("arceus", 
+                PokemonTypeModel.getPokemonTypeByTypName("DARK"));
         assertEquals(testPokemon.getName(), "arceus");
     }
     
     @Test
     public void test_getType() {
-        PokemonModel testPokemon = new PokemonModel("arceus", PokemonTypeModel.FIRE);
-        assertEquals(testPokemon.getType()[0], PokemonTypeModel.FIRE);
-        assertEquals(testPokemon.getType()[1], PokemonTypeModel.NONE);
+        PokemonModel testPokemon = new PokemonModel("arceus", 
+                PokemonTypeModel.getPokemonTypeByTypName("FIRE"));
+        
+        assertEquals(testPokemon.getTypes().length, 1);
+        assertEquals(testPokemon.getTypes()[0], 
+                PokemonTypeModel.getPokemonTypeByTypName("FIRE"));
     }
     
     @Test
     public void test_equals() {
-        PokemonModel testPokemon1 = new PokemonModel("arceus", PokemonTypeModel.FIRE);
-        PokemonModel testPokemon2 = new PokemonModel("arceus", PokemonTypeModel.FIRE,PokemonTypeModel.NONE);
+        PokemonModel testPokemon1 = new PokemonModel("arceus", 
+                PokemonTypeModel.getPokemonTypeByTypName("FIRE"));
+        PokemonModel testPokemon2 = new PokemonModel("arceus", 
+                PokemonTypeModel.getPokemonTypeByTypName("FIRE"));
         
         assertTrue(testPokemon1.equals(testPokemon2));
     }
     
     @Test
     public void test_getPathImage() {
-        PokemonModel testPokemon = new PokemonModel("pikachu", PokemonTypeModel.ELECTRIC);
+        PokemonModel testPokemon = new PokemonModel("pikachu", 
+                PokemonTypeModel.getPokemonTypeByTypName("ELECTRIC"));
         File file = new File(testPokemon.getPathImage());
         assertTrue(file.exists());
     }

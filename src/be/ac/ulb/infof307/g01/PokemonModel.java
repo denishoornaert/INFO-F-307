@@ -18,14 +18,18 @@ public class PokemonModel {
     private final PokemonTypeModel[] _type;
     private final String _pathImage;
     
-    
-    public PokemonModel(String name, PokemonTypeModel type) {
-        this(name,type,PokemonTypeModel.NONE);
+    /**
+     * Init a Pokemon with default type (NONE)
+     * 
+     * @param name of the pokemon
+     */
+    public PokemonModel(String name) {
+        this(name, PokemonTypeModel.getPokemonTypeByTypName("NONE"));
     }
     
-    public PokemonModel(String name, PokemonTypeModel type1, PokemonTypeModel type2) {
+    public PokemonModel(String name, PokemonTypeModel... type) {
         _name = name;
-        _type = new PokemonTypeModel[]{type1, type2};
+        _type = type;
         _pathImage = findCorrespondingImagePath();
     }
     
@@ -38,7 +42,7 @@ public class PokemonModel {
         return _name;
     }
     
-    public PokemonTypeModel[] getType() {
+    public PokemonTypeModel[] getTypes() {
         return _type;
     }
     

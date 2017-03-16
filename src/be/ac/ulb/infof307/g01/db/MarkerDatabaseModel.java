@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package be.ac.ulb.infof307.g01.bdd;
+package be.ac.ulb.infof307.g01.db;
 
 import be.ac.ulb.infof307.g01.MarkerModel;
 
@@ -11,7 +11,7 @@ import be.ac.ulb.infof307.g01.MarkerModel;
  *
  * @author Nathan
  */
-public interface MarkerInterfaceBdd {
+public interface MarkerDatabaseModel {
     
     public MarkerModel getMarkerByName(String name);
     

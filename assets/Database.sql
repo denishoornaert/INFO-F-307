@@ -1,8 +1,8 @@
 BEGIN TRANSACTION;
-CREATE TABLE `TypesLink` (
-	`TypeName`	TEXT NOT NULL,
-	`PokemonName`	TEXT NOT NULL,
-	PRIMARY KEY(`TypeName`,`PokemonName`)
+CREATE TABLE `PokemonTypeLink` (
+	`TypeId`	INTEGER NOT NULL,
+	`PokemonId`	INTEGER NOT NULL,
+	PRIMARY KEY(`TypeId`,`PokemonId`)
 );
 CREATE TABLE `Type` (
 	`Id`	INTEGER PRIMARY KEY AUTOINCREMENT,
