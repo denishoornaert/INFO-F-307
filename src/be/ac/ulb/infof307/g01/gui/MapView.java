@@ -27,13 +27,13 @@ public class MapView extends Pane {
     private MapController _mapController;
     
     /** Displays the webpage with the embedded Google Map. */
-    private WebView webView = new WebView();
+    private WebView _webView = new WebView();
     
     /** Manipulates the JavaScript code in the WebView. */
-    private WebEngine webEngine = webView.getEngine();
+    private WebEngine _webEngine = _webView.getEngine();
     
     /** Allows JavaScript code to call Java functions. */
-    private JavaBridge bridge = new JavaBridge();
+    private JavaBridge _bridge = new JavaBridge();
 
     public MapView(MapController mapController) {     
         super();
@@ -43,22 +43,22 @@ public class MapView extends Pane {
         
         // Load Webpage
         final URL urlGoogleMaps = getClass().getResource("/googleMap/mapPage.html");
-        webEngine.load(urlGoogleMaps.toExternalForm());
+        _webEngine.load(urlGoogleMaps.toExternalForm());
 
         // Add the webview to ourselves
-        getChildren().add(webView);
+        getChildren().add(_webView);
         // Add ourselves to the main layout
         Main.getStackPane().getChildren().add(this);
     }
     
     /** Sets bridge member so that JavaScript event handlers can call Java functions. */
     private void bindJavaBridge() {
-        webEngine.getLoadWorker().stateProperty().addListener(new ChangeListener<Worker.State>() {
+        _webEngine.getLoadWorker().stateProperty().addListener(new ChangeListener<Worker.State>() {
             @Override
             public void changed(ObservableValue ov, Worker.State oldState, Worker.State newState) {
                 if (newState == Worker.State.SUCCEEDED) {
-                    JSObject jsobj = (JSObject) webEngine.executeScript("window");
-                    jsobj.setMember("bridge", bridge);
+                    JSObject jsobj = (JSObject) _webEngine.executeScript("window");
+                    jsobj.setMember("bridge", _bridge);
                 }
             }
         });
@@ -72,8 +72,8 @@ public class MapView extends Pane {
     
     public void createPin(MarkerController marker) {
         String pokemonName = marker.getPokemonName();
-        JSObject window = (JSObject) webEngine.executeScript("window");
-        window.call("addMarker", marker.getX(), marker.getY(), pokemonName);
+        JSObject window = (JSObject) _webEngine.executeScript("window");
+        window.call("addMarker", marker.getLatitude(), marker.getLongitude(), pokemonName, 1300);
     }
 
     /** Allows JavaScript code to call Java functions. */
@@ -91,10 +91,19 @@ public class MapView extends Pane {
          * Calls createMarker function on MapView.
          * @param coordinates 
          */
-        public void onMapClick(JSObject coordinates) {
+        public void onMapRightClick(JSObject coordinates) {
             double latitude = (double) coordinates.call("lat");
             double longitude = (double) coordinates.call("lng");
             createMarker(latitude, longitude);
+        }
+        
+        public void onMarkerLeftClick(int markerId) {
+            System.out.println(markerId);
+        }
+        
+        public String getClusterImagesPath() {
+            URL urlClusterImages = getClass().getResource("/googleMap");
+            return urlClusterImages.getPath().substring(1);
         }
     }
 }

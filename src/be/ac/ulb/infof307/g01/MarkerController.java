@@ -19,12 +19,12 @@ public class MarkerController {
         _marker = new MarkerModel(pokemon, _newMarkerCoordinate);
     }
     
-    public double getX() {
-        return _marker.getCoordinate().getX();
+    public double getLatitude() {
+        return _marker.getCoordinate().getLatitude();
     }
     
-    public double getY() {
-        return _marker.getCoordinate().getY();
+    public double getLongitude() {
+        return _marker.getCoordinate().getLongitude();
     }
 
     public Timestamp getTimestamp() {

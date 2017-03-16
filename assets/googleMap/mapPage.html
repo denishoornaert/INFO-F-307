@@ -3,7 +3,10 @@
     <head>
         <style>
             #map {
-                height: 400px;
+                position: absolute;
+                top: 0; /* Header Height */
+                bottom: 0; /* Footer Height */
+                left: 0;
                 width: 100%;
             }
         </style>
@@ -19,7 +22,7 @@
             }
 
             function initMap() {
-                var initcoords = {lat: 50.838679, lng: 4.2933658};
+                var initcoords = {lat: 50.812273, lng: 4.3805383};
                 map = new google.maps.Map(document.getElementById('map'), {
                     zoom: 12,
                     center: initcoords,
@@ -36,33 +39,44 @@
                 });
 
                 // Add a marker clusterer to manage the markers.
-                markerClusterer = new MarkerClusterer(map);
+                var clusterImagesPath = bridge.getClusterImagesPath();
+                bridge.log(clusterImagesPath);
+                var markerOptions = {
+                    averageCenter: true,
+                    imagePath: './clusterImages/'
+                }
+                markerClusterer = new MarkerClusterer(map, {}, markerOptions);
 
                 // Call addMarker() when the map is clicked.
-                google.maps.event.addListener(map, 'click', function(event) {
-                    bridge.onMapClick(event.latLng);
+                google.maps.event.addListener(map, 'rightclick', function(event) {
+                    bridge.onMapRightClick(event.latLng);
                 });
             }
 
             // Adds a marker to the map.
-            function addMarker(latitude, longitude, name) {
+            function addMarker(latitude, longitude, name, id) {
                 // Add the marker at the clicked location
                 var marker = new google.maps.Marker({
                     // Google needs an object with these precise attributes
                     position: {lat: latitude, lng: longitude},
                     map: map
                 });
+                marker.id = id;
 
-                var infobulle = new google.maps.InfoWindow({
+                var infowindow = new google.maps.InfoWindow({
                     content: name
                 });
 
                 google.maps.event.addListener(marker, 'mouseover', function() {
-                    infobulle.open(map, marker);
+                    infowindow.open(map, marker);
                 });
 
                 google.maps.event.addListener(marker, 'mouseout', function() {
-                    infobulle.close(map, marker);
+                    infowindow.close(map, marker);
+                });
+                
+                google.maps.event.addListener(marker, 'click', function(event) {
+                    bridge.onMarkerLeftClick(marker.id);
                 });
 
                 markerClusterer.addMarker(marker);

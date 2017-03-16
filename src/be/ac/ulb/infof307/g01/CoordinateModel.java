@@ -11,33 +11,25 @@ package be.ac.ulb.infof307.g01;
  */
 public class CoordinateModel {
     
-    private final double _x;
-    private final double _y;
+    private final double _latitude;
+    private final double _longitude;
     
-    public CoordinateModel(double x, double y) {
-        _x = x;
-        _y = y;
+    public CoordinateModel(double latitude, double longitude) {
+        _latitude = latitude;
+        _longitude = longitude;
     }
     
-    public double getX() {
-        return _x;
+    public double getLatitude() {
+        return _latitude;
     }
     
-    public double getY() {
-        return _y;
-    }
-    
-    public CoordinateModel add(CoordinateModel other) {
-        return new CoordinateModel(getX() + other.getX(), getY() + other.getY());
-    }
-
-    public CoordinateModel multiply(double factor) {
-        return new CoordinateModel(getX() * factor, getY() * factor);
+    public double getLongitude() {
+        return _longitude;
     }
     
     public boolean equals(Object object){
         CoordinateModel other = (CoordinateModel) object;
-        return getX() == other.getX() && getY() == other.getY();
+        return getLatitude() == other.getLatitude() && getLongitude() == other.getLongitude();
     }
     
 }
