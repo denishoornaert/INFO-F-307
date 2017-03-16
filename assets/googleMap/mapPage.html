@@ -46,17 +46,10 @@
 
             // Adds a marker to the map.
             function addMarker(latitude, longitude, name) {
-                // Google needs a location object with getters
-                location = {
-                    _lat: latitude,
-                    _lng: longitude,
-                    lat: function(){return _lat;},
-                    lng: function(){return _lng;}
-                }
-                    
                 // Add the marker at the clicked location
                 var marker = new google.maps.Marker({
-                    position: location,
+                    // Google needs an object with these precise attributes
+                    position: {lat: latitude, lng: longitude},
                     map: map
                 });
 

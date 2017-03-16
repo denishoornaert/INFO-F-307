@@ -57,7 +57,6 @@ public class MapView extends Pane {
             @Override
             public void changed(ObservableValue ov, Worker.State oldState, Worker.State newState) {
                 if (newState == Worker.State.SUCCEEDED) {
-                    System.out.println("READY");
                     JSObject jsobj = (JSObject) webEngine.executeScript("window");
                     jsobj.setMember("bridge", bridge);
                 }
