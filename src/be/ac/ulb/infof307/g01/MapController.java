@@ -77,8 +77,7 @@ public class MapController {
         _newMarkerCoordinate = null;
         _markers.add(newMarker);
         
-        Pin newPin = getMapView().createPin(newMarker);
-        newMarker.setPin(newPin);
+        getMapView().createPin(newMarker);
     }
     
 }

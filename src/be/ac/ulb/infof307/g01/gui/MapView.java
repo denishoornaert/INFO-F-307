@@ -9,175 +9,94 @@ import be.ac.ulb.infof307.g01.Coordinate;
 import be.ac.ulb.infof307.g01.Main;
 import be.ac.ulb.infof307.g01.MapController;
 import be.ac.ulb.infof307.g01.Marker;
-import java.util.ArrayList;
-import java.util.List;
-import javafx.beans.property.ReadOnlyDoubleProperty;
+import java.net.URL;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
-import javafx.geometry.Point2D;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Node;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Slider;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
+import javafx.concurrent.Worker;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+import netscape.javascript.JSObject;
 
 /**
  *
- * @author hoornaert
+ * @author hoornaert, StanIsAdmin, TheoVerhelst
  */
-public class MapView extends BorderPane implements EventHandler<MouseEvent> {
+public class MapView extends Pane {
     
     private MapController _mapController;
-    /** This StackPane will contain all elements that the map needs to display.
-     * It is in this layout that we will add the map image or pins.
-     */
-    private StackPane _contentLayout;
-    private ScrollPane _scrollPane;
-    private ImageView _imageView;
-    private Slider _imageSlider;
-    private List<Pin> _pins;
     
-    public MapView(MapController mapController) {
+    /** Displays the webpage with the embedded Google Map. */
+    private WebView webView = new WebView();
+    
+    /** Manipulates the JavaScript code in the WebView. */
+    private WebEngine webEngine = webView.getEngine();
+    
+    /** Allows JavaScript code to call Java functions. */
+    private JavaBridge bridge = new JavaBridge();
+
+    public MapView(MapController mapController) {     
         super();
         _mapController = mapController;
-        _contentLayout = new StackPane();
-        _pins = new ArrayList<>();
         
-        setupScrollPane();
-        setImageView();
-        setImageSlider();
-        initLayout();
-        initEvent();
+        bindJavaBridge();
         
-        this.setCenter(_scrollPane);
-        this.setBottom(_imageSlider);
+        // Load Webpage
+        final URL urlGoogleMaps = getClass().getResource("/googleMap/mapPage.html");
+        webEngine.load(urlGoogleMaps.toExternalForm());
+
+        // Add the webview to ourselves
+        getChildren().add(webView);
+        // Add ourselves to the main layout
+        Main.getStackPane().getChildren().add(this);
     }
     
-    private void setupScrollPane() {
-        _scrollPane = new ScrollPane();
-        _scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        _scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        _scrollPane.setPannable(true);
-        setPrefSize(800, 600);
-    }
-    
-    private void setImageView() {
-        String imagePath = _mapController.getImagePath();
-        _imageView = new ImageView(new Image(imagePath));
-        _imageView.setPreserveRatio(true);
-    }
-    
-    private void setImageSlider() {
-        _imageSlider = new Slider();
-        _imageSlider.setMin(1.0);
-        _imageSlider.setMax(2.0);
-        
-        _imageSlider.valueProperty().addListener(new ChangeListener<Number>() {
+    /** Sets bridge member so that JavaScript event handlers can call Java functions. */
+    private void bindJavaBridge() {
+        webEngine.getLoadWorker().stateProperty().addListener(new ChangeListener<Worker.State>() {
             @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                onImageSliderChanged();
+            public void changed(ObservableValue ov, Worker.State oldState, Worker.State newState) {
+                if (newState == Worker.State.SUCCEEDED) {
+                    System.out.println("READY");
+                    JSObject jsobj = (JSObject) webEngine.executeScript("window");
+                    jsobj.setMember("bridge", bridge);
+                }
             }
         });
-        _imageSlider.setValue(1.0);
-    }
-    
-    private double clamp(double value, double min, double max) {
-        if (value < min)
-            return min;
-        if (value > max)
-            return max;
-        return value;
-    }
-    
-    // convert any coordinates in the imageView to coordinates in the actual image
-    private Point2D imageViewToImage(Point2D imageViewCoordinates) {
-        double xProportion = imageViewCoordinates.getX() / _imageView.getBoundsInLocal().getWidth();
-        double yProportion = imageViewCoordinates.getY() / _imageView.getBoundsInLocal().getHeight();
-        
-        Point2D imageCoordinates = new Point2D(
-            _imageView.getBoundsInLocal().getMinX() + xProportion * _imageView.getBoundsInLocal().getWidth(), 
-            _imageView.getBoundsInLocal().getMinY() + yProportion * _imageView.getBoundsInLocal().getHeight());
-        
-        return imageCoordinates;
-    }
-    
-    //return coordinates to the center of the image view
-    private Point2D imageViewCenterToImage() {
-        double x = _imageView.getBoundsInLocal().getMinX() + _imageView.getBoundsInLocal().getWidth()/2;
-        double y = _imageView.getBoundsInLocal().getMinY() + _imageView.getBoundsInLocal().getHeight()/2;
-        return imageViewToImage(new Point2D(x, y));
-    }
-    
-    private void onImageSliderChanged() {
-        double scale = _imageSlider.getValue();
-        Point2D center = imageViewCenterToImage();
-        
-        double newWidth = _scrollPane.getWidth() * scale;
-        double newHeight = _scrollPane.getHeight() * scale;
 
-        double newMinX = clamp(center.getX() - (center.getX() - _imageView.getBoundsInLocal().getMinX()) * scale, 
-                0, _scrollPane.getWidth() - newWidth);
-        double newMinY = clamp(center.getY() - (center.getY() - _imageView.getBoundsInLocal().getMinY()) * scale, 
-                0, _scrollPane.getWidth() - newHeight);
-        System.out.println("Zoomed to scale " + scale + " from center " + center);
-        _imageView.setViewport(new Rectangle2D(newMinX, newMinY, newWidth, newHeight));
-    }
-    
-    private void initLayout() {
-        // Set the stack pane as the internal container for _scrollPane
-        _scrollPane.setContent(_contentLayout);
         
-        // Add the image view to the stack pane
-        _contentLayout.getChildren().add(_imageView);
-        
-        // Add the ourselves to the main layout
-        StackPane mainLayout = Main.getStackPane();
-        mainLayout.getChildren().add(this);
     }
     
-    private void initEvent() {
-        _imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, this);
+    private void createMarker(double latitude, double longitude) {
+        _mapController.askForCreateMarker(latitude, longitude);
     }
     
-    public void adaptToScene(ReadOnlyDoubleProperty property) {
-        // bind the preferred size of the scroll area to the size of the scene.
-        prefWidthProperty().bind(property);
-        prefHeightProperty().bind(property);
+    public void createPin(Marker marker) {
+        Coordinate coordinates = marker.getCoordinate();
+        String pokemonName = marker.getPokemonName();
+        JSObject window = (JSObject) webEngine.executeScript("window");
+        window.call("addMarker", coordinates.getX(), coordinates.getY(), pokemonName);
+    }
 
-        // center the scroll contents.
-        _scrollPane.setHvalue(_scrollPane.getHmin()+(_scrollPane.getHmax()-_scrollPane.getHmin())/2);
-        _scrollPane.setVvalue(_scrollPane.getVmin()+(_scrollPane.getVmax()-_scrollPane.getVmin())/2);
-    }
-    
-    /** Returns the size of the map */
-    public Coordinate getSize() {
-        return new Coordinate((int) _imageView.getImage().getWidth(), (int) _imageView.getImage().getHeight());
-    }
-    
-    public Pin createPin(Marker marker) {
-        Pin newPin = new Pin(marker);
-        _pins.add(newPin);
-        _contentLayout.getChildren().add(newPin);
-        return newPin;
-    }
-    
-    ///////// EVENT ///////// 
-    
-    @Override
-    public void handle(MouseEvent event) {
-        if(event.getButton().equals(MouseButton.SECONDARY)) {
-            System.out.println("Clic on Map " +
-                    "(" + event.getX()+ ", " + event.getY() + ")");
-            _mapController.askForCreateMarker(event.getX(), event.getY());
+    /** Allows JavaScript code to call Java functions. */
+    public class JavaBridge {
+        /**
+         * Displays a message on the Java console.
+         * @param message is the log content.
+         */
+        public void log(String message) {
+            System.out.println("JS Console: " + message);
+        }
+
+        /**
+         * Called when the map receives a click event.
+         * Calls createMarker function on MapView.
+         * @param coordinates 
+         */
+        public void onMapClick(JSObject coordinates) {
+            double latitude = (double) coordinates.call("lat");
+            double longitude = (double) coordinates.call("lng");
+            createMarker(latitude, longitude);
         }
     }
-    
 }
