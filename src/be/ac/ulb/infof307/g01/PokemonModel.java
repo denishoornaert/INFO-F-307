@@ -13,21 +13,33 @@ import java.util.Arrays;
  * @author remy
  */
 public class PokemonModel {
-    
+    private final int _typeNumberMax = 2; // TODO : 
     private final String _name;
     private final PokemonTypeModel[] _type;
     private final String _pathImage;
+    private final int _lifePoint,_attack,_defence,_specialAttack,_specialDefence,_speed;
     
     
-    public PokemonModel(String name, PokemonTypeModel type) {
-        this(name,type,PokemonTypeModel.NONE);
+    public PokemonModel(String name, PokemonTypeModel type, int lifePoint, int attack, int defence, int specialAttack, int specialDefence, int speed) {
+        this(name, type, PokemonTypeModel.NONE, lifePoint, attack, defence, specialAttack, specialDefence, speed);
     }
     
-    public PokemonModel(String name, PokemonTypeModel type1, PokemonTypeModel type2) {
+    public PokemonModel(String name, PokemonTypeModel type1, PokemonTypeModel type2, int lifePoint, int attack, int defence, int specialAttack, int specialDefence, int speed) {
+        this(name, new PokemonTypeModel[]{type1, type2}, lifePoint, attack, defence, specialAttack, specialDefence, speed);
+    }
+    
+    public PokemonModel(String name, PokemonTypeModel[] type_array, int lifePoint, int attack, int defence, int specialAttack, int specialDefence, int speed) {
         _name = name;
-        _type = new PokemonTypeModel[]{type1, type2};
+        _type = type_array;
         _pathImage = findCorrespondingImagePath();
+        _lifePoint = lifePoint;
+        _attack = attack;
+        _defence = defence;
+        _speed = speed;
+        _specialAttack = specialAttack;
+        _specialDefence = specialDefence;
     }
+    
     
     private String findCorrespondingImagePath() {
         return "assets" + File.separator + "sprites" + File.separator + _name + ".png";
@@ -46,6 +58,29 @@ public class PokemonModel {
         return _pathImage;
     }
     
+    public int getLifePoint() {
+       return _lifePoint;
+    }
+
+    public int getAttack() {
+        return _attack;
+    }
+
+    public int getDefence() {
+        return _defence;
+    }
+
+    public int getSpecialAttack() {
+        return _specialAttack;
+    }
+
+    public int getSpecialDefence() {
+        return _specialDefence;
+    }
+
+    public int getSpeed() {
+        return _speed;
+    }
     
     /**
      * Test if two pokemon have same name and type
@@ -55,7 +90,13 @@ public class PokemonModel {
      */
     public boolean equals(PokemonModel otherPokemon) {
         return otherPokemon._name.equals(_name) && 
-                Arrays.equals(otherPokemon._type, _type);
+                Arrays.equals(otherPokemon._type, _type) &&
+                otherPokemon._attack == _attack &&
+                otherPokemon._defence == _defence &&
+                otherPokemon._lifePoint == _lifePoint &&
+                otherPokemon._specialAttack == _specialAttack &&
+                otherPokemon._specialDefence == _specialDefence &&
+                otherPokemon._speed == _speed;
     }
-    
+ 
 }

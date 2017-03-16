@@ -42,7 +42,7 @@ public class MarkerTest {
 
     @Test
     public void test_getPathImage() {
-        PokemonModel testPokemon = new PokemonModel("arceus", PokemonTypeModel.FIRE);
+        PokemonModel testPokemon = new PokemonModel("arceus", PokemonTypeModel.FIRE,10,10,10,10,1,10);
         CoordinateModel testCoordinate = new CoordinateModel(69, 42);
         
         MarkerModel testMarker = new MarkerModel(testPokemon, testCoordinate, false); // For test we must don't use the picture

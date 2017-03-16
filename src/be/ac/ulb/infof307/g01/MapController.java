@@ -77,8 +77,8 @@ public class MapController {
     public void endPopUpCreateMarker(String pokemonName, Timestamp dateView) {
         _newMarkerPopUp.close();
         _newMarkerPopUp = null;
-        
-        PokemonModel pokemon = new PokemonModel(pokemonName, PokemonTypeModel.DARK);
+        // TODO relier popUp pokemon avec la creation des pokemons 
+        PokemonModel pokemon = new PokemonModel(pokemonName, PokemonTypeModel.DARK,-1,-1,-1,-1,-1,-1);
         MarkerController newMarker = new MarkerController(pokemon, _newMarkerCoordinate);
         _newMarkerCoordinate = null;
         _markers.add(newMarker);
