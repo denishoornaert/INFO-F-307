@@ -5,19 +5,17 @@
  */
 package be.ac.ulb.infof307.g01.db;
 
-import be.ac.ulb.infof307.g01.MarkerModel;
+import be.ac.ulb.infof307.g01.PokemonModel;
 import be.ac.ulb.infof307.g01.PokemonTypeModel;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.sqlite.SQLiteErrorCode;
-import org.sqlite.SQLiteException;
+import java.util.ArrayList;
 
 
 public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseModel, 
@@ -96,19 +94,6 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
        }
        return resultat;
     }
-
-    // TODO refaire ici (pas de logique)
-    @Override
-    public MarkerModel getMarkerByName(String name) {
-        throw new UnsupportedOperationException("Not supported yet."); 
-        //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public PokemonTypeModel[] getTypesByName(String name) {
-        throw new UnsupportedOperationException("Not supported yet."); 
-        //To change body of generated methods, choose Tools | Templates.
-    }
     
     /**
      * Load all of the pokemon types from the database
@@ -130,6 +115,39 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
         } catch (SQLException exception) {
             System.err.println(exception.getMessage());
         }
+    }
+
+    @Override
+    public PokemonModel getPokemonByName(String pokemonName) {
+        PokemonModel pokemonToReturn = null;
+        PokemonTypeModel[] pokemonTypes = getPokemonTypesByName(pokemonName);
+        pokemonToReturn = new PokemonModel(pokemonName, pokemonTypes);
+        return pokemonToReturn;
+    }
+    
+    @Override
+    public PokemonTypeModel[] getPokemonTypesByName(String pokemonName) {
+        PokemonTypeModel[] typesToReturn = null;
+        String query = "SELECT T.Name "
+                + "FROM PokemonType T "
+                + "JOIN PokemonPokemonTypeLink L "
+                + "  ON L.TypeId=T.Id "
+                + "JOIN Pokemon P "
+                + "  ON P.Id=L.PokemonId "
+                + "WHERE P.Name=?";
+        try {
+            ArrayList<PokemonTypeModel> typesList = new ArrayList<>();
+            PreparedStatement statement = _connection.prepareStatement(query);
+            statement.setString(1, pokemonName);
+            ResultSet results = statement.executeQuery();
+            while(results.next()) {
+                typesList.add(PokemonTypeModel.getPokemonTypeByTypeName(results.getString("T.Name")));
+            }
+            typesToReturn = (PokemonTypeModel[])typesList.toArray();
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return typesToReturn;
     }
     
     /**

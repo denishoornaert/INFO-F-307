@@ -42,7 +42,7 @@ public class PokemonTypeModel {
      * @param typeName the desired name
      * @return the PokemonTypeModel instance or null if not found
      */
-    public static PokemonTypeModel getPokemonTypeByTypName(String typeName) {
+    public static PokemonTypeModel getPokemonTypeByTypeName(String typeName) {
         return _allPokemonTypes.get(typeName.toUpperCase());
     }
     

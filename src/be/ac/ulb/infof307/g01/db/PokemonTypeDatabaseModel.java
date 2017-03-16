@@ -5,15 +5,12 @@
  */
 package be.ac.ulb.infof307.g01.db;
 
-import be.ac.ulb.infof307.g01.PokemonTypeModel;
-
 /**
  *
  * @author Nathan
  */
 public interface PokemonTypeDatabaseModel {
     
-    public PokemonTypeModel[] getTypesByName(String name);
     public void loadAllPokemonTypes();
     
 }

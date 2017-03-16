@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package db;
+package be.ac.ulb.infof307.g01.db;
 
+import be.ac.ulb.infof307.g01.Main;
 import be.ac.ulb.infof307.g01.PokemonTypeModel;
 import be.ac.ulb.infof307.g01.db.DatabaseModel;
 import be.ac.ulb.infof307.g01.db.PokemonTypeDatabaseModel;
@@ -28,7 +29,7 @@ public class PokemonTypeDatabaseModelTest extends TestCase {
     protected void setUp() throws Exception {
         super.setUp();
         
-        _database = (PokemonTypeDatabaseModel) DatabaseModel.getDatabase();
+        _database = (PokemonTypeDatabaseModel) new DatabaseModel(Main.getTestDatabasePath());
     }
     
     @Override

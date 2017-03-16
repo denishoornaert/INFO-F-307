@@ -5,14 +5,11 @@
  */
 package be.ac.ulb.infof307.g01.db;
 
-import be.ac.ulb.infof307.g01.MarkerModel;
-
 /**
  *
  * @author Nathan
  */
 public interface MarkerDatabaseModel {
     
-    public MarkerModel getMarkerByName(String name);
     
 }

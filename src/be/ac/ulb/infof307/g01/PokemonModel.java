@@ -24,7 +24,7 @@ public class PokemonModel {
      * @param name of the pokemon
      */
     public PokemonModel(String name) {
-        this(name, PokemonTypeModel.getPokemonTypeByTypName("NONE"));
+        this(name, PokemonTypeModel.getPokemonTypeByTypeName("NONE"));
     }
     
     public PokemonModel(String name, PokemonTypeModel... type) {

@@ -1,3 +1,5 @@
+package be.ac.ulb.infof307.g01;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -44,7 +46,7 @@ public class MarkerModelTest {
     @Test
     public void test_getPathImage() {
         PokemonModel testPokemon = new PokemonModel("arceus", 
-                PokemonTypeModel.getPokemonTypeByTypName("FIRE"));
+                PokemonTypeModel.getPokemonTypeByTypeName("FIRE"));
         CoordinateModel testCoordinate = new CoordinateModel(69, 42);
         
         // For test we must not use the picture

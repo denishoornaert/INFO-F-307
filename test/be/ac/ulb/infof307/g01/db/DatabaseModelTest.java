@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package db;
+package be.ac.ulb.infof307.g01.db;
 
 import be.ac.ulb.infof307.g01.Main;
 import be.ac.ulb.infof307.g01.db.DatabaseModel;

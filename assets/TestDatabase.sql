@@ -1,0 +1,20 @@
+BEGIN TRANSACTION;
+CREATE TABLE "PokemonType" (
+	`Id`	INTEGER PRIMARY KEY AUTOINCREMENT,
+	`Name`	TEXT UNIQUE
+);
+INSERT INTO `PokemonType` VALUES (1,'Electrik');
+INSERT INTO `PokemonType` VALUES (2,'Water');
+CREATE TABLE "PokemonPokemonTypeLink" (
+	`TypeId`	INTEGER NOT NULL,
+	`PokemonId`	INTEGER NOT NULL,
+	PRIMARY KEY(`TypeId`,`PokemonId`)
+);
+INSERT INTO `PokemonPokemonTypeLink` VALUES (1,1);
+CREATE TABLE `Pokemon` (
+	`Id`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+	`Name`	TEXT NOT NULL UNIQUE,
+	`ImagePath`	TEXT NOT NULL
+);
+INSERT INTO `Pokemon` VALUES (1,'Pikachu','path to pikachu');
+COMMIT;

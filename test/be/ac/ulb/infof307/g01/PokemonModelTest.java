@@ -1,3 +1,5 @@
+package be.ac.ulb.infof307.g01;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -45,26 +47,26 @@ public class PokemonModelTest {
     @Test
     public void test_getName() {
         PokemonModel testPokemon = new PokemonModel("arceus", 
-                PokemonTypeModel.getPokemonTypeByTypName("DARK"));
+                PokemonTypeModel.getPokemonTypeByTypeName("DARK"));
         assertEquals(testPokemon.getName(), "arceus");
     }
     
     @Test
     public void test_getType() {
         PokemonModel testPokemon = new PokemonModel("arceus", 
-                PokemonTypeModel.getPokemonTypeByTypName("FIRE"));
+                PokemonTypeModel.getPokemonTypeByTypeName("FIRE"));
         
         assertEquals(testPokemon.getTypes().length, 1);
         assertEquals(testPokemon.getTypes()[0], 
-                PokemonTypeModel.getPokemonTypeByTypName("FIRE"));
+                PokemonTypeModel.getPokemonTypeByTypeName("FIRE"));
     }
     
     @Test
     public void test_equals() {
         PokemonModel testPokemon1 = new PokemonModel("arceus", 
-                PokemonTypeModel.getPokemonTypeByTypName("FIRE"));
+                PokemonTypeModel.getPokemonTypeByTypeName("FIRE"));
         PokemonModel testPokemon2 = new PokemonModel("arceus", 
-                PokemonTypeModel.getPokemonTypeByTypName("FIRE"));
+                PokemonTypeModel.getPokemonTypeByTypeName("FIRE"));
         
         assertTrue(testPokemon1.equals(testPokemon2));
     }
@@ -72,7 +74,7 @@ public class PokemonModelTest {
     @Test
     public void test_getPathImage() {
         PokemonModel testPokemon = new PokemonModel("pikachu", 
-                PokemonTypeModel.getPokemonTypeByTypName("ELECTRIC"));
+                PokemonTypeModel.getPokemonTypeByTypeName("ELECTRIC"));
         File file = new File(testPokemon.getPathImage());
         assertTrue(file.exists());
     }

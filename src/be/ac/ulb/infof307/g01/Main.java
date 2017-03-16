@@ -4,8 +4,6 @@ import be.ac.ulb.infof307.g01.db.DatabaseModel;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
@@ -17,6 +15,7 @@ public class Main extends Application {
     private static StackPane _layout;
     private static Stage _stage;
     private static final String DATABASE_PATH = "./assets/Database.db";
+    private static final String TEST_DATABASE_PATH = "./assets/TestDatabase.db";
     
     private Scene _scene;
 
@@ -64,6 +63,10 @@ public class Main extends Application {
     
     public static String getDatabasePath() {
         return DATABASE_PATH;
+    }
+    
+    public static String getTestDatabasePath() {
+        return TEST_DATABASE_PATH;
     }
 
 }
