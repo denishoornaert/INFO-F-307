@@ -54,21 +54,12 @@ public class MapController {
         return _mapView;
     }
     
-    private Coordinate convertEventCoordinate(double coordinateX, double coordinateY) {
-        return new Coordinate((int) coordinateX, (int) coordinateY);
-    }
-    
-    
     public void askForCreateMarker(double coordinateX, double coordinateY) {
         if(_newMarkerPopUp == null) {
             // Converts from event coordinate (centered in the upper left corner)
             // to marker coordinate (centered in the middle of the image)
-            Coordinate eventCoordinate = new Coordinate((int) coordinateX, (int) coordinateY);
-            Coordinate mapSize = getMapView().getSize();
-            _newMarkerCoordinate = eventCoordinate.add(mapSize.multiply(-0.5));
+            _newMarkerCoordinate = new Coordinate(coordinateX, coordinateY);
             _newMarkerPopUp = new NewMarkerPopUp(this);
-            System.out.println("map size " +
-                    "(" + mapSize.getX()+ ", " + mapSize.getY() + ")");
         }
     }
     
@@ -86,8 +77,7 @@ public class MapController {
         _newMarkerCoordinate = null;
         _markers.add(newMarker);
         
-        Pin newPin = getMapView().createPin(newMarker);
-        newMarker.setPin(newPin);
+        getMapView().createPin(newMarker);
     }
     
 }

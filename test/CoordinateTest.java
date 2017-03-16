@@ -31,13 +31,13 @@ public class CoordinateTest extends TestCase {
     @Test
     public void test_getX() {
         Coordinate tmp = new Coordinate(1, 0);
-        assertEquals(tmp.getX(), 1);
+        assertEquals(tmp.getX(), 1.0);
     }
     
     @Test
     public void test_getY() {
         Coordinate tmp = new Coordinate(1, 0);
-        assertEquals(tmp.getY(), 0);
+        assertEquals(tmp.getY(), 0.0);
     }
 
     @Test
@@ -56,9 +56,9 @@ public class CoordinateTest extends TestCase {
     
     @Test
     public void test_multiply() {
-        Coordinate tmp1 = new Coordinate(10, 15);
+        Coordinate tmp1 = new Coordinate(10, 20);
         Coordinate result = tmp1.multiply(1.5);
-        Coordinate expectedResult = new Coordinate(15, 22);
+        Coordinate expectedResult = new Coordinate(15, 30);
         assertEquals(result, expectedResult);
     }
     

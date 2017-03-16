@@ -11,19 +11,19 @@ package be.ac.ulb.infof307.g01;
  */
 public class Coordinate {
     
-    private final int _x;
-    private final int _y;
+    private final double _x;
+    private final double _y;
     
-    public Coordinate(int x, int y) {
+    public Coordinate(double x, double y) {
         _x = x;
         _y = y;
     }
     
-    public int getX() {
+    public double getX() {
         return _x;
     }
     
-    public int getY() {
+    public double getY() {
         return _y;
     }
     
@@ -32,7 +32,7 @@ public class Coordinate {
     }
     
     public Coordinate multiply(double factor) {
-        return new Coordinate((int) (getX() * factor), (int) (getY() * factor));
+        return new Coordinate(getX() * factor, getY() * factor);
     }
     
     public boolean equals(Object object){
