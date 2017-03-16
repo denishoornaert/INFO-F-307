@@ -6,6 +6,7 @@
 package be.ac.ulb.infof307.g01.gui;
 
 import be.ac.ulb.infof307.g01.MapController;
+import java.io.File;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.Calendar;
@@ -20,7 +21,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Spinner;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -31,19 +34,21 @@ import javafx.scene.layout.VBox;
  */
 public class NewMarkerPopUp extends PopUp {
     
-    private VBox _vbox;
-    private TextField _pokemonName;
+    private ImageView _selectedPokemonView;
+    private ComboBox _pokemonName;
     private DatePicker _dateMonthYear;
-    private HBox _hboxDates;
     private ComboBox _dateHour;
     private ComboBox _dateMinute;
     private Label _dateHourLabel;
     private Label _dateMinuteLabel;
+    private Spinner<Integer> _lifeSpinner;
+    private Spinner<Integer> _attackSpinner;
+    private Label _lifeLabel;
+    private Label _attackLabel;
     private final int _hours = 24;
     private final int _minutes = 60;
     private Button _closeButton;
     private Button _okButton;
-    private HBox _hboxButtons;
     
     public NewMarkerPopUp(MapController map) {
         super();
@@ -54,19 +59,22 @@ public class NewMarkerPopUp extends PopUp {
     }
 
     private void initWidget(MapController map) {
-        initTextField();
+        initImage();
         initDatePicker();
+        initSpinners();
         initComboBoxes();
         initLabels();
         initCloseButton(map);
         initokButton(map);
     }
 
-    private void initTextField() {
-        _pokemonName = new TextField();
-        _pokemonName.setPromptText("Pokemon Name");
+    private void initImage() {
+        String path = new File("assets/unknown_pokemon.png").toURI().toString();
+        _selectedPokemonView = new ImageView(new Image(path));
+        _selectedPokemonView.setFitHeight(150);
+        _selectedPokemonView.setFitWidth(150);
     }
-
+    
     private void initDatePicker() {
         _dateMonthYear = new DatePicker();
         setDatePicker(_dateMonthYear);
@@ -74,7 +82,23 @@ public class NewMarkerPopUp extends PopUp {
         _dateMonthYear.setMaxWidth(Double.MAX_VALUE);
     }
     
+    private void initSpinners() {
+        initLifeSpinner();
+        initAttackSpinner();
+    }
+    
+    private void initLifeSpinner() {
+        _lifeSpinner = new Spinner<>(0, Integer.MAX_VALUE, 0);
+        _lifeSpinner.setPrefWidth(100);
+    }
+
+    private void initAttackSpinner() {
+        _attackSpinner = new Spinner<>(0, Integer.MAX_VALUE, 0);
+        _attackSpinner.setPrefWidth(100);
+    }
+    
     private void initComboBoxes() {
+        initComboBoxPokemonName();
         Calendar calendar = initCalendar();
         initComboBoxHour(calendar.get(Calendar.HOUR_OF_DAY));
         initComboBoxMinutes(calendar.get(Calendar.MINUTE));
@@ -83,6 +107,17 @@ public class NewMarkerPopUp extends PopUp {
     private void initLabels() {
         _dateHourLabel = new Label(" h ");
         _dateMinuteLabel = new Label("min");
+        _lifeLabel = new Label("life : ");
+        _attackLabel = new Label("atk : ");
+    }
+    
+    
+    private void initComboBoxPokemonName() {
+        _pokemonName = new ComboBox();
+        _pokemonName.setPromptText("Pokemon name");
+        _pokemonName.setEditable(true); 
+        HBox.setHgrow(_pokemonName, Priority.ALWAYS);
+        _pokemonName.setMaxWidth(Double.MAX_VALUE);
     }
     
     private Calendar initCalendar() {
@@ -125,6 +160,11 @@ public class NewMarkerPopUp extends PopUp {
         return Integer.parseInt(value);
     }
     
+    private String getSelectedString(ComboBox combobox) {
+        Object object = combobox.getValue();
+        return object.toString();
+    }
+    
     private Timestamp getSelectedTime() {
         LocalDate localDate = _dateMonthYear.getValue();
         Integer hours = getSelection(_dateHour);
@@ -140,11 +180,11 @@ public class NewMarkerPopUp extends PopUp {
     }
     
     private void initokButton(MapController map) {
-        _okButton = new Button("ok");
+        _okButton = new Button("save");
         _okButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent t) {
                 Timestamp selectedDate = getSelectedTime();
-                map.endPopUpCreateMarker(_pokemonName.getText(), selectedDate);
+                map.endPopUpCreateMarker(getSelectedString(_pokemonName), selectedDate);
                 // Only when cancel (and not create marker)
                 // map.cancelPopUpCreateMarker();
             }
@@ -168,24 +208,33 @@ public class NewMarkerPopUp extends PopUp {
     }
     
     private void placeWidgets() {
-        _vbox = new VBox();
-        _hboxDates = new HBox();
-        _hboxButtons = new HBox();
-        _hboxDates.setAlignment(Pos.CENTER);
-        ObservableList<Node> childrenV = _vbox.getChildren();
-        childrenV.addAll(_pokemonName, _dateMonthYear);
-        ObservableList<Node> childrenHboxDates = _hboxDates.getChildren();
-        childrenHboxDates.addAll(_dateHour, _dateHourLabel, _dateMinute, _dateMinuteLabel);
-        ObservableList<Node> childrenHboxButtons = _hboxButtons.getChildren();
-        childrenHboxButtons.addAll(_closeButton, _okButton);
-        childrenV.addAll(_hboxDates, _hboxButtons);
-        add(_vbox);
+        HBox hboxDates = placeInRow(_dateHour, _dateHourLabel, _dateMinute, _dateMinuteLabel);
+        HBox hboxSpinner = placeInRow(_lifeLabel, _lifeSpinner, _attackLabel, _attackSpinner);
+        HBox hboxButtons = placeInRow(_closeButton, _okButton);
+        VBox vboxDataEntries = placeInColumn(_pokemonName, hboxSpinner, _dateMonthYear, hboxDates, hboxButtons);
+        HBox generalEntries = placeInRow(_selectedPokemonView, vboxDataEntries);
+        add(generalEntries);
+    }
+    
+    private VBox placeInColumn(Node... nodes) {
+        VBox vbox = new VBox();
+        ObservableList<Node> childrenV = vbox.getChildren();
+        childrenV.addAll(nodes);
+        vbox.setSpacing(10);
+        return vbox;
+    }
+    
+    private HBox placeInRow(Node... nodes) {
+        HBox hbox = new HBox();
+        ObservableList<Node> childrenHboxDates = hbox.getChildren();
+        childrenHboxDates.addAll(nodes);
+        hbox.setAlignment(Pos.CENTER);
+        hbox.setSpacing(10);
+        return hbox;
     }
 
     private void initStyle() {
-        _vbox.setSpacing(10);
-        _hboxDates.setSpacing(10);
-        _hboxButtons.setSpacing(10);
+        setSize(500, 150);
     }
     
 }
