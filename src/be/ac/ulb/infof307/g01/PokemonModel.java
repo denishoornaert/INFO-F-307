@@ -19,6 +19,10 @@ public class PokemonModel {
     private final String _pathImage;
     private final int _lifePoint,_attack,_defence,_specialAttack,_specialDefence,_speed;
     
+    public PokemonModel(String name, int lifePoint, int attack, int defence) {
+        // TODO query to get the corresponding type.
+        this(name, PokemonTypeModel.NONE, PokemonTypeModel.NONE, lifePoint, attack, defence, 0, 0, 0);
+    }
     
     public PokemonModel(String name, PokemonTypeModel type, int lifePoint, int attack, int defence, int specialAttack, int specialDefence, int speed) {
         this(name, type, PokemonTypeModel.NONE, lifePoint, attack, defence, specialAttack, specialDefence, speed);
