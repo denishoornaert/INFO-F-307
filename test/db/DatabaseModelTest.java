@@ -5,17 +5,29 @@
  */
 package db;
 
+import be.ac.ulb.infof307.g01.Main;
+import be.ac.ulb.infof307.g01.db.DatabaseModel;
+import java.io.FileNotFoundException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import org.sqlite.SQLiteException;
 
 /**
  *
  * @author remy
  */
 public class DatabaseModelTest {
+    
+    @Rule
+    public ExpectedException expected = ExpectedException.none();
     
     public DatabaseModelTest() {
     }
@@ -37,8 +49,23 @@ public class DatabaseModelTest {
     }
 
     @Test
-    public void test_example() {
-        ;
+    public void test_connectionThrowsFileNotFoundIfFileDoesNotExist()
+            throws SQLException, FileNotFoundException {
+        expected.expect(FileNotFoundException.class);
+        new DatabaseModel("non-existing-file.db");
     }
     
+    @Test
+    public void test_connectionIsSuccessful() throws SQLException, FileNotFoundException {
+        // no exception should be thrown
+        DatabaseModel database = new DatabaseModel(Main.getDatabasePath());
+        database.close();
+    }
+    
+    @Test
+    public void test_severalConnectionsToDatabaseThrowIllegalStateException() throws SQLException, FileNotFoundException {
+        new DatabaseModel(Main.getDatabasePath());
+        expected.expect(IllegalStateException.class);
+        new DatabaseModel(Main.getDatabasePath());
+    }
 }

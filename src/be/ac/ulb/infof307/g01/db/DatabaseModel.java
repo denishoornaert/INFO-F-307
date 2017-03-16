@@ -7,11 +7,17 @@ package be.ac.ulb.infof307.g01.db;
 
 import be.ac.ulb.infof307.g01.MarkerModel;
 import be.ac.ulb.infof307.g01.PokemonTypeModel;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.sqlite.SQLiteErrorCode;
+import org.sqlite.SQLiteException;
 
 
 public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseModel, 
@@ -25,26 +31,51 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
      * Init database
      * 
      * @param pathToDatabase path to database
+     * @throws java.sql.SQLException
+     * @throws java.io.FileNotFoundException
      */
-    public DatabaseModel(String pathToDatabase) {
+    public DatabaseModel(String pathToDatabase) throws SQLException, FileNotFoundException {
         if(_instance != null) {
             throw new IllegalStateException("DatabaseModel was already instanciated");
         }
+        // stops the function if file doesn't exist
+        assertDatabaseFileExists(pathToDatabase);
         connectToSqlite(pathToDatabase);
         
         _instance = this;
     }
+
+    /**
+     * Returns whether *.db file exists
+     * 
+     * @param path path to database
+     * @return true if file exists and false otherwise
+     */
+    private void assertDatabaseFileExists(String path) throws FileNotFoundException {
+        File file = new File(path);
+        if(!file.exists()) {
+            throw new FileNotFoundException("File " + path + " not found!");
+        }
+    }
+
+    /**
+     * Initialize the connection to the SQLite database
+     * 
+     * @param pathToDatabase path to database
+     * @return true if database was properly loaded and false otherwise
+     */
+    private void connectToSqlite(String pathToDatabase) throws SQLException {
+        _connection = DriverManager.getConnection(
+                "jdbc:sqlite:" + pathToDatabase);
+        System.out.println("Connection to " + pathToDatabase + " successful");
+    }
     
-    private void connectToSqlite(String pathToDatabase) {
+    public void close() {
         try {
-            //Class.forName("org.sqlite.JDBC");
-            _connection = DriverManager.getConnection(
-                    "jdbc:sqlite:" + pathToDatabase);
-            System.out.println("Connection to " + pathToDatabase + " successful");
-            
-        } catch (SQLException exception) {
-            // TODO afficher erreur
-            System.err.println(exception.getMessage());
+            _connection.close();
+            _instance = null;
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
         }
     }
     
