@@ -21,15 +21,14 @@ public class PokemonTypeModel {
         _allPokemonTypes.put("NONE", new PokemonTypeModel("NONE"));
     }
     
-    
     public PokemonTypeModel(String typeName) {
-        if(_allPokemonTypes.containsKey(typeName)) {
+        if(_allPokemonTypes.containsKey(typeName.toUpperCase())) {
             throw new IllegalStateException("PokemonType " + typeName + 
                     " already created");
         }
         
         _typeName = typeName.toUpperCase();
-        _allPokemonTypes.put(typeName, this);
+        _allPokemonTypes.put(typeName.toUpperCase(), this);
     }
     
     public String getTypeName() {
@@ -48,6 +47,10 @@ public class PokemonTypeModel {
     
     public static ArrayList<PokemonTypeModel> getAllPokemonTypes() {
         return new ArrayList<>(_allPokemonTypes.values());
+    }
+    
+    public String toString() {
+        return "PokemonTypeModel(" + _typeName + ")";
     }
     
     /*NORMAL,FIRE,WATER,ELECTRIC,GRASS,ICE,FIGHTING,POISON,GROUND,FLYING,PSYCHIC,

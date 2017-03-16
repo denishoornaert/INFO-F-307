@@ -47,7 +47,7 @@ public class Main extends Application {
     private static boolean loadDatabase() {
         boolean isOk = true;
         try {
-            new DatabaseModel(DATABASE_PATH);
+            new DatabaseModel(getDatabasePath());
         } catch (SQLException | FileNotFoundException exception) {
             System.err.println(exception.getMessage());
             isOk = false;

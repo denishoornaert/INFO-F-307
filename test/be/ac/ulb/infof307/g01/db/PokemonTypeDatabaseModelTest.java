@@ -19,7 +19,7 @@ import org.junit.Test;
  */
 public class PokemonTypeDatabaseModelTest extends TestCase {
     
-    private PokemonTypeDatabaseModel _database;
+    private static PokemonTypeDatabaseModel _database;
     
     public PokemonTypeDatabaseModelTest(String testName) {
         super(testName);
@@ -29,7 +29,11 @@ public class PokemonTypeDatabaseModelTest extends TestCase {
     protected void setUp() throws Exception {
         super.setUp();
         
-        _database = (PokemonTypeDatabaseModel) new DatabaseModel(Main.getTestDatabasePath());
+        try {
+            _database = (PokemonTypeDatabaseModel) new DatabaseModel(Main.getTestDatabasePath());
+        } catch(IllegalStateException ex) {
+            // ignore
+        }
     }
     
     @Override

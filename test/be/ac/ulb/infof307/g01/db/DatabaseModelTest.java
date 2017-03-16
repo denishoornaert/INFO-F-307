@@ -9,8 +9,6 @@ import be.ac.ulb.infof307.g01.Main;
 import be.ac.ulb.infof307.g01.db.DatabaseModel;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -18,7 +16,6 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.sqlite.SQLiteException;
 
 /**
  *

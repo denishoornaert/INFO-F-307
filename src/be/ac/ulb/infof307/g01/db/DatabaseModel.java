@@ -39,6 +39,7 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
         // stops the function if file doesn't exist
         assertDatabaseFileExists(pathToDatabase);
         connectToSqlite(pathToDatabase);
+        loadAllPokemonTypes();
         
         _instance = this;
     }
@@ -141,9 +142,13 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
             statement.setString(1, pokemonName);
             ResultSet results = statement.executeQuery();
             while(results.next()) {
-                typesList.add(PokemonTypeModel.getPokemonTypeByTypeName(results.getString("T.Name")));
+                typesList.add(PokemonTypeModel.getPokemonTypeByTypeName(results.getString(1)));
             }
-            typesToReturn = (PokemonTypeModel[])typesList.toArray();
+            try {
+                typesToReturn = (PokemonTypeModel[])typesList.toArray(new PokemonTypeModel[typesList.size()]);
+            } catch(NullPointerException ex) {
+                System.err.println(ex);
+            }
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }

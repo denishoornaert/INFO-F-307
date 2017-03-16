@@ -10,8 +10,8 @@ import be.ac.ulb.infof307.g01.PokemonModel;
 import be.ac.ulb.infof307.g01.PokemonTypeModel;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
+import java.util.Arrays;
 import junit.framework.TestCase;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -20,20 +20,15 @@ import org.junit.Test;
  */
 public class PokemonDatabaseModelTest extends TestCase {
     
-    PokemonDatabaseModel _database;
+    static PokemonDatabaseModel _database = null;
     
-    public PokemonDatabaseModelTest(String testName) {
+    public PokemonDatabaseModelTest(String testName) throws SQLException, FileNotFoundException {
         super(testName);
-    }
-    
-    @BeforeClass
-    protected void setUpClass() throws SQLException, FileNotFoundException {
-        _database = (PokemonDatabaseModel) new DatabaseModel(Main.getTestDatabasePath());
-    }
-    
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
+        try {
+            _database = (PokemonDatabaseModel) new DatabaseModel(Main.getTestDatabasePath());
+        } catch (IllegalStateException ex) {
+            // ignore
+        }
     }
 
     @Test
@@ -44,11 +39,16 @@ public class PokemonDatabaseModelTest extends TestCase {
     }
     
     @Test
-    public void test_loadPokemonTypesByNameForPikachu() {
+    public void test_loadPokemonTypesByNameForPikachuAreNotNull() {
         String pokemonName = "Pikachu";
         PokemonTypeModel[] pikachuTypes = _database.getPokemonTypesByName(pokemonName);
         assertNotNull(pikachuTypes);
-        assertEquals(pikachuTypes.length, 1);
-        assertEquals(pikachuTypes[0], PokemonTypeModel.getPokemonTypeByTypeName("Electrik"));
+    }
+    
+    public void test_loadPokemonTypesByNameForPikachuEqualsElectrik() {
+        String pokemonName = "Pikachu";
+        PokemonTypeModel[] pikachuTypes = _database.getPokemonTypesByName(pokemonName);
+        PokemonTypeModel[] expectedPokemonTypes = {PokemonTypeModel.getPokemonTypeByTypeName("Electrik")};
+        assertTrue(Arrays.equals(pikachuTypes, expectedPokemonTypes));
     }
 }
