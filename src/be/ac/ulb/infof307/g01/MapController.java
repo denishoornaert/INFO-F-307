@@ -88,4 +88,10 @@ public class MapController {
         //newMarker.setPin(newPin); TODO utile ??!!
     }
     
+    public void updateDimensions() {
+        if(_newMarkerPopUp != null)
+            _newMarkerPopUp.centerOnParent();
+        // MAYBE: update each maker
+    }
+    
 }

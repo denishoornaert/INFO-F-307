@@ -3,6 +3,8 @@ package be.ac.ulb.infof307.g01;
 import java.io.File;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -30,6 +32,17 @@ public class Main extends Application {
         _scene = new Scene(_layout);
         _scene.getStylesheets().add(new File("assets/bootstrap.css").toURI().toString());
         stage.setScene(_scene);
+        
+        final ChangeListener<Number> listener = new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> ov, Number t, Number t1) {
+                mapController.updateDimensions();
+            }
+        };
+        
+        stage.widthProperty().addListener(listener);
+        stage.heightProperty().addListener(listener);
+        
         stage.show();
     }
     
