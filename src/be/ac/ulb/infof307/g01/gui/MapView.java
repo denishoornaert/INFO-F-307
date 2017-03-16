@@ -73,7 +73,7 @@ public class MapView extends Pane {
     public void createPin(MarkerController marker) {
         String pokemonName = marker.getPokemonName();
         JSObject window = (JSObject) _webEngine.executeScript("window");
-        window.call("addMarker", marker.getX(), marker.getY(), pokemonName);
+        window.call("addMarker", marker.getX(), marker.getY(), pokemonName, 1300);
     }
 
     /** Allows JavaScript code to call Java functions. */
@@ -91,10 +91,14 @@ public class MapView extends Pane {
          * Calls createMarker function on MapView.
          * @param coordinates 
          */
-        public void onMapClick(JSObject coordinates) {
+        public void onMapRightClick(JSObject coordinates) {
             double latitude = (double) coordinates.call("lat");
             double longitude = (double) coordinates.call("lng");
             createMarker(latitude, longitude);
+        }
+        
+        public void onMarkerLeftClick(int markerId) {
+            System.out.println(markerId);
         }
         
         public String getClusterImagesPath() {
