@@ -5,7 +5,6 @@
  */
 package be.ac.ulb.infof307.g01.gui;
 
-import be.ac.ulb.infof307.g01.CoordinateModel;
 import be.ac.ulb.infof307.g01.Main;
 import be.ac.ulb.infof307.g01.MapController;
 import be.ac.ulb.infof307.g01.MarkerController;
@@ -13,7 +12,7 @@ import java.net.URL;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import netscape.javascript.JSObject;
@@ -22,7 +21,7 @@ import netscape.javascript.JSObject;
  *
  * @author hoornaert, StanIsAdmin, TheoVerhelst
  */
-public class MapView extends Pane {
+public class MapView extends StackPane {
     
     private MapController _mapController;
     
