@@ -7,6 +7,7 @@ package be.ac.ulb.infof307.g01;
 
 import be.ac.ulb.infof307.g01.gui.NewMarkerPopUp;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 /**
  *
@@ -21,7 +22,8 @@ public class NewMarkerPopUpController {
     private MapController _mapController;
  
     public NewMarkerPopUpController(MapController map) {
-        _pokemonListModel = new PokemonListModel();
+        //_pokemonListModel = new PokemonListModel();
+        _pokemonListModel = new PokemonListModel("Pikachu", "pikata", "Dracaufeu", "bullbizar");
         _mapController = map;
     }
     
@@ -32,8 +34,8 @@ public class NewMarkerPopUpController {
     * @parameters the pattern
     * @return the list of pokemon names that matches the pattern
     */
-    public String[] getPokemonByName(String researchPattern) {
-        String[] res;
+    public ArrayList<String> getPokemonByName(String researchPattern) {
+        ArrayList<String> res;
         if(researchPattern.length() > 2) {
             res = _pokemonListModel.findPokemonFromPattern(researchPattern);
         }

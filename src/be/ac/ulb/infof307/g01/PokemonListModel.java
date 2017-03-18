@@ -6,7 +6,6 @@
 package be.ac.ulb.infof307.g01;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -23,18 +22,18 @@ public class PokemonListModel {
         }
     }
     
-    public String[] getAllNames() {
-        return _allPokemonNames.stream().toArray(String[]::new);
+    public ArrayList<String> getAllNames() {
+        return _allPokemonNames;
     }
     
-    public String[] findPokemonFromPattern(String pattern) {
-        List<String> res = new ArrayList<>();
+    public ArrayList<String> findPokemonFromPattern(String pattern) {
+        ArrayList<String> res = new ArrayList<>();
         for (String str : _allPokemonNames) {
             if(str.contains(pattern)) {
                 res.add(str);
             }
         }
-        return res.stream().toArray(String[]::new);
+        return res;
     }
     
 }
