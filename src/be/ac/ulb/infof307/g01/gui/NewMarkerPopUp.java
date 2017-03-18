@@ -6,12 +6,16 @@
 package be.ac.ulb.infof307.g01.gui;
 
 import be.ac.ulb.infof307.g01.MapController;
+import be.ac.ulb.infof307.g01.NewMarkerPopUpController;
 import java.io.File;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -21,9 +25,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Spinner;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -52,22 +58,22 @@ public class NewMarkerPopUp extends PopUp {
     private Button _closeButton;
     private Button _okButton;
     
-    public NewMarkerPopUp(MapController map) {
+    public NewMarkerPopUp(NewMarkerPopUpController controller) {
         super();
-        initWidget(map);
+        initWidget(controller);
         placeWidgets();
         initStyle();
         show();
     }
 
-    private void initWidget(MapController map) {
+    private void initWidget(NewMarkerPopUpController controller) {
         initImage();
         initDatePicker();
         initSpinners();
-        initComboBoxes();
+        initComboBoxes(controller);
         initLabels();
-        initCloseButton(map);
-        initokButton(map);
+        initCloseButton(controller);
+        initokButton(controller);
     }
 
     private void initImage() {
@@ -99,8 +105,8 @@ public class NewMarkerPopUp extends PopUp {
         spin.setPrefWidth(100);
     }
     
-    private void initComboBoxes() {
-        initComboBoxPokemonName();
+    private void initComboBoxes(NewMarkerPopUpController controller) {
+        initComboBoxPokemonName(controller);
         Calendar calendar = initCalendar();
         initComboBoxHour(calendar.get(Calendar.HOUR_OF_DAY));
         initComboBoxMinutes(calendar.get(Calendar.MINUTE));
@@ -115,12 +121,34 @@ public class NewMarkerPopUp extends PopUp {
     }
     
     
-    private void initComboBoxPokemonName() {
+    private void initComboBoxPokemonName(NewMarkerPopUpController controller) {
         _pokemonName = new ComboBox();
         _pokemonName.setPromptText("Pokemon name");
-        _pokemonName.setEditable(true); 
+        _pokemonName.setEditable(true);
+        initComboBoxPokemonNameEvent(controller);
+        setComboBoxPokemonNameContent(controller, "");
         HBox.setHgrow(_pokemonName, Priority.ALWAYS);
         _pokemonName.setMaxWidth(Double.MAX_VALUE);
+    }
+    
+    private void initComboBoxPokemonNameEvent(NewMarkerPopUpController controller) {
+        _pokemonName.getEditor().addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+            System.out.println("key pressed");
+            String text = _pokemonName.getEditor().getText();
+            System.out.println("hop");
+            ObservableList items = _pokemonName.getItems();
+            items.clear();
+            setComboBoxPokemonNameContent(controller, text);
+            System.out.println("now : "+text);
+        });
+    }
+    
+    private void setComboBoxPokemonNameContent(NewMarkerPopUpController controller, String text) {
+        ArrayList<String> pokemonsName = controller.getPokemonByName(text);
+        ObservableList items = _pokemonName.getItems();
+        for (String item : pokemonsName) {
+            items.add(item);
+        }
     }
     
     private Calendar initCalendar() {
@@ -182,7 +210,7 @@ public class NewMarkerPopUp extends PopUp {
         return resTimestamp;
     }
     
-    private void initokButton(MapController map) {
+    private void initokButton(NewMarkerPopUpController controller) {
         _okButton = new Button("save");
         _okButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent t) {
@@ -191,7 +219,7 @@ public class NewMarkerPopUp extends PopUp {
                 int life = getSpinnerValue(_lifeSpinner);
                 int attack = getSpinnerValue(_attackSpinner);
                 int defense = getSpinnerValue(_defenseSpinner);
-                map.endPopUpCreateMarker(name, life, attack, defense, selectedDate);
+                controller.endPopUpCreateMarker(name, life, attack, defense, selectedDate);
                 // Only when cancel (and not create marker)
                 // map.cancelPopUpCreateMarker();
             }
@@ -201,12 +229,12 @@ public class NewMarkerPopUp extends PopUp {
         _okButton.setMaxWidth(Double.MAX_VALUE);
     }
     
-    private void initCloseButton(MapController map) {
+    private void initCloseButton(NewMarkerPopUpController controller) {
         _closeButton = new Button("cancel");
         _closeButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent t) {
                 // Only when cancel (and not create marker)
-                map.cancelPopUpCreateMarker();
+                controller.cancelPopUpCreateMarker();
             }
         });
         _closeButton.getStyleClass().add("danger");
