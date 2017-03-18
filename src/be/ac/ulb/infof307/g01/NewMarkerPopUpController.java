@@ -36,7 +36,7 @@ public class NewMarkerPopUpController {
     */
     public ArrayList<String> getPokemonByName(String researchPattern) {
         ArrayList<String> res;
-        if(researchPattern.length() > 2) {
+        if(researchPattern.length() > 1) {
             res = _pokemonListModel.findPokemonFromPattern(researchPattern);
         }
         else {
