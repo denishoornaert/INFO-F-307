@@ -5,7 +5,6 @@
  */
 package be.ac.ulb.infof307.g01.gui;
 
-import be.ac.ulb.infof307.g01.CoordinateModel;
 import be.ac.ulb.infof307.g01.Main;
 import be.ac.ulb.infof307.g01.MapController;
 import be.ac.ulb.infof307.g01.MarkerController;

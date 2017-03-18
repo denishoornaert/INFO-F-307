@@ -23,6 +23,10 @@ public class PokemonListModel {
         }
     }
     
+    public String[] getAllNames() {
+        return _allPokemonNames.stream().toArray(String[]::new);
+    }
+    
     public String[] findPokemonFromPattern(String pattern) {
         List<String> res = new ArrayList<>();
         for (String str : _allPokemonNames) {

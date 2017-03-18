@@ -26,19 +26,12 @@ public class MapController {
     /** Instance of the current popup. Is equal to null if no popup is open,
      *  and is set to null when the popup is closed.
      */
-    private NewMarkerPopUp _newMarkerPopUp;
-    
-    /** Coordinates associated to the current popup. */
-    private CoordinateModel _newMarkerCoordinate;
-    
+    private NewMarkerPopUpController _newMarkerPopUpController;    
     
     public MapController() {
         _imagePath = new File("assets/Brussels_map.jpg").toURI().toString();
         _markers = new ArrayList<>();
         _mapView = new MapView(this);
-        
-        _newMarkerPopUp = null;
-        _newMarkerCoordinate = null;
     }
     
     public String getImagePath() {
@@ -48,31 +41,14 @@ public class MapController {
     public MapView getMapView() {
         return _mapView;
     }
-
-    public void askForCreateMarker(double coordinateX, double coordinateY) {
-        if(_newMarkerPopUp == null) {
-            // Converts from event coordinate (centered in the upper left corner)
-            // to marker coordinate (centered in the middle of the image)
-            _newMarkerCoordinate = new CoordinateModel(coordinateX, coordinateY);
-            _newMarkerPopUp = new NewMarkerPopUp(this);
-        }
-    }
     
-    public void cancelPopUpCreateMarker() {
-        _newMarkerPopUp.close();
-        _newMarkerPopUp = null;
-    }
-    
-    public void endPopUpCreateMarker(String pokemonName, Timestamp dateView) {
-        _newMarkerPopUp.close();
-        _newMarkerPopUp = null;
-        // TODO relier popUp pokemon avec la creation des pokemons 
-        PokemonModel pokemon = new PokemonModel(pokemonName, PokemonTypeModel.DARK,-1,-1,-1,-1,-1,-1);
-        MarkerController newMarker = new MarkerController(pokemon, _newMarkerCoordinate);
-        _newMarkerCoordinate = null;
+    public void addMarkerController(MarkerController newMarker) {
         _markers.add(newMarker);
-        
-        getMapView().createPin(newMarker);
+    }
+
+    public void askForCreateMarker(double latitude, double longitude) {
+        _newMarkerPopUpController = new NewMarkerPopUpController(this);
+        _newMarkerPopUpController.askForCreateMarker(longitude, longitude);
     }
     
 }

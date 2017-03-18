@@ -6,6 +6,7 @@
 package be.ac.ulb.infof307.g01.gui;
 
 import be.ac.ulb.infof307.g01.MapController;
+import be.ac.ulb.infof307.g01.NewMarkerPopUpController;
 import java.io.File;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -50,22 +51,22 @@ public class NewMarkerPopUp extends PopUp {
     private Button _closeButton;
     private Button _okButton;
     
-    public NewMarkerPopUp(MapController map) {
+    public NewMarkerPopUp(NewMarkerPopUpController controller) {
         super();
-        initWidget(map);
+        initWidget(controller);
         placeWidgets();
         initStyle();
         show();
     }
 
-    private void initWidget(MapController map) {
+    private void initWidget(NewMarkerPopUpController controller) {
         initImage();
         initDatePicker();
         initSpinners();
         initComboBoxes();
         initLabels();
-        initCloseButton(map);
-        initokButton(map);
+        initCloseButton(controller);
+        initokButton(controller);
     }
 
     private void initImage() {
@@ -179,12 +180,12 @@ public class NewMarkerPopUp extends PopUp {
         return resTimestamp;
     }
     
-    private void initokButton(MapController map) {
+    private void initokButton(NewMarkerPopUpController controller) {
         _okButton = new Button("save");
         _okButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent t) {
                 Timestamp selectedDate = getSelectedTime();
-                map.endPopUpCreateMarker(getSelectedString(_pokemonName), selectedDate);
+                controller.endPopUpCreateMarker(getSelectedString(_pokemonName), selectedDate);
                 // Only when cancel (and not create marker)
                 // map.cancelPopUpCreateMarker();
             }
@@ -194,12 +195,12 @@ public class NewMarkerPopUp extends PopUp {
         _okButton.setMaxWidth(Double.MAX_VALUE);
     }
     
-    private void initCloseButton(MapController map) {
+    private void initCloseButton(NewMarkerPopUpController controller) {
         _closeButton = new Button("cancel");
         _closeButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent t) {
                 // Only when cancel (and not create marker)
-                map.cancelPopUpCreateMarker();
+                controller.cancelPopUpCreateMarker();
             }
         });
         _closeButton.getStyleClass().add("danger");
