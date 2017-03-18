@@ -23,6 +23,9 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
     
     private static DatabaseModel _instance = null;
     
+    /**
+     * The database connection
+     */
     private Connection _connection;
     
     /**
@@ -69,6 +72,9 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
         System.out.println("Connection to " + pathToDatabase + " successful");
     }
     
+    /**
+     * Properly close the connection to the database
+     */
     public void close() {
         try {
             _connection.close();
@@ -118,6 +124,11 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
         }
     }
 
+    /**
+     * Return the pokemon having given name
+     * @param pokemonName the name of the Pokemon
+     * @return The pokemon instance and null if it doesn't exist in database
+     */
     @Override
     public PokemonModel getPokemonByName(String pokemonName) {
         PokemonModel pokemonToReturn = null;
@@ -126,6 +137,11 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
         return pokemonToReturn;
     }
     
+    /**
+     * Return the types assigned to a pokemon
+     * @param pokemonName the name of the Pokemon
+     * @return a list of PokemonTypes assigned to a given Pokemon
+     */
     @Override
     public PokemonTypeModel[] getPokemonTypesByName(String pokemonName) {
         PokemonTypeModel[] typesToReturn = null;

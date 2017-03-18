@@ -14,7 +14,18 @@ public class Main extends Application {
   
     private static StackPane _layout;
     private static Stage _stage;
+    
+    /**
+     * Path to application database
+     */
     private static final String DATABASE_PATH = "./assets/Database.db";
+    
+    /**
+     * Path to application tests  database
+     * 
+     * Note: another database is needed for tests in order to not pollute the
+     * initial one in case any database test goes wrong
+     */
     private static final String TEST_DATABASE_PATH = "./assets/TestDatabase.db";
     
     private Scene _scene;
@@ -44,10 +55,15 @@ public class Main extends Application {
         return _stage;
     }
     
+    /**
+     * Load and init the database
+     * 
+     * @return false if anything went wrong and true otherwise
+     */
     private static boolean loadDatabase() {
         boolean isOk = true;
         try {
-            new DatabaseModel(getDatabasePath());
+            DatabaseModel databaseModel = new DatabaseModel(getDatabasePath());
         } catch (SQLException | FileNotFoundException exception) {
             System.err.println(exception.getMessage());
             isOk = false;
@@ -56,15 +72,25 @@ public class Main extends Application {
     }
     
     public static void main(String[] args) {
-        if(loadDatabase()) {
-            launch(args);
+        if(!loadDatabase()) {
+            System.err.println("Error loading the database. Application aborted");
+            return;
         }
+        launch(args);
     }  
     
+    /**
+     * Return the path of the application database
+     * @return the path to the database to be used in the application
+     */
     public static String getDatabasePath() {
         return DATABASE_PATH;
     }
     
+    /**
+     * Return the path or the tests database
+     * @return the path of the database to be used in the tests
+     */
     public static String getTestDatabasePath() {
         return TEST_DATABASE_PATH;
     }
