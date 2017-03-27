@@ -14,6 +14,10 @@ import java.util.HashMap;
  */
 public class PokemonTypeModel {
     
+    /**
+     * HashMap mapping the name (String) of the type to its only instance in the
+     * application
+     */
     private static HashMap<String, PokemonTypeModel> _allPokemonTypes = new HashMap<>();
     private final String _typeName;
     
@@ -21,7 +25,11 @@ public class PokemonTypeModel {
         _allPokemonTypes.put("NONE", new PokemonTypeModel("NONE"));
     }
     
-    
+    /**
+     * Create a new PokemonType
+     * @param typeName the name of the brand new type
+     * @throws IllegalStateException if type already exists
+     */
     public PokemonTypeModel(String typeName) {
         typeName = typeName.toUpperCase();
         if(_allPokemonTypes.containsKey(typeName)) {
@@ -33,6 +41,10 @@ public class PokemonTypeModel {
         _allPokemonTypes.put(_typeName, this);
     }
     
+    /**
+     * Return the name of the type
+     * @return the name of the type
+     */
     public String getTypeName() {
         return _typeName;
     }
@@ -49,6 +61,10 @@ public class PokemonTypeModel {
         return _allPokemonTypes.get(typeName.toUpperCase());
     }
     
+    /**
+     * Return all of the PokemonType created so far
+     * @return an ArrayList of PokemonTypeModel instances
+     */
     public static ArrayList<PokemonTypeModel> getAllPokemonTypes() {
         return new ArrayList<>(_allPokemonTypes.values());
     }
@@ -60,6 +76,12 @@ public class PokemonTypeModel {
     public static void resetAllPokemonType() {
         _allPokemonTypes.clear();
         _allPokemonTypes.put("NONE", new PokemonTypeModel("NONE"));
+    }
+        
+        
+    @Override
+    public String toString() {
+        return "PokemonTypeModel(" + _typeName + ")";
     }
     
     /*NORMAL,FIRE,WATER,ELECTRIC,GRASS,ICE,FIGHTING,POISON,GROUND,FLYING,PSYCHIC,

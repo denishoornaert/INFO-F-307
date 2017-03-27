@@ -32,25 +32,45 @@ public class PokemonModel {
         this(name, PokemonTypeModel.getPokemonTypeByTypeName("NONE"));
     }
     
+    /**
+     * Init a Pokemon with given name and typess
+     * @param name the name of the pokemon
+     * @param type a list of types to assign to the Pokemon
+     */
     public PokemonModel(String name, PokemonTypeModel... type) {
         _name = name;
         _type = type;
         _pathImage = findCorrespondingImagePath();
     }
     
+    /**
+     * Return the path of the sprite of the Pokemon
+     * @return the path of the sprite of the Pokemon
+     */
     private String findCorrespondingImagePath() {
         return "assets" + File.separator + "sprites" + File.separator + _name + ".png";
     }
     
-    
+    /**
+     * Return the name of the Pokemon
+     * @return the name of the Pokemon
+     */
     public String getName() {
         return _name;
     }
     
+    /**
+     * Return the list of types assigned to the pokemon
+     * @return a list of types assigned to the pokemon
+     */
     public PokemonTypeModel[] getTypes() {
         return _type;
     }
     
+    /**
+     * Return the path of the sprite of the Pokemon
+     * @return the path of the sprite of the Pokemon
+     */
     public String getPathImage() {
         return _pathImage;
     }
