@@ -17,6 +17,7 @@ public class MarkerModel {
     private final PokemonModel _pokemon;
     private final CoordinateModel _coordinate;
     private Timestamp _timestamp;
+    private ReputationScore _reputation;
     /**
      * Indicates whether this marker contains valid information.
      * If false, the display shows input fields to select the pokemon
@@ -30,12 +31,19 @@ public class MarkerModel {
     }
     
     public MarkerModel(PokemonModel pokemon, CoordinateModel coordinate, boolean createPin) {
+        this(pokemon, coordinate, createPin, 0, 0);
+    }
+    
+    public MarkerModel(PokemonModel pokemon, CoordinateModel coordinate, boolean createPin, int upVote, int downVote) {
         _pokemon = pokemon;
         _coordinate = coordinate;
         
         Long currentTime = System.currentTimeMillis();
         _timestamp = new Timestamp(currentTime);
         _isValid = true;
+        
+        _reputation = new ReputationScore(upVote, downVote);
+        
     }
     
     public void setTimestamp(Timestamp newTimestamp) {
