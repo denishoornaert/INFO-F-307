@@ -13,6 +13,7 @@ import be.ac.ulb.infof307.g01.PokemonTypeModel;
  * @author Nathan
  */
 public interface PokemonDatabaseModel {
-    
-    public void loadAllPokemon(); 
+    public void loadAllPokemons();
+    public PokemonModel getPokemonByName(String pokemonName);
+    public PokemonTypeModel[] getPokemonTypesByName(String pokemonName);
 }

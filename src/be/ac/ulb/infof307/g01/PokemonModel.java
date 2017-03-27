@@ -5,7 +5,6 @@
  */
 package be.ac.ulb.infof307.g01;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -37,7 +36,7 @@ public class PokemonModel {
      * @param pathImage the path to the sprite of the pokemon
      * @param type a list of types to assign to the Pokemon
      */
-    public PokemonModel(String name,String pathImage, PokemonTypeModel... type) {
+    public PokemonModel(String name, String pathImage, PokemonTypeModel... type) {
         if(_allPokemon.containsKey(name)) {
             throw new IllegalStateException("Pokemon " + name + 
                     " already created");
