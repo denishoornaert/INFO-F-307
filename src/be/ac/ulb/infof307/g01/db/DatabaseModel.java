@@ -123,58 +123,34 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
             System.err.println(exception.getMessage());
         }
     }
-
-    /**
-     * Return the pokemon having given name
-     * @param pokemonName the name of the Pokemon
-     * @return The pokemon instance and null if it doesn't exist in database
-     */
-    @Override
-    public PokemonModel getPokemonByName(String pokemonName) {
-        PokemonModel pokemonToReturn = null;
-        PokemonTypeModel[] pokemonTypes = getPokemonTypesByName(pokemonName);
-        pokemonToReturn = new PokemonModel(pokemonName, pokemonTypes);
-        return pokemonToReturn;
-    }
-    
-    /**
-     * Return the types assigned to a pokemon
-     * @param pokemonName the name of the Pokemon
-     * @return a list of PokemonTypes assigned to a given Pokemon
-     */
-    @Override
-    public PokemonTypeModel[] getPokemonTypesByName(String pokemonName) {
-        PokemonTypeModel[] typesToReturn = null;
-        String query = "SELECT T.Name "
-                + "FROM PokemonType T "
-                + "JOIN PokemonPokemonTypeLink L "
-                + "  ON L.TypeId=T.Id "
-                + "JOIN Pokemon P "
-                + "  ON P.Id=L.PokemonId "
-                + "WHERE P.Name=?";
-        try {
-            ArrayList<PokemonTypeModel> typesList = new ArrayList<>();
-            PreparedStatement statement = _connection.prepareStatement(query);
-            statement.setString(1, pokemonName);
-            ResultSet results = statement.executeQuery();
-            while(results.next()) {
-                typesList.add(PokemonTypeModel.getPokemonTypeByTypeName(results.getString(1)));
-            }
-            try {
-                typesToReturn = (PokemonTypeModel[])typesList.toArray(new PokemonTypeModel[typesList.size()]);
-            } catch(NullPointerException ex) {
-                System.err.println(ex);
-            }
-        } catch (SQLException ex) {
-            System.err.println(ex.getMessage());
-        }
-        return typesToReturn;
-    }
     
     @Override
     public void loadAllPokemon() {
-        throw new UnsupportedOperationException("Not supported yet."); 
-        //To change body of generated methods, choose Tools | Templates.
+        String query = "SELECT Pokemon.Name AS PName, Pokemon.ImagePath, "
+                    + "PokemonType.Name AS TypeName "
+                + "FROM Pokemon "
+                + "JOIN PokemonPokemonTypeLink "
+                    + "ON PokemonPokemonTypeLink.PokemonId = Pokemon.Id "
+                + "JOIN PokemonType "
+                    + "ON PokemonType.Id = PokemonPokemonTypeLink.TypeId";
+        ResultSet result = executeQuery(query);
+        
+        try {
+            while(result.next()) {
+                try {
+                    String pokemonName = result.getString("PName");
+                    String imagePath = result.getString("ImagePath");
+                    String pokemonType = result.getString("TypeName");
+                    new PokemonModel(pokemonName,imagePath,
+                            PokemonTypeModel.getPokemonTypeByTypeName(pokemonType));
+                } catch(IllegalStateException exception) {
+                    System.err.println(exception.getMessage());
+                    break;
+                }
+            }
+        } catch (SQLException exception) {
+            System.err.println(exception.getMessage());
+        }
     }
     
     /**

@@ -20,35 +20,26 @@ import org.junit.Test;
  */
 public class PokemonDatabaseModelTest extends TestCase {
     
-    static PokemonDatabaseModel _database = null;
+    private static PokemonDatabaseModel _database;
     
     public PokemonDatabaseModelTest(String testName) throws SQLException, FileNotFoundException {
         super(testName);
+    }
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+        
         try {
+            System.out.println("ah " + Main.getDatabasePath());
             _database = (PokemonDatabaseModel) new DatabaseModel(Main.getTestDatabasePath());
-        } catch (IllegalStateException ex) {
+        } catch(IllegalStateException ex) {
             // ignore
         }
     }
-
-    @Test
-    public void test_loadPokemonInDatabase() {
-        String pokemonName = "Pikachu";
-        PokemonModel loadedPokemon = _database.getPokemonByName(pokemonName);
-        assertNotNull(loadedPokemon);
-    }
-    
-    @Test
-    public void test_loadPokemonTypesByNameForPikachuAreNotNull() {
-        String pokemonName = "Pikachu";
-        PokemonTypeModel[] pikachuTypes = _database.getPokemonTypesByName(pokemonName);
-        assertNotNull(pikachuTypes);
-    }
-    
-    public void test_loadPokemonTypesByNameForPikachuEqualsElectrik() {
-        String pokemonName = "Pikachu";
-        PokemonTypeModel[] pikachuTypes = _database.getPokemonTypesByName(pokemonName);
-        PokemonTypeModel[] expectedPokemonTypes = {PokemonTypeModel.getPokemonTypeByTypeName("Electrik")};
-        assertTrue(Arrays.equals(pikachuTypes, expectedPokemonTypes));
+    @Test public void test_loadPokemonNotEmpty(){
+        _database.loadAllPokemon();
+        int size = PokemonModel.getSizePokemonModel();
+        assertFalse(size == 0);
+        // size must be > 0
     }
 }
