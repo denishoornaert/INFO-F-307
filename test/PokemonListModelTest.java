@@ -37,6 +37,6 @@ public class PokemonListModelTest extends TestCase {
     @Test
     public void test_findPokemonFromPattern() {
         PokemonListModel tmp = new PokemonListModel("ami", "amitié", "bien", "bienvenue", "Jean");
-        assertArrayEquals(tmp.findPokemonFromPattern("ami"),new String[]{"ami", "amitié"});
+        assertArrayEquals(tmp.findPokemonFromPattern("ami").toArray(),new String[]{"ami", "amitié"});
     }
 }
