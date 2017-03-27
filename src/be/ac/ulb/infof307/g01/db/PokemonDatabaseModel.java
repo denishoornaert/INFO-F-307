@@ -14,8 +14,5 @@ import be.ac.ulb.infof307.g01.PokemonTypeModel;
  */
 public interface PokemonDatabaseModel {
     
-    public void loadAllPokemon();
-    public PokemonModel getPokemonByName(String pokemonName);
-    public PokemonTypeModel[] getPokemonTypesByName(String pokemonName);
-    
+    public void loadAllPokemon(); 
 }

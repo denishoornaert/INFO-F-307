@@ -74,11 +74,12 @@ public class MapController {
         _newMarkerPopUp = null;
     }
     
+    // TODO PokemonModel is already created and must be getted
     public void endPopUpCreateMarker(String pokemonName, Timestamp dateView) {
         _newMarkerPopUp.close();
         _newMarkerPopUp = null;
-        
-        PokemonModel pokemon = new PokemonModel(pokemonName, PokemonTypeModel.getPokemonTypeByTypeName("NONE"));
+       
+        PokemonModel pokemon = new PokemonModel(pokemonName,"", PokemonTypeModel.getPokemonTypeByTypeName("NONE"));
         MarkerController newMarker = new MarkerController(pokemon, _newMarkerCoordinate);
         _newMarkerCoordinate = null;
         _markers.add(newMarker);

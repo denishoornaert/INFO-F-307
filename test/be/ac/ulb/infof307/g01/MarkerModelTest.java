@@ -45,7 +45,7 @@ public class MarkerModelTest {
 
     @Test
     public void test_getPathImage() {
-        PokemonModel testPokemon = new PokemonModel("arceus", 
+        PokemonModel testPokemon = new PokemonModel("arceus","", 
                 PokemonTypeModel.getPokemonTypeByTypeName("FIRE"));
         CoordinateModel testCoordinate = new CoordinateModel(69, 42);
         

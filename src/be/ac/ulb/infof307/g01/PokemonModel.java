@@ -17,39 +17,38 @@ import java.util.HashMap;
 public class PokemonModel {
     
     private static HashMap<String, PokemonModel> _allPokemon = new HashMap<>();
-    
-    
+
     private final String _name;
     private final PokemonTypeModel[] _type;
     private final String _pathImage;
     
     /**
-     * Init a Pokemon with default type (NONE)
+     * Init a Pokemon with default type (NONE) and no image
      * 
      * @param name of the pokemon
      */
     public PokemonModel(String name) {
-        this(name, PokemonTypeModel.getPokemonTypeByTypeName("NONE"));
+        this(name,"", PokemonTypeModel.getPokemonTypeByTypeName("NONE"));
     }
     
     /**
      * Init a Pokemon with given name and typess
      * @param name the name of the pokemon
+     * @param pathImage the path to the sprite of the pokemon
      * @param type a list of types to assign to the Pokemon
      */
-    public PokemonModel(String name, PokemonTypeModel... type) {
+    public PokemonModel(String name,String pathImage, PokemonTypeModel... type) {
+        if(_allPokemon.containsKey(name)) {
+            throw new IllegalStateException("Pokemon " + name + 
+                    " already created");
+        }
         _name = name;
         _type = type;
-        _pathImage = findCorrespondingImagePath();
+        _pathImage = pathImage;
+        _allPokemon.put(name,this);
     }
     
-    /**
-     * Return the path of the sprite of the Pokemon
-     * @return the path of the sprite of the Pokemon
-     */
-    private String findCorrespondingImagePath() {
-        return "assets" + File.separator + "sprites" + File.separator + _name + ".png";
-    }
+ 
     
     /**
      * Return the name of the Pokemon
@@ -104,5 +103,14 @@ public class PokemonModel {
         return new ArrayList<>(_allPokemon.values());
     }
     
-    
+    public static void clearAllPokemon() {
+        _allPokemon.clear();
+    }
+    /**
+     * get the number of loaded pokemon
+     * @return number of pokemon 
+     */
+    public static int getSizePokemonModel(){
+        return _allPokemon.size();
+    }
 }
