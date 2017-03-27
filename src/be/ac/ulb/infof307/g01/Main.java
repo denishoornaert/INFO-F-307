@@ -1,5 +1,6 @@
 package be.ac.ulb.infof307.g01;
 
+import be.ac.ulb.infof307.g01.gui.PinPopUp;
 import java.io.File;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
@@ -29,6 +30,9 @@ public class Main extends Application {
         _scene = new Scene(_layout);
         _scene.getStylesheets().add(new File("assets/bootstrap.css").toURI().toString());
         stage.setScene(_scene);
+        
+        // TEST PINPOPUP
+        //PinPopUp tmp = new PinPopUp(new MarkerController(new PokemonModel("Denis l'oiseau", 0, 0, 0), new CoordinateModel(0, 0)));
         
         /*final ChangeListener<Number> listener = new ChangeListener<Number>() {
             @Override
