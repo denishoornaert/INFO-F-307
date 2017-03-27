@@ -77,8 +77,24 @@ public class MarkerModel {
         return _coordinate;
     }
 
-    void setPin(Pin newPin) {
+    public void setPin(Pin newPin) {
         _pin = newPin;
     }
+
+    public int getPokemonAttack() {
+        return _pokemon.getAttack();
+    }
     
+    public int getPokemonDefense() {
+        return _pokemon.getDefence();
+    }
+    
+    public int getPokemonLife() {
+        return _pokemon.getLifePoint();
+    }
+
+    public int getVoteScore() {
+        return _reputation.getScore();
+    }
+   
 }

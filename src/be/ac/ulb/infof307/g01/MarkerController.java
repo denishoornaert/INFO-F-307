@@ -35,4 +35,20 @@ public class MarkerController {
         return _marker.getPokemonName();
     }
     
+    public int getPokemonAttack() {
+        return _marker.getPokemonAttack();
+    }
+    
+    public int getPokemonDefense() {
+        return _marker.getPokemonDefense();
+    }
+    
+    public int getPokemonLife() {
+        return _marker.getPokemonLife();
+    }
+    
+    public int getVoteScore() {
+        return _marker.getVoteScore();
+    } 
+    
 }
