@@ -6,13 +6,18 @@
 package be.ac.ulb.infof307.g01;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 /**
  *
  * @author remy
  */
 public class PokemonModel {
+    
+    private static HashMap<String, PokemonModel> _allPokemon = new HashMap<>();
+    
     
     private final String _name;
     private final PokemonTypeModel[] _type;
@@ -24,7 +29,7 @@ public class PokemonModel {
      * @param name of the pokemon
      */
     public PokemonModel(String name) {
-        this(name, PokemonTypeModel.getPokemonTypeByTypName("NONE"));
+        this(name, PokemonTypeModel.getPokemonTypeByTypeName("NONE"));
     }
     
     public PokemonModel(String name, PokemonTypeModel... type) {
@@ -61,5 +66,23 @@ public class PokemonModel {
         return otherPokemon._name.equals(_name) && 
                 Arrays.equals(otherPokemon._type, _type);
     }
+    
+    
+    /////////////////// STATIC /////////////////////
+    
+    /**
+     * Return the pokemonModel instance by name
+     * 
+     * @param name the desired name
+     * @return the PokemonModel instance or null if not found
+     */
+    public static PokemonModel getPokemonByName(String name) {
+        return _allPokemon.get(name);
+    }
+    
+    public static ArrayList<PokemonModel> getAllPokemon() {
+        return new ArrayList<>(_allPokemon.values());
+    }
+    
     
 }

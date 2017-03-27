@@ -14,10 +14,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.sqlite.SQLiteErrorCode;
-import org.sqlite.SQLiteException;
 
 
 public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseModel, 
@@ -130,6 +126,12 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
         } catch (SQLException exception) {
             System.err.println(exception.getMessage());
         }
+    }
+    
+    @Override
+    public void loadAllPokemon() {
+        throw new UnsupportedOperationException("Not supported yet."); 
+        //To change body of generated methods, choose Tools | Templates.
     }
     
     /**

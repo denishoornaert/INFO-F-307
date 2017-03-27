@@ -12,5 +12,6 @@ package be.ac.ulb.infof307.g01.db;
 public interface PokemonDatabaseModel {
     
     
+    public void loadAllPokemon();
     
 }

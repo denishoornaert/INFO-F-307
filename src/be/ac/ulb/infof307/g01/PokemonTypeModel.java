@@ -23,18 +23,21 @@ public class PokemonTypeModel {
     
     
     public PokemonTypeModel(String typeName) {
+        typeName = typeName.toUpperCase();
         if(_allPokemonTypes.containsKey(typeName)) {
             throw new IllegalStateException("PokemonType " + typeName + 
                     " already created");
         }
         
-        _typeName = typeName.toUpperCase();
-        _allPokemonTypes.put(typeName, this);
+        _typeName = typeName;
+        _allPokemonTypes.put(_typeName, this);
     }
     
     public String getTypeName() {
         return _typeName;
     }
+    
+    /////////////// STATIC ////////////////
     
     /**
      * Return the pokemonTypeModel instance by name
@@ -42,12 +45,21 @@ public class PokemonTypeModel {
      * @param typeName the desired name
      * @return the PokemonTypeModel instance or null if not found
      */
-    public static PokemonTypeModel getPokemonTypeByTypName(String typeName) {
+    public static PokemonTypeModel getPokemonTypeByTypeName(String typeName) {
         return _allPokemonTypes.get(typeName.toUpperCase());
     }
     
     public static ArrayList<PokemonTypeModel> getAllPokemonTypes() {
         return new ArrayList<>(_allPokemonTypes.values());
+    }
+    
+    /**
+     * Remove all existing PokemonType (and juste add NONE type)<br />
+     * Warning: only for test !
+     */
+    public static void resetAllPokemonType() {
+        _allPokemonTypes.clear();
+        _allPokemonTypes.put("NONE", new PokemonTypeModel("NONE"));
     }
     
     /*NORMAL,FIRE,WATER,ELECTRIC,GRASS,ICE,FIGHTING,POISON,GROUND,FLYING,PSYCHIC,
