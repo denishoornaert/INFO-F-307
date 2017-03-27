@@ -46,4 +46,9 @@ public class MarkerController {
     public int getPokemonLife() {
         return _marker.getPokemonLife();
     }
+    
+    public int getVoteScore() {
+        return _marker.getVoteScore();
+    } 
+    
 }

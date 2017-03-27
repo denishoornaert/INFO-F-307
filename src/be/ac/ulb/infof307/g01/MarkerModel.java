@@ -92,5 +92,9 @@ public class MarkerModel {
     public int getPokemonLife() {
         return _pokemon.getLifePoint();
     }
+
+    public int getVoteScore() {
+        return _reputation.getScore();
+    }
    
 }
