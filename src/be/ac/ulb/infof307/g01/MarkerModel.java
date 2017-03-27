@@ -49,6 +49,14 @@ public class MarkerModel {
         return _reputation.getScore();
     }
     
+    public void voteUp() {
+        _reputation.voteUp();
+    }
+    
+    public void voteDown() {
+        _reputation.voteDown();
+    }
+    
     public void setTimestamp(Timestamp newTimestamp) {
         _timestamp = newTimestamp;
     }
