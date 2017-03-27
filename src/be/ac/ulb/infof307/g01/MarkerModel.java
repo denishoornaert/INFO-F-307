@@ -43,7 +43,10 @@ public class MarkerModel {
         _isValid = true;
         
         _reputation = new ReputationScore(upVote, downVote);
-        
+    }
+    
+    public int getReputationScore() {
+        return _reputation.getScore();
     }
     
     public void setTimestamp(Timestamp newTimestamp) {
