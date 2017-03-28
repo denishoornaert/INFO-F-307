@@ -5,11 +5,15 @@
  */
 package be.ac.ulb.infof307.g01.db;
 
+import be.ac.ulb.infof307.g01.MarkerModel;
+import java.util.ArrayList;
+
 /**
  *
  * @author Nathan
  */
 public interface MarkerDatabaseModel {
     
-    
+    void insertMarker(MarkerModel marker);
+    ArrayList<MarkerModel> getAllMarkers();
 }

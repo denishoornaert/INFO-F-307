@@ -22,6 +22,8 @@ import static org.junit.Assert.*;
  */
 public class PokemonModelTest {
     
+    private static PokemonModel arceus;
+    
     public PokemonModelTest() {
     }
     
@@ -30,6 +32,10 @@ public class PokemonModelTest {
         new PokemonTypeModel("DARK");
         new PokemonTypeModel("FIRE");
         new PokemonTypeModel("ELECTRIC");
+        
+        
+        arceus = new PokemonModel("arceus", "assets/sprites/arceus.png",
+                PokemonTypeModel.getPokemonTypeByTypeName("DARK"));
     }
     
     @AfterClass
@@ -47,33 +53,24 @@ public class PokemonModelTest {
     
     @Test
     public void test_getName() {
-        PokemonModel testPokemon = new PokemonModel("arceus", "",
-                PokemonTypeModel.getPokemonTypeByTypeName("DARK"));
-        assertEquals(testPokemon.getName(), "arceus");
+        assertEquals(arceus.getName(), "arceus");
     }
     
     @Test
     public void test_getType() {
-        PokemonModel testPokemon = new PokemonModel("arceus", "",
-                PokemonTypeModel.getPokemonTypeByTypeName("FIRE"));
-        
-        assertEquals(testPokemon.getTypes().length, 1);
-        assertEquals(testPokemon.getTypes()[0], 
-                PokemonTypeModel.getPokemonTypeByTypeName("FIRE"));
+        assertEquals(arceus.getTypes().length, 1);
+        assertEquals(arceus.getTypes()[0], 
+                PokemonTypeModel.getPokemonTypeByTypeName("DARK"));
     }
     
     @Test
     public void test_equals() {
-        PokemonModel testPokemon1 = new PokemonModel("Test");
-        PokemonModel testPokemon2 = PokemonModel.getPokemonByName("Test");
-        assertTrue(testPokemon1.equals(testPokemon2));
+        assertEquals(arceus.equals(arceus), true);
     }
     
     @Test
     public void test_getPathImage() {
-        PokemonModel testPokemon = new PokemonModel("pikachu", "assets/sprites/0.png",
-                PokemonTypeModel.getPokemonTypeByTypeName("ELECTRIC"));
-        File file = new File(testPokemon.getPathImage());
+        File file = new File(arceus.getPathImage());
         assertTrue(file.exists());
     }
     

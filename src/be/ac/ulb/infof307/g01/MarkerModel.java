@@ -62,4 +62,10 @@ public class MarkerModel {
         _pin = newPin;
     }
     
+    public boolean equals(MarkerModel other) {
+        return _pokemon.getName().equals(other.getPokemonName())
+                && _timestamp.equals(other.getTimestamp())
+                && _coordinate.equals(other.getCoordinate());
+    }
+    
 }

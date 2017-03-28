@@ -17,4 +17,13 @@ CREATE TABLE `Pokemon` (
 	`ImagePath`	TEXT NOT NULL
 );
 INSERT INTO `Pokemon` VALUES (1,'Pikachu','path to pikachu');
+INSERT INTO `Pokemon` VALUES (2,'Mystherbe','path to Mystherbe');
+CREATE TABLE "Marker" (
+	`Id`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+	`PokemonId`	INTEGER NOT NULL,
+	`X`	INTEGER NOT NULL,
+	`Y`	INTEGER NOT NULL,
+	`TimeStamp`	TEXT NOT NULL,
+	FOREIGN KEY(`PokemonId`) REFERENCES Pokemon
+);
 COMMIT;

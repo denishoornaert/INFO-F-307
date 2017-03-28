@@ -55,15 +55,15 @@ public class DatabaseModelTest {
     @Test
     public void test_connectionIsSuccessful() throws SQLException, FileNotFoundException {
         // no exception should be thrown
-        DatabaseModel database = new DatabaseModel(Main.getDatabasePath());
+        DatabaseModel database = new DatabaseModel(Main.getTestDatabasePath());
         database.close();
     }
     
     @Test
     public void test_severalConnectionsToDatabaseThrowIllegalStateException()
             throws SQLException, FileNotFoundException {
-        new DatabaseModel(Main.getDatabasePath());
+        new DatabaseModel(Main.getTestDatabasePath());
         expected.expect(IllegalStateException.class);
-        new DatabaseModel(Main.getDatabasePath());
+        new DatabaseModel(Main.getTestDatabasePath());
     }
 }
