@@ -6,12 +6,9 @@
 package be.ac.ulb.infof307.g01;
 
 import be.ac.ulb.infof307.g01.gui.MapView;
-import be.ac.ulb.infof307.g01.gui.NewMarkerPopUp;
-import be.ac.ulb.infof307.g01.gui.Pin;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.File;
-import java.sql.Timestamp;
 
 /**
  *
@@ -42,7 +39,6 @@ public class MapController {
         return _mapView;
     }
     
-
     public void addMarkerController(MarkerController newMarker) {
         _markers.add(newMarker);
     }
