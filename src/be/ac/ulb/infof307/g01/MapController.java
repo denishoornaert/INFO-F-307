@@ -8,6 +8,7 @@ package be.ac.ulb.infof307.g01;
 import be.ac.ulb.infof307.g01.gui.MapView;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.File;
 
 /**
  *
@@ -30,7 +31,7 @@ public class MapController {
     public MapView getMapView() {
         return _mapView;
     }
-
+    
     public void addMarkerController(MarkerController newMarker) {
         _markers.add(newMarker);
     }

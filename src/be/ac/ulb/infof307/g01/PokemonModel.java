@@ -5,85 +5,61 @@
  */
 package be.ac.ulb.infof307.g01;
 
-import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 /**
  *
  * @author remy
  */
 public class PokemonModel {
+
+    private static HashMap<String, PokemonModel> _allPokemon = new HashMap<>();
     private final int _typeNumberMax = 2; // TODO : 
     private final String _name;
     private final PokemonTypeModel[] _type;
     private final String _pathImage;
-    private final int _lifePoint,_attack,_defence,_specialAttack,_specialDefence,_speed;
     
-    public PokemonModel(String name, int lifePoint, int attack, int defence) {
+    public PokemonModel(String name, String imagePath) {
         // TODO query to get the corresponding type.
-        this(name, PokemonTypeModel.NONE, PokemonTypeModel.NONE, lifePoint, attack, defence, 0, 0, 0);
+        this(name, imagePath, PokemonTypeModel.getPokemonTypeByTypeName("NONE"));
     }
     
-    public PokemonModel(String name, PokemonTypeModel type, int lifePoint, int attack, int defence, int specialAttack, int specialDefence, int speed) {
-        this(name, type, PokemonTypeModel.NONE, lifePoint, attack, defence, specialAttack, specialDefence, speed);
-    }
-    
-    public PokemonModel(String name, PokemonTypeModel type1, PokemonTypeModel type2, int lifePoint, int attack, int defence, int specialAttack, int specialDefence, int speed) {
-        this(name, new PokemonTypeModel[]{type1, type2}, lifePoint, attack, defence, specialAttack, specialDefence, speed);
-    }
-    
-    public PokemonModel(String name, PokemonTypeModel[] type_array, int lifePoint, int attack, int defence, int specialAttack, int specialDefence, int speed) {
+    public PokemonModel(String name, String imagePath, PokemonTypeModel... type_array) {
+        if(_allPokemon.containsKey(name)) {
+            throw new IllegalStateException("Pokemon " + name + 
+                    " already created");
+        }
         _name = name;
         _type = type_array;
-        _pathImage = findCorrespondingImagePath();
-        _lifePoint = lifePoint;
-        _attack = attack;
-        _defence = defence;
-        _speed = speed;
-        _specialAttack = specialAttack;
-        _specialDefence = specialDefence;
+        _pathImage = imagePath;
+        
+        _allPokemon.put(name, this);
     }
     
-    
-    private String findCorrespondingImagePath() {
-        return "assets" + File.separator + "sprites" + File.separator + _name + ".png";
-    }
-    
-    
+    /**
+     * Return the name of the Pokemon
+     * @return the name of the Pokemon
+     */
     public String getName() {
         return _name;
     }
     
-    public PokemonTypeModel[] getType() {
+    /**
+     * Return the list of types assigned to the pokemon
+     * @return a list of types assigned to the pokemon
+     */
+    public PokemonTypeModel[] getTypes() {
         return _type;
     }
     
+    /**
+     * Return the path of the sprite of the Pokemon
+     * @return the path of the sprite of the Pokemon
+     */
     public String getPathImage() {
         return _pathImage;
-    }
-    
-    public int getLifePoint() {
-       return _lifePoint;
-    }
-
-    public int getAttack() {
-        return _attack;
-    }
-
-    public int getDefence() {
-        return _defence;
-    }
-
-    public int getSpecialAttack() {
-        return _specialAttack;
-    }
-
-    public int getSpecialDefence() {
-        return _specialDefence;
-    }
-
-    public int getSpeed() {
-        return _speed;
     }
     
     /**
@@ -94,13 +70,41 @@ public class PokemonModel {
      */
     public boolean equals(PokemonModel otherPokemon) {
         return otherPokemon._name.equals(_name) && 
-                Arrays.equals(otherPokemon._type, _type) &&
-                otherPokemon._attack == _attack &&
-                otherPokemon._defence == _defence &&
-                otherPokemon._lifePoint == _lifePoint &&
-                otherPokemon._specialAttack == _specialAttack &&
-                otherPokemon._specialDefence == _specialDefence &&
-                otherPokemon._speed == _speed;
+                Arrays.equals(otherPokemon._type, _type);
     }
- 
+    
+    /////////////////// STATIC /////////////////////
+    
+    /**
+     * Return the pokemonModel instance by name
+     * 
+     * @param name the desired name
+     * @return the PokemonModel instance or null if not found
+     */
+    public static PokemonModel getPokemonByName(String name) {
+        System.out.println("Nbr created pokemon: " + _allPokemon.size());
+        return _allPokemon.get(name);
+    }
+    
+    public static ArrayList<PokemonModel> getAllPokemon() {
+        return new ArrayList<>(_allPokemon.values());
+    }
+    
+    public static ArrayList<String> getAllPokemonName() {
+        return new ArrayList<>(_allPokemon.keySet());
+    }
+    
+    public static void clearAllPokemon() {
+        _allPokemon.clear();
+    }
+    
+    /**
+     * Get the number of loaded pokemon
+     * 
+     * @return number of pokemon 
+     */
+    public static int getSizePokemonModel(){
+        return _allPokemon.size();
+    }
+
 }

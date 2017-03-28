@@ -63,8 +63,8 @@ public class NewMarkerPopUpController {
         _newMarkerPopUp.close();
         _newMarkerPopUp = null;
         // TODO relier popUp pokemon avec la creation des pokemons 
-        PokemonModel pokemon = new PokemonModel(pokemonName, lifePoint, attack, defense);;
-        MarkerController newMarker = new MarkerController(pokemon, _newMarkerCoordinate);
+        PokemonModel pokemon = PokemonModel.getPokemonByName(pokemonName);
+        MarkerController newMarker = new MarkerController(pokemon, _newMarkerCoordinate); // add in constructeur , lifePoint, attack, defense
         _newMarkerCoordinate = null;
         _mapController.addMarkerController(newMarker);
         _mapController.getMapView().createPin(newMarker);
