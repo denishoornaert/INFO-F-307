@@ -225,14 +225,5 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
         }
         return allMarkers;
     }
-
-    @Override
-    public PokemonModel getPokemonByName(String pokemonName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public PokemonTypeModel[] getPokemonTypesByName(String pokemonName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
 }

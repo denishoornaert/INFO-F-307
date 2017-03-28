@@ -66,4 +66,5 @@ public class DatabaseModelTest {
         expected.expect(IllegalStateException.class);
         new DatabaseModel(Main.getTestDatabasePath());
     }
+    
 }

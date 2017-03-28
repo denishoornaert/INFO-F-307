@@ -6,7 +6,6 @@ package be.ac.ulb.infof307.g01;
  * and open the template in the editor.
  */
 
-import be.ac.ulb.infof307.g01.PokemonTypeModel;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -40,7 +39,7 @@ public class PokemonTypeModelTest {
 
     @Test
     public void test_getTypeName() {
-        String name = "TEST";
+        String name = "TEST"; // Must be upperCase
         PokemonTypeModel pokemonType = new PokemonTypeModel(name);
         assertEquals(pokemonType.getTypeName(), name);
     }

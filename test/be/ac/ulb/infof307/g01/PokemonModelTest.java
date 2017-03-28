@@ -6,15 +6,15 @@ package be.ac.ulb.infof307.g01;
  * and open the template in the editor.
  */
 
-import be.ac.ulb.infof307.g01.PokemonModel;
-import be.ac.ulb.infof307.g01.PokemonTypeModel;
 import java.io.File;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.*; 
+import org.junit.Rule;
+import org.junit.rules.ExpectedException;
 
 /**
  *
@@ -22,7 +22,14 @@ import static org.junit.Assert.*;
  */
 public class PokemonModelTest {
     
+<<<<<<< 81133b3536a5e592d875a1bdbdac9422cfcde92e
     private static PokemonModel arceus;
+=======
+    
+    @Rule
+    public ExpectedException expected = ExpectedException.none();
+    
+>>>>>>> Add some tests + Remove unused import
     
     public PokemonModelTest() {
     }
@@ -74,5 +81,12 @@ public class PokemonModelTest {
         assertTrue(file.exists());
     }
     
+    @Test
+    public void test_pokemonModelAlreadyExistThrowIllegalStateException() {
+        String pokemonName = "test";
+        new PokemonModel(pokemonName);
+        expected.expect(IllegalStateException.class);
+        new PokemonModel(pokemonName);
+    }
     
 }
