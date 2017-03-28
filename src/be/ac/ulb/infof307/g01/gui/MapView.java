@@ -2,7 +2,6 @@ package be.ac.ulb.infof307.g01.gui;
 
 import be.ac.ulb.infof307.g01.Main;
 import be.ac.ulb.infof307.g01.MapController;
-import be.ac.ulb.infof307.g01.MarkerController;
 import java.net.URL;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -55,18 +54,11 @@ public class MapView extends StackPane {
                 }
             }
         });
-
-        
     }
     
-    private void createMarker(double latitude, double longitude) {
-        _mapController.askForCreateMarker(latitude, longitude);
-    }
-    
-    public void createPin(MarkerController marker) {
-        String pokemonName = marker.getPokemonName();
+    public void createPin(double latitude, double longitude, String pokemonName, Integer pinId) {
         JSObject window = (JSObject) _webEngine.executeScript("window");
-        window.call("addMarker", marker.getLatitude(), marker.getLongitude(), pokemonName, 1300);
+        window.call("addMarker", latitude, longitude, pokemonName, pinId);
     }
 
     /** Allows JavaScript code to call Java functions. */
@@ -85,14 +77,13 @@ public class MapView extends StackPane {
          * @param coordinates 
          */
         public void onMapRightClick(JSObject coordinates) {
-
             double latitude = (double) coordinates.call("lat");
             double longitude = (double) coordinates.call("lng");
-            createMarker(latitude, longitude);
+            _mapController.askForCreateMarker(latitude, longitude);
         }
         
         public void onMarkerLeftClick(int markerId) {
-            System.out.println(markerId);
+            _mapController.displayPinPopUp(markerId);
         }
         
         public String getClusterImagesPath() {

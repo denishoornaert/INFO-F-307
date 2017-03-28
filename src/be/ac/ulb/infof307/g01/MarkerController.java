@@ -1,48 +1,29 @@
 package be.ac.ulb.infof307.g01;
 
-import java.sql.Timestamp;
+import be.ac.ulb.infof307.g01.gui.MapView;
+import java.util.Map;
 
 /**
  * TODO: add description
  */
 public class MarkerController {
+    Map<Integer, MarkerModel> _markerMap;
+    MapView _mapView;
+    Integer _newMarkerId = 0;
     
-    MarkerModel _marker;
-    
-    public MarkerController(PokemonModel pokemon, CoordinateModel _newMarkerCoordinate) {
-        _marker = new MarkerModel(pokemon, _newMarkerCoordinate);
+    public MarkerController(MapView mapView) {
+        _mapView = mapView;
     }
     
-    public double getLatitude() {
-        return _marker.getCoordinate().getLatitude();
+    public void createMarker(PokemonModel pokemon, CoordinateModel newMarkerCoordinates) {
+        _markerMap.put(_newMarkerId, new MarkerModel(pokemon, newMarkerCoordinates));
+        double latitude = newMarkerCoordinates.getLatitude();
+        double longitude = newMarkerCoordinates.getLongitude();
+        _mapView.createPin(latitude, longitude, pokemon.getName(), _newMarkerId);
+        _newMarkerId += 1;
     }
     
-    public double getLongitude() {
-        return _marker.getCoordinate().getLongitude();
+    public MarkerModel getMarkerModelFromId(int markerId) {
+        return _markerMap.get(markerId);
     }
-
-    public Timestamp getTimestamp() {
-        return _marker.getTimestamp();
-    }
-
-    public String getPokemonName() {
-        return _marker.getPokemonName();
-    }
-    
-    public int getPokemonAttack() {
-        return _marker.getPokemonAttack();
-    }
-    
-    public int getPokemonDefense() {
-        return _marker.getPokemonDefense();
-    }
-    
-    public int getPokemonLife() {
-        return _marker.getPokemonLife();
-    }
-    
-    public int getVoteScore() {
-        return _marker.getVoteScore();
-    } 
-    
 }
