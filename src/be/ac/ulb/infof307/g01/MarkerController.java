@@ -7,10 +7,14 @@ import java.sql.Timestamp;
  */
 public class MarkerController {
     
-    MarkerModel _marker;
+    MarkerModel _marker; // TODO shouldn't it be named _model or markerModel ?
     
     public MarkerController(PokemonModel pokemon, CoordinateModel _newMarkerCoordinate) {
         _marker = new MarkerModel(pokemon, _newMarkerCoordinate);
+    }
+
+    MarkerController(MarkerModel markerModel) {
+        _marker = markerModel;
     }
     
     public double getLatitude() {

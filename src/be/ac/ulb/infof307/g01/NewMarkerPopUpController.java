@@ -61,7 +61,6 @@ public class NewMarkerPopUpController {
         MarkerController newMarker = new MarkerController(pokemon, _newMarkerCoordinate); // add in constructeur , lifePoint, attack, defense
         _newMarkerCoordinate = null;
         _mapController.addMarkerController(newMarker);
-        _mapController.getMapView().createPin(newMarker);
     }
     
 }
