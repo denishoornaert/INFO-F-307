@@ -91,6 +91,7 @@ public class MapView extends StackPane {
          * @param coordinates 
          */
         public void onMapRightClick(JSObject coordinates) {
+
             double latitude = (double) coordinates.call("lat");
             double longitude = (double) coordinates.call("lng");
             createMarker(latitude, longitude);

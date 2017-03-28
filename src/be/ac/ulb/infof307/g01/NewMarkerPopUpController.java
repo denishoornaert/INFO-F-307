@@ -22,8 +22,8 @@ public class NewMarkerPopUpController {
     private MapController _mapController;
  
     public NewMarkerPopUpController(MapController map) {
-        //_pokemonListModel = new PokemonListModel();
-        _pokemonListModel = new PokemonListModel("Pikachu", "pikata", "Dracaufeu", "bullbizar");
+        _pokemonListModel = new PokemonListModel();
+        //_pokemonListModel = new PokemonListModel("Pikachu", "pikata", "Dracaufeu", "bullbizar");
         _mapController = map;
     }
     

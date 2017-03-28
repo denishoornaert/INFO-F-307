@@ -6,20 +6,14 @@
 package be.ac.ulb.infof307.g01;
 
 import be.ac.ulb.infof307.g01.gui.MapView;
-import be.ac.ulb.infof307.g01.gui.NewMarkerPopUp;
-import be.ac.ulb.infof307.g01.gui.Pin;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.File;
-import java.sql.Timestamp;
 
 /**
  *
  * @author Nathan
  */
 public class MapController {
-    
-    private String _imagePath;
     private List<MarkerController> _markers;
     private MapView _mapView;
     
@@ -29,19 +23,13 @@ public class MapController {
     private NewMarkerPopUpController _newMarkerPopUpController;    
     
     public MapController() {
-        _imagePath = new File("assets/Brussels_map.jpg").toURI().toString();
         _markers = new ArrayList<>();
         _mapView = new MapView(this);
-    }
-    
-    public String getImagePath() {
-        return _imagePath;
     }
     
     public MapView getMapView() {
         return _mapView;
     }
-    
 
     public void addMarkerController(MarkerController newMarker) {
         _markers.add(newMarker);
@@ -49,7 +37,7 @@ public class MapController {
 
     public void askForCreateMarker(double latitude, double longitude) {
         _newMarkerPopUpController = new NewMarkerPopUpController(this);
-        _newMarkerPopUpController.askForCreateMarker(longitude, longitude);
+        _newMarkerPopUpController.askForCreateMarker(latitude, longitude);
     }
     
 }
