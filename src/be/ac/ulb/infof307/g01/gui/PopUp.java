@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package be.ac.ulb.infof307.g01.gui;
 
 import be.ac.ulb.infof307.g01.Main;
@@ -16,8 +11,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 /**
- *
- * @author hoornaert
+ * TODO: add description
  */
 public class PopUp extends Stage {
 

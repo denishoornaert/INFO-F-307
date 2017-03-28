@@ -1,16 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package be.ac.ulb.infof307.g01;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- *
- * @author mytra
+ * TODO: add description
  */
 public class PokemonTypeModel {
     
