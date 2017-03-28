@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package be.ac.ulb.infof307.g01.gui;
 
 import be.ac.ulb.infof307.g01.Main;
@@ -18,8 +13,7 @@ import javafx.scene.web.WebView;
 import netscape.javascript.JSObject;
 
 /**
- *
- * @author hoornaert, StanIsAdmin, TheoVerhelst
+ * TODO: add description
  */
 public class MapView extends StackPane {
     
