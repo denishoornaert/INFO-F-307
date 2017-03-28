@@ -47,9 +47,17 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
         // stops the function if file doesn't exist
         assertDatabaseFileExists(pathToDatabase);
         connectToSqlite(pathToDatabase);
-        loadAllPokemonTypes();
+        loadAllTables();
         
         _instance = this;
+    }
+    
+    /**
+     * Load all Data (Pokemon and PokemonType)
+     */
+    private void loadAllTables() {
+        loadAllPokemonTypes();
+        loadAllPokemons();
     }
 
     /**
@@ -157,15 +165,6 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
             System.err.println(exception.getMessage());
         }
     }
-    
-    /**
-     * Return the instance of database (to make queries)
-     * 
-     * @return the DatabaseModel instance
-     */
-    public static DatabaseModel getDatabase() {
-        return _instance;
-    }
 
     /**
      * Create a new marker in database
@@ -205,25 +204,36 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
                 + "FROM Marker M "
                 + "JOIN Pokemon P "
                 + "    ON P.Id=M.PokemonId ";
-
         try {
             ResultSet allMarkersCursor = executeQuery(query);
             while(allMarkersCursor.next()) {
-                final String pokemonName = allMarkersCursor.getString(1);
-                final int xCoordinate = allMarkersCursor.getInt(2);
-                final int yCoordinate = allMarkersCursor.getInt(3);
-                final String timestampString = allMarkersCursor.getString(4);
-                
-                PokemonModel pokemon = PokemonModel.getPokemonByName(pokemonName);
-                CoordinateModel coordinate = new CoordinateModel(xCoordinate, yCoordinate);
-                MarkerModel currentMarker = new MarkerModel(pokemon, coordinate);
-                currentMarker.setTimestamp(Timestamp.valueOf(timestampString));
-                allMarkers.add(currentMarker);
+                allMarkers.add(createMarker(allMarkersCursor));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseModel.class.getName()).log(Level.SEVERE, null, ex);
         }
         return allMarkers;
+    }
+    
+    private MarkerModel createMarker(ResultSet cursor) throws SQLException {
+        final String pokemonName = cursor.getString(1);
+        final int xCoordinate = cursor.getInt(2);
+        final int yCoordinate = cursor.getInt(3);
+        final String timestampString = cursor.getString(4);
+
+        return new MarkerModel(pokemonName, xCoordinate, yCoordinate, 
+                Timestamp.valueOf(timestampString));
+    }
+    
+    ///////////////////// STATIC /////////////////////
+        
+    /**
+     * Return the instance of database (to make queries)
+     * 
+     * @return the DatabaseModel instance
+     */
+    public static DatabaseModel getDatabase() {
+        return _instance;
     }
     
 }

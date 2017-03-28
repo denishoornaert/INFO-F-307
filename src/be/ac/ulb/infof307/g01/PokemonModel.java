@@ -47,8 +47,6 @@ public class PokemonModel {
         _allPokemon.put(name,this);
     }
     
- 
-    
     /**
      * Return the name of the Pokemon
      * @return the name of the Pokemon
@@ -72,7 +70,6 @@ public class PokemonModel {
     public String getPathImage() {
         return _pathImage;
     }
-    
     
     /**
      * Test if two pokemon have same name and type
@@ -102,11 +99,17 @@ public class PokemonModel {
         return new ArrayList<>(_allPokemon.values());
     }
     
+    public static ArrayList<String> getAllPokemonName() {
+        return new ArrayList<>(_allPokemon.keySet());
+    }
+    
     public static void clearAllPokemon() {
         _allPokemon.clear();
     }
+    
     /**
-     * get the number of loaded pokemon
+     * Get the number of loaded pokemon
+     * 
      * @return number of pokemon 
      */
     public static int getSizePokemonModel(){

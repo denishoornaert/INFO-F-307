@@ -7,11 +7,6 @@ package be.ac.ulb.infof307.g01.db;
 
 import be.ac.ulb.infof307.g01.Main;
 import be.ac.ulb.infof307.g01.PokemonModel;
-<<<<<<< 81133b3536a5e592d875a1bdbdac9422cfcde92e
-import java.io.FileNotFoundException;
-import java.sql.SQLException;
-=======
->>>>>>> Add some tests + Remove unused import
 import junit.framework.TestCase;
 import org.junit.Test;
 
@@ -22,6 +17,7 @@ import org.junit.Test;
 public class PokemonDatabaseModelTest extends TestCase {
     
     private static PokemonDatabaseModel _database;
+    
     
     public PokemonDatabaseModelTest(String testName) {
         super(testName);
@@ -37,7 +33,9 @@ public class PokemonDatabaseModelTest extends TestCase {
             // ignore
         }
     }
-    @Test public void test_loadPokemonNotEmpty(){
+    
+    @Test
+    public void test_loadPokemonNotEmpty(){
         _database.loadAllPokemons();
         int size = PokemonModel.getSizePokemonModel();
         assertFalse(size == 0);

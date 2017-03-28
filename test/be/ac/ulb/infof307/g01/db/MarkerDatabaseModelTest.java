@@ -9,8 +9,6 @@ import be.ac.ulb.infof307.g01.CoordinateModel;
 import be.ac.ulb.infof307.g01.Main;
 import be.ac.ulb.infof307.g01.MarkerModel;
 import be.ac.ulb.infof307.g01.PokemonModel;
-import java.io.FileNotFoundException;
-import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import junit.framework.TestCase;
@@ -22,10 +20,16 @@ import org.junit.Test;
  */
 public class MarkerDatabaseModelTest extends TestCase {
     
-    static MarkerDatabaseModel _database = null;
+    private static MarkerDatabaseModel _database;
     
-    public MarkerDatabaseModelTest(String testName) throws SQLException, FileNotFoundException {
+    public MarkerDatabaseModelTest(String testName) {
         super(testName);
+    }
+    
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+        
         try {
             _database = (MarkerDatabaseModel) new DatabaseModel(Main.getTestDatabasePath());
             new PokemonModel("Pikachu");
@@ -33,11 +37,6 @@ public class MarkerDatabaseModelTest extends TestCase {
         } catch(IllegalStateException ex) {
             // ignore
         }
-    }
-    
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
     }
     
     @Override

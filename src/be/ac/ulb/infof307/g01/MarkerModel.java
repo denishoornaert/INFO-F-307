@@ -5,7 +5,6 @@
  */
 package be.ac.ulb.infof307.g01;
 
-import be.ac.ulb.infof307.g01.gui.Pin;
 import java.sql.Timestamp;
 
 /**
@@ -17,25 +16,34 @@ public class MarkerModel {
     private final PokemonModel _pokemon;
     private final CoordinateModel _coordinate;
     private Timestamp _timestamp;
+    
     /**
      * Indicates whether this marker contains valid information.
      * If false, the display shows input fields to select the pokemon
-     * and the date.
+     * and the date.<br />
+     * TODO: utile ?  A supprime si pas utile
      */
     private boolean _isValid = false;
-    private Pin _pin = null;
     
     public MarkerModel(PokemonModel pokemon, CoordinateModel coordinate) {
         this(pokemon, coordinate, true);
     }
     
-    public MarkerModel(PokemonModel pokemon, CoordinateModel coordinate, boolean createPin) {
+    public MarkerModel(PokemonModel pokemon, CoordinateModel coordinate, 
+            boolean createPin) {
         _pokemon = pokemon;
         _coordinate = coordinate;
         
         Long currentTime = System.currentTimeMillis();
         _timestamp = new Timestamp(currentTime);
         _isValid = true;
+    }
+
+    public MarkerModel(String pokemonName, int xCoordinate, int yCoordinate, 
+            Timestamp newTimestamp) {
+        this(PokemonModel.getPokemonByName(pokemonName), 
+                new CoordinateModel(xCoordinate, yCoordinate));
+        _timestamp = newTimestamp;
     }
     
     public void setTimestamp(Timestamp newTimestamp) {
@@ -56,10 +64,6 @@ public class MarkerModel {
     
     public CoordinateModel getCoordinate() {
         return _coordinate;
-    }
-
-    void setPin(Pin newPin) {
-        _pin = newPin;
     }
     
     public boolean equals(MarkerModel other) {

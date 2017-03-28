@@ -22,14 +22,11 @@ import org.junit.rules.ExpectedException;
  */
 public class PokemonModelTest {
     
-<<<<<<< 81133b3536a5e592d875a1bdbdac9422cfcde92e
     private static PokemonModel arceus;
-=======
     
     @Rule
     public ExpectedException expected = ExpectedException.none();
     
->>>>>>> Add some tests + Remove unused import
     
     public PokemonModelTest() {
     }

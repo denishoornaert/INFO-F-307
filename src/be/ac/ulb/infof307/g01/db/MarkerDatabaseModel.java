@@ -14,6 +14,6 @@ import java.util.ArrayList;
  */
 public interface MarkerDatabaseModel {
     
-    void insertMarker(MarkerModel marker);
-    ArrayList<MarkerModel> getAllMarkers();
+    public void insertMarker(MarkerModel marker);
+    public ArrayList<MarkerModel> getAllMarkers();
 }
