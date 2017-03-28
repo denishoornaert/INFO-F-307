@@ -18,7 +18,7 @@
             var markerClusterer;
 
             window.onerror = function(message, source, lineno, colno, error) {
-                bridge.log(message);
+                bridge.log(message + " " + lineno + " " + colno + " " + error);
             }
 
             function initMap() {

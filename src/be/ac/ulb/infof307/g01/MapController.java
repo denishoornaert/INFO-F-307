@@ -15,8 +15,6 @@ import java.io.File;
  * @author Nathan
  */
 public class MapController {
-    
-    private String _imagePath;
     private List<MarkerController> _markers;
     private MapView _mapView;
     
@@ -26,13 +24,8 @@ public class MapController {
     private NewMarkerPopUpController _newMarkerPopUpController;    
     
     public MapController() {
-        _imagePath = new File("assets/Brussels_map.jpg").toURI().toString();
         _markers = new ArrayList<>();
         _mapView = new MapView(this);
-    }
-    
-    public String getImagePath() {
-        return _imagePath;
     }
     
     public MapView getMapView() {
@@ -45,7 +38,7 @@ public class MapController {
 
     public void askForCreateMarker(double latitude, double longitude) {
         _newMarkerPopUpController = new NewMarkerPopUpController(this);
-        _newMarkerPopUpController.askForCreateMarker(longitude, longitude);
+        _newMarkerPopUpController.askForCreateMarker(latitude, longitude);
     }
     
 }

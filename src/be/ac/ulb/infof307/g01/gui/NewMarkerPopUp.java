@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 package be.ac.ulb.infof307.g01.gui;
-
-import be.ac.ulb.infof307.g01.MapController;
 import be.ac.ulb.infof307.g01.NewMarkerPopUpController;
 import java.io.File;
 import java.sql.Timestamp;
@@ -14,8 +12,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -25,7 +21,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Spinner;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -36,7 +31,7 @@ import javafx.scene.layout.VBox;
 
 /**
  *
- * @author hoornaert
+ * @author hoornaert, loansens, StanIsAdmin
  */
 public class NewMarkerPopUp extends PopUp {
     
@@ -91,18 +86,19 @@ public class NewMarkerPopUp extends PopUp {
     }
     
     private void initSpinners() {
-        initSpinner(_lifeSpinner);
-        initSpinner(_defenseSpinner);
-        initSpinner(_attackSpinner);
+        _lifeSpinner = createSpinner();
+        _defenseSpinner = createSpinner();
+        _attackSpinner = createSpinner();
     }
     
     private int getSpinnerValue(Spinner spin) {
         return (Integer) spin.getValue();
     }
     
-    private void initSpinner(Spinner spin) {
-        spin = new Spinner<>(0, Integer.MAX_VALUE, 0);
+    private Spinner createSpinner() {
+        Spinner spin = new Spinner<>(0, Integer.MAX_VALUE, 0);
         spin.setPrefWidth(100);
+        return spin;
     }
     
     private void initComboBoxes(NewMarkerPopUpController controller) {
@@ -261,8 +257,7 @@ public class NewMarkerPopUp extends PopUp {
     
     private HBox placeInRow(Node... nodes) {
         HBox hbox = new HBox();
-        ObservableList<Node> childrenHboxDates = hbox.getChildren();
-        childrenHboxDates.addAll(nodes);
+        hbox.getChildren().addAll(nodes);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
         return hbox;
