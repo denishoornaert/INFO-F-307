@@ -74,10 +74,8 @@ public class NewMarkerPopUpController {
         _newMarkerPopUp = null;
         // TODO relier popUp pokemon avec la creation des pokemons 
         PokemonModel pokemon = PokemonModel.getPokemonByName(pokemonName);
-        _newMarkerCoordinate = null;
         _markerController.createMarker(pokemon, _newMarkerCoordinate);
-        //_mapController.addMarkerController(newMarker);
-        //_mapController.getMapView().createPin(newMarker);
+        _newMarkerCoordinate = null;
     }
     
     /*

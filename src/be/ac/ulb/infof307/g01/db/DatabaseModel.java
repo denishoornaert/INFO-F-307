@@ -137,22 +137,27 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
     @Override
     public void loadAllPokemons() {
         String query = "SELECT Pokemon.Name AS PName, Pokemon.ImagePath, "
-                    + "PokemonType.Name AS TypeName "
-                + "FROM Pokemon "
-                + "JOIN PokemonPokemonTypeLink "
-                    + "ON PokemonPokemonTypeLink.PokemonId = Pokemon.Id "
-                + "JOIN PokemonType "
-                    + "ON PokemonType.Id = PokemonPokemonTypeLink.TypeId";
+                    + "FirstType.Name as T1Name, SecondType.Name as T2Name FROM Pokemon "
+                + "JOIN PokemonType FirstType ON FirstType.Id = Pokemon.TypeFirst "
+                + "JOIN PokemonType SecondType ON SecondType.Id = Pokemon.TypeSecond";
         ResultSet result = executeQuery(query);
         
+        // TODO Duplicated code here ?
         try {
             while(result.next()) {
                 try {
                     String pokemonName = result.getString("PName");
                     String imagePath = result.getString("ImagePath");
-                    String pokemonType = result.getString("TypeName");
-                    new PokemonModel(pokemonName,imagePath,
-                            PokemonTypeModel.getPokemonTypeByTypeName(pokemonType));
+                    String firstType = result.getString("T1Name");
+                    String secondType = result.getString("T2Name");
+                    if(secondType == null) {
+                        new PokemonModel(pokemonName,imagePath,
+                                PokemonTypeModel.getPokemonTypeByTypeName(firstType));
+                    } else {
+                        new PokemonModel(pokemonName,imagePath,
+                                PokemonTypeModel.getPokemonTypeByTypeName(firstType),
+                                PokemonTypeModel.getPokemonTypeByTypeName(secondType));
+                    }
                 } catch(IllegalStateException exception) {
                     System.err.println(exception.getMessage());
                     break;

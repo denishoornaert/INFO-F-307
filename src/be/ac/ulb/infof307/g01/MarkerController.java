@@ -1,13 +1,14 @@
 package be.ac.ulb.infof307.g01;
 
 import be.ac.ulb.infof307.g01.gui.MapView;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
  * TODO: add description
  */
 public class MarkerController {
-    Map<Integer, MarkerModel> _markerMap;
+    Map<Integer, MarkerModel> _markerMap = new HashMap<>();
     MapView _mapView;
     Integer _newMarkerId = 0;
     
