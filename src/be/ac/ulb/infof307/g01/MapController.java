@@ -3,14 +3,12 @@ package be.ac.ulb.infof307.g01;
 import be.ac.ulb.infof307.g01.db.DatabaseModel;
 import be.ac.ulb.infof307.g01.db.MarkerDatabaseModel;
 import be.ac.ulb.infof307.g01.gui.MapView;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * TODO: add description
  */
 public class MapController {
-    private List<MarkerController> _markers;
+    private MarkerController _markerController;
     private MapView _mapView;
     private MarkerDatabaseModel _database;
     
@@ -18,28 +16,33 @@ public class MapController {
      *  and is set to null when the popup is closed.
      */
     private NewMarkerPopUpController _newMarkerPopUpController;    
+    private PinPopUpController _pinPopUpController;
     
     public MapController() {
         _database = (MarkerDatabaseModel) DatabaseModel.getDatabase();
-        _markers = new ArrayList<>();
-        for(MarkerModel markerModel : _database.getAllMarkers()) {
-            addMarkerController(new MarkerController(markerModel));
-        }
         _mapView = new MapView(this);
+        _markerController = new MarkerController(_mapView);
+        
+        initMarkers();
+    }
+    
+    private void initMarkers() {
+        for(MarkerModel markerModel : _database.getAllMarkers()) {
+            _markerController.createMarker(new MarkerController(markerModel));
+        }
     }
     
     public MapView getMapView() {
         return _mapView;
     }
-    
-    public void addMarkerController(MarkerController newMarker) {
-        _markers.add(newMarker);
-        _mapView.createPin(newMarker);
-    }
 
     public void askForCreateMarker(double latitude, double longitude) {
-        _newMarkerPopUpController = new NewMarkerPopUpController(this);
+        _newMarkerPopUpController = new NewMarkerPopUpController(_markerController);
         _newMarkerPopUpController.askForCreateMarker(latitude, longitude);
     }
     
+    public void displayPinPopUp(int markerId) {
+        MarkerModel marker = _markerController.getMarkerModelFromId(markerId);
+        _pinPopUpController = new PinPopUpController(marker);
+    }
 }
