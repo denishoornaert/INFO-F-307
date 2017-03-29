@@ -16,7 +16,7 @@ public class NewMarkerPopUpController {
     private MapController _mapController;
     private final static String _defaultImagePath = "assets/unknown_pokemon.png";
  
-    public NewMarkerPopUpController(MapController map) {
+    public NewMarkerPopUpController(MarkerController markerController) {
         _pokemonListModel = new PokemonListModel();
         _mapController = map;
     }
@@ -74,10 +74,10 @@ public class NewMarkerPopUpController {
         _newMarkerPopUp = null;
         // TODO relier popUp pokemon avec la creation des pokemons 
         PokemonModel pokemon = PokemonModel.getPokemonByName(pokemonName);
-        MarkerController newMarker = new MarkerController(pokemon, _newMarkerCoordinate); // add in constructeur , lifePoint, attack, defense
         _newMarkerCoordinate = null;
-        _mapController.addMarkerController(newMarker);
-        _mapController.getMapView().createPin(newMarker);
+        _markerController.createMarker(pokemon, _newMarkerCoordinate);
+        //_mapController.addMarkerController(newMarker);
+        //_mapController.getMapView().createPin(newMarker);
     }
     
     /*
