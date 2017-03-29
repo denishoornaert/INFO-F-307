@@ -51,7 +51,7 @@ public class MarkerModelTest {
         
         // For test we must not use the picture
         MarkerModel testMarker = new MarkerModel(testPokemon, testCoordinate, false); 
-        assertEquals(testMarker.getPathImage(), testPokemon.getPathImage());        
+        assertEquals(testMarker.getImagePath(), testPokemon.getImagePath());        
     }
     
     // TODO uncomment and adapt test when contrustor up to date

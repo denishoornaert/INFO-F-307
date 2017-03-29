@@ -83,7 +83,7 @@ public class NewMarkerPopUpController {
     */
     public void selectedPokemonName(String selectedString) {
         PokemonModel pokemon = PokemonModel.getPokemonByName(selectedString);
-        String path = pokemon.getPathImage();
+        String path = pokemon.getImagePath();
         _newMarkerPopUp.setPokemonView(path);
     }
     
