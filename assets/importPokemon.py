@@ -9,7 +9,7 @@ with open("pokemonList.txt") as file:
         if line != "":
             name, types = line.split(":")
             types = types.split()
-            print('("{}", "sprites/{}.png", (SELECT `Id` FROM PokemonType WHERE `Name`="{}"), {}),'.format(name, name.lower(), types[0],
+            print('\t("{}", "{}.png", (SELECT `Id` FROM PokemonType WHERE `Name`="{}"), {}),'.format(name, name.lower(), types[0],
                 ("NULL" if len(types) == 1 else '(SELECT `Id` FROM PokemonType WHERE `Name`="{}")'.format(types[1]))))
 
 

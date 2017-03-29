@@ -54,7 +54,7 @@ public class MarkerDatabaseModelTest extends TestCase {
         PokemonModel.clearAllPokemon();
         try {
             new PokemonModel("Pikachu", "");
-            new PokemonModel("Mystherbe", "");
+            new PokemonModel("Piplup", "");
         } catch(IllegalStateException ex) {
             // ignore
         }
@@ -91,7 +91,7 @@ public class MarkerDatabaseModelTest extends TestCase {
     public void test_getAllMarkers() {
         final int xCoordinate = 250;
         final int yCoordinate = 500;
-        String pokemonName = "Mystherbe";
+        String pokemonName = "Piplup";
         MarkerModel marker = MarkerDatabaseModelTest.makeMarker(
                 pokemonName, xCoordinate, yCoordinate, 0, false);
         
