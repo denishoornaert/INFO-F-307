@@ -1,52 +1,35 @@
 package be.ac.ulb.infof307.g01;
 
-import java.sql.Timestamp;
+import be.ac.ulb.infof307.g01.gui.MapView;
+import java.util.Map;
 
 /**
  * TODO: add description
  */
 public class MarkerController {
+    Map<Integer, MarkerModel> _markerMap;
+    MapView _mapView;
+    Integer _newMarkerId = 0;
     
-    MarkerModel _marker; // TODO shouldn't it be named _model or markerModel ?
-    
-    public MarkerController(PokemonModel pokemon, CoordinateModel _newMarkerCoordinate) {
-        _marker = new MarkerModel(pokemon, _newMarkerCoordinate);
-    }
-
-    MarkerController(MarkerModel markerModel) {
-        _marker = markerModel;
+    public MarkerController(MapView mapView) {
+        _mapView = mapView;
     }
     
-    public double getLatitude() {
-        return _marker.getCoordinate().getLatitude();
+    public void createMarker(PokemonModel pokemon, CoordinateModel newMarkerCoordinates) {
+        MarkerModel marker = new MarkerModel(pokemon, newMarkerCoordinates);
+        displayMarker(marker);
     }
     
-    public double getLongitude() {
-        return _marker.getCoordinate().getLongitude();
-    }
-
-    public Timestamp getTimestamp() {
-        return _marker.getTimestamp();
-    }
-
-    public String getPokemonName() {
-        return _marker.getPokemonName();
+    public void displayMarker(MarkerModel marker) {
+        _markerMap.put(_newMarkerId, marker);
+        CoordinateModel markerCoordinates = marker.getCoordinate();
+        double latitude = markerCoordinates.getLatitude();
+        double longitude = markerCoordinates.getLongitude();
+        _mapView.createPin(latitude, longitude, marker.getPokemonName(), _newMarkerId);
+        _newMarkerId += 1;
     }
     
-    public int getPokemonAttack() {
-        return _marker.getPokemonAttack();
+    public MarkerModel getMarkerModelFromId(int markerId) {
+        return _markerMap.get(markerId);
     }
-    
-    public int getPokemonDefense() {
-        return _marker.getPokemonDefense();
-    }
-    
-    public int getPokemonLife() {
-        return _marker.getPokemonLife();
-    }
-    
-    public int getVoteScore() {
-        return _marker.getVoteScore();
-    } 
-    
 }

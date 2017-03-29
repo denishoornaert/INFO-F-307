@@ -13,12 +13,12 @@ public class NewMarkerPopUpController {
     private NewMarkerPopUp _newMarkerPopUp;
     /** Coordinates associated to the current popup. */
     private CoordinateModel _newMarkerCoordinate;
-    private MapController _mapController;
+    private MarkerController _markerController;
  
-    public NewMarkerPopUpController(MapController map) {
+    public NewMarkerPopUpController(MarkerController markerController) {
         _pokemonListModel = new PokemonListModel();
         //_pokemonListModel = new PokemonListModel("Pikachu", "pikata", "Dracaufeu", "bullbizar");
-        _mapController = map;
+        _markerController = markerController;
     }
     
     /*
@@ -58,9 +58,10 @@ public class NewMarkerPopUpController {
         _newMarkerPopUp = null;
         // TODO relier popUp pokemon avec la creation des pokemons 
         PokemonModel pokemon = PokemonModel.getPokemonByName(pokemonName);
-        MarkerController newMarker = new MarkerController(pokemon, _newMarkerCoordinate); // add in constructeur , lifePoint, attack, defense
         _newMarkerCoordinate = null;
-        _mapController.addMarkerController(newMarker);
+        _markerController.createMarker(pokemon, _newMarkerCoordinate);
+        //_mapController.addMarkerController(newMarker);
+        //_mapController.getMapView().createPin(newMarker);
     }
     
 }

@@ -1,6 +1,6 @@
 package be.ac.ulb.infof307.g01.gui;
 
-import be.ac.ulb.infof307.g01.MarkerController;
+import be.ac.ulb.infof307.g01.PinPopUpController;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import javafx.collections.ObservableList;
@@ -17,6 +17,7 @@ import javafx.scene.layout.VBox;
  * TODO: add description
  */
 public class PinPopUp extends PopUp {
+    private PinPopUpController _controller;
     
     private VBox _vbox;
     private Label _pokemonName;
@@ -32,9 +33,10 @@ public class PinPopUp extends PopUp {
     
     private Button _closeButton;
         
-    public PinPopUp(MarkerController marker) {
-        initPosition(marker);
-        initWidgets(marker);
+    public PinPopUp(PinPopUpController controller) {
+        _controller = controller;
+        initPosition();
+        initWidgets();
         placeWidgets();
         initCloseButtonEvent();
         _vbox.setSpacing(10);
@@ -42,27 +44,27 @@ public class PinPopUp extends PopUp {
         show();
     }
     
-    private void initPosition(MarkerController marker) {
-        setX(marker.getLatitude());
-        setY(marker.getLongitude());
+    private void initPosition() {
+        setX(_controller.getCoordinates().getLatitude());
+        setY(_controller.getCoordinates().getLongitude());
     }
     
-    private void initWidgets(MarkerController marker) {
+    private void initWidgets() {
         _vbox = new VBox();
         _vbox.setAlignment(Pos.CENTER);
-        _pokemonName = new Label("Name : "+marker.getPokemonName());
-        Timestamp date = marker.getTimestamp();
+        _pokemonName = new Label("Name : "+ _controller.getPokemonName());
+        Timestamp date = _controller.getTimestamp();
         String formatingDate = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(date);
         _date = new Label("Date : "+formatingDate);
         _closeButton = new Button("Close");
         
         _voteBox = new HBox();
         _voteBox.setAlignment(Pos.CENTER);
-        _lifeLabel = new Label("Life : " + marker.getPokemonLife());
-        _attackLabel = new Label("Attack : " + marker.getPokemonAttack());
-        _defenseLabel = new Label("Defense : " + marker.getPokemonDefense());
+        _lifeLabel = new Label("Life : " + _controller.getPokemonLife());
+        _attackLabel = new Label("Attack : " + _controller.getPokemonAttack());
+        _defenseLabel = new Label("Defense : " + _controller.getPokemonDefense());
         
-        _voteScoreLabel = new Label("Votes : " + marker.getVoteScore());
+        _voteScoreLabel = new Label("Votes : " + _controller.getVoteScore());
         _downVoteButton = new Button("👎");
         _downVoteButton.getStyleClass().add("primary");
         _upVoteButton = new Button("👍");
@@ -75,8 +77,6 @@ public class PinPopUp extends PopUp {
         children = _vbox.getChildren();
         children.addAll(_pokemonName, _date, _lifeLabel, _attackLabel, _defenseLabel, _voteBox, _closeButton);
         add(_vbox);
-        
-        
     }
 
     private void initCloseButtonEvent() {
