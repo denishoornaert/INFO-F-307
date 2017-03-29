@@ -16,10 +16,16 @@ public class MarkerController {
     }
     
     public void createMarker(PokemonModel pokemon, CoordinateModel newMarkerCoordinates) {
-        _markerMap.put(_newMarkerId, new MarkerModel(pokemon, newMarkerCoordinates));
-        double latitude = newMarkerCoordinates.getLatitude();
-        double longitude = newMarkerCoordinates.getLongitude();
-        _mapView.createPin(latitude, longitude, pokemon.getName(), _newMarkerId);
+        MarkerModel marker = new MarkerModel(pokemon, newMarkerCoordinates);
+        displayMarker(marker);
+    }
+    
+    public void displayMarker(MarkerModel marker) {
+        _markerMap.put(_newMarkerId, marker);
+        CoordinateModel markerCoordinates = marker.getCoordinate();
+        double latitude = markerCoordinates.getLatitude();
+        double longitude = markerCoordinates.getLongitude();
+        _mapView.createPin(latitude, longitude, marker.getPokemonName(), _newMarkerId);
         _newMarkerId += 1;
     }
     
