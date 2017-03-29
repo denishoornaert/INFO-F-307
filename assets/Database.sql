@@ -1,5 +1,5 @@
 BEGIN TRANSACTION;
-CREATE TABLE "PokemonType" (
+CREATE TABLE `PokemonType` (
 	`Id`	INTEGER PRIMARY KEY AUTOINCREMENT,
 	`Name`	TEXT UNIQUE
 );
@@ -14,7 +14,7 @@ CREATE TABLE `Pokemon` (
 	FOREIGN KEY(`TypeSecond`) REFERENCES `PokemonType`
 );
 
-CREATE TABLE "Marker" (
+CREATE TABLE `Marker` (
 	`Id`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
 	`PokemonId`	INTEGER NOT NULL,
 	`X`	INTEGER NOT NULL,
@@ -421,7 +421,9 @@ INSERT INTO `Pokemon` (`Name`,`ImagePath`, `TypeFirst`, `TypeSecond`) VALUES
 	("Ledyba", "ledyba.png", (SELECT `Id` FROM PokemonType WHERE `Name`="FLYING"), (SELECT `Id` FROM PokemonType WHERE `Name`="BUG")),
 	("Lickilicky", "lickilicky.png", (SELECT `Id` FROM PokemonType WHERE `Name`="NORMAL"), NULL),
 	("Lickitung", "lickitung.png", (SELECT `Id` FROM PokemonType WHERE `Name`="NORMAL"), NULL),
-	("Liepard", "liepard.png", (SELECT `Id` FROM PokemonType WHERE `Name`="DARK"), NULL),
+	("Liepard", "liepard.png", (SELECT `Id` FROM PokemonType WHERE `Name`="DARK"), NULL);
+
+INSERT INTO `Pokemon` (`Name`,`ImagePath`, `TypeFirst`, `TypeSecond`) VALUES
 	("Lileep", "lileep.png", (SELECT `Id` FROM PokemonType WHERE `Name`="GRASS"), (SELECT `Id` FROM PokemonType WHERE `Name`="ROCK")),
 	("Lilligant", "lilligant.png", (SELECT `Id` FROM PokemonType WHERE `Name`="GRASS"), NULL),
 	("Lillipup", "lillipup.png", (SELECT `Id` FROM PokemonType WHERE `Name`="NORMAL"), NULL),
