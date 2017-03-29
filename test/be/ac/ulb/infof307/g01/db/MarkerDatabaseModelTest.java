@@ -58,7 +58,6 @@ public class MarkerDatabaseModelTest extends TestCase {
         } catch(IllegalStateException ex) {
             // ignore
         }
-        System.out.println("Nbr Pok: " + PokemonModel.getAllPokemon().size());
         
     }
     

@@ -50,29 +50,19 @@ public class NewMarkerPopUp extends PopUp {
     
     public NewMarkerPopUp(NewMarkerPopUpController controller) {
         super();
-        System.out.println("1");
         initWidget(controller);
-        System.out.println("2");
         placeWidgets();
-        System.out.println("3");
         initStyle();
-        System.out.println("4");
         show();
     }
 
     private void initWidget(NewMarkerPopUpController controller) {
         initImage();
-        System.out.println("1.1");
         initDatePicker();
-        System.out.println("1.2");
         initSpinners();
-        System.out.println("1.3");
         initComboBoxes(controller);
-        System.out.println("1.4");
         initLabels();
-        System.out.println("1.5");
         initCloseButton(controller);
-        System.out.println("1.6");
         initokButton(controller);
     }
 
