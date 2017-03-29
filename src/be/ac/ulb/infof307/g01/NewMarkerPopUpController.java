@@ -5,20 +5,35 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 
 /**
- * TODO: add description
+ * Controller the NewMarkerPopUp that enable the user to create a new Marker.
  */
 public class NewMarkerPopUpController {
     
     private PokemonListModel _pokemonListModel;
     private NewMarkerPopUp _newMarkerPopUp;
-    /** Coordinates associated to the current popup. */
+    /** Coordinates associated to the current pop-up. */
     private CoordinateModel _newMarkerCoordinate;
-    private MarkerController _markerController;
+    private final static String _defaultImagePath = "assets/unknown_pokemon.png";
+    private Object _markerController;
  
     public NewMarkerPopUpController(MarkerController markerController) {
         _pokemonListModel = new PokemonListModel();
-        //_pokemonListModel = new PokemonListModel("Pikachu", "pikata", "Dracaufeu", "bullbizar");
         _markerController = markerController;
+    }
+    
+    /**
+     * Call when the entry of pokemon name is modified
+     * 
+     * @param newPokemonNameEntry the new pokemon name entry
+     */
+    public void newPokemonNameUpdate(String newPokemonNameEntry) {
+        ArrayList<String> pokemonNames = getPokemonByName(newPokemonNameEntry);
+        if(pokemonNames.size() == 1) {
+            selectedPokemonName(pokemonNames.get(0));
+        } else {
+            _newMarkerPopUp.setPokemonView(_defaultImagePath);
+        }
+        _newMarkerPopUp.setComboBoxPokemonNameContent(this, pokemonNames);
     }
     
     /*
@@ -28,7 +43,7 @@ public class NewMarkerPopUpController {
     * @parameters the pattern
     * @return the list of pokemon names that matches the pattern
     */
-    public ArrayList<String> getPokemonByName(String researchPattern) {
+    private ArrayList<String> getPokemonByName(String researchPattern) {
         ArrayList<String> res;
         if(researchPattern.length() > 1) {
             res = _pokemonListModel.findPokemonFromPattern(researchPattern);
@@ -45,6 +60,7 @@ public class NewMarkerPopUpController {
             // to marker coordinate (centered in the middle of the image)
             _newMarkerCoordinate = new CoordinateModel(coordinateX, coordinateY);
             _newMarkerPopUp = new NewMarkerPopUp(this);
+            newPokemonNameUpdate("");
         }
     }
     
@@ -60,6 +76,15 @@ public class NewMarkerPopUpController {
         PokemonModel pokemon = PokemonModel.getPokemonByName(pokemonName);
         _markerController.createMarker(pokemon, _newMarkerCoordinate);
         _newMarkerCoordinate = null;
+    }
+    
+    /*
+    * Method called when the user has selected a pokemon name listed among the combobox.
+    */
+    public void selectedPokemonName(String selectedString) {
+        PokemonModel pokemon = PokemonModel.getPokemonByName(selectedString);
+        String path = pokemon.getPathImage();
+        _newMarkerPopUp.setPokemonView(path);
     }
     
 }

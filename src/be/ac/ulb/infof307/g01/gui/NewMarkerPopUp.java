@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -67,8 +69,7 @@ public class NewMarkerPopUp extends PopUp {
     }
 
     private void initImage() {
-        String path = new File("assets/unknown_pokemon.png").toURI().toString();
-        _selectedPokemonView = new ImageView(new Image(path));
+        _selectedPokemonView = new ImageView();
         _selectedPokemonView.setFitHeight(150);
         _selectedPokemonView.setFitWidth(150);
     }
@@ -117,22 +118,39 @@ public class NewMarkerPopUp extends PopUp {
         _pokemonName.setPromptText("Pokemon name");
         _pokemonName.setEditable(true);
         initComboBoxPokemonNameEvent(controller);
-        setComboBoxPokemonNameContent(controller, "");
+        //setComboBoxPokemonNameContent(controller, "");
         HBox.setHgrow(_pokemonName, Priority.ALWAYS);
         _pokemonName.setMaxWidth(Double.MAX_VALUE);
     }
     
     private void initComboBoxPokemonNameEvent(NewMarkerPopUpController controller) {
-        _pokemonName.getEditor().addEventFilter(KeyEvent.KEY_PRESSED, e -> {
-            String text = _pokemonName.getEditor().getText();
-            ObservableList items = _pokemonName.getItems();
-            items.clear();
-            setComboBoxPokemonNameContent(controller, text);
+        initComboBoxPokemonNameEventCharTyped(controller);
+        initComboBoxPokemonNameEventItemSelected(controller);
+    }
+    
+    private void initComboBoxPokemonNameEventCharTyped(NewMarkerPopUpController controller) {
+        _pokemonName.getEditor().textProperty().addListener(new ChangeListener<String>() {
+            public void changed(final ObservableValue<? extends String> observableValue, final String oldValue,
+                                final String newValue) {
+                ObservableList items = _pokemonName.getItems();
+                items.clear();
+                controller.newPokemonNameUpdate(newValue);
+            }
         });
     }
     
-    private void setComboBoxPokemonNameContent(NewMarkerPopUpController controller, String text) {
-        ArrayList<String> pokemonsName = controller.getPokemonByName(text);
+    private void initComboBoxPokemonNameEventItemSelected(NewMarkerPopUpController controller) {
+        _pokemonName.setOnAction((event) -> {
+            Object object = _pokemonName.getSelectionModel().getSelectedItem();
+            if (object != null) {
+                controller.selectedPokemonName(object.toString());
+            }
+        });
+    }
+    
+    public void setComboBoxPokemonNameContent(NewMarkerPopUpController controller, 
+            ArrayList<String> pokemonsName) {
+        // ArrayList<String> pokemonsName = controller.getPokemonByName(text);
         ObservableList items = _pokemonName.getItems();
         for (String item : pokemonsName) {
             items.add(item);
@@ -257,6 +275,11 @@ public class NewMarkerPopUp extends PopUp {
 
     private void initStyle() {
         setSize(500, 150);
+    }
+    
+    public void setPokemonView(String imagePath) {
+        String path = new File(imagePath).toURI().toString();
+        _selectedPokemonView.setImage(new Image(path));
     }
     
 }
