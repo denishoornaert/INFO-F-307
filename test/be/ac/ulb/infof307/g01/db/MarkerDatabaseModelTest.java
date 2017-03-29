@@ -58,8 +58,6 @@ public class MarkerDatabaseModelTest extends TestCase {
         } catch(IllegalStateException ex) {
             // ignore
         }
-        System.out.println("Nbr Pok: " + PokemonModel.getAllPokemon().size());
-        
     }
     
     @After
@@ -102,7 +100,7 @@ public class MarkerDatabaseModelTest extends TestCase {
     }
     
     /**
-     * Return a marker object
+     * Returns a marker object
      * @param pokemonName the name of the pokemon to set in the marker
      * @param x the x coordinate of the marker
      * @param y the y coordinate of the marker
@@ -114,10 +112,6 @@ public class MarkerDatabaseModelTest extends TestCase {
     private static MarkerModel makeMarker(String pokemonName, int x, int y,
             int timeStamp, boolean changeTimestamp) {
         PokemonModel pokemon = PokemonModel.getPokemonByName(pokemonName);
-        if(pokemon == null) {
-            System.out.println("Pokemon name: " + pokemonName);
-        }
-        
         CoordinateModel coordinate = new CoordinateModel(x, y);
         MarkerModel marker = new MarkerModel(pokemon, coordinate);
         if(changeTimestamp)

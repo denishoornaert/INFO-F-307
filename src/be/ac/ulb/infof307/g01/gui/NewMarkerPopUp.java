@@ -124,13 +124,10 @@ public class NewMarkerPopUp extends PopUp {
     
     private void initComboBoxPokemonNameEvent(NewMarkerPopUpController controller) {
         _pokemonName.getEditor().addEventFilter(KeyEvent.KEY_PRESSED, e -> {
-            System.out.println("key pressed");
             String text = _pokemonName.getEditor().getText();
-            System.out.println("hop");
             ObservableList items = _pokemonName.getItems();
             items.clear();
             setComboBoxPokemonNameContent(controller, text);
-            System.out.println("now : "+text);
         });
     }
     
