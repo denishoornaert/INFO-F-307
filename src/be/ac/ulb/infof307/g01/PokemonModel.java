@@ -76,7 +76,6 @@ public class PokemonModel {
      * @return the PokemonModel instance or null if not found
      */
     public static PokemonModel getPokemonByName(String name) {
-        System.out.println("Nbr created pokemon: " + _allPokemon.size());
         return _allPokemon.get(name);
     }
     

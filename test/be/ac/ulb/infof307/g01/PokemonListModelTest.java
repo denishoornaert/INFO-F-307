@@ -7,6 +7,7 @@ package be.ac.ulb.infof307.g01;
  */
 
 import be.ac.ulb.infof307.g01.PokemonListModel;
+import java.util.ArrayList;
 import java.util.Arrays;
 import junit.framework.TestCase;
 import org.junit.After;
@@ -38,7 +39,11 @@ public class PokemonListModelTest extends TestCase {
 
     @Test
     public void test_findPokemonFromPattern() {
-        PokemonListModel tmp = new PokemonListModel("ami", "amitié", "bien", "bienvenue", "Jean");
+        ArrayList<String> pokemonsName = new ArrayList<String>();
+        pokemonsName.add("ami");
+        pokemonsName.add("amitié");
+        pokemonsName.add("Bob l'éponge");
+        PokemonListModel tmp = new PokemonListModel(pokemonsName);
         assertArrayEquals(tmp.findPokemonFromPattern("ami").toArray(),new String[]{"ami", "amitié"});
     }
 }

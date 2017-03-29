@@ -3,21 +3,22 @@ package be.ac.ulb.infof307.g01;
 import java.util.ArrayList;
 
 /**
- * TODO: add description
+ * Constant list of the pokemons name.
  */
 public class PokemonListModel {
     
-    ArrayList<String> _allPokemonNames;
-
-    public PokemonListModel(String ... names) {
-        _allPokemonNames = new ArrayList<String>();
-        for (String name : names) {
-            _allPokemonNames.add(name);
-        }
+    private final ArrayList<String> _allPokemonNames;
+            
+    public PokemonListModel() {
+        this(PokemonModel.getAllPokemonName());
+    }
+    
+    public PokemonListModel(ArrayList<String> pokemonsName) {
+        _allPokemonNames = pokemonsName;
     }
     
     public ArrayList<String> getAllNames() {
-        return _allPokemonNames;
+        return new ArrayList<String>(_allPokemonNames);
     }
     
     public ArrayList<String> findPokemonFromPattern(String pattern) {
