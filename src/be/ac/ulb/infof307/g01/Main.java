@@ -45,19 +45,6 @@ public class Main extends Application {
         _scene.getStylesheets().add(new File("assets/bootstrap.css").toURI().toString());
         stage.setScene(_scene);
         
-        // TEST PINPOPUP
-        //PinPopUp tmp = new PinPopUp(new MarkerController(new PokemonModel("Denis l'oiseau", 0, 0, 0), new CoordinateModel(0, 0)));
-        
-        /*final ChangeListener<Number> listener = new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> ov, Number t, Number t1) {
-                mapController.updateDimensions();
-            }
-        };
-        
-        stage.widthProperty().addListener(listener);
-        stage.heightProperty().addListener(listener);
-        */
         stage.show();
     }
     
