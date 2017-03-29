@@ -1,5 +1,6 @@
 package be.ac.ulb.infof307.g01;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -10,6 +11,7 @@ import java.util.HashMap;
 public class PokemonModel {
 
     private static HashMap<String, PokemonModel> _allPokemon = new HashMap<>();
+    private static final String _pathPrefix = "assets" + File.separator + "sprites" + File.separator;
     private final int _typeNumberMax = 2; // TODO : 
     private final String _name;
     private final PokemonTypeModel[] _type;
@@ -27,7 +29,7 @@ public class PokemonModel {
         }
         _name = name;
         _type = type_array;
-        _pathImage = imagePath;
+        _pathImage = _pathPrefix + imagePath;
         
         _allPokemon.put(name, this);
     }

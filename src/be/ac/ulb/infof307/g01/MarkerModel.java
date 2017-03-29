@@ -12,32 +12,17 @@ public class MarkerModel {
     private Timestamp _timestamp;
     private ReputationScore _reputation;
     private int _lifePoint, _attack, _defense; // TODO init in constructor
-
-
-    /**
-     * Indicates whether this marker contains valid information.
-     * If false, the display shows input fields to select the pokemon
-     * and the date.<br />
-     * TODO: utile ?  A supprime si pas utile
-     */
-    private boolean _isValid = false;
     
     public MarkerModel(PokemonModel pokemon, CoordinateModel coordinate) {
-        this(pokemon, coordinate, true);
+        this(pokemon, coordinate, 0, 0);
     }
     
-    public MarkerModel(PokemonModel pokemon, CoordinateModel coordinate, boolean createPin) {
-        this(pokemon, coordinate, createPin, 0, 0);
-    }
-    
-    public MarkerModel(PokemonModel pokemon, CoordinateModel coordinate,
-            boolean createPin, int upVote, int downVote) {
+    public MarkerModel(PokemonModel pokemon, CoordinateModel coordinate, int upVote, int downVote) {
         _pokemon = pokemon;
         _coordinate = coordinate;
         
         Long currentTime = System.currentTimeMillis();
         _timestamp = new Timestamp(currentTime);
-        _isValid = true;
         
         _reputation = new ReputationScore(upVote, downVote);
     }

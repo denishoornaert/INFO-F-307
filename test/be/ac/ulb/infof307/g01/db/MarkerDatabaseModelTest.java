@@ -54,11 +54,10 @@ public class MarkerDatabaseModelTest extends TestCase {
         PokemonModel.clearAllPokemon();
         try {
             new PokemonModel("Pikachu", "");
-            new PokemonModel("Mystherbe", "");
+            new PokemonModel("Piplup", "");
         } catch(IllegalStateException ex) {
             // ignore
         }
-        
     }
     
     @After
@@ -90,7 +89,7 @@ public class MarkerDatabaseModelTest extends TestCase {
     public void test_getAllMarkers() {
         final int xCoordinate = 250;
         final int yCoordinate = 500;
-        String pokemonName = "Mystherbe";
+        String pokemonName = "Piplup";
         MarkerModel marker = MarkerDatabaseModelTest.makeMarker(
                 pokemonName, xCoordinate, yCoordinate, 0, false);
         
@@ -101,7 +100,7 @@ public class MarkerDatabaseModelTest extends TestCase {
     }
     
     /**
-     * Return a marker object
+     * Returns a marker object
      * @param pokemonName the name of the pokemon to set in the marker
      * @param x the x coordinate of the marker
      * @param y the y coordinate of the marker
@@ -113,10 +112,6 @@ public class MarkerDatabaseModelTest extends TestCase {
     private static MarkerModel makeMarker(String pokemonName, int x, int y,
             int timeStamp, boolean changeTimestamp) {
         PokemonModel pokemon = PokemonModel.getPokemonByName(pokemonName);
-        if(pokemon == null) {
-            System.out.println("Pokemon name: " + pokemonName);
-        }
-        
         CoordinateModel coordinate = new CoordinateModel(x, y);
         MarkerModel marker = new MarkerModel(pokemon, coordinate);
         if(changeTimestamp)

@@ -38,7 +38,7 @@ public class PokemonModelTest {
         new PokemonTypeModel("ELECTRIC");
         
         
-        arceus = new PokemonModel("arceus", "assets/sprites/arceus.png",
+        arceus = new PokemonModel("arceus", "arceus.png",
                 PokemonTypeModel.getPokemonTypeByTypeName("DARK"));
     }
     
