@@ -22,13 +22,12 @@ public class MapController {
         _database = (MarkerDatabaseModel) DatabaseModel.getDatabase();
         _mapView = new MapView(this);
         _markerController = new MarkerController(_mapView);
-        
-        initMarkers();
+        initMarkers(); //display the existing markers from the db
     }
     
     private void initMarkers() {
         for(MarkerModel markerModel : _database.getAllMarkers()) {
-            _markerController.createMarker(new MarkerController(markerModel));
+            _markerController.displayMarker(markerModel);
         }
     }
     
