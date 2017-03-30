@@ -175,12 +175,12 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
      */
     @Override
     public void insertMarker(MarkerModel marker) {
-        String query = "INSERT INTO Marker(PokemonId, X, Y, TimeStamp, Reputation) "
+        String query = "INSERT INTO Marker(PokemonId, X, Y, TimeStamp, UpVotes, DownVotes) "
                 + "VALUES("
                     + "(SELECT Id "
                     + "FROM Pokemon "
                     + "WHERE Name=?),"
-                + "?, ?, ?, 0)";
+                + "?, ?, ?, 0, 0)";
         try {
             CoordinateModel markerCoordinate = marker.getCoordinate();
             PreparedStatement statement = _connection.prepareStatement(query);
@@ -193,7 +193,6 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
             statement.execute();
             
             final int generatedId = statement.getGeneratedKeys().getInt(0);
-            System.out.println("Generated id = " + generatedId);// TODO here
             marker.setDatabaseId(generatedId);
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseModel.class.getName()).log(Level.SEVERE, null, ex);
