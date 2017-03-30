@@ -15,13 +15,11 @@ public class Main extends Application {
     private static StackPane _layout;
     private static Stage _stage;
     
-    /**
-     * Path to application database
-     */
+    /** Path to application database. */
     private static final String DATABASE_PATH = "./assets/Database.db";
     
     /**
-     * Path to application tests  database
+     * Path to application tests  database.
      * 
      * Note: another database is needed for tests in order to not pollute the
      * initial one in case any database test goes wrong
@@ -56,24 +54,16 @@ public class Main extends Application {
         return _stage;
     }
     
-    /**
-     * Load and init the database
-     * 
-     * @return false if anything went wrong and true otherwise
-     */
-    private static boolean loadDatabase() {
-        boolean isOk = true;
-        try {
-            DatabaseModel databaseModel = new DatabaseModel(getDatabasePath());
-        } catch (SQLException | FileNotFoundException exception) {
-            System.err.println(exception.getMessage());
-            isOk = false;
-        }
-        return isOk;
+    /** Loads and inits the database. */
+    private static void loadDatabase() throws SQLException, FileNotFoundException {
+        DatabaseModel databaseModel = new DatabaseModel(getDatabasePath());
     }
     
     public static void main(String[] args) {
-        if(!loadDatabase()) {
+        try {
+            loadDatabase();
+        } catch (SQLException | FileNotFoundException exception) {
+            System.err.println(exception.getMessage());
             System.err.println("Error loading the database. Application aborted");
             return;
         }
@@ -81,7 +71,7 @@ public class Main extends Application {
     }  
     
     /**
-     * Return the path of the application database
+     * Returns the path of the application database.
      * @return the path to the database to be used in the application
      */
     public static String getDatabasePath() {
@@ -89,7 +79,7 @@ public class Main extends Application {
     }
     
     /**
-     * Return the path or the tests database
+     * Returns the path or the tests database.
      * @return the path of the database to be used in the tests
      */
     public static String getTestDatabasePath() {
