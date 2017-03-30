@@ -8,8 +8,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -130,6 +132,7 @@ public class NewMarkerPopUp extends PopUp {
     private void setComboBoxPokemonNameContent() {
         ObservableList items = _pokemonName.getItems();
         items.addAll(_pokemonNames);
+
     }
     
     private void initComboBoxPokemonNameEventItemSelected() {
