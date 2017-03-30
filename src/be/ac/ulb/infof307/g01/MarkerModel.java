@@ -8,7 +8,10 @@ import java.sql.Timestamp;
  * TODO: add description
  */
 public class MarkerModel {
-    
+    /** The ID of this marker in the database. With this attribute,
+     * DatabaseModel can know to which database entry this object corresponds.
+     */
+    private int _databaseId;
     private final PokemonModel _pokemon;
     private final CoordinateModel _coordinate;
     private Timestamp _timestamp;
@@ -17,17 +20,21 @@ public class MarkerModel {
     private MarkerDatabaseModel _database;
     
     public MarkerModel(PokemonModel pokemon, CoordinateModel coordinate) {
-        this(pokemon, coordinate, 0, 0);
+        this(0, pokemon, coordinate, new Timestamp(System.currentTimeMillis()), 0, 0);
+    }
+
+    public MarkerModel(int databaseId, String pokemonName, int xCoordinate, int yCoordinate, 
+            Timestamp timestamp, int upVotes, int downVotes) {
+        this(databaseId, PokemonModel.getPokemonByName(pokemonName), 
+                new CoordinateModel(xCoordinate, yCoordinate), timestamp, upVotes, downVotes);
     }
     
-    public MarkerModel(PokemonModel pokemon, CoordinateModel coordinate, int upVote, int downVote) {
+    public MarkerModel(int databaseId, PokemonModel pokemon, CoordinateModel coordinate, Timestamp timestamp, int upVotes, int downVotes) {
+        _databaseId = databaseId;
         _pokemon = pokemon;
         _coordinate = coordinate;
-        
-        Long currentTime = System.currentTimeMillis();
-        _timestamp = new Timestamp(currentTime);
-        
-        _reputation = new ReputationScore(upVote, downVote);
+        _timestamp = timestamp;
+        _reputation = new ReputationScore(upVotes, downVotes);
         _database = (MarkerDatabaseModel) DatabaseModel.getDatabase();
     }
     
@@ -43,13 +50,6 @@ public class MarkerModel {
     public void voteDown() {
         _reputation.vote(ReputationVoteModel.DOWN);
         _database.voteOnMarker(this, ReputationVoteModel.DOWN);
-    }
-
-    public MarkerModel(String pokemonName, int xCoordinate, int yCoordinate, 
-            Timestamp newTimestamp) {
-        this(PokemonModel.getPokemonByName(pokemonName), 
-                new CoordinateModel(xCoordinate, yCoordinate));
-        _timestamp = newTimestamp;
     }
     
     public void setTimestamp(Timestamp newTimestamp) {
@@ -93,5 +93,20 @@ public class MarkerModel {
     public int getVoteScore() {
         return _reputation.getScore();
     }
-   
+
+    /** Get the database ID.
+     * This function should be used only by DatabaseModel, since the ID is 
+     * managed by it.
+     */
+    public int getDatabaseId() {
+        return _databaseId;
+    }
+
+    /** Set the database ID.
+     * This function should be used only by DatabaseModel, since the ID is 
+     * managed by it.
+     */
+    public void setDatabaseId(int databaseId) {
+        _databaseId = databaseId;
+    }
 }

@@ -4,6 +4,7 @@ import be.ac.ulb.infof307.g01.CoordinateModel;
 import be.ac.ulb.infof307.g01.MarkerModel;
 import be.ac.ulb.infof307.g01.PokemonModel;
 import be.ac.ulb.infof307.g01.PokemonTypeModel;
+import be.ac.ulb.infof307.g01.ReputationVoteModel;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.Connection;
@@ -190,6 +191,10 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
             statement.setDouble(3, markerCoordinate.getLongitude());
             statement.setString(4, timestampString);
             statement.execute();
+            
+            final int generatedId = statement.getGeneratedKeys().getInt(0);
+            System.out.println("Generated id = " + generatedId);// TODO here
+            marker.setDatabaseId(generatedId);
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseModel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -202,7 +207,7 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
     @Override
     public ArrayList<MarkerModel> getAllMarkers() {
         ArrayList<MarkerModel> allMarkers = new ArrayList<>();
-        String query = "SELECT P.Name, M.X, M.Y, M.TimeStamp "
+        String query = "SELECT M.Id, P.Name, M.X, M.Y, M.TimeStamp, M.UpVotes, M.DownVotes "
                 + "FROM Marker M "
                 + "JOIN Pokemon P "
                 + "    ON P.Id=M.PokemonId ";
@@ -218,13 +223,27 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
     }
     
     private MarkerModel createMarker(ResultSet cursor) throws SQLException {
-        final String pokemonName = cursor.getString(1);
-        final int xCoordinate = cursor.getInt(2);
-        final int yCoordinate = cursor.getInt(3);
-        final String timestampString = cursor.getString(4);
+        final int id = cursor.getInt(1);
+        final String pokemonName = cursor.getString(2);
+        final int xCoordinate = cursor.getInt(3);
+        final int yCoordinate = cursor.getInt(4);
+        final String timestampString = cursor.getString(5);
+        final int upVotes = cursor.getInt(6);
+        final int downVotes = cursor.getInt(7);
 
-        return new MarkerModel(pokemonName, xCoordinate, yCoordinate, 
-                Timestamp.valueOf(timestampString));
+        return new MarkerModel(id, pokemonName, xCoordinate, yCoordinate, 
+                Timestamp.valueOf(timestampString), upVotes, downVotes);
+    }
+
+    @Override
+    /**
+     * Apply a reputation vote on the given marker.
+     * 
+     * @param marker The marker to vote on.
+     * @param reputationVote The vote to apply.
+     */
+    public void voteOnMarker(MarkerModel marker, ReputationVoteModel reputationVote) {
+        // TODO
     }
     
     ///////////////////// STATIC /////////////////////

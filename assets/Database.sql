@@ -15,12 +15,13 @@ CREATE TABLE `Pokemon` (
 );
 
 CREATE TABLE `Marker` (
-	`Id`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-	`PokemonId`	INTEGER NOT NULL,
-	`X`	INTEGER NOT NULL,
-	`Y`	INTEGER NOT NULL,
-	`TimeStamp`	TEXT NOT NULL,
-        `Reputation` INTEGER NOT NULL,
+        `Id`        INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+        `PokemonId` INTEGER NOT NULL,
+        `X`         INTEGER NOT NULL,
+        `Y`         INTEGER NOT NULL,
+        `TimeStamp` TEXT    NOT NULL,
+        `UpVotes`   INTEGER NOT NULL,
+        `DownVotes` INTEGER NOT NULL,
 	FOREIGN KEY(`PokemonId`) REFERENCES Pokemon
 );
 
