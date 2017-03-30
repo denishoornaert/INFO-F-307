@@ -11,5 +11,5 @@ public interface MarkerDatabaseModel {
     
     public void insertMarker(MarkerModel marker);
     public ArrayList<MarkerModel> getAllMarkers();
-    public void voteOnMarker(MarkerModel marker, ReputationVoteModel reputationVote);
+    public void updateMarkerReputation(MarkerModel marker);
 }

@@ -44,12 +44,12 @@ public class MarkerModel {
     
     public void voteUp() {
         _reputation.vote(ReputationVoteModel.UP);
-        _database.voteOnMarker(this, ReputationVoteModel.UP);
+        _database.updateMarkerReputation(this);
     }
     
     public void voteDown() {
         _reputation.vote(ReputationVoteModel.DOWN);
-        _database.voteOnMarker(this, ReputationVoteModel.DOWN);
+        _database.updateMarkerReputation(this);
     }
     
     public void setTimestamp(Timestamp newTimestamp) {
@@ -92,6 +92,14 @@ public class MarkerModel {
 
     public int getVoteScore() {
         return _reputation.getScore();
+    }
+
+    public int getUpVotes() {
+        return _reputation.getUpVotes();
+    }
+
+    public int getDownVotes() {
+        return _reputation.getDownVotes();
     }
 
     /** Get the database ID.

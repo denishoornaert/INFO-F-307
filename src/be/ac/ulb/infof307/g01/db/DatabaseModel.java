@@ -237,13 +237,24 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
 
     @Override
     /**
-     * Apply a reputation vote on the given marker.
+     * Update in the database the reputation of the given marker.
+     * This function is usually called after a vote has been done by a user.
+     * This function does not take a vote in parameter, as the marker already
+     * know its new reputation value, it would be dumb to compute it again here.
      * 
-     * @param marker The marker to vote on.
-     * @param reputationVote The vote to apply.
+     * @param marker The marker that need to be updated in the database.
      */
-    public void voteOnMarker(MarkerModel marker, ReputationVoteModel reputationVote) {
-        // TODO
+    public void updateMarkerReputation(MarkerModel marker) {
+        String query = "UPDATE Marker SET UpVotes=?, DownVotes=? WHERE Id=?";
+        try {
+            PreparedStatement statement = _connection.prepareStatement(query);
+            statement.setInt(1, marker.getUpVotes());
+            statement.setInt(2, marker.getDownVotes());
+            statement.setInt(3, marker.getDatabaseId());
+            statement.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     ///////////////////// STATIC /////////////////////

@@ -10,6 +10,14 @@ public class ReputationScore {
         _upVotes = up;
         _downVotes = down;
     }
+
+    int getUpVotes() {
+        return _upVotes;
+    }
+
+    int getDownVotes() {
+        return _downVotes;
+    }   
     
     public int getScore() {
         return _upVotes - _downVotes;
@@ -21,6 +29,5 @@ public class ReputationScore {
         } else if (reputationVote == ReputationVoteModel.DOWN) {
             _downVotes++;
         }
-    }
-    
+    } 
 }
