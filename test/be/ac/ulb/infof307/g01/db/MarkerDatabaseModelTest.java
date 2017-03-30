@@ -1,45 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package be.ac.ulb.infof307.g01.db;
 
 import be.ac.ulb.infof307.g01.CoordinateModel;
 import be.ac.ulb.infof307.g01.Main;
 import be.ac.ulb.infof307.g01.MarkerModel;
 import be.ac.ulb.infof307.g01.PokemonModel;
-import java.io.FileNotFoundException;
-import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import junit.framework.TestCase;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-/**
- *
- * @author robin
- */
 public class MarkerDatabaseModelTest extends TestCase {
     
     private static MarkerDatabaseModel _database;
-    
-    public MarkerDatabaseModelTest(String testName) {
-        super(testName);
-    }
-    
-    
-    @BeforeClass
-    public static void setUpClass() throws SQLException, FileNotFoundException {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
     
     @Before
     protected void setUp() throws Exception {
