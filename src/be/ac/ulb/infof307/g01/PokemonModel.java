@@ -54,7 +54,7 @@ public class PokemonModel {
      * Return the path of the sprite of the Pokemon
      * @return the path of the sprite of the Pokemon
      */
-    public String getPathImage() {
+    public String getImagePath() {
         return _pathImage;
     }
     

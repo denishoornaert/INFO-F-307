@@ -50,22 +50,27 @@ public class NewMarkerPopUp extends PopUp {
     private Button _closeButton;
     private Button _okButton;
     
-    public NewMarkerPopUp(NewMarkerPopUpController controller) {
+    private ArrayList<String> _pokemonNames;
+    private NewMarkerPopUpController _controller;
+    
+    public NewMarkerPopUp(NewMarkerPopUpController controller, ArrayList<String> pokemonsName) {
         super();
-        initWidget(controller);
+        _pokemonNames = pokemonsName;
+        _controller = controller;
+        initWidget();
         placeWidgets();
         initStyle();
         show();
     }
 
-    private void initWidget(NewMarkerPopUpController controller) {
+    private void initWidget() {
         initImage();
         initDatePicker();
         initSpinners();
-        initComboBoxes(controller);
+        initComboBoxes();
         initLabels();
-        initCloseButton(controller);
-        initokButton(controller);
+        initCloseButton();
+        initokButton();
     }
 
     private void initImage() {
@@ -97,8 +102,8 @@ public class NewMarkerPopUp extends PopUp {
         return spin;
     }
     
-    private void initComboBoxes(NewMarkerPopUpController controller) {
-        initComboBoxPokemonName(controller);
+    private void initComboBoxes() {
+        initComboBoxPokemonName();
         Calendar calendar = initCalendar();
         initComboBoxHour(calendar.get(Calendar.HOUR_OF_DAY));
         initComboBoxMinutes(calendar.get(Calendar.MINUTE));
@@ -113,48 +118,27 @@ public class NewMarkerPopUp extends PopUp {
     }
     
     
-    private void initComboBoxPokemonName(NewMarkerPopUpController controller) {
+    private void initComboBoxPokemonName() {
         _pokemonName = new ComboBox();
         _pokemonName.setPromptText("Pokemon name");
-        _pokemonName.setEditable(true);
-        initComboBoxPokemonNameEvent(controller);
-        //setComboBoxPokemonNameContent(controller, "");
+        setComboBoxPokemonNameContent();
+        initComboBoxPokemonNameEventItemSelected();
         HBox.setHgrow(_pokemonName, Priority.ALWAYS);
         _pokemonName.setMaxWidth(Double.MAX_VALUE);
     }
     
-    private void initComboBoxPokemonNameEvent(NewMarkerPopUpController controller) {
-        initComboBoxPokemonNameEventCharTyped(controller);
-        initComboBoxPokemonNameEventItemSelected(controller);
+    private void setComboBoxPokemonNameContent() {
+        ObservableList items = _pokemonName.getItems();
+        items.addAll(_pokemonNames);
     }
     
-    private void initComboBoxPokemonNameEventCharTyped(NewMarkerPopUpController controller) {
-        _pokemonName.getEditor().textProperty().addListener(new ChangeListener<String>() {
-            public void changed(final ObservableValue<? extends String> observableValue, final String oldValue,
-                                final String newValue) {
-                ObservableList items = _pokemonName.getItems();
-                items.clear();
-                controller.newPokemonNameUpdate(newValue);
-            }
-        });
-    }
-    
-    private void initComboBoxPokemonNameEventItemSelected(NewMarkerPopUpController controller) {
+    private void initComboBoxPokemonNameEventItemSelected() {
         _pokemonName.setOnAction((event) -> {
             Object object = _pokemonName.getSelectionModel().getSelectedItem();
             if (object != null) {
-                controller.selectedPokemonName(object.toString());
+                _controller.selectedPokemonName(object.toString());
             }
         });
-    }
-    
-    public void setComboBoxPokemonNameContent(NewMarkerPopUpController controller, 
-            ArrayList<String> pokemonsName) {
-        // ArrayList<String> pokemonsName = controller.getPokemonByName(text);
-        ObservableList items = _pokemonName.getItems();
-        for (String item : pokemonsName) {
-            items.add(item);
-        }
     }
     
     private Calendar initCalendar() {
@@ -199,7 +183,11 @@ public class NewMarkerPopUp extends PopUp {
     
     private String getSelectedString(ComboBox combobox) {
         Object object = combobox.getValue();
-        return object.toString();
+        String res = "";
+        if(object != null) {
+            res = object.toString();
+        }
+        return res;
     }
     
     private Timestamp getSelectedTime() {
@@ -216,7 +204,7 @@ public class NewMarkerPopUp extends PopUp {
         return resTimestamp;
     }
     
-    private void initokButton(NewMarkerPopUpController controller) {
+    private void initokButton() {
         _okButton = new Button("save");
         _okButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent t) {
@@ -225,7 +213,7 @@ public class NewMarkerPopUp extends PopUp {
                 int life = getSpinnerValue(_lifeSpinner);
                 int attack = getSpinnerValue(_attackSpinner);
                 int defense = getSpinnerValue(_defenseSpinner);
-                controller.endPopUpCreateMarker(name, life, attack, defense, selectedDate);
+                _controller.endPopUpCreateMarker(name, life, attack, defense, selectedDate);
                 // Only when cancel (and not create marker)
                 // map.cancelPopUpCreateMarker();
             }
@@ -235,12 +223,12 @@ public class NewMarkerPopUp extends PopUp {
         _okButton.setMaxWidth(Double.MAX_VALUE);
     }
     
-    private void initCloseButton(NewMarkerPopUpController controller) {
+    private void initCloseButton() {
         _closeButton = new Button("cancel");
         _closeButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent t) {
                 // Only when cancel (and not create marker)
-                controller.cancelPopUpCreateMarker();
+                _controller.cancelPopUpCreateMarker();
             }
         });
         _closeButton.getStyleClass().add("danger");
@@ -280,6 +268,10 @@ public class NewMarkerPopUp extends PopUp {
     public void setPokemonView(String imagePath) {
         String path = new File(imagePath).toURI().toString();
         _selectedPokemonView.setImage(new Image(path));
+    }
+
+    public void errorInPokemonName() {
+        _pokemonName.setPromptText("Please select an item");
     }
     
 }
