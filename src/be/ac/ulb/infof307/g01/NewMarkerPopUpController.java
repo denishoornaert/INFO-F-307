@@ -14,7 +14,7 @@ public class NewMarkerPopUpController {
     /** Coordinates associated to the current pop-up. */
     private CoordinateModel _newMarkerCoordinate;
     private final static String _defaultImagePath = "assets/unknown_pokemon.png";
-    private Object _markerController;
+    private MarkerController _markerController;
  
     public NewMarkerPopUpController(MarkerController markerController) {
         _pokemonListModel = new PokemonListModel();
