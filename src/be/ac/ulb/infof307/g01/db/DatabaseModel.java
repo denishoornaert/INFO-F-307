@@ -4,6 +4,7 @@ import be.ac.ulb.infof307.g01.CoordinateModel;
 import be.ac.ulb.infof307.g01.MarkerModel;
 import be.ac.ulb.infof307.g01.PokemonModel;
 import be.ac.ulb.infof307.g01.PokemonTypeModel;
+import be.ac.ulb.infof307.g01.ReputationVoteModel;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.Connection;
@@ -174,12 +175,12 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
      */
     @Override
     public void insertMarker(MarkerModel marker) {
-        String query = "INSERT INTO Marker(PokemonId, X, Y, TimeStamp) "
+        String query = "INSERT INTO Marker(PokemonId, X, Y, TimeStamp, UpVotes, DownVotes) "
                 + "VALUES("
                     + "(SELECT Id "
                     + "FROM Pokemon "
                     + "WHERE Name=?),"
-                + "?, ?, ?)";
+                + "?, ?, ?, 0, 0)";
         try {
             CoordinateModel markerCoordinate = marker.getCoordinate();
             PreparedStatement statement = _connection.prepareStatement(query);
@@ -190,6 +191,9 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
             statement.setDouble(3, markerCoordinate.getLongitude());
             statement.setString(4, timestampString);
             statement.execute();
+            
+            final int generatedId = statement.getGeneratedKeys().getInt(0);
+            marker.setDatabaseId(generatedId);
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseModel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -202,7 +206,7 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
     @Override
     public ArrayList<MarkerModel> getAllMarkers() {
         ArrayList<MarkerModel> allMarkers = new ArrayList<>();
-        String query = "SELECT P.Name, M.X, M.Y, M.TimeStamp "
+        String query = "SELECT M.Id, P.Name, M.X, M.Y, M.TimeStamp, M.UpVotes, M.DownVotes "
                 + "FROM Marker M "
                 + "JOIN Pokemon P "
                 + "    ON P.Id=M.PokemonId ";
@@ -218,13 +222,38 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
     }
     
     private MarkerModel createMarker(ResultSet cursor) throws SQLException {
-        final String pokemonName = cursor.getString(1);
-        final int xCoordinate = cursor.getInt(2);
-        final int yCoordinate = cursor.getInt(3);
-        final String timestampString = cursor.getString(4);
+        final int id = cursor.getInt(1);
+        final String pokemonName = cursor.getString(2);
+        final int xCoordinate = cursor.getInt(3);
+        final int yCoordinate = cursor.getInt(4);
+        final String timestampString = cursor.getString(5);
+        final int upVotes = cursor.getInt(6);
+        final int downVotes = cursor.getInt(7);
 
-        return new MarkerModel(pokemonName, xCoordinate, yCoordinate, 
-                Timestamp.valueOf(timestampString));
+        return new MarkerModel(id, pokemonName, xCoordinate, yCoordinate, 
+                Timestamp.valueOf(timestampString), upVotes, downVotes);
+    }
+
+    @Override
+    /**
+     * Update in the database the reputation of the given marker.
+     * This function is usually called after a vote has been done by a user.
+     * This function does not take a vote in parameter, as the marker already
+     * know its new reputation value, it would be dumb to compute it again here.
+     * 
+     * @param marker The marker that need to be updated in the database.
+     */
+    public void updateMarkerReputation(MarkerModel marker) {
+        String query = "UPDATE Marker SET UpVotes=?, DownVotes=? WHERE Id=?";
+        try {
+            PreparedStatement statement = _connection.prepareStatement(query);
+            statement.setInt(1, marker.getUpVotes());
+            statement.setInt(2, marker.getDownVotes());
+            statement.setInt(3, marker.getDatabaseId());
+            statement.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     ///////////////////// STATIC /////////////////////
