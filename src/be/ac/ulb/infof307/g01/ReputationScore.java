@@ -17,16 +17,16 @@ public class ReputationScore {
         _downVote = down;
     }
     
-    public void voteUp() {
-        _upVote++;
-    }
-        
-    public void voteDown() {
-        _downVote++;
-    }
-    
     public int getScore() {
         return _upVote-_downVote;
+    }
+
+    void vote(ReputationVoteModel reputationVote) {
+        if(reputationVote == ReputationVoteModel.UP) {
+            _upVote++;
+        } else if (reputationVote == ReputationVoteModel.DOWN) {
+            _downVote++;
+        }
     }
     
 }

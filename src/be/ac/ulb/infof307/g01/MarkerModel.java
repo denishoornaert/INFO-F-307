@@ -1,5 +1,7 @@
 package be.ac.ulb.infof307.g01;
 
+import be.ac.ulb.infof307.g01.db.DatabaseModel;
+import be.ac.ulb.infof307.g01.db.MarkerDatabaseModel;
 import java.sql.Timestamp;
 
 /**
@@ -12,6 +14,7 @@ public class MarkerModel {
     private Timestamp _timestamp;
     private ReputationScore _reputation;
     private int _lifePoint, _attack, _defense; // TODO init in constructor
+    private MarkerDatabaseModel _database;
     
     public MarkerModel(PokemonModel pokemon, CoordinateModel coordinate) {
         this(pokemon, coordinate, 0, 0);
@@ -25,6 +28,7 @@ public class MarkerModel {
         _timestamp = new Timestamp(currentTime);
         
         _reputation = new ReputationScore(upVote, downVote);
+        _database = (MarkerDatabaseModel) DatabaseModel.getDatabase();
     }
     
     public int getReputationScore() {
@@ -32,11 +36,13 @@ public class MarkerModel {
     }
     
     public void voteUp() {
-        _reputation.voteUp();
+        _reputation.vote(ReputationVoteModel.UP);
+        _database.voteOnMarker(this, ReputationVoteModel.UP);
     }
     
     public void voteDown() {
-        _reputation.voteDown();
+        _reputation.vote(ReputationVoteModel.DOWN);
+        _database.voteOnMarker(this, ReputationVoteModel.DOWN);
     }
 
     public MarkerModel(String pokemonName, int xCoordinate, int yCoordinate, 
