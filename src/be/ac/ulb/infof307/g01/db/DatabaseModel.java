@@ -4,7 +4,6 @@ import be.ac.ulb.infof307.g01.CoordinateModel;
 import be.ac.ulb.infof307.g01.MarkerModel;
 import be.ac.ulb.infof307.g01.PokemonModel;
 import be.ac.ulb.infof307.g01.PokemonTypeModel;
-import be.ac.ulb.infof307.g01.ReputationVoteModel;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.Connection;
@@ -21,19 +20,19 @@ import java.util.logging.Logger;
 /**
  * TODO: add description
  */
-public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseModel, 
+public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseModel,
         MarkerDatabaseModel {
-    
+
     private static DatabaseModel _instance = null;
-    
+
     /**
      * The database connection
      */
     private Connection _connection;
-    
+
     /**
      * Init database
-     * 
+     *
      * @param pathToDatabase path to database
      * @throws java.sql.SQLException
      * @throws java.io.FileNotFoundException
@@ -46,10 +45,10 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
         assertDatabaseFileExists(pathToDatabase);
         connectToSqlite(pathToDatabase);
         loadAllTables();
-        
+
         _instance = this;
     }
-    
+
     /**
      * Load all Data (Pokemon and PokemonType)
      */
@@ -60,7 +59,7 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
 
     /**
      * Returns whether *.db file exists
-     * 
+     *
      * @param path path to database
      * @return true if file exists and false otherwise
      */
@@ -73,7 +72,7 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
 
     /**
      * Initialize the connection to the SQLite database
-     * 
+     *
      * @param pathToDatabase path to database
      * @return true if database was properly loaded and false otherwise
      */
@@ -82,7 +81,7 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
                 "jdbc:sqlite:" + pathToDatabase);
         System.out.println("Connection to " + pathToDatabase + " successful");
     }
-    
+
     /**
      * Properly close the connection to the database
      */
@@ -94,10 +93,10 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
             System.err.println(ex.getMessage());
         }
     }
-    
+
     /**
      * Execute a query
-     * 
+     *
      * @param query the string query
      * @return a resultset with the result
      */
@@ -106,13 +105,13 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
        try {
            Statement statement = _connection.createStatement();
            resultat = statement.executeQuery(query);
-           
+
        } catch (SQLException e) {
            System.err.println(e.getMessage());
        }
        return resultat;
     }
-    
+
     /**
      * Load all of the pokemon types from the database
      */
@@ -120,7 +119,7 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
     public void loadAllPokemonTypes() {
         String query = "SELECT DISTINCT(Name) FROM PokemonType";
         ResultSet result = executeQuery(query);
-        
+
         try {
             while(result.next()) {
                 try {
@@ -134,7 +133,7 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
             System.err.println(exception.getMessage());
         }
     }
-    
+
     @Override
     public void loadAllPokemons() {
         String query = "SELECT Pokemon.Name AS PName, Pokemon.ImagePath, "
@@ -142,7 +141,7 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
                 + "JOIN PokemonType FirstType ON FirstType.Id = Pokemon.TypeFirst "
                 + "JOIN PokemonType SecondType ON SecondType.Id = Pokemon.TypeSecond";
         ResultSet result = executeQuery(query);
-        
+
         // TODO Duplicated code here ?
         try {
             while(result.next()) {
@@ -185,13 +184,13 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
             CoordinateModel markerCoordinate = marker.getCoordinate();
             PreparedStatement statement = _connection.prepareStatement(query);
             String timestampString = marker.getTimestamp().toString();
-            
+
             statement.setString(1, marker.getPokemonName());
             statement.setDouble(2, markerCoordinate.getLatitude());
             statement.setDouble(3, markerCoordinate.getLongitude());
             statement.setString(4, timestampString);
             statement.execute();
-            
+
             final int generatedId = statement.getGeneratedKeys().getInt(0);
             marker.setDatabaseId(generatedId);
         } catch (SQLException ex) {
@@ -220,7 +219,7 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
         }
         return allMarkers;
     }
-    
+
     private MarkerModel createMarker(ResultSet cursor) throws SQLException {
         final int id = cursor.getInt(1);
         final String pokemonName = cursor.getString(2);
@@ -230,7 +229,7 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
         final int upVotes = cursor.getInt(6);
         final int downVotes = cursor.getInt(7);
 
-        return new MarkerModel(id, pokemonName, xCoordinate, yCoordinate, 
+        return new MarkerModel(id, pokemonName, xCoordinate, yCoordinate,
                 Timestamp.valueOf(timestampString), upVotes, downVotes);
     }
 
@@ -240,7 +239,7 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
      * This function is usually called after a vote has been done by a user.
      * This function does not take a vote in parameter, as the marker already
      * know its new reputation value, it would be dumb to compute it again here.
-     * 
+     *
      * @param marker The marker that need to be updated in the database.
      */
     public void updateMarkerReputation(MarkerModel marker) {
@@ -255,16 +254,16 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
             Logger.getLogger(DatabaseModel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     ///////////////////// STATIC /////////////////////
-        
+
     /**
      * Return the instance of database (to make queries)
-     * 
+     *
      * @return the DatabaseModel instance
      */
     public static DatabaseModel getDatabase() {
         return _instance;
     }
-    
+
 }
