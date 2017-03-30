@@ -20,6 +20,7 @@ CREATE TABLE `Marker` (
 	`X`	INTEGER NOT NULL,
 	`Y`	INTEGER NOT NULL,
 	`TimeStamp`	TEXT NOT NULL,
+        `Reputation` INTEGER NOT NULL,
 	FOREIGN KEY(`PokemonId`) REFERENCES Pokemon
 );
 
