@@ -72,11 +72,11 @@ public class MarkerDatabaseModelTest extends TestCase {
      */
     @Test
     public void test_insertMarker() {
-        final int xCoordinate = 150;
-        final int yCoordinate = 25;
+        final int latitude = 150;
+        final int longitude = 25;
         String pokemonName = "Pikachu";
         MarkerModel marker = MarkerDatabaseModelTest.makeMarker(
-                pokemonName, xCoordinate, yCoordinate, 0, false);
+                pokemonName, latitude, longitude, 0, false);
         final int initialAmountOfMarkers = _database.getAllMarkers().size();
         _database.insertMarker(marker);
         assertEquals(initialAmountOfMarkers+1, _database.getAllMarkers().size());
@@ -87,11 +87,11 @@ public class MarkerDatabaseModelTest extends TestCase {
      */
     @Test
     public void test_getAllMarkers() {
-        final int xCoordinate = 250;
-        final int yCoordinate = 500;
+        final double latitude = 250;
+        final double longitude = 500;
         String pokemonName = "Piplup";
         MarkerModel marker = MarkerDatabaseModelTest.makeMarker(
-                pokemonName, xCoordinate, yCoordinate, 0, false);
+                pokemonName, latitude, longitude, 0, false);
         
         _database.insertMarker(marker);
         ArrayList<MarkerModel> markers = _database.getAllMarkers();
@@ -109,10 +109,10 @@ public class MarkerDatabaseModelTest extends TestCase {
      * false if timestamp doesn't need to be changed
      * @return a new instance of MarkerModel
      */
-    private static MarkerModel makeMarker(String pokemonName, int x, int y,
-            int timeStamp, boolean changeTimestamp) {
+    private static MarkerModel makeMarker(String pokemonName, double latitude,
+            double longitude, int timeStamp, boolean changeTimestamp) {
         PokemonModel pokemon = PokemonModel.getPokemonByName(pokemonName);
-        CoordinateModel coordinate = new CoordinateModel(x, y);
+        CoordinateModel coordinate = new CoordinateModel(latitude, longitude);
         MarkerModel marker = new MarkerModel(pokemon, coordinate);
         if(changeTimestamp)
             marker.setTimestamp(new Timestamp(timeStamp));

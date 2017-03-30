@@ -23,10 +23,10 @@ public class MarkerModel {
         this(0, pokemon, coordinate, new Timestamp(System.currentTimeMillis()), 0, 0);
     }
 
-    public MarkerModel(int databaseId, String pokemonName, int xCoordinate, int yCoordinate, 
+    public MarkerModel(int databaseId, String pokemonName, double latitude, double longitude, 
             Timestamp timestamp, int upVotes, int downVotes) {
         this(databaseId, PokemonModel.getPokemonByName(pokemonName), 
-                new CoordinateModel(xCoordinate, yCoordinate), timestamp, upVotes, downVotes);
+                new CoordinateModel(latitude, longitude), timestamp, upVotes, downVotes);
     }
     
     public MarkerModel(int databaseId, PokemonModel pokemon, CoordinateModel coordinate, Timestamp timestamp, int upVotes, int downVotes) {
