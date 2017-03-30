@@ -1,31 +1,25 @@
 package be.ac.ulb.infof307.g01;
 
-/**
- * TODO: add description
- */
+/** Score of reputation of a marker, as down and upvotes. */
 public class ReputationScore {
     
-    private int _upVote;
-    private int _downVote;
-
-    public ReputationScore() {
-        this(33, 17);
-    }
+    private int _upVotes;
+    private int _downVotes;
     
     public ReputationScore(int up, int down) {
-        _upVote = up;
-        _downVote = down;
+        _upVotes = up;
+        _downVotes = down;
     }
     
     public int getScore() {
-        return _upVote-_downVote;
+        return _upVotes - _downVotes;
     }
 
     void vote(ReputationVoteModel reputationVote) {
         if(reputationVote == ReputationVoteModel.UP) {
-            _upVote++;
+            _upVotes++;
         } else if (reputationVote == ReputationVoteModel.DOWN) {
-            _downVote++;
+            _downVotes++;
         }
     }
     
