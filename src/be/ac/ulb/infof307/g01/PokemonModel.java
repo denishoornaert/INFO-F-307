@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.NoSuchElementException;
 
 /**
  * TODO: add description
@@ -78,7 +79,11 @@ public class PokemonModel {
      * @return the PokemonModel instance or null if not found
      */
     public static PokemonModel getPokemonByName(String name) {
-        return _allPokemon.get(name);
+        final PokemonModel res = _allPokemon.get(name);
+        if(res == null) {
+            throw new NoSuchElementException("[[" + _allPokemon.size()+ "]] No pokemon found with the following name: " + name);
+        }
+        return res;
     }
     
     public static ArrayList<PokemonModel> getAllPokemon() {
