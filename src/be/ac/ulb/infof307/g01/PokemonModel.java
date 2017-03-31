@@ -6,8 +6,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
 
-/**
- * TODO: add description
+/** Model of a pokemon.
+ * A pokemon represents the generic pokemon entity, such as "Pikachu". A pokemon
+ * spotted on the map is represented by MarkerModel.
  */
 public class PokemonModel {
 

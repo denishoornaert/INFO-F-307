@@ -4,8 +4,11 @@ import be.ac.ulb.infof307.g01.db.DatabaseModel;
 import be.ac.ulb.infof307.g01.db.MarkerDatabaseModel;
 import be.ac.ulb.infof307.g01.gui.MapView;
 
-/**
- * TODO: add description
+/** Controller of the map. This class is responsible of creating markers at
+ * startup and when the user adds one. For that, it holds an instance of
+ * MarkerController, and forwards marker creation messages to the marker
+ * controller.
+ * It also holds the map view.
  */
 public class MapController {
     private MarkerController _markerController;

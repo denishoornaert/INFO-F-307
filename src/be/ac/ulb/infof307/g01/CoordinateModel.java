@@ -1,8 +1,6 @@
 package be.ac.ulb.infof307.g01;
 
-/**
- * TODO: add description
- */
+/** Represents a geographical coordinate, such as for Marker location on the map. */
 public class CoordinateModel {
     
     private final double _latitude;

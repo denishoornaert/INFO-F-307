@@ -4,8 +4,8 @@ import be.ac.ulb.infof307.g01.db.DatabaseModel;
 import be.ac.ulb.infof307.g01.db.MarkerDatabaseModel;
 import java.sql.Timestamp;
 
-/**
- * TODO: add description
+/** Model of a marker. A marker contains the location of a spotted pokemon,
+ * the pokemon, the timestamp of the spot, etc...
  */
 public class MarkerModel {
     /** The ID of this marker in the database. With this attribute,

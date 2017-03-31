@@ -2,11 +2,8 @@ package be.ac.ulb.infof307.g01.db;
 
 import be.ac.ulb.infof307.g01.MarkerModel;
 import java.util.ArrayList;
-import be.ac.ulb.infof307.g01.ReputationVoteModel;
 
-/**
- * TODO: add description
- */
+/** Interface to the database related to Marker manipulation. */
 public interface MarkerDatabaseModel {
     
     public void insertMarker(MarkerModel marker);

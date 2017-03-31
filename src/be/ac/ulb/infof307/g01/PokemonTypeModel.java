@@ -3,8 +3,8 @@ package be.ac.ulb.infof307.g01;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- * TODO: add description
+/** Model of a Pokemon type.
+ * The Pokemon type is the element of the pokemon, such as Eletric for Pikachu.
  */
 public class PokemonTypeModel {
     
