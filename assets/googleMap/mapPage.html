@@ -16,6 +16,8 @@
         <script>
             var map;
             var markerClusterer;
+            var markerIconSize = 60;
+            var markerIconCenter = markerIconSize/2;
 
             window.onerror = function(message, source, lineno, colno, error) {
                 bridge.log(message + " " + lineno + " " + colno + " " + error);
@@ -54,11 +56,14 @@
 
             // Adds a marker to the map.
             function addMarker(latitude, longitude, name, imageName, id) {
+                //Create a marker icon with fixed size and anchor point at its center
+                var markerIcon = new google.maps.MarkerImage("../sprites/" + imageName, null, null, new google.maps.Point(markerIconCenter, markerIconCenter), new google.maps.Size(markerIconSize, markerIconSize));
+                
                 // Add the marker at the clicked location
                 var marker = new google.maps.Marker({
                     // Google needs an object with these precise attributes
                     position: {lat: latitude, lng: longitude},
-                    icon: "../sprites/" + imageName,
+                    icon: markerIcon,
                     map: map
                 });
                 marker.id = id;
