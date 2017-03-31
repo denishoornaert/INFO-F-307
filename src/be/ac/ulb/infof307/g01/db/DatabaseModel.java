@@ -191,7 +191,7 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
             statement.setString(4, timestampString);
             statement.execute();
 
-            final int generatedId = statement.getGeneratedKeys().getInt(0);
+            final int generatedId = statement.getGeneratedKeys().getInt(1);
             marker.setDatabaseId(generatedId);
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseModel.class.getName()).log(Level.SEVERE, null, ex);

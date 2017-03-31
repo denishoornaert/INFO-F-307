@@ -54,6 +54,7 @@ public class MarkerModel {
     
     public void setTimestamp(Timestamp newTimestamp) {
         _timestamp = newTimestamp;
+        // TODO Set timestamp in DB
     }
     
     public Timestamp getTimestamp() {
