@@ -53,12 +53,12 @@
             }
 
             // Adds a marker to the map.
-            function addMarker(latitude, longitude, name, imagePath, id) {
+            function addMarker(latitude, longitude, name, imageName, id) {
                 // Add the marker at the clicked location
                 var marker = new google.maps.Marker({
                     // Google needs an object with these precise attributes
                     position: {lat: latitude, lng: longitude},
-                    icon: imagePath,
+                    icon: "../sprites/" + imageName,
                     map: map
                 });
                 marker.id = id;

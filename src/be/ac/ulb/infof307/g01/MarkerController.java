@@ -26,7 +26,7 @@ public class MarkerController {
         CoordinateModel markerCoordinates = marker.getCoordinate();
         double latitude = markerCoordinates.getLatitude();
         double longitude = markerCoordinates.getLongitude();
-        _mapView.createPin(latitude, longitude, marker.getPokemonName(), marker.getImagePath(), _newMarkerId);
+        _mapView.createPin(latitude, longitude, marker.getPokemonName(), marker.getImageName(), _newMarkerId);
         _newMarkerId += 1;
     }
     

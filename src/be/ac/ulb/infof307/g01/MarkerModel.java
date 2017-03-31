@@ -69,6 +69,10 @@ public class MarkerModel {
         return _pokemon.getImagePath();
     }
     
+    public String getImageName() {
+        return _pokemon.getImageName();
+    }
+    
     public CoordinateModel getCoordinate() {
         return _coordinate;
     }

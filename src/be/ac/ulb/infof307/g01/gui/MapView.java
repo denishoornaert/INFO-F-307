@@ -56,9 +56,9 @@ public class MapView extends StackPane {
         });
     }
     
-    public void createPin(double latitude, double longitude, String pokemonName, String imagePath, Integer pinId) {
+    public void createPin(double latitude, double longitude, String pokemonName, String imageName, Integer pinId) {
         JSObject window = (JSObject) _webEngine.executeScript("window");
-        window.call("addMarker", latitude, longitude, pokemonName, imagePath, pinId);
+        window.call("addMarker", latitude, longitude, pokemonName, imageName, pinId);
     }
 
     /** Allows JavaScript code to call Java functions. */

@@ -16,21 +16,21 @@ public class PokemonModel {
     private final int _typeNumberMax = 2; // TODO : 
     private final String _name;
     private final PokemonTypeModel[] _type;
-    private final String _pathImage;
+    private final String _imageName;
     
     public PokemonModel(String name, String imagePath) {
         // TODO query to get the corresponding type.
         this(name, imagePath, PokemonTypeModel.getPokemonTypeByTypeName("NONE"));
     }
     
-    public PokemonModel(String name, String imagePath, PokemonTypeModel... type_array) {
+    public PokemonModel(String name, String imageName, PokemonTypeModel... type_array) {
         if(_allPokemon.containsKey(name)) {
             throw new IllegalStateException("Pokemon " + name + 
                     " already created");
         }
         _name = name;
         _type = type_array;
-        _pathImage = _pathPrefix + imagePath;
+        _imageName = imageName;
         
         _allPokemon.put(name, this);
     }
@@ -56,7 +56,11 @@ public class PokemonModel {
      * @return the path of the sprite of the Pokemon
      */
     public String getImagePath() {
-        return _pathImage;
+        return _pathPrefix + _imageName;
+    }
+    
+    public String getImageName() {
+        return _imageName;
     }
     
     /**
