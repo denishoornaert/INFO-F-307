@@ -17,8 +17,17 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * TODO: add description
+/** Class that interacts with the database.
+ * This class implements all queries needed in the application. It is not
+ * inteded to be used directly, but rather through one of the implemented
+ * interfaces. This way, a class needing a database access is only allowed
+ * to call a subset of all the database methods, according to the responsability
+ * of this class.
+ * 
+ * For example, if a class need to access only pokemon types in the database:
+ * @code
+ * PokemonTypeDatabaseModel database = (PokemonTypeDatabaseModel) DatabaseModel.getDatabase();
+ * // Now database allows to call only queries related to pokemon types.
  */
 public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseModel,
         MarkerDatabaseModel {
