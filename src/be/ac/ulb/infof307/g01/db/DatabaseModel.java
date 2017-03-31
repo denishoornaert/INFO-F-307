@@ -25,9 +25,10 @@ import java.util.logging.Logger;
  * of this class.
  * 
  * For example, if a class need to access only pokemon types in the database:
- * @code
+ * {@code
  * PokemonTypeDatabaseModel database = (PokemonTypeDatabaseModel) DatabaseModel.getDatabase();
  * // Now database allows to call only queries related to pokemon types.
+ * }
  */
 public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseModel,
         MarkerDatabaseModel {

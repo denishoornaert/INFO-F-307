@@ -11,8 +11,11 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import netscape.javascript.JSObject;
 
-/**
- * TODO: add description
+/** View of the map.
+ * This view is based on Google maps: it embeds a webview (a internet browser
+ * widget) and render a HTML page containing a Google map.
+ * The dynamic interaction with Java, such as marker creation or lookup, is
+ * done in javascript.
  */
 public class MapView extends StackPane {
     
