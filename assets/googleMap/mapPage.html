@@ -44,7 +44,8 @@
                 var clusterImagesPath = bridge.getClusterImagesPath();
                 var markerOptions = {
                     averageCenter: true,
-                    imagePath: './clusterImages/'
+                    imagePath: './clusterImages/',
+                    zoomOnClick: false
                 }
                 markerClusterer = new MarkerClusterer(map, {}, markerOptions);
 
