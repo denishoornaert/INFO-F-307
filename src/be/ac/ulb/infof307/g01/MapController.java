@@ -47,4 +47,8 @@ public class MapController {
         MarkerModel marker = _markerController.getMarkerModelFromId(markerId);
         _pinPopUpController = new PinPopUpController(marker);
     }
+    
+    public void clusterClicked() {
+        System.out.println("cluster clicked");
+    }
 }
