@@ -14,7 +14,6 @@ public class PokemonModel {
 
     private static HashMap<String, PokemonModel> _allPokemon = new HashMap<>();
     private static final String _pathPrefix = "assets" + File.separator + "sprites" + File.separator;
-    private final int _typeNumberMax = 2; // TODO : 
     private final String _name;
     private final PokemonTypeModel[] _type;
     private final String _imageName;
@@ -24,7 +23,16 @@ public class PokemonModel {
         this(name, imagePath, PokemonTypeModel.getPokemonTypeByTypeName("NONE"));
     }
     
-    public PokemonModel(String name, String imageName, PokemonTypeModel... type_array) {
+    public PokemonModel(String name, String imageName, PokemonTypeModel type) {
+        this(name, imageName, new PokemonTypeModel[] {type});
+    }
+    
+    public PokemonModel(String name, String imageName, PokemonTypeModel type1, 
+            PokemonTypeModel type2) {
+        this(name, imageName, new PokemonTypeModel[] {type1, type2});
+    }
+    
+    private PokemonModel(String name, String imageName, PokemonTypeModel[] type_array) {
         if(_allPokemon.containsKey(name)) {
             throw new IllegalStateException("Pokemon " + name + 
                     " already created");

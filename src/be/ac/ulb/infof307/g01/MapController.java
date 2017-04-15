@@ -12,15 +12,14 @@ import be.ac.ulb.infof307.g01.gui.MapView;
  * It also holds the map view.
  */
 public class MapController {
-    private MarkerController _markerController;
-    private MapView _mapView;
-    private MarkerDatabaseModel _database;
+    private final MarkerController _markerController;
+    private final MapView _mapView;
+    private final MarkerDatabaseModel _database;
     
     /** Instance of the current popup. Is equal to null if no popup is open,
      *  and is set to null when the popup is closed.
      */
     private NewMarkerPopUpController _newMarkerPopUpController;    
-    private PinPopUpController _pinPopUpController;
     
     public MapController() {
         _database = (MarkerDatabaseModel) DatabaseModel.getDatabase();
@@ -46,7 +45,7 @@ public class MapController {
     
     public void displayPinPopUp(int markerId) {
         MarkerModel marker = _markerController.getMarkerModelFromId(markerId);
-        _pinPopUpController = new PinPopUpController(marker);
+        new PinPopUpController(marker);
     }
     
     public void clusterClicked() {
