@@ -57,7 +57,7 @@ public class NewMarkerPopUp extends PopUp {
         _controller = controller;
         initWidget();
         placeWidgets();
-        initStyle();
+        initSize();
         show();
     }
 
@@ -255,7 +255,7 @@ public class NewMarkerPopUp extends PopUp {
         return hbox;
     }
 
-    private void initStyle() {
+    private void initSize() {
         setSize(500, 150);
     }
     

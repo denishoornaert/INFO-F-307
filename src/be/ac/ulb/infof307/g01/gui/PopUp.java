@@ -3,8 +3,11 @@ package be.ac.ulb.infof307.g01.gui;
 import be.ac.ulb.infof307.g01.Main;
 import java.io.File;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -31,14 +34,25 @@ public class PopUp extends Stage {
         initStyle();
     }
     
-    public void add(Node node) {
+    protected Button getCloseButton(String text, String style) {
+        Button button = new Button(text);
+        button.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent t) {
+                close();
+            }
+        });
+        button.getStyleClass().add(style);
+        return button;
+    }
+    
+    protected void add(Node node) {
         ObservableList<Node> children = _layout.getChildren();
         children.add(node);
         
         centerOnParent();
     }
 
-    private void initStyle() {
+    protected void initStyle() {
         _scene.getStylesheets().add(new File("assets/bootstrap.css").toURI().toString());
         _layout.setStyle(""
                 + "-fx-background-color: #d2d7dd;"
@@ -48,14 +62,14 @@ public class PopUp extends Stage {
         );
     }
 
-    public void centerOnParent() {
+    protected void centerOnParent() {
         Stage stage = Main.getStage();
 
         this.setX(stage.getX() + (stage.getWidth() - _layout.getPrefWidth()) / 2);
         this.setY(stage.getY() + (stage.getHeight() - _layout.getPrefHeight()) / 2);
     }
 
-    public void setSize(int x, int y) {
+    protected void setSize(int x, int y) {
         _layout.setPrefSize(x, y);
     }
     
