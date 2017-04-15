@@ -23,10 +23,8 @@ public class MarkerController {
     
     public void displayMarker(MarkerModel marker) {
         _markerMap.put(_newMarkerId, marker);
-        CoordinateModel markerCoordinates = marker.getCoordinate();
-        double latitude = markerCoordinates.getLatitude();
-        double longitude = markerCoordinates.getLongitude();
-        _mapView.createPin(latitude, longitude, marker.getPokemonName(), marker.getImageName(), _newMarkerId);
+        _mapView.createPin(marker, _newMarkerId);
+        
         _newMarkerId += 1;
     }
     

@@ -127,7 +127,7 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
      */
     @Override
     public void loadAllPokemonTypes() {
-        String query = "SELECT DISTINCT(Name) FROM PokemonType";
+        String query = "SELECT DISTINCT(Name) FROM PokemonType;";
         ResultSet result = executeQuery(query);
 
         try {
@@ -149,7 +149,7 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
         String query = "SELECT Pokemon.Name AS PName, Pokemon.ImagePath, "
                     + "FirstType.Name as T1Name, SecondType.Name as T2Name FROM Pokemon "
                 + "JOIN PokemonType FirstType ON FirstType.Id = Pokemon.TypeFirst "
-                + "JOIN PokemonType SecondType ON SecondType.Id = Pokemon.TypeSecond";
+                + "JOIN PokemonType SecondType ON SecondType.Id = Pokemon.TypeSecond;";
         ResultSet result = executeQuery(query);
 
         // TODO Duplicated code here ?
@@ -188,10 +188,11 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
                 + "VALUES("
                     + "(SELECT Id "
                     + "FROM Pokemon "
-                    + "WHERE Name=?),"
-                + "?, ?, ?, 0, 0)";
+                    + "WHERE Name=?), "
+                + "?, ?, ?, 0, 0);";
         try {
             CoordinateModel markerCoordinate = marker.getCoordinate();
+            System.out.println("View query: " + query);
             PreparedStatement statement = _connection.prepareStatement(query);
             String timestampString = marker.getTimestamp().toString();
 
@@ -200,8 +201,11 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
             statement.setDouble(3, markerCoordinate.getLongitude());
             statement.setString(4, timestampString);
             statement.execute();
+            
+            System.out.println("Executed !");
 
             final int generatedId = statement.getGeneratedKeys().getInt(1);
+            System.out.println("Current ID");
             marker.setDatabaseId(generatedId);
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseModel.class.getName()).log(Level.SEVERE, null, ex);
@@ -218,7 +222,7 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
         String query = "SELECT M.Id, P.Name, M.Latitude, M.Longitude, M.TimeStamp, M.UpVotes, M.DownVotes "
                 + "FROM Marker M "
                 + "JOIN Pokemon P "
-                + "    ON P.Id=M.PokemonId ";
+                + "    ON P.Id=M.PokemonId;";
         try {
             ResultSet allMarkersCursor = executeQuery(query);
             while(allMarkersCursor.next()) {
@@ -232,6 +236,7 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
 
     private MarkerModel createMarker(ResultSet cursor) throws SQLException {
         final int id = cursor.getInt(1);
+        
         final String pokemonName = cursor.getString(2);
         final double latitude = cursor.getDouble(3);
         final double longitude = cursor.getDouble(4);
@@ -253,7 +258,7 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
      * @param marker The marker that need to be updated in the database.
      */
     public void updateMarkerReputation(MarkerModel marker) {
-        String query = "UPDATE Marker SET UpVotes=?, DownVotes=? WHERE Id=?";
+        String query = "UPDATE Marker SET UpVotes=?, DownVotes=? WHERE Id=?;";
         try {
             PreparedStatement statement = _connection.prepareStatement(query);
             statement.setInt(1, marker.getUpVotes());

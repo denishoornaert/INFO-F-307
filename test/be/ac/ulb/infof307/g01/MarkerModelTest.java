@@ -1,9 +1,6 @@
 package be.ac.ulb.infof307.g01;
 
-import be.ac.ulb.infof307.g01.CoordinateModel;
-import be.ac.ulb.infof307.g01.MarkerModel;
-import be.ac.ulb.infof307.g01.PokemonModel;
-import be.ac.ulb.infof307.g01.PokemonTypeModel;
+import java.sql.Timestamp;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -23,7 +20,9 @@ public class MarkerModelTest {
         CoordinateModel testCoordinate = new CoordinateModel(69, 42);
         
         // For test we must not use the picture
-        MarkerModel testMarker = new MarkerModel(testPokemon, testCoordinate); 
+        Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+        MarkerModel testMarker = new MarkerModel(0, testPokemon, testCoordinate,
+            currentTime, 0, 0); 
         assertEquals(testMarker.getImagePath(), testPokemon.getImagePath());        
     }
     
