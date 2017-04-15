@@ -53,6 +53,10 @@
                     bridge.onMapRightClick(event.latLng);
                 });
                 
+                google.maps.event.addListener(markerClusterer, 'clusterclick', function(cluster) {
+                    bridge.onMarkerClusterClick();
+                });
+                
                 bridge.javaScriptMapIsLoad();
             }
 
