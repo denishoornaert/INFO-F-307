@@ -17,7 +17,7 @@ import javafx.scene.layout.VBox;
  * TODO: add description
  */
 public class PinPopUp extends PopUp {
-    private PinPopUpController _controller;
+    private final PinPopUpController _controller;
     
     private VBox _vbox;
     private Label _pokemonName;
@@ -58,17 +58,42 @@ public class PinPopUp extends PopUp {
         _date = new Label("Date : "+formatingDate);
         _closeButton = new Button("Close");
         
-        _voteBox = new HBox();
-        _voteBox.setAlignment(Pos.CENTER);
         _lifeLabel = new Label("Life : " + _controller.getPokemonLife());
         _attackLabel = new Label("Attack : " + _controller.getPokemonAttack());
         _defenseLabel = new Label("Defense : " + _controller.getPokemonDefense());
         
-        _voteScoreLabel = new Label("Votes : " + _controller.getVoteScore());
-        _downVoteButton = new Button("👎");
-        _downVoteButton.getStyleClass().add("primary");
+        initVoteWidgets();
+    }
+    
+    private void initVoteWidgets() {
+        _voteBox = new HBox();
+        _voteBox.setAlignment(Pos.CENTER);
+        
+        _voteScoreLabel = new Label();
+        initDownVoteButton();
+        initUpVoteButton();
+    }
+    
+    private void initUpVoteButton() {
         _upVoteButton = new Button("👍");
         _upVoteButton.getStyleClass().add("primary");
+        _upVoteButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                _controller.addUpVote();
+            }
+        });
+    }
+    
+    private void initDownVoteButton() {
+        _downVoteButton = new Button("👎");
+        _downVoteButton.getStyleClass().add("primary");
+        _downVoteButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                _controller.addDownVote();
+            }
+        });
     }
     
     private void placeWidgets() {
@@ -87,5 +112,22 @@ public class PinPopUp extends PopUp {
         });
         _closeButton.getStyleClass().add("danger");
     }
-
+    
+    /**
+     * Update the view of vote
+     * 
+     * @param score the new score
+     */
+    public void updateVoteView(int score) {
+        _voteScoreLabel.setText("Votes : " + score);
+    }
+    
+    /**
+     * Disable vote buttons when user has voted
+     */
+    public void disableVoteButtons() {
+        _upVoteButton.setDisable(true);
+        _downVoteButton.setDisable(true);
+    }
+    
 }

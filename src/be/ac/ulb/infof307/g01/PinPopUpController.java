@@ -7,12 +7,13 @@ import java.sql.Timestamp;
  * TODO: add description
  */
 public class PinPopUpController {
-    private MarkerModel _marker;
-    private PinPopUp _pinPopUp;
+    private final MarkerModel _marker;
+    private final PinPopUp _pinPopUp;
     
     public PinPopUpController(MarkerModel marker) {
         _marker = marker;
         _pinPopUp = new PinPopUp(this);
+        updateVoteView();
     }
     
     public CoordinateModel getCoordinates() {
@@ -42,4 +43,22 @@ public class PinPopUpController {
     public String getVoteScore() {
         return "" + _marker.getVoteScore();
     }
+
+    public void addDownVote() {
+        _marker.voteDown();
+        _pinPopUp.disableVoteButtons();
+        updateVoteView();
+    }
+
+    public void addUpVote() {
+        _marker.voteUp();
+        _pinPopUp.disableVoteButtons();
+        updateVoteView();
+    }
+    
+    private void updateVoteView() {
+        int vote = _marker.getVoteScore();
+        _pinPopUp.updateVoteView(vote);
+    }
+    
 }

@@ -23,7 +23,7 @@ public class ReputationScore {
         return _upVotes - _downVotes;
     }
 
-    void vote(ReputationVoteModel reputationVote) {
+    public void vote(ReputationVoteModel reputationVote) {
         if(reputationVote == ReputationVoteModel.UP) {
             _upVotes++;
         } else if (reputationVote == ReputationVoteModel.DOWN) {
