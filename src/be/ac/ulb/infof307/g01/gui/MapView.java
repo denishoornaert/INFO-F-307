@@ -1,8 +1,11 @@
 package be.ac.ulb.infof307.g01.gui;
 
+import be.ac.ulb.infof307.g01.CoordinateModel;
 import be.ac.ulb.infof307.g01.Main;
 import be.ac.ulb.infof307.g01.MapController;
+import be.ac.ulb.infof307.g01.MarkerModel;
 import java.net.URL;
+import java.util.HashMap;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
@@ -19,16 +22,21 @@ import netscape.javascript.JSObject;
  */
 public class MapView extends StackPane {
     
-    private MapController _mapController;
+    private final MapController _mapController;
     
     /** Displays the webpage with the embedded Google Map. */
-    private WebView _webView = new WebView();
+    private final WebView _webView = new WebView();
     
     /** Manipulates the JavaScript code in the WebView. */
-    private WebEngine _webEngine = _webView.getEngine();
+    private final WebEngine _webEngine = _webView.getEngine();
     
     /** Allows JavaScript code to call Java functions. */
-    private JavaBridge _bridge = new JavaBridge();
+    private final JavaBridge _bridge = new JavaBridge();
+    
+    /** Pin could not be loaded befor the webView */
+    private final HashMap<Integer, MarkerModel> _cacheMarkerModel = 
+            new HashMap<Integer, MarkerModel>();
+    
 
     public MapView(MapController mapController) {     
         super();
@@ -59,13 +67,35 @@ public class MapView extends StackPane {
         });
     }
     
-    public void createPin(double latitude, double longitude, String pokemonName, String imageName, Integer pinId) {
-        JSObject window = (JSObject) _webEngine.executeScript("window");
-        window.call("addMarker", latitude, longitude, pokemonName, imageName, pinId);
+    public void createPin(MarkerModel marker, int pinId) {
+        if(!_bridge.isJavaScriptMapLoad()) { // If JavaScript map is not loaded
+            _cacheMarkerModel.put(pinId, marker);
+            
+        } else { // If JavaScript map is loaded
+            CoordinateModel markerCoordinates = marker.getCoordinate();
+            double latitude = markerCoordinates.getLatitude();
+            double longitude = markerCoordinates.getLongitude();
+            String pokemonName = marker.getPokemonName();
+            String imageName = marker.getImageName();
+            
+            JSObject window = (JSObject) _webEngine.executeScript("window");
+            window.call("addMarker", latitude, longitude, pokemonName, imageName, pinId);
+        }
+    }
+    
+    private void loadAllCachedMarkerModel() {
+        for(int pinId : _cacheMarkerModel.keySet()) {
+            MarkerModel marker = _cacheMarkerModel.get(pinId);
+            createPin(marker, pinId);
+        }
+        _cacheMarkerModel.clear();
     }
 
     /** Allows JavaScript code to call Java functions. */
     public class JavaBridge {
+        
+        private boolean isLoaded = false;
+        
         /**
          * Displays a message on the Java console.
          * @param message is the log content.
@@ -73,7 +103,19 @@ public class MapView extends StackPane {
         public void log(String message) {
             System.out.println("JS Console: " + message);
         }
-
+        
+        /**
+         * Indicate that the javascript is loaded
+         */
+        public void javaScriptMapIsLoad() {
+            isLoaded = true;
+            loadAllCachedMarkerModel();
+        }
+        
+        public boolean isJavaScriptMapLoad() {
+            return isLoaded;
+        }
+        
         /**
          * Called when the map receives a click event.
          * Calls createMarker function on MapView.

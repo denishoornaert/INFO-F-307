@@ -18,7 +18,7 @@
             var markerClusterer;
             var markerIconSize = 60;
             var markerIconCenter = markerIconSize/2;
-
+            
             window.onerror = function(message, source, lineno, colno, error) {
                 bridge.log(message + " " + lineno + " " + colno + " " + error);
             }
@@ -52,6 +52,8 @@
                 google.maps.event.addListener(map, 'rightclick', function(event) {
                     bridge.onMapRightClick(event.latLng);
                 });
+                
+                bridge.javaScriptMapIsLoad();
             }
 
             // Adds a marker to the map.

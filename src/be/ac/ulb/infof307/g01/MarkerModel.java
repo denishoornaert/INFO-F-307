@@ -19,17 +19,46 @@ public class MarkerModel {
     private int _lifePoint, _attack, _defense; // TODO init in constructor
     private MarkerDatabaseModel _database;
     
+    /**
+     * Create a marker pokemon (call from gui)
+     * 
+     * @param pokemon pokemon in link with this marker
+     * @param coordinate location of this marker
+     */
     public MarkerModel(PokemonModel pokemon, CoordinateModel coordinate) {
         this(0, pokemon, coordinate, new Timestamp(System.currentTimeMillis()), 0, 0);
+        _database.insertMarker(this);
     }
-
+    
+    /**
+     * Constructor to create marker in memory (not in database)
+     * 
+     * @param databaseId id of the pokemon in database (0 if not exist)
+     * @param pokemonName pokemon name
+     * @param latitude x coordinate
+     * @param longitude y coordinate
+     * @param timestamp time when the pokemon has been witnessed
+     * @param upVotes positif votes about this maker
+     * @param downVotes negatif votes about this marker
+     */
     public MarkerModel(int databaseId, String pokemonName, double latitude, double longitude, 
             Timestamp timestamp, int upVotes, int downVotes) {
         this(databaseId, PokemonModel.getPokemonByName(pokemonName), 
                 new CoordinateModel(latitude, longitude), timestamp, upVotes, downVotes);
     }
     
-    public MarkerModel(int databaseId, PokemonModel pokemon, CoordinateModel coordinate, Timestamp timestamp, int upVotes, int downVotes) {
+    /**
+     * Constructor (not in database)
+     * 
+     * @param databaseId id of the pokemon in database (0 if not exist)
+     * @param pokemon pokemon
+     * @param coordinate location
+     * @param timestamp time when the pokemon has been witnessed
+     * @param upVotes positif votes about this maker
+     * @param downVotes negatif votes about this marker
+     */
+    public MarkerModel(int databaseId, PokemonModel pokemon, CoordinateModel coordinate, 
+            Timestamp timestamp, int upVotes, int downVotes) {
         _databaseId = databaseId;
         _pokemon = pokemon;
         _coordinate = coordinate;
@@ -116,6 +145,8 @@ public class MarkerModel {
     /** Get the database ID.
      * This function should be used only by DatabaseModel, since the ID is 
      * managed by it.
+     * 
+     * @return the id
      */
     public int getDatabaseId() {
         return _databaseId;
@@ -124,6 +155,8 @@ public class MarkerModel {
     /** Set the database ID.
      * This function should be used only by DatabaseModel, since the ID is 
      * managed by it.
+     * 
+     * @param databaseId the database id of this marker
      */
     public void setDatabaseId(int databaseId) {
         _databaseId = databaseId;
