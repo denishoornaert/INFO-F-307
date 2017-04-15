@@ -116,6 +116,10 @@ public class MapView extends StackPane {
             return isLoaded;
         }
         
+        public void onMarkerClusterClick() {
+            _mapController.clusterClicked();
+        }
+        
         /**
          * Called when the map receives a click event.
          * Calls createMarker function on MapView.

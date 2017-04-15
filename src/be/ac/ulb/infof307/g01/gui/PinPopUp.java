@@ -38,7 +38,6 @@ public class PinPopUp extends PopUp {
         initPosition();
         initWidgets();
         placeWidgets();
-        initCloseButtonEvent();
         _vbox.setSpacing(10);
         _voteBox.setSpacing(10);
         show();
@@ -56,7 +55,7 @@ public class PinPopUp extends PopUp {
         Timestamp date = _controller.getTimestamp();
         String formatingDate = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(date);
         _date = new Label("Date : "+formatingDate);
-        _closeButton = new Button("Close");
+        _closeButton = getCloseButton("Close", "danger");
         
         _lifeLabel = new Label("Life : " + _controller.getPokemonLife());
         _attackLabel = new Label("Attack : " + _controller.getPokemonAttack());
@@ -102,15 +101,6 @@ public class PinPopUp extends PopUp {
         children = _vbox.getChildren();
         children.addAll(_pokemonName, _date, _lifeLabel, _attackLabel, _defenseLabel, _voteBox, _closeButton);
         add(_vbox);
-    }
-
-    private void initCloseButtonEvent() {
-        _closeButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent t) {
-                close();
-            }
-        });
-        _closeButton.getStyleClass().add("danger");
     }
     
     /**

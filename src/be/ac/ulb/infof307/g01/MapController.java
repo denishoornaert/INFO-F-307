@@ -2,6 +2,7 @@ package be.ac.ulb.infof307.g01;
 
 import be.ac.ulb.infof307.g01.db.DatabaseModel;
 import be.ac.ulb.infof307.g01.db.MarkerDatabaseModel;
+import be.ac.ulb.infof307.g01.gui.ClusterPopUp;
 import be.ac.ulb.infof307.g01.gui.MapView;
 
 /** Controller of the map. This class is responsible of creating markers at
@@ -46,5 +47,9 @@ public class MapController {
     public void displayPinPopUp(int markerId) {
         MarkerModel marker = _markerController.getMarkerModelFromId(markerId);
         _pinPopUpController = new PinPopUpController(marker);
+    }
+    
+    public void clusterClicked() {
+        new ClusterPopUp();
     }
 }

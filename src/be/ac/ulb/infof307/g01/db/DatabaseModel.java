@@ -89,7 +89,6 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
     private void connectToSqlite(String pathToDatabase) throws SQLException {
         _connection = DriverManager.getConnection(
                 "jdbc:sqlite:" + pathToDatabase);
-        System.out.println("Connection to " + pathToDatabase + " successful");
     }
 
     /**
@@ -192,7 +191,6 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
                 + "?, ?, ?, 0, 0);";
         try {
             CoordinateModel markerCoordinate = marker.getCoordinate();
-            System.out.println("View query: " + query);
             PreparedStatement statement = _connection.prepareStatement(query);
             String timestampString = marker.getTimestamp().toString();
 
@@ -202,10 +200,8 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
             statement.setString(4, timestampString);
             statement.execute();
             
-            System.out.println("Executed !");
 
             final int generatedId = statement.getGeneratedKeys().getInt(1);
-            System.out.println("Current ID");
             marker.setDatabaseId(generatedId);
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseModel.class.getName()).log(Level.SEVERE, null, ex);
