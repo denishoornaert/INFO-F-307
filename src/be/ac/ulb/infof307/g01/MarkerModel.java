@@ -42,11 +42,17 @@ public class MarkerModel {
         return _reputation.getScore();
     }
     
+    /**
+     * Add a positif vote reputation to this marker
+     */
     public void voteUp() {
         _reputation.vote(ReputationVoteModel.UP);
         _database.updateMarkerReputation(this);
     }
     
+    /**
+     * Add a negatif vote reputation to this marker
+     */
     public void voteDown() {
         _reputation.vote(ReputationVoteModel.DOWN);
         _database.updateMarkerReputation(this);
