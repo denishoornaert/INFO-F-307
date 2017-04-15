@@ -8,10 +8,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -19,12 +15,12 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Control;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -52,8 +48,8 @@ public class NewMarkerPopUp extends PopUp {
     private Button _closeButton;
     private Button _okButton;
     
-    private ArrayList<String> _pokemonNames;
-    private NewMarkerPopUpController _controller;
+    private final ArrayList<String> _pokemonNames;
+    private final NewMarkerPopUpController _controller;
     
     public NewMarkerPopUp(NewMarkerPopUpController controller, ArrayList<String> pokemonsName) {
         super();
@@ -84,8 +80,7 @@ public class NewMarkerPopUp extends PopUp {
     private void initDatePicker() {
         _dateMonthYear = new DatePicker();
         setDatePicker(_dateMonthYear);
-        HBox.setHgrow(_dateMonthYear, Priority.ALWAYS);
-        _dateMonthYear.setMaxWidth(Double.MAX_VALUE);
+        setXExpandPolicy(_dateMonthYear);
     }
     
     private void initSpinners() {
@@ -125,8 +120,7 @@ public class NewMarkerPopUp extends PopUp {
         _pokemonName.setPromptText("Pokemon name");
         setComboBoxPokemonNameContent();
         initComboBoxPokemonNameEventItemSelected();
-        HBox.setHgrow(_pokemonName, Priority.ALWAYS);
-        _pokemonName.setMaxWidth(Double.MAX_VALUE);
+        setXExpandPolicy(_pokemonName);
     }
     
     private void setComboBoxPokemonNameContent() {
@@ -170,8 +164,7 @@ public class NewMarkerPopUp extends PopUp {
             items.add(""+i);
         }
         if (value != -1) combo.setValue(value);
-        HBox.setHgrow(combo, Priority.ALWAYS);
-        combo.setMaxWidth(Double.MAX_VALUE);
+        setXExpandPolicy(combo);
     }
     
     private void setDatePicker(DatePicker picker) {
@@ -222,8 +215,7 @@ public class NewMarkerPopUp extends PopUp {
             }
         });
         _okButton.getStyleClass().add("primary");
-        HBox.setHgrow(_okButton, Priority.ALWAYS);
-        _okButton.setMaxWidth(Double.MAX_VALUE);
+        setXExpandPolicy(_okButton);
     }
     
     private void initCloseButton() {
@@ -235,8 +227,7 @@ public class NewMarkerPopUp extends PopUp {
             }
         });
         _closeButton.getStyleClass().add("danger");
-        HBox.setHgrow(_closeButton, Priority.ALWAYS);
-        _closeButton.setMaxWidth(Double.MAX_VALUE);
+        setXExpandPolicy(_closeButton);
     }
     
     private void placeWidgets() {
@@ -266,6 +257,16 @@ public class NewMarkerPopUp extends PopUp {
 
     private void initStyle() {
         setSize(500, 150);
+    }
+    
+    /**
+     * Set max width to widget
+     * 
+     * @param control the current gui element
+     */
+    private void setXExpandPolicy(Control control) {
+        HBox.setHgrow(control, Priority.ALWAYS);
+        control.setMaxWidth(Double.MAX_VALUE);
     }
     
     public void setPokemonView(String imagePath) {
