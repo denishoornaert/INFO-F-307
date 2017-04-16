@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -54,7 +55,8 @@ public class NewMarkerPopUp extends PopUp {
     
     public NewMarkerPopUp(NewMarkerPopUpController controller, ArrayList<String> pokemonsName) {
         super();
-        _pokemonNames = pokemonsName;
+        _pokemonNames = new ArrayList<String>(pokemonsName);
+        Collections.sort(_pokemonNames);
         _controller = controller;
         initWidget();
         placeWidgets();
@@ -125,8 +127,7 @@ public class NewMarkerPopUp extends PopUp {
     }
     
     private void setComboBoxPokemonNameContent() {
-        ObservableList items = _pokemonName.getItems();
-        items.addAll(_pokemonNames);
+        _pokemonName.getItems().addAll(_pokemonNames);
 
     }
     
