@@ -1,6 +1,6 @@
 # Gotta Map'Em All : Projet de génie logiciel et gestion de projet (INFO-F-307)
 
-TO DO: Description du projet
+Le projet a pour but de permettre à un utilisateur de l'application "Pokemon Go" de signaler aux autres utilisateurs les pokémons qu'il rencontre. Le programme se veut fonctionnel sur les trois OS les plus connus/utilisés (Linux, Windows et MacOS).
 
 # Utilisation
 
@@ -12,21 +12,21 @@ TO DO: Informations sur la façon de compiler votre projet
 
 ## Démarrage 
 
-TO DO: Informations sur la façon d'éxecuter votre projet
+ - Linux : ```java -jar Groupe01.jar``` (same for bash on Windows)
 
 # Configuration :
 
 ## Serveur 
 
-TO DO: Informations sur la configuration du serveur
+Irrelevant
 
 ## Client
 
-TO DO: Informations sur la configuration du client
+Pour le moment, le programme fonctionne en "stand alone" et ne nécessite aucunement un serveur auquel se connecter.
 
 # Tests
 
-TO DO: Informations sur la façon d'executer les tests
+Netbeans
 
 # Misc
 
