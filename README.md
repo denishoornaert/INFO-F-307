@@ -13,6 +13,8 @@ TO DO: Informations sur la façon de compiler votre projet
 ## Démarrage 
 
  - Linux : ```java -jar Groupe01.jar``` (same for bash on Windows)
+ - Windows : installation de Linux suivi de la comande écrite ci-dessus
+ - MacOS : installation de Linux suivi de la comande écrite ci-dessus
 
 # Configuration :
 
