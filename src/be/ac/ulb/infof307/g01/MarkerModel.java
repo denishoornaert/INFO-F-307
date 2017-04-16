@@ -12,6 +12,7 @@ public class MarkerModel {
      * DatabaseModel can know to which database entry this object corresponds.
      */
     private int _databaseId;
+    private String _username;
     private final PokemonModel _pokemon;
     private final CoordinateModel _coordinate;
     private Timestamp _timestamp;
@@ -25,8 +26,8 @@ public class MarkerModel {
      * @param pokemon pokemon in link with this marker
      * @param coordinate location of this marker
      */
-    public MarkerModel(PokemonModel pokemon, CoordinateModel coordinate) {
-        this(0, pokemon, coordinate, new Timestamp(System.currentTimeMillis()), 0, 0);
+    public MarkerModel(PokemonModel pokemon, CoordinateModel coordinate, String username) {
+        this(0, username, pokemon, coordinate, new Timestamp(System.currentTimeMillis()), 0, 0);
         _database.insertMarker(this);
     }
     
@@ -41,9 +42,9 @@ public class MarkerModel {
      * @param upVotes positif votes about this maker
      * @param downVotes negatif votes about this marker
      */
-    public MarkerModel(int databaseId, String pokemonName, double latitude, double longitude, 
+    public MarkerModel(int databaseId, String username, String pokemonName, double latitude, double longitude, 
             Timestamp timestamp, int upVotes, int downVotes) {
-        this(databaseId, PokemonModel.getPokemonByName(pokemonName), 
+        this(databaseId, username, PokemonModel.getPokemonByName(pokemonName), 
                 new CoordinateModel(latitude, longitude), timestamp, upVotes, downVotes);
     }
     
@@ -57,8 +58,9 @@ public class MarkerModel {
      * @param upVotes positif votes about this maker
      * @param downVotes negatif votes about this marker
      */
-    public MarkerModel(int databaseId, PokemonModel pokemon, CoordinateModel coordinate, 
+    private MarkerModel(int databaseId, String username, PokemonModel pokemon, CoordinateModel coordinate, 
             Timestamp timestamp, int upVotes, int downVotes) {
+    	_username = username;
         _databaseId = databaseId;
         _pokemon = pokemon;
         _coordinate = coordinate;
@@ -99,6 +101,10 @@ public class MarkerModel {
     public String getPokemonName() {
         return _pokemon.getName();
     }
+
+	public String getUsername() {
+		return _username;
+	}
     
     public String getImagePath() {
         return _pokemon.getImagePath();

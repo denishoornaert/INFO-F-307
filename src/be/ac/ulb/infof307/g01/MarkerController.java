@@ -17,7 +17,8 @@ public class MarkerController {
     }
     
     public void createMarker(PokemonModel pokemon, CoordinateModel newMarkerCoordinates) {
-        MarkerModel marker = new MarkerModel(pokemon, newMarkerCoordinates);
+    	String username = AuthenticationController.getInstance().getUsername();
+        MarkerModel marker = new MarkerModel(pokemon, newMarkerCoordinates, username);
         displayMarker(marker);
     }
     

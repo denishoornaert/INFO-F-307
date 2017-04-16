@@ -183,21 +183,22 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
      */
     @Override
     public void insertMarker(MarkerModel marker) {
-        String query = "INSERT INTO Marker(PokemonId, Latitude, Longitude, TimeStamp, UpVotes, DownVotes) "
+        String query = "INSERT INTO Marker(PokemonId, Username, Latitude, Longitude, TimeStamp, UpVotes, DownVotes) "
                 + "VALUES("
                     + "(SELECT Id "
                     + "FROM Pokemon "
                     + "WHERE Name=?), "
-                + "?, ?, ?, 0, 0);";
+                + "?, ?, ?, ?, 0, 0);";
         try {
             CoordinateModel markerCoordinate = marker.getCoordinate();
             PreparedStatement statement = _connection.prepareStatement(query);
             String timestampString = marker.getTimestamp().toString();
-
+            
             statement.setString(1, marker.getPokemonName());
-            statement.setDouble(2, markerCoordinate.getLatitude());
-            statement.setDouble(3, markerCoordinate.getLongitude());
-            statement.setString(4, timestampString);
+            statement.setString(2, marker.getUsername());
+            statement.setDouble(3, markerCoordinate.getLatitude());
+            statement.setDouble(4, markerCoordinate.getLongitude());
+            statement.setString(5, timestampString);
             statement.execute();
             
 
@@ -234,13 +235,14 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
         final int id = cursor.getInt(1);
         
         final String pokemonName = cursor.getString(2);
+        final String username = cursor.getString(3);
         final double latitude = cursor.getDouble(3);
         final double longitude = cursor.getDouble(4);
         final String timestampString = cursor.getString(5);
         final int upVotes = cursor.getInt(6);
         final int downVotes = cursor.getInt(7);
 
-        return new MarkerModel(id, pokemonName, latitude, longitude,
+        return new MarkerModel(id, pokemonName, username, latitude, longitude,
                 Timestamp.valueOf(timestampString), upVotes, downVotes);
     }
 
