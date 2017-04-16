@@ -1,9 +1,6 @@
-package be.ac.ulb.infof307.g01.controller;
+package be.ac.ulb.infof307.g01.model;
 
 import java.sql.Timestamp;
-
-import be.ac.ulb.infof307.g01.model.DatabaseModel;
-import be.ac.ulb.infof307.g01.model.MarkerDatabaseModel;
 
 /** Model of a marker. A marker contains the location of a spotted pokemon,
  * the pokemon, the timestamp of the spot, etc...
@@ -17,7 +14,7 @@ public class MarkerModel {
     private final PokemonModel _pokemon;
     private final CoordinateModel _coordinate;
     private Timestamp _timestamp;
-    private ReputationScore _reputation;
+    private ReputationScoreModel _reputation;
     private int _lifePoint, _attack, _defense; // TODO init in constructor
     private MarkerDatabaseModel _database;
     
@@ -66,7 +63,7 @@ public class MarkerModel {
         _pokemon = pokemon;
         _coordinate = coordinate;
         _timestamp = timestamp;
-        _reputation = new ReputationScore(upVotes, downVotes);
+        _reputation = new ReputationScoreModel(upVotes, downVotes);
         _database = (MarkerDatabaseModel) DatabaseModel.getDatabase();
     }
     

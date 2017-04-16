@@ -3,6 +3,9 @@ package be.ac.ulb.infof307.g01.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import be.ac.ulb.infof307.g01.model.CoordinateModel;
+import be.ac.ulb.infof307.g01.model.MarkerModel;
+import be.ac.ulb.infof307.g01.model.PokemonModel;
 import be.ac.ulb.infof307.g01.view.MapView;
 
 /** Controller of the markers. This class should be instanciated only once, as

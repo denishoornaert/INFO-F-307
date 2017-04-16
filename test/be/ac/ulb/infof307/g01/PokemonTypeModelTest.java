@@ -4,7 +4,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import be.ac.ulb.infof307.g01.controller.PokemonTypeModel;
+import be.ac.ulb.infof307.g01.model.PokemonTypeModel;
 
 import static org.junit.Assert.assertEquals;
 

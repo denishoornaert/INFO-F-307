@@ -2,6 +2,8 @@ package be.ac.ulb.infof307.g01.controller;
 
 import java.sql.Timestamp;
 
+import be.ac.ulb.infof307.g01.model.CoordinateModel;
+import be.ac.ulb.infof307.g01.model.MarkerModel;
 import be.ac.ulb.infof307.g01.view.PinPopUp;
 
 /**

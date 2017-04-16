@@ -1,4 +1,4 @@
-package be.ac.ulb.infof307.g01.controller;
+package be.ac.ulb.infof307.g01.model;
 
 import java.io.File;
 import java.util.ArrayList;

@@ -1,12 +1,12 @@
-package be.ac.ulb.infof307.g01.controller;
+package be.ac.ulb.infof307.g01.model;
 
 /** Score of reputation of a marker, as down and upvotes. */
-public class ReputationScore {
+public class ReputationScoreModel {
     
     private int _upVotes;
     private int _downVotes;
     
-    public ReputationScore(int up, int down) {
+    public ReputationScoreModel(int up, int down) {
         _upVotes = up;
         _downVotes = down;
     }

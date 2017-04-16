@@ -1,10 +1,10 @@
 package be.ac.ulb.infof307.g01.db;
 
 import be.ac.ulb.infof307.g01.controller.Main;
-import be.ac.ulb.infof307.g01.controller.MarkerModel;
-import be.ac.ulb.infof307.g01.controller.PokemonModel;
 import be.ac.ulb.infof307.g01.model.DatabaseModel;
 import be.ac.ulb.infof307.g01.model.MarkerDatabaseModel;
+import be.ac.ulb.infof307.g01.model.MarkerModel;
+import be.ac.ulb.infof307.g01.model.PokemonModel;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;

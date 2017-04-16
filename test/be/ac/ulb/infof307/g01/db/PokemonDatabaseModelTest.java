@@ -1,9 +1,9 @@
 package be.ac.ulb.infof307.g01.db;
 
 import be.ac.ulb.infof307.g01.controller.Main;
-import be.ac.ulb.infof307.g01.controller.PokemonModel;
 import be.ac.ulb.infof307.g01.model.DatabaseModel;
 import be.ac.ulb.infof307.g01.model.PokemonDatabaseModel;
+import be.ac.ulb.infof307.g01.model.PokemonModel;
 import junit.framework.TestCase;
 import org.junit.Test;
 

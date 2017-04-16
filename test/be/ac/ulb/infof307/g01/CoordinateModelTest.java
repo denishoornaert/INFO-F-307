@@ -3,7 +3,7 @@ package be.ac.ulb.infof307.g01;
 import junit.framework.TestCase;
 import org.junit.Test;
 
-import be.ac.ulb.infof307.g01.controller.CoordinateModel;
+import be.ac.ulb.infof307.g01.model.CoordinateModel;
 
 
 public class CoordinateModelTest extends TestCase {

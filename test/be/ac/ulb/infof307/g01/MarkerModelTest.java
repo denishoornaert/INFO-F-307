@@ -4,10 +4,10 @@ import java.sql.Timestamp;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import be.ac.ulb.infof307.g01.controller.CoordinateModel;
-import be.ac.ulb.infof307.g01.controller.MarkerModel;
-import be.ac.ulb.infof307.g01.controller.PokemonModel;
-import be.ac.ulb.infof307.g01.controller.PokemonTypeModel;
+import be.ac.ulb.infof307.g01.model.CoordinateModel;
+import be.ac.ulb.infof307.g01.model.MarkerModel;
+import be.ac.ulb.infof307.g01.model.PokemonModel;
+import be.ac.ulb.infof307.g01.model.PokemonTypeModel;
 
 import static org.junit.Assert.*;
 

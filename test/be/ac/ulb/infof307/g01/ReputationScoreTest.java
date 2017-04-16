@@ -3,19 +3,19 @@ package be.ac.ulb.infof307.g01;
 import junit.framework.TestCase;
 import org.junit.Test;
 
-import be.ac.ulb.infof307.g01.controller.ReputationScore;
-import be.ac.ulb.infof307.g01.controller.ReputationVoteModel;
+import be.ac.ulb.infof307.g01.model.ReputationScoreModel;
+import be.ac.ulb.infof307.g01.model.ReputationVoteModel;
 
 public class ReputationScoreTest extends TestCase {
     
     private final int _upVotes = 42;
     private final int _downVotes = 69;
-    private ReputationScore _score;
+    private ReputationScoreModel _score;
     
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        _score = new ReputationScore(_upVotes, _downVotes);
+        _score = new ReputationScoreModel(_upVotes, _downVotes);
     }
     
     @Test
