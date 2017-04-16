@@ -1,7 +1,10 @@
 package be.ac.ulb.infof307.g01.db;
 
-import be.ac.ulb.infof307.g01.Main;
-import be.ac.ulb.infof307.g01.PokemonTypeModel;
+import be.ac.ulb.infof307.g01.controller.Main;
+import be.ac.ulb.infof307.g01.controller.PokemonTypeModel;
+import be.ac.ulb.infof307.g01.model.DatabaseModel;
+import be.ac.ulb.infof307.g01.model.PokemonTypeDatabaseModel;
+
 import java.util.ArrayList;
 import junit.framework.TestCase;
 import org.junit.Test;

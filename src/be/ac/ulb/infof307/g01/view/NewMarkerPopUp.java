@@ -1,6 +1,5 @@
-package be.ac.ulb.infof307.g01.gui;
+package be.ac.ulb.infof307.g01.view;
 
-import be.ac.ulb.infof307.g01.NewMarkerPopUpController;
 import java.io.File;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -8,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+
+import be.ac.ulb.infof307.g01.controller.NewMarkerPopUpController;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

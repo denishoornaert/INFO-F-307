@@ -8,6 +8,9 @@ import static org.junit.Assert.*;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 
+import be.ac.ulb.infof307.g01.controller.PokemonModel;
+import be.ac.ulb.infof307.g01.controller.PokemonTypeModel;
+
 
 public class PokemonModelTest {
     

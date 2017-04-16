@@ -1,8 +1,9 @@
-package be.ac.ulb.infof307.g01;
+package be.ac.ulb.infof307.g01.controller;
 
-import be.ac.ulb.infof307.g01.gui.MapView;
 import java.util.HashMap;
 import java.util.Map;
+
+import be.ac.ulb.infof307.g01.view.MapView;
 
 /** Controller of the markers. This class should be instanciated only once, as
  * it manages all markers.

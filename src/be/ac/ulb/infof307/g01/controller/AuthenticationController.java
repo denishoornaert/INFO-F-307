@@ -1,6 +1,6 @@
-package be.ac.ulb.infof307.g01;
+package be.ac.ulb.infof307.g01.controller;
 
-import be.ac.ulb.infof307.g01.gui.LoginPopUp;
+import be.ac.ulb.infof307.g01.view.LoginPopUp;
 
 /**
  * Singleton class managing the authentication of the user,

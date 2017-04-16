@@ -1,8 +1,9 @@
-package be.ac.ulb.infof307.g01.gui;
+package be.ac.ulb.infof307.g01.view;
 
-import be.ac.ulb.infof307.g01.PinPopUpController;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+
+import be.ac.ulb.infof307.g01.controller.PinPopUpController;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

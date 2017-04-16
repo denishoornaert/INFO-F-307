@@ -3,6 +3,9 @@ package be.ac.ulb.infof307.g01;
 import junit.framework.TestCase;
 import org.junit.Test;
 
+import be.ac.ulb.infof307.g01.controller.ReputationScore;
+import be.ac.ulb.infof307.g01.controller.ReputationVoteModel;
+
 public class ReputationScoreTest extends TestCase {
     
     private final int _upVotes = 42;

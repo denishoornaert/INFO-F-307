@@ -1,9 +1,10 @@
-package be.ac.ulb.infof307.g01;
+package be.ac.ulb.infof307.g01.controller;
 
-import be.ac.ulb.infof307.g01.db.DatabaseModel;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
+
+import be.ac.ulb.infof307.g01.model.DatabaseModel;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;

@@ -1,4 +1,4 @@
-package be.ac.ulb.infof307.g01;
+package be.ac.ulb.infof307.g01.controller;
 
 /** Represents a geographical coordinate, such as for Marker location on the map. */
 public class CoordinateModel {

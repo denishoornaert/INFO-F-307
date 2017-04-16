@@ -1,6 +1,6 @@
-package be.ac.ulb.infof307.g01.gui;
+package be.ac.ulb.infof307.g01.view;
 
-import be.ac.ulb.infof307.g01.AuthenticationController;
+import be.ac.ulb.infof307.g01.controller.AuthenticationController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;

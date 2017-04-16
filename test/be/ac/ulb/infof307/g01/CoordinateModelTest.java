@@ -1,8 +1,9 @@
 package be.ac.ulb.infof307.g01;
 
-import be.ac.ulb.infof307.g01.CoordinateModel;
 import junit.framework.TestCase;
 import org.junit.Test;
+
+import be.ac.ulb.infof307.g01.controller.CoordinateModel;
 
 
 public class CoordinateModelTest extends TestCase {

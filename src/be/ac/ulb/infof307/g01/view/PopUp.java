@@ -1,7 +1,8 @@
-package be.ac.ulb.infof307.g01.gui;
+package be.ac.ulb.infof307.g01.view;
 
-import be.ac.ulb.infof307.g01.Main;
 import java.io.File;
+
+import be.ac.ulb.infof307.g01.controller.Main;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

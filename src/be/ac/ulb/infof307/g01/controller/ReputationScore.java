@@ -1,4 +1,4 @@
-package be.ac.ulb.infof307.g01;
+package be.ac.ulb.infof307.g01.controller;
 
 /** Score of reputation of a marker, as down and upvotes. */
 public class ReputationScore {
@@ -11,11 +11,11 @@ public class ReputationScore {
         _downVotes = down;
     }
 
-    int getUpVotes() {
+    public int getUpVotes() {
         return _upVotes;
     }
 
-    int getDownVotes() {
+    public int getDownVotes() {
         return _downVotes;
     }   
     

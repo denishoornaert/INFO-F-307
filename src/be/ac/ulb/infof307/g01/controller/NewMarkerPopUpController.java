@@ -1,7 +1,8 @@
-package be.ac.ulb.infof307.g01;
+package be.ac.ulb.infof307.g01.controller;
 
-import be.ac.ulb.infof307.g01.gui.NewMarkerPopUp;
 import java.sql.Timestamp;
+
+import be.ac.ulb.infof307.g01.view.NewMarkerPopUp;
 
 /**
  * Controller the NewMarkerPopUp that enable the user to create a new Marker.

@@ -1,7 +1,8 @@
 package be.ac.ulb.infof307.g01.db;
 
-import be.ac.ulb.infof307.g01.Main;
-import be.ac.ulb.infof307.g01.db.DatabaseModel;
+import be.ac.ulb.infof307.g01.controller.Main;
+import be.ac.ulb.infof307.g01.model.DatabaseModel;
+
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import org.junit.Rule;

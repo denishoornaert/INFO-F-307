@@ -1,7 +1,8 @@
-package be.ac.ulb.infof307.g01;
+package be.ac.ulb.infof307.g01.controller;
 
-import be.ac.ulb.infof307.g01.gui.PinPopUp;
 import java.sql.Timestamp;
+
+import be.ac.ulb.infof307.g01.view.PinPopUp;
 
 /**
  * TODO: add description

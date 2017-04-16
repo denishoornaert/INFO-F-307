@@ -1,11 +1,12 @@
-package be.ac.ulb.infof307.g01.gui;
+package be.ac.ulb.infof307.g01.view;
 
-import be.ac.ulb.infof307.g01.CoordinateModel;
-import be.ac.ulb.infof307.g01.Main;
-import be.ac.ulb.infof307.g01.MapController;
-import be.ac.ulb.infof307.g01.MarkerModel;
 import java.net.URL;
 import java.util.HashMap;
+
+import be.ac.ulb.infof307.g01.controller.CoordinateModel;
+import be.ac.ulb.infof307.g01.controller.Main;
+import be.ac.ulb.infof307.g01.controller.MapController;
+import be.ac.ulb.infof307.g01.controller.MarkerModel;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;

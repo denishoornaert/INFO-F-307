@@ -1,4 +1,4 @@
-package be.ac.ulb.infof307.g01.gui;
+package be.ac.ulb.infof307.g01.view;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

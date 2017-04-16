@@ -1,4 +1,4 @@
-package be.ac.ulb.infof307.g01;
+package be.ac.ulb.infof307.g01.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;

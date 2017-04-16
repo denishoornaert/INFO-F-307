@@ -1,9 +1,5 @@
-package be.ac.ulb.infof307.g01.db;
+package be.ac.ulb.infof307.g01.model;
 
-import be.ac.ulb.infof307.g01.CoordinateModel;
-import be.ac.ulb.infof307.g01.MarkerModel;
-import be.ac.ulb.infof307.g01.PokemonModel;
-import be.ac.ulb.infof307.g01.PokemonTypeModel;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.Connection;
@@ -16,6 +12,11 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import be.ac.ulb.infof307.g01.controller.CoordinateModel;
+import be.ac.ulb.infof307.g01.controller.MarkerModel;
+import be.ac.ulb.infof307.g01.controller.PokemonModel;
+import be.ac.ulb.infof307.g01.controller.PokemonTypeModel;
 
 /** Class that interacts with the database.
  * This class implements all queries needed in the application. It is not

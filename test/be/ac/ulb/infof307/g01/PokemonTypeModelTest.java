@@ -3,6 +3,9 @@ package be.ac.ulb.infof307.g01;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
+import be.ac.ulb.infof307.g01.controller.PokemonTypeModel;
+
 import static org.junit.Assert.assertEquals;
 
 public class PokemonTypeModelTest {

@@ -1,9 +1,9 @@
-package be.ac.ulb.infof307.g01;
+package be.ac.ulb.infof307.g01.controller;
 
-import be.ac.ulb.infof307.g01.db.DatabaseModel;
-import be.ac.ulb.infof307.g01.db.MarkerDatabaseModel;
-import be.ac.ulb.infof307.g01.gui.ClusterPopUp;
-import be.ac.ulb.infof307.g01.gui.MapView;
+import be.ac.ulb.infof307.g01.model.DatabaseModel;
+import be.ac.ulb.infof307.g01.model.MarkerDatabaseModel;
+import be.ac.ulb.infof307.g01.view.ClusterPopUp;
+import be.ac.ulb.infof307.g01.view.MapView;
 
 /** Controller of the map. This class is responsible of creating markers at
  * startup and when the user adds one. For that, it holds an instance of

@@ -1,8 +1,9 @@
-package be.ac.ulb.infof307.g01;
+package be.ac.ulb.infof307.g01.controller;
 
-import be.ac.ulb.infof307.g01.db.DatabaseModel;
-import be.ac.ulb.infof307.g01.db.MarkerDatabaseModel;
 import java.sql.Timestamp;
+
+import be.ac.ulb.infof307.g01.model.DatabaseModel;
+import be.ac.ulb.infof307.g01.model.MarkerDatabaseModel;
 
 /** Model of a marker. A marker contains the location of a spotted pokemon,
  * the pokemon, the timestamp of the spot, etc...
