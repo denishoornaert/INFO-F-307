@@ -19,6 +19,7 @@ public class CoordinateModel {
         return _longitude;
     }
     
+    @Override
     public boolean equals(Object object){
         CoordinateModel other = (CoordinateModel) object;
         return getLatitude() == other.getLatitude() && getLongitude() == other.getLongitude();

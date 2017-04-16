@@ -37,7 +37,7 @@ public class Main extends Application {
     public void start(Stage stage) {
         _stage = stage;
         // create MapController
-        MapController mapController = new MapController();
+        new MapController();
         
         _scene = new Scene(_layout);
         _scene.getStylesheets().add(new File("assets/bootstrap.css").toURI().toString());
@@ -56,7 +56,7 @@ public class Main extends Application {
     
     /** Loads and inits the database. */
     private static void loadDatabase() throws SQLException, FileNotFoundException {
-        DatabaseModel databaseModel = new DatabaseModel(getDatabasePath());
+        new DatabaseModel(getDatabasePath());
     }
     
     public static void main(String[] args) {
