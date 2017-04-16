@@ -24,6 +24,10 @@ public class PinPopUpController {
         return _marker.getPokemonName();
     }
     
+    public String getUsername() {
+    	return _marker.getUsername();
+    }
+    
     public Timestamp getTimestamp() {
         return _marker.getTimestamp();
     }
@@ -59,6 +63,9 @@ public class PinPopUpController {
     private void updateVoteView() {
         int vote = _marker.getVoteScore();
         _pinPopUp.updateVoteView(vote);
+        if (_marker.getUsername().equals(AuthenticationController.getInstance().getUsername())) {
+        	_pinPopUp.disableVoteButtons();
+        }
     }
     
 }
