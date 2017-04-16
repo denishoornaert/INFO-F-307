@@ -2,7 +2,7 @@
 
 Le projet a pour but de permettre à un utilisateur de l'application "Pokemon Go" de signaler aux autres utilisateurs les pokémons qu'il rencontre. Le programme se veut fonctionnel sur les trois OS les plus connus/utilisés (Linux, Windows et MacOS).
 
-# Utilisation
+# Utilisation :
 
 TO DO: Informations sur le système de build et la version du Java/Librairies utilisés dans l'implementation.
 
@@ -24,11 +24,11 @@ Irrelevant
 
 Pour le moment, le programme fonctionne en "stand alone" et ne nécessite aucunement un serveur auquel se connecter.
 
-# Tests
+# Tests :
 
-Netbeans
+Go Netbeans
 
-# Misc
+# Misc :
 
 ## Développement
 
