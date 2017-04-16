@@ -6,6 +6,9 @@
 /lib/nblibraries.properties
 /build.xml
 
+# Eclipse
+bin/
+
 # Lib
 /lib/CopyLibs/
 /lib/hamcrest/

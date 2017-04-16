@@ -183,21 +183,22 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
      */
     @Override
     public void insertMarker(MarkerModel marker) {
-        String query = "INSERT INTO Marker(PokemonId, Latitude, Longitude, TimeStamp, UpVotes, DownVotes) "
+        String query = "INSERT INTO Marker(PokemonId, Username, Latitude, Longitude, TimeStamp, UpVotes, DownVotes) "
                 + "VALUES("
                     + "(SELECT Id "
                     + "FROM Pokemon "
                     + "WHERE Name=?), "
-                + "?, ?, ?, 0, 0);";
+                + "?, ?, ?, ?, 0, 0);";
         try {
             CoordinateModel markerCoordinate = marker.getCoordinate();
             PreparedStatement statement = _connection.prepareStatement(query);
             String timestampString = marker.getTimestamp().toString();
-
+            
             statement.setString(1, marker.getPokemonName());
-            statement.setDouble(2, markerCoordinate.getLatitude());
-            statement.setDouble(3, markerCoordinate.getLongitude());
-            statement.setString(4, timestampString);
+            statement.setString(2, marker.getUsername());
+            statement.setDouble(3, markerCoordinate.getLatitude());
+            statement.setDouble(4, markerCoordinate.getLongitude());
+            statement.setString(5, timestampString);
             statement.execute();
             
 
@@ -215,7 +216,7 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
     @Override
     public ArrayList<MarkerModel> getAllMarkers() {
         ArrayList<MarkerModel> allMarkers = new ArrayList<>();
-        String query = "SELECT M.Id, P.Name, M.Latitude, M.Longitude, M.TimeStamp, M.UpVotes, M.DownVotes "
+        String query = "SELECT M.Id, M.Username, P.Name, M.Latitude, M.Longitude, M.TimeStamp, M.UpVotes, M.DownVotes "
                 + "FROM Marker M "
                 + "JOIN Pokemon P "
                 + "    ON P.Id=M.PokemonId;";
@@ -231,16 +232,17 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
     }
 
     private MarkerModel createMarker(ResultSet cursor) throws SQLException {
-        final int id = cursor.getInt(1);
-        
-        final String pokemonName = cursor.getString(2);
-        final double latitude = cursor.getDouble(3);
-        final double longitude = cursor.getDouble(4);
-        final String timestampString = cursor.getString(5);
-        final int upVotes = cursor.getInt(6);
-        final int downVotes = cursor.getInt(7);
+    	int i = 0;
+        final int id = cursor.getInt(++i);
+        final String username = cursor.getString(++i);
+        final String pokemonName = cursor.getString(++i);
+        final double latitude = cursor.getDouble(++i);
+        final double longitude = cursor.getDouble(++i);
+        final String timestampString = cursor.getString(++i);
+        final int upVotes = cursor.getInt(++i);
+        final int downVotes = cursor.getInt(++i);
 
-        return new MarkerModel(id, pokemonName, latitude, longitude,
+        return new MarkerModel(id, username, pokemonName, latitude, longitude,
                 Timestamp.valueOf(timestampString), upVotes, downVotes);
     }
 

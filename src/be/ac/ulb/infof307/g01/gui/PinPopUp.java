@@ -22,6 +22,7 @@ public class PinPopUp extends PopUp {
     private VBox _vbox;
     private Label _pokemonName;
     private Label _date;
+    private Label _username;
     private Label _attackLabel;
     private Label _defenseLabel;
     private Label _lifeLabel;
@@ -55,6 +56,7 @@ public class PinPopUp extends PopUp {
         Timestamp date = _controller.getTimestamp();
         String formatingDate = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(date);
         _date = new Label("Date : "+formatingDate);
+        _username = new Label("User : " + _controller.getUsername());
         _closeButton = getCloseButton("Close", "danger");
         
         _lifeLabel = new Label("Life : " + _controller.getPokemonLife());
@@ -74,7 +76,7 @@ public class PinPopUp extends PopUp {
     }
     
     private void initUpVoteButton() {
-        _upVoteButton = new Button("👍");
+        _upVoteButton = new Button("\uD83D\uDC4D");
         _upVoteButton.getStyleClass().add("primary");
         _upVoteButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -85,7 +87,7 @@ public class PinPopUp extends PopUp {
     }
     
     private void initDownVoteButton() {
-        _downVoteButton = new Button("👎");
+        _downVoteButton = new Button("\uD83D\uDC4E");
         _downVoteButton.getStyleClass().add("primary");
         _downVoteButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -99,7 +101,7 @@ public class PinPopUp extends PopUp {
         ObservableList<Node> children = _voteBox.getChildren();
         children.addAll(_downVoteButton, _voteScoreLabel, _upVoteButton);
         children = _vbox.getChildren();
-        children.addAll(_pokemonName, _date, _lifeLabel, _attackLabel, _defenseLabel, _voteBox, _closeButton);
+        children.addAll(_pokemonName, _date, _username, _lifeLabel, _attackLabel, _defenseLabel, _voteBox, _closeButton);
         add(_vbox);
     }
     

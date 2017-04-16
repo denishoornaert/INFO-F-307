@@ -8,20 +8,21 @@ CREATE TABLE `Pokemon` (
 	`Id`	     INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
 	`Name`	     TEXT NOT NULL UNIQUE,
 	`ImagePath`  TEXT NOT NULL,
-        `TypeFirst`  INTEGER NOT NULL,
-        `TypeSecond` INTEGER,
+    `TypeFirst`  INTEGER NOT NULL,
+    `TypeSecond` INTEGER,
 	FOREIGN KEY(`TypeFirst`) REFERENCES `PokemonType`
 	FOREIGN KEY(`TypeSecond`) REFERENCES `PokemonType`
 );
 
 CREATE TABLE `Marker` (
-        `Id`        INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-        `PokemonId` INTEGER NOT NULL,
-        `Latitude`         DOUBLE NOT NULL,
-        `Longitude`         DOUBLE NOT NULL,
-        `TimeStamp` TEXT    NOT NULL,
-        `UpVotes`   INTEGER NOT NULL,
-        `DownVotes` INTEGER NOT NULL,
+    `Id`        INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+    `Username`  TEXT    NOT NULL,
+    `PokemonId` INTEGER NOT NULL,
+    `Latitude`  DOUBLE  NOT NULL,
+    `Longitude` DOUBLE  NOT NULL,
+    `TimeStamp` TEXT    NOT NULL,
+    `UpVotes`   INTEGER NOT NULL,
+    `DownVotes` INTEGER NOT NULL,
 	FOREIGN KEY(`PokemonId`) REFERENCES Pokemon
 );
 

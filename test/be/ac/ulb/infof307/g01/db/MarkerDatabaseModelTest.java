@@ -28,13 +28,14 @@ public class MarkerDatabaseModelTest extends TestCase {
         new PokemonModel("Pikachu", "");
         
         final int id = 0;
+        final String username = "bidon";
         final double latitude = 250;
         final double longitude = 500;
         final String pokemonName = "Pikachu";
         final Timestamp timestamp = new Timestamp(0);
         final int upVotes = 0;
         final int downVotes = 0;
-        _markerToInsert = new MarkerModel(id, pokemonName, latitude, longitude,
+        _markerToInsert = new MarkerModel(id, username, pokemonName, latitude, longitude,
                 timestamp, upVotes, downVotes);
     }
     

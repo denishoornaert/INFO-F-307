@@ -18,11 +18,8 @@ public class MarkerModelTest {
         PokemonModel testPokemon = new PokemonModel("arceus","", 
                 PokemonTypeModel.getPokemonTypeByTypeName("FIRE"));
         CoordinateModel testCoordinate = new CoordinateModel(69, 42);
-        
-        // For test we must not use the picture
-        Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-        MarkerModel testMarker = new MarkerModel(0, testPokemon, testCoordinate,
-            currentTime, 0, 0); 
+        final String username = "bidon";
+        MarkerModel testMarker = new MarkerModel(testPokemon, testCoordinate, username); 
         assertEquals(testMarker.getImagePath(), testPokemon.getImagePath());        
     }
     
