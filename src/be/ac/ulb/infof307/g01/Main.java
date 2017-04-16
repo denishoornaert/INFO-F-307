@@ -8,7 +8,6 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import static javafx.application.Application.launch;
 
 public class Main extends Application {
   
@@ -36,7 +35,8 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         _stage = stage;
-        // create MapController
+        
+        // Create MapController
         new MapController();
         
         _scene = new Scene(_layout);
@@ -44,6 +44,9 @@ public class Main extends Application {
         stage.setScene(_scene);
         
         stage.show();
+        
+        // Create login controller
+        AuthenticationController.getInstance();
     }
     
     public static StackPane getStackPane() {
