@@ -7,6 +7,7 @@ import be.ac.ulb.infof307.g01.controller.Main;
 import be.ac.ulb.infof307.g01.controller.MapController;
 import be.ac.ulb.infof307.g01.model.CoordinateModel;
 import be.ac.ulb.infof307.g01.model.MarkerModel;
+import java.util.ArrayList;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
@@ -117,8 +118,13 @@ public class MapView extends StackPane {
             return isLoaded;
         }
         
-        public void onMarkerClusterClick() {
-            _mapController.clusterClicked();
+        public void onMarkerClusterClick(JSObject markersIdArray) {
+            int arraySize = (int) markersIdArray.getMember("length");
+            ArrayList<Integer> markersIds = new ArrayList<Integer>();
+            for (int index = 0; index < arraySize; index++) {
+                markersIds.add((Integer) markersIdArray.getSlot(index));
+            }
+            _mapController.clusterClicked(markersIds);
         }
         
         /**
@@ -134,11 +140,6 @@ public class MapView extends StackPane {
         
         public void onMarkerLeftClick(int markerId) {
             _mapController.displayPinPopUp(markerId);
-        }
-        
-        public String getClusterImagesPath() {
-            URL urlClusterImages = getClass().getResource("/googleMap");
-            return urlClusterImages.getPath().substring(1);
         }
     }
 }

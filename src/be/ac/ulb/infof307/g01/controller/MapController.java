@@ -5,6 +5,7 @@ import be.ac.ulb.infof307.g01.model.MarkerDatabaseModel;
 import be.ac.ulb.infof307.g01.model.MarkerModel;
 import be.ac.ulb.infof307.g01.view.ClusterPopUp;
 import be.ac.ulb.infof307.g01.view.MapView;
+import java.util.ArrayList;
 
 /** Controller of the map. This class is responsible of creating markers at
  * startup and when the user adds one. For that, it holds an instance of
@@ -49,7 +50,7 @@ public class MapController {
         new PinPopUpController(marker);
     }
     
-    public void clusterClicked() {
-        new ClusterPopUp();
+    public void clusterClicked(ArrayList<Integer> markersIds) {
+        new ClusterPopUpController(_markerController, markersIds);
     }
 }
