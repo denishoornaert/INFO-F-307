@@ -22,17 +22,16 @@ public class PokemonPanel extends StackPane {
     ScrollPane _scroll;
     FlowPane _flow;
     
-    public PokemonPanel(ArrayList<PokemonModel> pokemons) {
+    public PokemonPanel() {
         super();
-        initWidgets(pokemons);
+        initWidgets();
         initStyle();
         placeWidgets();
     }
 
-    private void initWidgets(ArrayList<PokemonModel> pokemons) {
+    private void initWidgets() {
         _scroll = new ScrollPane();
         _flow = new FlowPane();
-        setPokemons(pokemons); // temp
     }
 
     private void initStyle() {

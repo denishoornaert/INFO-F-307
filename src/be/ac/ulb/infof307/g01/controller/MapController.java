@@ -51,6 +51,6 @@ public class MapController {
     }
     
     public void clusterClicked(ArrayList<Integer> markersIds) {
-        new ClusterPopUp(_markerController, markersIds);
+        new ClusterPopUpController(_markerController, markersIds);
     }
 }

@@ -1,5 +1,6 @@
 package be.ac.ulb.infof307.g01.view;
 
+import be.ac.ulb.infof307.g01.controller.ClusterPopUpController;
 import be.ac.ulb.infof307.g01.controller.MarkerController;
 import be.ac.ulb.infof307.g01.model.MarkerModel;
 import be.ac.ulb.infof307.g01.model.PokemonModel;
@@ -17,8 +18,7 @@ import javafx.scene.layout.VBox;
  */
 public class ClusterPopUp extends PopUp {
     
-    private MarkerController _markerController;
-    private ArrayList<PokemonModel> _pokemonList;
+    
     
     private VBox _mainBox;
     private HBox _bottomBox;
@@ -26,22 +26,12 @@ public class ClusterPopUp extends PopUp {
     private Label _message;
     private Button _closeButton;
     
-    public ClusterPopUp(MarkerController controller, ArrayList<Integer> markersIds) {
+    public ClusterPopUp(ClusterPopUpController controller) {
         super();
-        _markerController = controller;
-        initPokemonList(markersIds);
         initWidgets();
         placeWidgets();
         setStyle();
         show();
-    }
-    
-    private void initPokemonList(ArrayList<Integer> markersIds) {
-        _pokemonList = new ArrayList<>();
-        for (Integer id : markersIds) {
-            MarkerModel marker = _markerController.getMarkerModelFromId(id);
-            _pokemonList.add(marker.getPokemon());
-        }
     }
     
     private void initWidgets() {
@@ -53,7 +43,7 @@ public class ClusterPopUp extends PopUp {
     }
     
     private void initPokemonPanel() {
-        _pokemonPanel = new PokemonPanel(_pokemonList);
+        _pokemonPanel = new PokemonPanel();
     }
     
     private void initMessageLabel() {
@@ -76,6 +66,10 @@ public class ClusterPopUp extends PopUp {
         _bottomBox.setAlignment(Pos.CENTER);
         _bottomBox.setSpacing(10);
         super.setSize(350, 350);
+    }
+    
+    public void setPokemons(ArrayList<PokemonModel> pokemons) {
+        _pokemonPanel.setPokemons(pokemons);
     }
     
 }
