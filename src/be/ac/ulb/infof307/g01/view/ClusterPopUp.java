@@ -1,10 +1,9 @@
 package be.ac.ulb.infof307.g01.view;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
@@ -13,8 +12,10 @@ import javafx.scene.layout.VBox;
  * Pop-up showed when the user clicks on a pokemon cluster.
  */
 public class ClusterPopUp extends PopUp {
-
-    private VBox _vbox;
+    
+    private VBox _mainBox;
+    private HBox _bottomBox;
+    private PokemonPanel _pokemonPanel;
     private Label _message;
     private Button _closeButton;
     
@@ -27,9 +28,15 @@ public class ClusterPopUp extends PopUp {
     }
     
     private void initWidgets() {
-        _vbox = new VBox();
+        _mainBox = new VBox();
+        _bottomBox = new HBox();
+        initPokemonPanel();
         initMessageLabel();
         initCloseButton();
+    }
+    
+    private void initPokemonPanel() {
+        _pokemonPanel = new PokemonPanel();
     }
     
     private void initMessageLabel() {
@@ -45,13 +52,15 @@ public class ClusterPopUp extends PopUp {
     }
 
     private void placeWidgets() {
-        _vbox.getChildren().addAll(_message, _closeButton);
-        super.add(_vbox);
+        _bottomBox.getChildren().addAll(_message, _closeButton);
+        _mainBox.getChildren().addAll(_pokemonPanel, _bottomBox);
+        super.add(_mainBox);
     }
 
     private void setStyle() {
-        _vbox.setAlignment(Pos.CENTER);
-        _vbox.setSpacing(10);
+        _bottomBox.setAlignment(Pos.CENTER);
+        _bottomBox.setSpacing(10);
+        super.setSize(300, 300);
     }
     
 }
