@@ -135,10 +135,5 @@ public class MapView extends StackPane {
         public void onMarkerLeftClick(int markerId) {
             _mapController.displayPinPopUp(markerId);
         }
-        
-        public String getClusterImagesPath() {
-            URL urlClusterImages = getClass().getResource("/googleMap");
-            return urlClusterImages.getPath().substring(1);
-        }
     }
 }
