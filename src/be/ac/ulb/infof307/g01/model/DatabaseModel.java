@@ -40,8 +40,8 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
      * Init database
      *
      * @param pathToDatabase path to database
-     * @throws java.sql.SQLException
-     * @throws java.io.FileNotFoundException
+     * @throws java.sql.SQLException sql exception
+     * @throws java.io.FileNotFoundException database file not exist
      */
     public DatabaseModel(String pathToDatabase) throws SQLException, FileNotFoundException {
         if(_instance != null) {

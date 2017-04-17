@@ -10,7 +10,7 @@ public class MarkerModel {
      * DatabaseModel can know to which database entry this object corresponds.
      */
     private int _databaseId;
-    private String _username;
+    private final String _username;
     private final PokemonModel _pokemon;
     private final CoordinateModel _coordinate;
     private Timestamp _timestamp;
@@ -23,6 +23,7 @@ public class MarkerModel {
      * 
      * @param pokemon pokemon in link with this marker
      * @param coordinate location of this marker
+     * @param username of user who create this marker
      */
     public MarkerModel(PokemonModel pokemon, CoordinateModel coordinate, String username) {
         this(0, username, pokemon, coordinate, new Timestamp(System.currentTimeMillis()), 0, 0);
@@ -33,6 +34,7 @@ public class MarkerModel {
      * Constructor to create marker in memory (not in database)
      * 
      * @param databaseId id of the pokemon in database (0 if not exist)
+     * @param username of user who create this marker
      * @param pokemonName pokemon name
      * @param latitude x coordinate
      * @param longitude y coordinate
@@ -50,6 +52,7 @@ public class MarkerModel {
      * Constructor (not in database)
      * 
      * @param databaseId id of the pokemon in database (0 if not exist)
+     * @param username of user who create this marker
      * @param pokemon pokemon
      * @param coordinate location
      * @param timestamp time when the pokemon has been witnessed

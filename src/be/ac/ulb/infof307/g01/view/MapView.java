@@ -130,7 +130,7 @@ public class MapView extends StackPane {
         /**
          * Called when the map receives a click event.
          * Calls createMarker function on MapView.
-         * @param coordinates 
+         * @param coordinates of the event
          */
         public void onMapRightClick(JSObject coordinates) {
             double latitude = (double) coordinates.call("lat");

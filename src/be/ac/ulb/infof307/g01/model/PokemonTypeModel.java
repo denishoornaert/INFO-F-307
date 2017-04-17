@@ -23,7 +23,7 @@ public class PokemonTypeModel {
      * Create a new PokemonType
      * @param typeName the name of the brand new type
      * @throws IllegalStateException if type already exists
-     * @TODO Ce constructeur devrait être privé, puisque getPokemonTypeByTypeName
+     * TODO Ce constructeur devrait être privé, puisque getPokemonTypeByTypeName
      * sert deja de factory. Seule PokemonTypeModel devrait pouvoir appeler le constructeur
      */
     public PokemonTypeModel(String typeName) {
@@ -66,7 +66,7 @@ public class PokemonTypeModel {
     }
     
     /**
-     * Remove all existing PokemonType (and juste add NONE type)<br />
+     * Remove all existing PokemonType (and juste add NONE type)<br>
      * Warning: only for test !
      */
     public static void resetAllPokemonType() {
