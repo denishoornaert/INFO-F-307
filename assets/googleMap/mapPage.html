@@ -50,7 +50,7 @@
                 // Create a marker clusterer to manage the markers.
                 var markerOptions = {
                     averageCenter: true,
-                    imagePath: './clusterImages/',
+                    imagePath: './clusterImages/cluster',
                     zoomOnClick: false
                 }
                 markerClusterer = new MarkerClusterer(map, {}, markerOptions);
@@ -60,8 +60,10 @@
                     var markersList = markerClusterer.getMarkers();
                     var markersIdList = [];
                     for (var i = 0; i < markersList.length; i++) {
-                        markersIdList.push(markersList[i].id);
-                        bridge.log(markersList[i].id);
+                        if (markerClusterer.getMarkersCluster(markersList[i]) == cluster) {
+                            // TODO: improve efficiency (with map bounds limit for example)
+                            markersIdList.push(markersList[i].id);
+                        }
                     }
                     bridge.onMarkerClusterClick(markersIdList);
                 });
