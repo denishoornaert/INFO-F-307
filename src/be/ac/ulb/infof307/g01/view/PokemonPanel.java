@@ -47,9 +47,7 @@ public class PokemonPanel extends StackPane {
     private void initWidgets(PokemonModel... pokemons) {
         _scroll = new ScrollPane();
         _flow = new FlowPane();
-        for (PokemonModel pokemon : pokemons) {
-            _flow.getChildren().add(new Button(pokemon.getName()));
-        }
+        setPokemons(pokemons); // temp
     }
 
     private void initStyle() {
@@ -63,6 +61,12 @@ public class PokemonPanel extends StackPane {
     private void placeWidgets() {
         _scroll.setContent(_flow);
         this.getChildren().add(_scroll);
+    }
+    
+    public void setPokemons(PokemonModel... pokemons) {
+        for (PokemonModel pokemon : pokemons) {
+            _flow.getChildren().add(new PokemonLabel(pokemon));
+        }
     }
     
 }

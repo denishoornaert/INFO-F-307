@@ -6,6 +6,7 @@
 package be.ac.ulb.infof307.g01.view;
 
 import be.ac.ulb.infof307.g01.model.PokemonModel;
+import java.io.File;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -21,13 +22,15 @@ public class PokemonLabel extends BorderPane {
     private Label _pokemonName;
     
     public PokemonLabel(PokemonModel pokemon) {
+        super();
         initWidgets(pokemon);
-        initStyle();
+        //initStyle();
         placeWidgets();
     }
 
     private void initWidgets(PokemonModel pokemon) {
-        _image = new ImageView(new Image(pokemon.getImagePath()));
+        String path = new File(pokemon.getImagePath()).toURI().toString();
+        _image = new ImageView(new Image(path));
         _pokemonName = new Label(pokemon.getName());
     }
 
@@ -36,7 +39,8 @@ public class PokemonLabel extends BorderPane {
     }
 
     private void placeWidgets() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        setCenter(_image);
+        setBottom(_pokemonName);
     }
     
 }
