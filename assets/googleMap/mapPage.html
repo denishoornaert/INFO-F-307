@@ -25,6 +25,8 @@
 
             function initMap() {
                 var initcoords = {lat: 50.812273, lng: 4.3805383};
+                
+                // Create the map
                 map = new google.maps.Map(document.getElementById('map'), {
                     zoom: 12,
                     center: initcoords,
@@ -39,23 +41,29 @@
                         stylers: [{visibility: "off"}]
                     }]
                 });
+                
+                // Call bridge when the map is clicked.
+                google.maps.event.addListener(map, 'rightclick', function(event) {
+                    bridge.onMapRightClick(event.latLng);
+                });
 
-                // Add a marker clusterer to manage the markers.
-                var clusterImagesPath = bridge.getClusterImagesPath();
+                // Create a marker clusterer to manage the markers.
                 var markerOptions = {
                     averageCenter: true,
                     imagePath: './clusterImages/',
                     zoomOnClick: false
                 }
                 markerClusterer = new MarkerClusterer(map, {}, markerOptions);
-
-                // Call addMarker() when the map is clicked.
-                google.maps.event.addListener(map, 'rightclick', function(event) {
-                    bridge.onMapRightClick(event.latLng);
-                });
                 
+                // Call bridge when cluster is clicked
                 google.maps.event.addListener(markerClusterer, 'clusterclick', function(cluster) {
-                    bridge.onMarkerClusterClick();
+                    var markersList = markerClusterer.getMarkers();
+                    var markersIdList = [];
+                    for (var i = 0; i < markersList.length; i++) {
+                        markersIdList.push(markersList[i].id);
+                        bridge.log(markersList[i].id);
+                    }
+                    bridge.onMarkerClusterClick(markersIdList);
                 });
                 
                 bridge.javaScriptMapIsLoad();
