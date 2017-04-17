@@ -6,6 +6,7 @@
 package be.ac.ulb.infof307.g01.view;
 
 import be.ac.ulb.infof307.g01.model.PokemonModel;
+import java.util.ArrayList;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -21,30 +22,14 @@ public class PokemonPanel extends StackPane {
     ScrollPane _scroll;
     FlowPane _flow;
     
-    public PokemonPanel() {
-        this(PokemonModel.getPokemonByName("Aggron"),
-            PokemonModel.getPokemonByName("Amaura"),
-            PokemonModel.getPokemonByName("Aggron"),
-            PokemonModel.getPokemonByName("Amaura"),
-            PokemonModel.getPokemonByName("Aggron"),
-            PokemonModel.getPokemonByName("Amaura"),
-            PokemonModel.getPokemonByName("Aggron"),
-            PokemonModel.getPokemonByName("Amaura"),
-            PokemonModel.getPokemonByName("Aggron"),
-            PokemonModel.getPokemonByName("Amaura"),
-            PokemonModel.getPokemonByName("Aggron"),
-            PokemonModel.getPokemonByName("Amaura"),
-            PokemonModel.getPokemonByName("Archen"));
-    }
-    
-    public PokemonPanel(PokemonModel... pokemons) {
+    public PokemonPanel(ArrayList<PokemonModel> pokemons) {
         super();
         initWidgets(pokemons);
         initStyle();
         placeWidgets();
     }
 
-    private void initWidgets(PokemonModel... pokemons) {
+    private void initWidgets(ArrayList<PokemonModel> pokemons) {
         _scroll = new ScrollPane();
         _flow = new FlowPane();
         setPokemons(pokemons); // temp
@@ -64,7 +49,7 @@ public class PokemonPanel extends StackPane {
         this.getChildren().add(_scroll);
     }
     
-    public void setPokemons(PokemonModel... pokemons) {
+    public void setPokemons(ArrayList<PokemonModel> pokemons) {
         for (PokemonModel pokemon : pokemons) {
             _flow.getChildren().add(new PokemonLabel(pokemon));
         }

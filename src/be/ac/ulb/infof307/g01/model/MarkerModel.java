@@ -165,4 +165,8 @@ public class MarkerModel {
     public void setDatabaseId(int databaseId) {
         _databaseId = databaseId;
     }
+    
+    public PokemonModel getPokemon() {
+        return _pokemon;
+    }
 }
