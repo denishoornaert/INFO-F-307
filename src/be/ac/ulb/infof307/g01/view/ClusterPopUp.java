@@ -40,9 +40,7 @@ public class ClusterPopUp extends PopUp {
     }
     
     private void initMessageLabel() {
-        _message = new Label("You have clicked on a pokemon cluster. To see "
-                + "which pokmon is contained in the pokemon cluster please zoom"
-                + ".");
+        _message = new Label("Zoom on the map to see all the pokemons.");
         _message.setMaxWidth(Region.USE_PREF_SIZE);
         _message.setWrapText(true);
     }
@@ -60,7 +58,7 @@ public class ClusterPopUp extends PopUp {
     private void setStyle() {
         _bottomBox.setAlignment(Pos.CENTER);
         _bottomBox.setSpacing(10);
-        super.setSize(300, 300);
+        super.setSize(350, 350);
     }
     
 }

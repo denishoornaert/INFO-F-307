@@ -54,6 +54,7 @@ public class PokemonPanel extends StackPane {
         _flow.setAlignment(Pos.CENTER);
         _flow.setHgap(10);
         _flow.setVgap(10);
+        _flow.setStyle("-fx-background-color: rgba(255,255,  255, 1.0);");
         _scroll.setFitToWidth(true);
         _scroll.setFitToHeight(true);
     }
