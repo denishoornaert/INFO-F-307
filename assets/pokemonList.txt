@@ -158,7 +158,7 @@ Dhelmise: GRASS GHOST
 Dialga: DRAGON STEEL
 Diancie: ROCK FAIRY
 Diggersby: NORMAL GROUND
-Diglett-alolan: GROUND STEEL
+Digletta: GROUND STEEL
 Diglett: GROUND
 Ditto: NORMAL
 Dodrio: NORMAL FLYING
@@ -177,7 +177,7 @@ Drilbur: GROUND
 Drowzee: PSYCHIC
 Druddigon: DRAGON
 Ducklett: WATER FLYING
-Dugtrio-alolan: GROUND STEEL
+Dugtrioa: GROUND STEEL
 Dugtrio: GROUND
 Dunsparce: NORMAL
 Duosion: PSYCHIC
@@ -206,7 +206,7 @@ Espeon: PSYCHIC
 Espurr: PSYCHIC
 Excadrill: GROUND STEEL
 Exeggcute: GRASS PSYCHIC
-Exeggutor-alolan: GRASS DRAGON
+Exeggutora: GRASS DRAGON
 Exeggutor: GRASS PSYCHIC
 Exploud: NORMAL
 Farfetchd: NORMAL FLYING
@@ -246,7 +246,7 @@ Gastly: POISON GHOST
 Gastrodon: WATER GROUND
 Genesect: BUG STEEL
 Gengar: POISON GHOST
-Geodude-alolan: ELECTRIC ROCK
+Geodudea: ELECTRIC ROCK
 Geodude: GROUND ROCK
 Gible: GROUND DRAGON
 Gigalith: ROCK
@@ -262,7 +262,7 @@ Gogoat: GRASS
 Golbat: POISON FLYING
 Goldeen: WATER
 Golduck: WATER
-Golem-alolan: ELECTRIC ROCK
+Golema: ELECTRIC ROCK
 Golem: GROUND ROCK
 Golett: GROUND GHOST
 Golisopod: WATER BUG
@@ -275,10 +275,10 @@ Gothitelle: PSYCHIC
 Gothorita: PSYCHIC
 Gourgeist: GRASS GHOST
 Granbull: FAIRY
-Graveler-alolan: ELECTRIC ROCK
+Gravelera: ELECTRIC ROCK
 Graveler: GROUND ROCK
 Greninja: WATER DARK
-Grimer-alolan: POISON DARK
+Grimera: POISON DARK
 Grimer: POISON
 Grotle: GRASS
 Groudon: GROUND
@@ -423,7 +423,7 @@ Maractus: GRASS
 Mareanie: WATER POISON
 Mareep: ELECTRIC
 Marill: WATER FAIRY
-Marowak-alolan: FIRE GHOST
+Marowaka: FIRE GHOST
 Marowak: GROUND
 Marshadow: FIGHTING GHOST
 Marshtomp: WATER GROUND
@@ -434,7 +434,7 @@ Meditite: FIGHTING PSYCHIC
 Meganium: GRASS
 Meloetta: NORMAL FIGHTING
 Meowstic: PSYCHIC
-Meowth-alolan: DARK
+Meowtha: DARK
 Meowth: NORMAL
 Mesprit: PSYCHIC
 Metagross: PSYCHIC STEEL
@@ -462,7 +462,7 @@ Mr-mime: PSYCHIC FAIRY
 Mudbray: GROUND
 Mudkip: WATER
 Mudsdale: GROUND
-Muk-alolan: POISON DARK
+Muka: POISON DARK
 Muk: POISON
 Munchlax: NORMAL
 Munna: PSYCHIC
@@ -478,7 +478,7 @@ Nidorina: POISON
 Nidorino: POISON
 Nihilego: POISON ROCK
 Nincada: GROUND BUG
-Ninetales-alolan: ICE FAIRY
+Ninetalesa: ICE FAIRY
 Ninetales: FIRE
 Ninjask: FLYING BUG
 Noctowl: NORMAL FLYING
@@ -510,7 +510,7 @@ Passimian: FIGHTING
 Patrat: NORMAL
 Pawniard: DARK STEEL
 Pelipper: WATER FLYING
-Persian-alolan: DARK
+Persiana: DARK
 Persian: NORMAL
 Petilil: GRASS
 Phanpy: GROUND
@@ -555,15 +555,15 @@ Quagsire: WATER GROUND
 Quilava: FIRE
 Quilladin: GRASS
 Qwilfish: WATER POISON
-Raichu-alolan: ELECTRIC PSYCHIC
+Raichua: ELECTRIC PSYCHIC
 Raichu: ELECTRIC
 Raikou: ELECTRIC
 Ralts: PSYCHIC FAIRY
 Rampardos: ROCK
 Rapidash: FIRE
-Raticate-alolan: NORMAL DARK
+Raticatea: NORMAL DARK
 Raticate: NORMAL
-Rattata-alolan: NORMAL DARK
+Rattataa: NORMAL DARK
 Rattata: NORMAL
 Rayquaza: FLYING DRAGON
 Regice: ICE
@@ -592,9 +592,9 @@ Salandit: FIRE POISON
 Salazzle: FIRE POISON
 Samurott: WATER
 Sandile: GROUND DARK
-Sandshrew-alolan: ICE STEEL
+Sandshrewa: ICE STEEL
 Sandshrew: GROUND
-Sandslash-alolan: ICE STEEL
+Sandslasha: ICE STEEL
 Sandslash: GROUND
 Sandygast: GROUND GHOST
 Sawk: FIGHTING
@@ -775,7 +775,7 @@ Volcanion: FIRE WATER
 Volcarona: FIRE BUG
 Voltorb: ELECTRIC
 Vullaby: FLYING DARK
-Vulpix-alolan: ICE
+Vulpixa: ICE
 Vulpix: FIRE
 Wailmer: WATER
 Wailord: WATER
