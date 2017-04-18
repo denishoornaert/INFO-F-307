@@ -10,15 +10,15 @@ points.
 
 
 ## Pondération
-| Priorité/3 | N° | Description | Difficulté/10 | Risque/3 | Heures/? | Points/350 |
+| Priorité/3 | N° | Description | Difficulté/10 | Risque/3 | Heures/? | Points |
 | ------ | ------ | ------ | ------ | ------ | ------ | ------ |
-| 1 | [1](#repérage-p-sur-carte) | Repérage P. sur carte | 7 | 2 | 49 |  |
+| 1 | [1](#repérage-p-sur-carte) | Repérage P. sur carte | 7 | 2 | 49 | / |
 |   | [5](#login-et-e-mail) | Login et e-mail | 6 | 1 | 42 |  |
 | 2 | [2](#recherche-et-filtre) | Recherche et filtre | 5 | 1 | 35 |  |
 |   | [3](#géolocalisation-et-proximité) | Géolocalisation et proximité | 5 | 2 | 35 |  |
-|   | [6](#réputation) | Réputation | 4 | 1 | 28 |  |
+|   | [6](#réputation) | Réputation | 4 | 1 | 28 | / |
 |   | 10 | Synchronisation et gestion de conflits | 7 | 3 | 49 |  |
-| 3 | 4 | Intégration avec Maps | 5 | 3 | 35 |  |
+| 3 | 4 | Intégration avec Maps | 5 | 3 | 35 | / |
 |   | 7 | Tuto | 7 | 1 | 49 |  |
 |   | 8 | Application mobile | 8 | 3 | 56 |  |
 |   | 9 | Partage sur réseaux sociaux | 2 | 1 | 14 |  |
@@ -54,10 +54,10 @@ nombre de P. représenté par cette épingle (fusionnée)
 
 ### Recherche et filtre
 **Instructions originales:**           
-- (10h) Rechercher des P. sur la carte actuelle en fonction de leur nom 
-- (6h) Limité l'affichage des P. sur la carte en fonction de la recherche 
-- (10h) Possibilité de recherche via 2 (ou plus) critères (par exemple: "feu qui ne peut pas voler") 
-- (20h) Sauvegarde des recherches
+- `10h` Rechercher des P. sur la carte actuelle en fonction de leur nom 
+- `6h` Limité l'affichage des P. sur la carte en fonction de la recherche 
+- `10h` Possibilité de recherche via 2 critères (ou plus) (par exemple: "feu qui ne peut pas voler") 
+- `20h` Sauvegarde des recherches
     - (question) Permettre d'utilisé les recherches sauvegardés
 
 ##### Total: 46h
@@ -102,22 +102,34 @@ référence à un token permettant de valider l'email de l'utilisateur))
 - Permettre de modifier les informations de son profil
 - Permettre de changer son adresse email mais obligation de refaire une vérification
 - Possibilité de se déconnecter
+                 
+**Sous Tâches**                
+- `10h` Envoie d'email de confirmation de compte (token dans la base de donnée)
+- `15h` Mettre à jour les informations personnel
+- `30h` Serveur d'authentification (API REST)
+- `5h` Interface de login
+- `5h` Message d'information (pas de connexion, perte de connexion)       
+_Si tout intégéré au serveur_          
+- `20h` Refactoring du client afin de tout mettre en ligne
+
 
 :question: **Question:**       
 - Que faire si l'utilisateur change d'adresse email sans confirmer ?  Le compte est utilisable ?
 Avec quelle adresse ?
+- Manière d'interface de login
+- Quels accès a-t-on quand on est pas connecté ?
 
 
 ### Réputation
 **Instructions originales:**           
-- Afficher les P. sur la cartes et le moment où ils ont été signalé (normalement déjà fait au point 1)
+- MAKE Afficher les P. sur la cartes et le moment où ils ont été signalé (normalement déjà fait au point 1)
     - Question par rapport au point 1
-- (5h) Afficher les caractéristiques des P.
+- MAKE Afficher les caractéristiques des P.
     - Point de vie
     - Attaque
     - Défense
-- (15h) Possibilité de modifier les informations d'un P. **qu'on a signalé** (uniquement).
-- (10h) Système de réputation du signalement (indisponible pour celui qui a créé le signalement).  Système
+- `10h` Possibilité de modifier les informations d'un P. **qu'on a signalé** (uniquement).
+- MAKE Système de réputation du signalement (indisponible pour celui qui a créé le signalement).  Système
 de réputation simple: `+1` et `-1` (simplement)
 
 **Suggestion d'affichage:**               
