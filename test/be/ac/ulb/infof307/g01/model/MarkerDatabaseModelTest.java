@@ -1,5 +1,6 @@
-package be.ac.ulb.infof307.g01.db;
+package be.ac.ulb.infof307.g01.model;
 
+import be.ac.ulb.infof307.g01.controller.Main;
 import be.ac.ulb.infof307.g01.controller.Main;
 import be.ac.ulb.infof307.g01.model.DatabaseModel;
 import be.ac.ulb.infof307.g01.model.MarkerDatabaseModel;

@@ -1,4 +1,4 @@
-package be.ac.ulb.infof307.g01;
+package be.ac.ulb.infof307.g01.model;
 
 import java.sql.Timestamp;
 import org.junit.BeforeClass;

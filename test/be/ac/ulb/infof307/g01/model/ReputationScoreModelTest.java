@@ -1,4 +1,4 @@
-package be.ac.ulb.infof307.g01;
+package be.ac.ulb.infof307.g01.model;
 
 import junit.framework.TestCase;
 import org.junit.Test;
@@ -6,7 +6,7 @@ import org.junit.Test;
 import be.ac.ulb.infof307.g01.model.ReputationScoreModel;
 import be.ac.ulb.infof307.g01.model.ReputationVoteModel;
 
-public class ReputationScoreTest extends TestCase {
+public class ReputationScoreModelTest extends TestCase {
     
     private final int _upVotes = 42;
     private final int _downVotes = 69;

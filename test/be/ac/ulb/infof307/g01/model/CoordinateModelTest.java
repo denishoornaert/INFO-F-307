@@ -1,4 +1,4 @@
-package be.ac.ulb.infof307.g01;
+package be.ac.ulb.infof307.g01.model;
 
 import junit.framework.TestCase;
 import org.junit.Test;
