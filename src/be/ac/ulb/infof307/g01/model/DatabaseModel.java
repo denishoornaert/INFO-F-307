@@ -179,12 +179,12 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
      */
     @Override
     public void insertMarker(MarkerModel marker) {
-        String query = "INSERT INTO Marker(PokemonId, Username, Latitude, Longitude, TimeStamp, UpVotes, DownVotes) "
+        String query = "INSERT INTO Marker(PokemonId, Username, Latitude, Longitude, TimeStamp, UpVotes, DownVotes, LifePoint, Attack, Defense) "
                 + "VALUES("
                     + "(SELECT Id "
                     + "FROM Pokemon "
                     + "WHERE Name=?), "
-                + "?, ?, ?, ?, 0, 0);";
+                + "?, ?, ?, ?, 0, 0, ?, ?, ?);";
         try {
             CoordinateModel markerCoordinate = marker.getCoordinate();
             PreparedStatement statement = _connection.prepareStatement(query);
@@ -195,6 +195,9 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
             statement.setDouble(3, markerCoordinate.getLatitude());
             statement.setDouble(4, markerCoordinate.getLongitude());
             statement.setString(5, timestampString);
+            statement.setInt(8, marker.getPokemonLife());
+            statement.setInt(9, marker.getPokemonAttack());
+            statement.setInt(10, marker.getPokemonDefense());
             statement.execute();
             
 
@@ -212,7 +215,7 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
     @Override
     public ArrayList<MarkerModel> getAllMarkers() {
         ArrayList<MarkerModel> allMarkers = new ArrayList<>();
-        String query = "SELECT M.Id, M.Username, P.Name, M.Latitude, M.Longitude, M.TimeStamp, M.UpVotes, M.DownVotes "
+        String query = "SELECT M.Id, M.Username, P.Name, M.Latitude, M.Longitude, M.TimeStamp, M.UpVotes, M.DownVotes, M.LifePoint, M.Attack, M.Defense "
                 + "FROM Marker M "
                 + "JOIN Pokemon P "
                 + "    ON P.Id=M.PokemonId;";
@@ -237,9 +240,11 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
         final String timestampString = cursor.getString(++i);
         final int upVotes = cursor.getInt(++i);
         final int downVotes = cursor.getInt(++i);
-
+        final int lifePoint = cursor.getInt(++i);
+        final int attack = cursor.getInt(++i);
+        final int defense = cursor.getInt(++i);
         return new MarkerModel(id, username, pokemonName, latitude, longitude,
-                Timestamp.valueOf(timestampString), upVotes, downVotes);
+                Timestamp.valueOf(timestampString), upVotes, downVotes, lifePoint, attack, defense);
     }
 
     @Override
