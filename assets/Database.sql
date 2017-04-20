@@ -23,6 +23,9 @@ CREATE TABLE `Marker` (
     `TimeStamp` TEXT    NOT NULL,
     `UpVotes`   INTEGER NOT NULL,
     `DownVotes` INTEGER NOT NULL,
+    `LifePoint` INTEGER NOT NULL,
+    `Attack` INTEGER NOT NULL,
+    `Defense` INTEGER NOT NULL,
 	FOREIGN KEY(`PokemonId`) REFERENCES Pokemon
 );
 

@@ -41,7 +41,7 @@ public class NewMarkerPopUpController {
             _newMarkerPopUp.close();
             _newMarkerPopUp = null;
             PokemonModel pokemon = PokemonModel.getPokemonByName(pokemonName);
-            _markerController.createMarker(pokemon, _newMarkerCoordinate);
+            _markerController.createMarker(pokemon, _newMarkerCoordinate, lifePoint, attack, defense, dateView);
             _newMarkerCoordinate = null;
         }
         else {

@@ -7,6 +7,7 @@ import be.ac.ulb.infof307.g01.model.CoordinateModel;
 import be.ac.ulb.infof307.g01.model.MarkerModel;
 import be.ac.ulb.infof307.g01.model.PokemonModel;
 import be.ac.ulb.infof307.g01.view.MapView;
+import java.sql.Timestamp;
 
 /** Controller of the markers. This class should be instanciated only once, as
  * it manages all markers.
@@ -20,9 +21,9 @@ public class MarkerController {
         _mapView = mapView;
     }
     
-    public void createMarker(PokemonModel pokemon, CoordinateModel newMarkerCoordinates) {
+    public void createMarker(PokemonModel pokemon, CoordinateModel newMarkerCoordinates, int lifePoint, int attack, int defense, Timestamp date) {
     	String username = AuthenticationController.getInstance().getUsername();
-        MarkerModel marker = new MarkerModel(pokemon, newMarkerCoordinates, username);
+        MarkerModel marker = new MarkerModel(pokemon, newMarkerCoordinates, username, lifePoint, attack, defense, date);
         displayMarker(marker);
     }
     
