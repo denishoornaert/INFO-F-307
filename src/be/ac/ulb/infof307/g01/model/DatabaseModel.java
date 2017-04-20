@@ -195,9 +195,9 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
             statement.setDouble(3, markerCoordinate.getLatitude());
             statement.setDouble(4, markerCoordinate.getLongitude());
             statement.setString(5, timestampString);
-            statement.setInt(8, marker.getPokemonLife());
-            statement.setInt(9, marker.getPokemonAttack());
-            statement.setInt(10, marker.getPokemonDefense());
+            statement.setInt(6, marker.getPokemonLife());
+            statement.setInt(7, marker.getPokemonAttack());
+            statement.setInt(8, marker.getPokemonDefense());
             statement.execute();
             
 
