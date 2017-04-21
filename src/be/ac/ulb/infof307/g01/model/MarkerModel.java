@@ -24,8 +24,13 @@ public class MarkerModel {
      * @param pokemon pokemon in link with this marker
      * @param coordinate location of this marker
      * @param username of user who create this marker
+     * @param lifePoint pokemon life point
+     * @param attack pokemon attack stat
+     * @param defense pokemon defense stat
+     * @param date the date of the marker
      */
-    public MarkerModel(PokemonModel pokemon, CoordinateModel coordinate, String username, int lifePoint, int attack, int defense, Timestamp date) {
+    public MarkerModel(PokemonModel pokemon, CoordinateModel coordinate, 
+            String username, int lifePoint, int attack, int defense, Timestamp date) {
         this(0, username, pokemon, coordinate, date, 0, 0, lifePoint, attack, defense);
         _database.insertMarker(this);
     }
@@ -41,6 +46,9 @@ public class MarkerModel {
      * @param timestamp time when the pokemon has been witnessed
      * @param upVotes positif votes about this maker
      * @param downVotes negatif votes about this marker
+     * @param lifePoint pokemon life point
+     * @param attack pokemon attack stat
+     * @param defense pokemon defense stat
      */
     public MarkerModel(int databaseId, String username, String pokemonName, double latitude, double longitude, 
             Timestamp timestamp, int upVotes, int downVotes, int lifePoint, int attack, int defense) {
@@ -58,9 +66,12 @@ public class MarkerModel {
      * @param timestamp time when the pokemon has been witnessed
      * @param upVotes positif votes about this maker
      * @param downVotes negatif votes about this marker
+     * @param lifePoint pokemon life point
+     * @param attack pokemon attack stat
+     * @param defense pokemon defense stat
      */
     private MarkerModel(int databaseId, String username, PokemonModel pokemon, CoordinateModel coordinate, 
-            Timestamp timestamp, int upVotes, int downVotes,int lifepoint, int attack,int defense) {
+            Timestamp timestamp, int upVotes, int downVotes, int lifepoint, int attack, int defense) {
     	_username = username;
         _databaseId = databaseId;
         _pokemon = pokemon;

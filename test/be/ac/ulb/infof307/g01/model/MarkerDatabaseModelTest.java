@@ -1,56 +1,49 @@
 package be.ac.ulb.infof307.g01.model;
 
 import be.ac.ulb.infof307.g01.controller.Main;
-import be.ac.ulb.infof307.g01.controller.Main;
-import be.ac.ulb.infof307.g01.model.DatabaseModel;
-import be.ac.ulb.infof307.g01.model.MarkerDatabaseModel;
-import be.ac.ulb.infof307.g01.model.MarkerModel;
-import be.ac.ulb.infof307.g01.model.PokemonModel;
+import java.io.FileNotFoundException;
+import java.sql.SQLException;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import junit.framework.TestCase;
+import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertTrue;
 import org.junit.*;
 
-public class MarkerDatabaseModelTest extends TestCase {
+public class MarkerDatabaseModelTest {
     
     private static MarkerDatabaseModel _database;
     private MarkerModel _markerToInsert;
     
-    @Before
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @BeforeClass
+    public static void setUpClass() {
         try {
-            _database = (MarkerDatabaseModel) new DatabaseModel(Main.getTestDatabasePath());
-        } catch(IllegalStateException exception) {
-            _database = (MarkerDatabaseModel) DatabaseModel.getDatabase();
+            _database = new DatabaseModel(Main.getTestDatabasePath());
+        } catch (SQLException | FileNotFoundException ex) {
+            System.err.println("SQL database not init");
         }
+    }
+    
+    @Before
+    public void setUp() throws Exception {
         
-        // Reset the PokemonModel cache and put Pikachu in it
-        PokemonModel.clearAllPokemon();
-        new PokemonModel("Pikachu", "");
+        PokemonModel Abomasnow = PokemonModel.getPokemonByName("Abomasnow");
         
         final int id = 0;
         final String username = "bidon";
         final double latitude = 250;
         final double longitude = 500;
-        final String pokemonName = "Pikachu";
         final Timestamp timestamp = new Timestamp(0);
+        final String pokemonName = Abomasnow.getName();
         final int upVotes = 0;
         final int downVotes = 0;
+        final int lifePoint = 0;
+        final int attack = 0;
+        final int defense = 0;
         _markerToInsert = new MarkerModel(id, username, pokemonName, latitude, longitude,
-                timestamp, upVotes, downVotes);
+                timestamp, upVotes, downVotes,lifePoint,attack,defense);
     }
     
-    @After
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
-        PokemonModel.clearAllPokemon();
-    }
-    
-
     /**
      * Test that insertMarker increments the count of markers.
      */
