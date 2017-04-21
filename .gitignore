@@ -5,6 +5,12 @@
 /build/
 /lib/nblibraries.properties
 /build.xml
+*nb-configuration.xml
+
+# Build Maven
+/src/client/target/
+/src/common/target/
+/src/server/target/
 
 # Eclipse
 bin/
