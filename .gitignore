@@ -6,6 +6,7 @@
 /lib/nblibraries.properties
 /build.xml
 *nb-configuration.xml
+*nbactions.xml
 
 # Build Maven
 /src/client/target/
