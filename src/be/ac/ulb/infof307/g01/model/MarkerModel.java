@@ -11,8 +11,8 @@ public class MarkerModel {
      */
     private int _databaseId;
     private final String _username;
-    private final PokemonModel _pokemon;
-    private final CoordinateModel _coordinate;
+    private PokemonModel _pokemon;
+    private CoordinateModel _coordinate;
     private Timestamp _timestamp;
     private ReputationScoreModel _reputation;
     private int _lifePoint, _attack, _defense;
@@ -108,9 +108,14 @@ public class MarkerModel {
     public void setTimestamp(Timestamp newTimestamp) {
         _timestamp = newTimestamp;
         // TODO Set timestamp in DB
+        // So for the moment :
+        _timestamp = new Timestamp(System.currentTimeMillis());
     }
     
     public Timestamp getTimestamp() {
+        if(_timestamp == null) {
+            return new Timestamp(System.currentTimeMillis());
+        }
         return _timestamp;
     }
     
@@ -186,5 +191,14 @@ public class MarkerModel {
     
     public PokemonModel getPokemon() {
         return _pokemon;
+    }
+
+    public void update(PokemonModel pokemon, int lifePoint, int attack, int defense, Timestamp timestamp) {
+        // TODO : call database
+        _pokemon = pokemon;
+        _timestamp = timestamp;
+        _lifePoint = lifePoint;
+        _attack = attack;
+        _defense = defense;
     }
 }

@@ -37,4 +37,9 @@ public class MarkerController {
     public MarkerModel getMarkerModelFromId(int markerId) {
         return _markerMap.get(markerId);
     }
+
+    void updateMarker(int markerId, PokemonModel pokemon, int lifePoint, int attack, int defense, Timestamp dateView) {
+        MarkerModel marker = _markerMap.get(markerId);
+        marker.update(pokemon, lifePoint, attack, defense, dateView);
+    }
 }

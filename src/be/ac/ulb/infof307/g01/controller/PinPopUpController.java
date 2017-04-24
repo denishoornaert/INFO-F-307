@@ -16,6 +16,7 @@ public class PinPopUpController {
     public PinPopUpController(MarkerModel marker) {
         _marker = marker;
         _pinPopUp = new PinPopUp(this);
+        _pinPopUp.setPokemonView(_marker.getImagePath());
         updateVoteView();
     }
     
@@ -66,9 +67,6 @@ public class PinPopUpController {
     private void updateVoteView() {
         int vote = _marker.getVoteScore();
         _pinPopUp.updateVoteView(vote);
-        if (_marker.getUsername().equals(AuthenticationController.getInstance().getUsername())) {
-        	_pinPopUp.disableVoteButtons();
-        }
     }
     
 }

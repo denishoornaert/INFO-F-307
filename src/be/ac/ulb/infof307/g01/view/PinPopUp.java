@@ -17,7 +17,7 @@ import javafx.scene.layout.VBox;
 /**
  * TODO: add description
  */
-public class PinPopUp extends PopUp {
+public class PinPopUp extends InformationPopUp {
     private final PinPopUpController _controller;
     
     private VBox _vbox;
@@ -36,12 +36,14 @@ public class PinPopUp extends PopUp {
     private Button _closeButton;
         
     public PinPopUp(PinPopUpController controller) {
+        super();
         _controller = controller;
         initPosition();
         initWidgets();
         placeWidgets();
         _vbox.setSpacing(10);
         _voteBox.setSpacing(10);
+        setSize(400, 100);
         show();
     }
     

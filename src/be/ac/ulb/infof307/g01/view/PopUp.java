@@ -17,7 +17,7 @@ import javafx.stage.StageStyle;
 /**
  * TODO: add description
  */
-public class PopUp extends Stage {
+public abstract class PopUp extends Stage {
 
     private final StackPane _layout;
     private final Scene _scene;
@@ -53,7 +53,7 @@ public class PopUp extends Stage {
         centerOnParent();
     }
 
-    protected void initStyle() {
+    private void initStyle() {
         _scene.getStylesheets().add(new File("assets/bootstrap.css").toURI().toString());
         _layout.setStyle(""
                 + "-fx-background-color: #d2d7dd;"
