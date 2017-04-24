@@ -30,9 +30,8 @@ import javafx.scene.layout.VBox;
 /**
  * TODO: add description
  */
-public class NewMarkerPopUp extends PopUp {
+public class NewMarkerPopUp extends InformationPopUp {
     
-    private ImageView _selectedPokemonView;
     private ComboBox _pokemonName;
     private DatePicker _dateMonthYear;
     private ComboBox _dateHour;
@@ -60,24 +59,16 @@ public class NewMarkerPopUp extends PopUp {
         _controller = controller;
         initWidget();
         placeWidgets();
-        initSize();
         show();
     }
 
     private void initWidget() {
-        initImage();
         initDatePicker();
         initSpinners();
         initComboBoxes();
         initLabels();
         initCloseButton();
         initokButton();
-    }
-
-    private void initImage() {
-        _selectedPokemonView = new ImageView();
-        _selectedPokemonView.setFitHeight(150);
-        _selectedPokemonView.setFitWidth(150);
     }
     
     private void initDatePicker() {
@@ -236,43 +227,7 @@ public class NewMarkerPopUp extends PopUp {
         HBox hboxSpinner = placeInRow(_lifeLabel, _lifeSpinner, _attackLabel, _attackSpinner, _defenseLabel, _defenseSpinner);
         HBox hboxButtons = placeInRow(_closeButton, _okButton);
         VBox vboxDataEntries = placeInColumn(_pokemonName, hboxSpinner, _dateMonthYear, hboxDates, hboxButtons);
-        HBox generalEntries = placeInRow(_selectedPokemonView, vboxDataEntries);
-        add(generalEntries);
-    }
-    
-    private VBox placeInColumn(Node... nodes) {
-        VBox vbox = new VBox();
-        ObservableList<Node> childrenV = vbox.getChildren();
-        childrenV.addAll(nodes);
-        vbox.setSpacing(10);
-        return vbox;
-    }
-    
-    private HBox placeInRow(Node... nodes) {
-        HBox hbox = new HBox();
-        hbox.getChildren().addAll(nodes);
-        hbox.setAlignment(Pos.CENTER);
-        hbox.setSpacing(10);
-        return hbox;
-    }
-
-    private void initSize() {
-        setSize(500, 150);
-    }
-    
-    /**
-     * Set max width to widget
-     * 
-     * @param control the current gui element
-     */
-    private void setXExpandPolicy(Control control) {
-        HBox.setHgrow(control, Priority.ALWAYS);
-        control.setMaxWidth(Double.MAX_VALUE);
-    }
-    
-    public void setPokemonView(String imagePath) {
-        String path = new File(imagePath).toURI().toString();
-        _selectedPokemonView.setImage(new Image(path));
+        super.add(vboxDataEntries);
     }
 
     public void errorInPokemonName() {

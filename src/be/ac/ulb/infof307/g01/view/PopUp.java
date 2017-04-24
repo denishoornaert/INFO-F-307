@@ -53,7 +53,7 @@ public class PopUp extends Stage {
         centerOnParent();
     }
 
-    protected void initStyle() {
+    private void initStyle() {
         _scene.getStylesheets().add(new File("assets/bootstrap.css").toURI().toString());
         _layout.setStyle(""
                 + "-fx-background-color: #d2d7dd;"
