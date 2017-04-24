@@ -423,7 +423,7 @@ Maractus: GRASS
 Mareanie: WATER POISON
 Mareep: ELECTRIC
 Marill: WATER FAIRY
-Marowaka: FIRE GHOST
+Marowak-a: FIRE GHOST
 Marowak: GROUND
 Marshadow: FIGHTING GHOST
 Marshtomp: WATER GROUND
@@ -775,7 +775,7 @@ Volcanion: FIRE WATER
 Volcarona: FIRE BUG
 Voltorb: ELECTRIC
 Vullaby: FLYING DARK
-Vulpixa: ICE
+Vulpix-alolan: ICE
 Vulpix: FIRE
 Wailmer: WATER
 Wailord: WATER
@@ -818,3 +818,4 @@ Zoroark: DARK
 Zorua: DARK
 Zubat: POISON FLYING
 Zweilous: DRAGON DARK
+Zygarde: DRAGON GROUND

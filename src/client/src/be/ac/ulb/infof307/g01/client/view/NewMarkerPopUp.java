@@ -192,13 +192,12 @@ public class NewMarkerPopUp extends PopUp {
         LocalDate localDate = _dateMonthYear.getValue();
         Integer hours = getSelection(_dateHour);
         Integer minute = getSelection(_dateMinute);
-        
         Calendar currentDate = Calendar.getInstance();
-        currentDate.set(localDate.getYear(), localDate.getMonth().getValue(), 
-                localDate.getDayOfMonth(), hours, minute);
-        
+        // offset value for month
+        // Calendar class starts at 0
+        currentDate.set(localDate.getYear(), localDate.getMonthValue()-1, 
+                localDate.getDayOfMonth(), hours, minute, 0);
         Timestamp resTimestamp = new Timestamp(currentDate.getTimeInMillis());
-        
         return resTimestamp;
     }
     

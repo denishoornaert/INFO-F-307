@@ -18,7 +18,7 @@ public class MarkerModel {
     private final CoordinateModel _coordinate;
     private Timestamp _timestamp;
     private ReputationScoreModel _reputation;
-    private int _lifePoint, _attack, _defense; // TODO init in constructor
+    private int _lifePoint, _attack, _defense;
     private MarkerDatabaseModel _database;
     
     /**
@@ -27,9 +27,14 @@ public class MarkerModel {
      * @param pokemon pokemon in link with this marker
      * @param coordinate location of this marker
      * @param username of user who create this marker
+     * @param lifePoint pokemon life point
+     * @param attack pokemon attack stat
+     * @param defense pokemon defense stat
+     * @param date the date of the marker
      */
-    public MarkerModel(PokemonModel pokemon, CoordinateModel coordinate, String username) {
-        this(0, username, pokemon, coordinate, new Timestamp(System.currentTimeMillis()), 0, 0);
+    public MarkerModel(PokemonModel pokemon, CoordinateModel coordinate, 
+            String username, int lifePoint, int attack, int defense, Timestamp date) {
+        this(0, username, pokemon, coordinate, date, 0, 0, lifePoint, attack, defense);
         _database.insertMarker(this);
     }
     
@@ -44,11 +49,14 @@ public class MarkerModel {
      * @param timestamp time when the pokemon has been witnessed
      * @param upVotes positif votes about this maker
      * @param downVotes negatif votes about this marker
+     * @param lifePoint pokemon life point
+     * @param attack pokemon attack stat
+     * @param defense pokemon defense stat
      */
     public MarkerModel(int databaseId, String username, String pokemonName, double latitude, double longitude, 
-            Timestamp timestamp, int upVotes, int downVotes) {
+            Timestamp timestamp, int upVotes, int downVotes, int lifePoint, int attack, int defense) {
         this(databaseId, username, PokemonModel.getPokemonByName(pokemonName), 
-                new CoordinateModel(latitude, longitude), timestamp, upVotes, downVotes);
+                new CoordinateModel(latitude, longitude), timestamp, upVotes, downVotes, lifePoint, attack, defense);
     }
     
     /**
@@ -61,20 +69,27 @@ public class MarkerModel {
      * @param timestamp time when the pokemon has been witnessed
      * @param upVotes positif votes about this maker
      * @param downVotes negatif votes about this marker
+     * @param lifePoint pokemon life point
+     * @param attack pokemon attack stat
+     * @param defense pokemon defense stat
      */
     private MarkerModel(int databaseId, String username, PokemonModel pokemon, CoordinateModel coordinate, 
-            Timestamp timestamp, int upVotes, int downVotes) {
+            Timestamp timestamp, int upVotes, int downVotes, int lifepoint, int attack, int defense) {
         try {
             this._database = new DatabaseModel(Main.getDatabasePath());
         } catch (IllegalStateException | SQLException | FileNotFoundException ex) {
-            // Bonne soirée
+            // TODO Bonne soirée
         }
+        
     	_username = username;
         _databaseId = databaseId;
         _pokemon = pokemon;
         _coordinate = coordinate;
         _timestamp = timestamp;
         _reputation = new ReputationScoreModel(upVotes, downVotes);
+        _lifePoint = lifepoint;
+        _attack = attack;
+        _defense = defense;
         _database = (MarkerDatabaseModel) DatabaseModel.getDatabase();
     }
     

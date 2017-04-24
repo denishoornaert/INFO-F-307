@@ -55,7 +55,7 @@ public class PinPopUp extends PopUp {
         _vbox.setAlignment(Pos.CENTER);
         _pokemonName = new Label("Name : "+ _controller.getPokemonName());
         Timestamp date = _controller.getTimestamp();
-        String formatingDate = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(date);
+        String formatingDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(date);
         _date = new Label("Date : "+formatingDate);
         _username = new Label("User : " + _controller.getUsername());
         _closeButton = getCloseButton("Close", "danger");
