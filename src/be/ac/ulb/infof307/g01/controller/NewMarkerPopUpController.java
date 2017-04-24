@@ -22,6 +22,7 @@ public class NewMarkerPopUpController extends AbstractMarkerPopUpController {
     public NewMarkerPopUpController(MarkerController markerController, double coordinateX, double coordinateY) {
         super(markerController);
         _markerPopUp = new NewMarkerPopUp(this, PokemonModel.getAllPokemonName());
+        _markerPopUp.setPokemonView(_defaultImagePath);
         _newMarkerCoordinate = new CoordinateModel(coordinateX, coordinateY);
     }
     

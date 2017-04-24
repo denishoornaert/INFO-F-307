@@ -5,8 +5,6 @@
  */
 package be.ac.ulb.infof307.g01.controller;
 
-import static be.ac.ulb.infof307.g01.controller.AbstractMarkerPopUpController._defaultImagePath;
-import be.ac.ulb.infof307.g01.model.CoordinateModel;
 import be.ac.ulb.infof307.g01.model.PokemonModel;
 import be.ac.ulb.infof307.g01.view.UpdateMarkerPopUp;
 import java.sql.Timestamp;
@@ -20,12 +18,10 @@ public class UpdateMarkerPopUpController extends AbstractMarkerPopUpController {
     int _markerId;
     
     public UpdateMarkerPopUpController(MarkerController markerController, int markerId) {
-        super(markerController);
-        System.out.println("1");
+        super(markerController, markerId);
         _markerId = markerId;
-        System.out.println("2");
         _markerPopUp = new UpdateMarkerPopUp(this, PokemonModel.getAllPokemonName(), markerId);
-        System.out.println("3");
+        _markerPopUp.setPokemonView(_marker.getImagePath());
     }
     
     @Override

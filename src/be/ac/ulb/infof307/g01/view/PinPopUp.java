@@ -36,6 +36,7 @@ public class PinPopUp extends InformationPopUp {
     private Button _closeButton;
         
     public PinPopUp(PinPopUpController controller) {
+        super();
         _controller = controller;
         initPosition();
         initWidgets();

@@ -5,7 +5,6 @@
  */
 package be.ac.ulb.infof307.g01.view;
 
-import be.ac.ulb.infof307.g01.controller.MarkerController;
 import be.ac.ulb.infof307.g01.controller.UpdateMarkerPopUpController;
 import java.sql.Timestamp;
 import java.time.LocalDate;
