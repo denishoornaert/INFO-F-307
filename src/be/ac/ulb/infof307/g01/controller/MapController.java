@@ -3,7 +3,6 @@ package be.ac.ulb.infof307.g01.controller;
 import be.ac.ulb.infof307.g01.model.DatabaseModel;
 import be.ac.ulb.infof307.g01.model.MarkerDatabaseModel;
 import be.ac.ulb.infof307.g01.model.MarkerModel;
-import be.ac.ulb.infof307.g01.view.ClusterPopUp;
 import be.ac.ulb.infof307.g01.view.MapView;
 import java.util.ArrayList;
 
@@ -21,7 +20,7 @@ public class MapController {
     /** Instance of the current popup. Is equal to null if no popup is open,
      *  and is set to null when the popup is closed.
      */
-    private NewMarkerPopUpController _newMarkerPopUpController;    
+    //private AbstractMarkerPopUpController _newMarkerPopUpController;    
     
     public MapController() {
         _database = (MarkerDatabaseModel) DatabaseModel.getDatabase();
@@ -41,13 +40,20 @@ public class MapController {
     }
 
     public void askForCreateMarker(double latitude, double longitude) {
-        _newMarkerPopUpController = new NewMarkerPopUpController(_markerController);
-        _newMarkerPopUpController.askForCreateMarker(latitude, longitude);
+        //_newMarkerPopUpController = new NewMarkerPopUpController(_markerController);
+        //_newMarkerPopUpController.askForCreateMarker(latitude, longitude);
+        new NewMarkerPopUpController(_markerController, latitude, longitude);
     }
     
     public void displayPinPopUp(int markerId) {
         MarkerModel marker = _markerController.getMarkerModelFromId(markerId);
-        new PinPopUpController(marker);
+        if (marker.getUsername().equals(AuthenticationController.getInstance().getUsername())) {
+            System.out.println("be.ac.ulb.infof307.g01.controller.MapController.displayPinPopUp()");
+            new UpdateMarkerPopUpController(_markerController, markerId);
+        }
+        else {
+            new PinPopUpController(marker);
+        }
     }
     
     public void clusterClicked(ArrayList<Integer> markersIds) {

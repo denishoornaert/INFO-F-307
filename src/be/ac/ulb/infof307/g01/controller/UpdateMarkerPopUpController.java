@@ -8,21 +8,24 @@ package be.ac.ulb.infof307.g01.controller;
 import static be.ac.ulb.infof307.g01.controller.AbstractMarkerPopUpController._defaultImagePath;
 import be.ac.ulb.infof307.g01.model.CoordinateModel;
 import be.ac.ulb.infof307.g01.model.PokemonModel;
-import be.ac.ulb.infof307.g01.view.NewMarkerPopUp;
+import be.ac.ulb.infof307.g01.view.UpdateMarkerPopUp;
 import java.sql.Timestamp;
 
 /**
  *
  * @author hoornaert
  */
-public class NewMarkerPopUpController extends AbstractMarkerPopUpController {
+public class UpdateMarkerPopUpController extends AbstractMarkerPopUpController {
     
-    protected CoordinateModel _newMarkerCoordinate;
+    int _markerId;
     
-    public NewMarkerPopUpController(MarkerController markerController, double coordinateX, double coordinateY) {
+    public UpdateMarkerPopUpController(MarkerController markerController, int markerId) {
         super(markerController);
-        _markerPopUp = new NewMarkerPopUp(this, PokemonModel.getAllPokemonName());
-        _newMarkerCoordinate = new CoordinateModel(coordinateX, coordinateY);
+        System.out.println("1");
+        _markerId = markerId;
+        System.out.println("2");
+        _markerPopUp = new UpdateMarkerPopUp(this, PokemonModel.getAllPokemonName(), markerId);
+        System.out.println("3");
     }
     
     @Override
@@ -31,7 +34,7 @@ public class NewMarkerPopUpController extends AbstractMarkerPopUpController {
             _markerPopUp.close();
             _markerPopUp = null;
             PokemonModel pokemon = PokemonModel.getPokemonByName(pokemonName);
-            _markerController.createMarker(pokemon, _newMarkerCoordinate, lifePoint, attack, defense, dateView);
+            _markerController.updateMarker(_markerId, pokemon, lifePoint, attack, defense, dateView);
         }
         else {
             _markerPopUp.errorInPokemonName();
@@ -40,13 +43,7 @@ public class NewMarkerPopUpController extends AbstractMarkerPopUpController {
     
     @Override
     public void askForCreateMarker(double coordinateX, double coordinateY) {
-        if(_markerPopUp == null) {
-            // Converts from event coordinate (centered in the upper left corner)
-            // to marker coordinate (centered in the middle of the image)
-            _newMarkerCoordinate = new CoordinateModel(coordinateX, coordinateY);
-            _markerPopUp = new NewMarkerPopUp(this, PokemonModel.getAllPokemonName());
-            _markerPopUp.setPokemonView(_defaultImagePath);
-        }
+        System.out.println("be.ac.ulb.infof307.g01.controller.UpdateMarkerPopUpController.askForCreateMarker()");
     }
     
 }

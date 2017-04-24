@@ -17,7 +17,7 @@ import javafx.stage.StageStyle;
 /**
  * TODO: add description
  */
-public class PopUp extends Stage {
+public abstract class PopUp extends Stage {
 
     private final StackPane _layout;
     private final Scene _scene;
