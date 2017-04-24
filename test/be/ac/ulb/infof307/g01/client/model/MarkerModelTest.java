@@ -1,10 +1,7 @@
 package be.ac.ulb.infof307.g01.client.model;
 
-import be.ac.ulb.infof307.g01.client.Main;
-import java.io.FileNotFoundException;
-import java.sql.SQLException;
+import be.ac.ulb.infof307.g01.client.model.db.AbstractDatabaseTest;
 import java.sql.Timestamp;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
@@ -12,8 +9,7 @@ import static junit.framework.TestCase.assertEquals;
 import org.junit.Before;
 
 
-public class MarkerModelTest {
-    private static PokemonDatabaseModel _database;
+public class MarkerModelTest extends AbstractDatabaseTest {
     
     private static final String TYPE_NAME = "FIRE";
     private static final PokemonTypeModel TYPE_TEST =  new PokemonTypeModel(TYPE_NAME);
@@ -27,24 +23,16 @@ public class MarkerModelTest {
     private static final CoordinateModel TEST_COORDINATE = new CoordinateModel(69, 42);
     
     private static MarkerModel TEST_MARKER;
-   
-    @BeforeClass
-    public static void setUpClass() throws SQLException, FileNotFoundException {
-        
-        try {
-            _database = (PokemonDatabaseModel) new DatabaseModel(Main.getTestDatabasePath());
-        } catch(IllegalStateException ex) {
-            // ignore
-        }
-        TEST_MARKER = new MarkerModel(TEST_POKEMON, 
-               TEST_COORDINATE,USERNAME,LIFE_POINT,ATTACK,DEFENSE,TIME);
-
-    }
-
+    
+    
     @Before
+    @Override
     public void setUp() {
-       
+        super.setUp();
+       TEST_MARKER = new MarkerModel(TEST_POKEMON, 
+               TEST_COORDINATE,USERNAME,LIFE_POINT,ATTACK,DEFENSE,TIME);
     }
+    
     @Test
     public void test_getPathImage() {
         assertEquals(TEST_MARKER.getImagePath(), TEST_POKEMON.getImagePath());        

@@ -1,37 +1,16 @@
 package be.ac.ulb.infof307.g01.client.model.db;
 
-import be.ac.ulb.infof307.g01.client.Main;
-import be.ac.ulb.infof307.g01.client.model.DatabaseModel;
-import be.ac.ulb.infof307.g01.client.model.PokemonTypeDatabaseModel;
 import be.ac.ulb.infof307.g01.client.model.PokemonTypeModel;
 
 import java.util.ArrayList;
-import junit.framework.TestCase;
+import static junit.framework.TestCase.assertEquals;
 import org.junit.Test;
 
-public class PokemonTypeDatabaseModelTest extends TestCase {
-    
-    private static PokemonTypeDatabaseModel _database;
-    
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-        
-        try {
-            _database = (PokemonTypeDatabaseModel) new DatabaseModel(Main.getTestDatabasePath());
-        } catch(IllegalStateException ex) {
-            // ignore
-        }
-    }
-    
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
-        PokemonTypeModel.resetAllPokemonType();
-    }
+public class PokemonTypeDatabaseModelTest extends AbstractDatabaseTest {
     
     @Test
     public void test_getAllPokemonTypesDefaultValue() {
+        PokemonTypeModel.resetAllPokemonType();
         ArrayList<PokemonTypeModel> allPokemonTypes = PokemonTypeModel.getAllPokemonTypes();
         assertEquals(allPokemonTypes.size(), 1);
         assertEquals(allPokemonTypes.get(0).getTypeName(), "NONE");

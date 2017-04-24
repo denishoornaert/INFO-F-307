@@ -2,14 +2,24 @@ package be.ac.ulb.infof307.g01.client.model.db;
 
 import be.ac.ulb.infof307.g01.client.Main;
 import be.ac.ulb.infof307.g01.client.model.DatabaseModel;
+import be.ac.ulb.infof307.g01.client.model.PokemonModel;
+import be.ac.ulb.infof307.g01.client.model.PokemonTypeModel;
 
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
+import org.junit.AfterClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 public class DatabaseModelTest {
+    
+    @AfterClass
+    public static void tearDownClass() {
+        DatabaseModel.closeDatabase();
+        PokemonModel.clearAllPokemon();
+        PokemonTypeModel.resetAllPokemonType();
+    }
     
     @Rule
     public ExpectedException expected = ExpectedException.none();

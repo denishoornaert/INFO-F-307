@@ -5,6 +5,7 @@ import be.ac.ulb.infof307.g01.client.model.DatabaseModel;
 import be.ac.ulb.infof307.g01.client.model.MarkerDatabaseModel;
 import be.ac.ulb.infof307.g01.client.model.MarkerModel;
 import be.ac.ulb.infof307.g01.client.model.PokemonModel;
+import be.ac.ulb.infof307.g01.client.model.PokemonTypeModel;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
 
@@ -26,6 +27,13 @@ public class MarkerDatabaseModelTest {
         } catch (SQLException | FileNotFoundException ex) {
             System.err.println("SQL database not init");
         }
+    }
+    
+    @AfterClass
+    public static void teamDownClass() {
+        DatabaseModel.closeDatabase();
+        PokemonModel.clearAllPokemon();
+        PokemonTypeModel.resetAllPokemonType();
     }
     
     @Before
