@@ -7,12 +7,12 @@ import java.sql.SQLException;
 import be.ac.ulb.infof307.g01.model.DatabaseModel;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class Main extends Application {
   
-    private static StackPane _layout;
+    private static BorderPane _layout;
     private static Stage _stage;
     
     /** Path to application database. */
@@ -30,15 +30,16 @@ public class Main extends Application {
 
     @Override
     public void init() {
-        _layout = new StackPane();
+        _layout = new BorderPane();
     }
   
     @Override
     public void start(Stage stage) {
         _stage = stage;
         
-        // Create MapController
+        // Create MapController & PanelController
         new MapController();
+        new PanelController();
         
         _scene = new Scene(_layout);
         _scene.getStylesheets().add(new File("assets/bootstrap.css").toURI().toString());
@@ -50,7 +51,7 @@ public class Main extends Application {
         AuthenticationController.getInstance();
     }
     
-    public static StackPane getStackPane() {
+    public static BorderPane getStackPane() {
         return _layout;
     }
     

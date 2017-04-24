@@ -11,21 +11,21 @@ import javafx.scene.layout.VBox;
 import javafx.scene.control.TextField;
 
 public class LoginPopUp extends PopUp {
-	private final AuthenticationController _controller;
+    private final AuthenticationController _controller;
     private VBox _vbox;
     private Label _message;
     private Button _loginButton;
     private TextField _usernameField;
     
 
-	public LoginPopUp(AuthenticationController controller) {
+    public LoginPopUp(AuthenticationController controller) {
         super();
-		_controller = controller;
+	_controller = controller;
         initWidgets();
         placeWidgets();
         setStyle();
         show();
-	}
+    }
     
     private void initWidgets() {
         _vbox = new VBox();
