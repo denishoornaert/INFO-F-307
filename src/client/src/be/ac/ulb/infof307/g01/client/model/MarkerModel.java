@@ -1,5 +1,8 @@
 package be.ac.ulb.infof307.g01.client.model;
 
+import be.ac.ulb.infof307.g01.client.Main;
+import java.io.FileNotFoundException;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 
 /** Model of a marker. A marker contains the location of a spotted pokemon,
@@ -72,6 +75,12 @@ public class MarkerModel {
      */
     private MarkerModel(int databaseId, String username, PokemonModel pokemon, CoordinateModel coordinate, 
             Timestamp timestamp, int upVotes, int downVotes, int lifepoint, int attack, int defense) {
+        try {
+            this._database = new DatabaseModel(Main.getDatabasePath());
+        } catch (IllegalStateException | SQLException | FileNotFoundException ex) {
+            // TODO Bonne soirée
+        }
+        
     	_username = username;
         _databaseId = databaseId;
         _pokemon = pokemon;
@@ -82,7 +91,6 @@ public class MarkerModel {
         _attack = attack;
         _defense = defense;
         _database = (MarkerDatabaseModel) DatabaseModel.getDatabase();
-        
     }
     
     public int getReputationScore() {

@@ -1,13 +1,12 @@
-package be.ac.ulb.infof307.g01.model;
+package be.ac.ulb.infof307.g01.client.model;
 
-import be.ac.ulb.infof307.g01.controller.Main;
+import be.ac.ulb.infof307.g01.client.Main;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import junit.framework.TestCase;
 import static junit.framework.TestCase.assertEquals;
 
 import org.junit.Before;

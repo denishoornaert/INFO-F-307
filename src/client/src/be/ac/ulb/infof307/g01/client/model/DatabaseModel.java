@@ -99,6 +99,12 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
         }
     }
 
+    public static void closeDatabase() {
+        if(_instance != null) {
+            _instance.close();
+        }
+    }
+    
     /**
      * Execute a query
      *
@@ -144,7 +150,7 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
         String query = "SELECT Pokemon.Name AS PName, Pokemon.ImagePath, "
                     + "FirstType.Name as T1Name, SecondType.Name as T2Name FROM Pokemon "
                 + "JOIN PokemonType FirstType ON FirstType.Id = Pokemon.TypeFirst "
-                + "JOIN PokemonType SecondType ON SecondType.Id = Pokemon.TypeSecond;";
+                + "LEFT OUTER JOIN PokemonType SecondType ON SecondType.Id = Pokemon.TypeSecond;";
         ResultSet result = executeQuery(query);
 
         // TODO Duplicated code here ?

@@ -2,7 +2,7 @@ package be.ac.ulb.infof307.g01.client.view;
 
 import java.io.File;
 
-import be.ac.ulb.infof307.g01.client.controller.Main;
+import be.ac.ulb.infof307.g01.client.Main;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

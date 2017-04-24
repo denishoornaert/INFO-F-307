@@ -1,10 +1,9 @@
-package be.ac.ulb.infof307.g01.model;
+package be.ac.ulb.infof307.g01.client.model.db;
 
-import be.ac.ulb.infof307.g01.controller.Main;
-import be.ac.ulb.infof307.g01.controller.Main;
-import be.ac.ulb.infof307.g01.model.DatabaseModel;
-import be.ac.ulb.infof307.g01.model.PokemonTypeDatabaseModel;
-import be.ac.ulb.infof307.g01.model.PokemonTypeModel;
+import be.ac.ulb.infof307.g01.client.Main;
+import be.ac.ulb.infof307.g01.client.model.DatabaseModel;
+import be.ac.ulb.infof307.g01.client.model.PokemonTypeDatabaseModel;
+import be.ac.ulb.infof307.g01.client.model.PokemonTypeModel;
 
 import java.util.ArrayList;
 import junit.framework.TestCase;

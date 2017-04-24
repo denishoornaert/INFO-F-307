@@ -1,15 +1,14 @@
-package be.ac.ulb.infof307.g01.model;
+package be.ac.ulb.infof307.g01.client.model;
 
 import java.io.File;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*; 
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 
-import be.ac.ulb.infof307.g01.model.PokemonModel;
-import be.ac.ulb.infof307.g01.model.PokemonTypeModel;
+import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertTrue;
 
 
 public class PokemonModelTest {
