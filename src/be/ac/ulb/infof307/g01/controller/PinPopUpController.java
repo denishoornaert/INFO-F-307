@@ -16,6 +16,7 @@ public class PinPopUpController {
     public PinPopUpController(MarkerModel marker) {
         _marker = marker;
         _pinPopUp = new PinPopUp(this);
+        _pinPopUp.setPokemonView(_marker.getImagePath());
         updateVoteView();
     }
     
