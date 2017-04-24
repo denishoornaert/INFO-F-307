@@ -13,7 +13,7 @@ import java.util.NoSuchElementException;
 public class PokemonModel {
 
     private static HashMap<String, PokemonModel> _allPokemon = new HashMap<>();
-    private static final String _pathPrefix = "assets" + File.separator + "sprites" + File.separator;
+    private static final String _pathPrefix = "../../assets" + File.separator + "sprites" + File.separator;
     private final String _name;
     private final PokemonTypeModel[] _type;
     private final String _imageName;

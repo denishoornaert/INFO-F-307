@@ -1,10 +1,10 @@
-package be.ac.ulb.infof307.g01;
+package be.ac.ulb.infof307.g01.client;
 
 import junit.framework.TestCase;
 import org.junit.Test;
 
-import be.ac.ulb.infof307.g01.model.ReputationScoreModel;
-import be.ac.ulb.infof307.g01.model.ReputationVoteModel;
+import be.ac.ulb.infof307.g01.client.model.ReputationScoreModel;
+import be.ac.ulb.infof307.g01.client.model.ReputationVoteModel;
 
 public class ReputationScoreTest extends TestCase {
     

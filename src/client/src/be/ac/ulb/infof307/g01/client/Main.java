@@ -1,5 +1,7 @@
-package be.ac.ulb.infof307.g01.client.controller;
+package be.ac.ulb.infof307.g01.client;
 
+import be.ac.ulb.infof307.g01.client.controller.AuthenticationController;
+import be.ac.ulb.infof307.g01.client.controller.MapController;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
@@ -16,7 +18,7 @@ public class Main extends Application {
     private static Stage _stage;
     
     /** Path to application database. */
-    private static final String DATABASE_PATH = "./assets/Database.db";
+    private static final String DATABASE_PATH = "../../assets/Database.db";
     
     /**
      * Path to application tests  database.
@@ -24,7 +26,7 @@ public class Main extends Application {
      * Note: another database is needed for tests in order to not pollute the
      * initial one in case any database test goes wrong
      */
-    private static final String TEST_DATABASE_PATH = "./assets/TestDatabase.db";
+    private static final String TEST_DATABASE_PATH = "../../assets/TestDatabase.db";
     
     private Scene _scene;
 

@@ -22,8 +22,9 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
-
+    
     <build>
+        <sourceDirectory>src</sourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

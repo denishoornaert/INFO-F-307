@@ -1,4 +1,4 @@
-package be.ac.ulb.infof307.g01;
+package be.ac.ulb.infof307.g01.client;
 
 import java.io.File;
 import org.junit.After;
@@ -8,8 +8,8 @@ import static org.junit.Assert.*;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 
-import be.ac.ulb.infof307.g01.model.PokemonModel;
-import be.ac.ulb.infof307.g01.model.PokemonTypeModel;
+import be.ac.ulb.infof307.g01.client.model.PokemonModel;
+import be.ac.ulb.infof307.g01.client.model.PokemonTypeModel;
 
 
 public class PokemonModelTest {
@@ -21,6 +21,8 @@ public class PokemonModelTest {
     
     @BeforeClass
     public static void setUpClass() {
+        PokemonTypeModel.resetAllPokemonType();
+        PokemonModel.clearAllPokemon();
         new PokemonTypeModel("DARK");
         new PokemonTypeModel("FIRE");
         new PokemonTypeModel("ELECTRIC");

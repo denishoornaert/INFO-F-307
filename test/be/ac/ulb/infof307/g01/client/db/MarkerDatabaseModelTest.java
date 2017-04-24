@@ -1,25 +1,25 @@
-package be.ac.ulb.infof307.g01.db;
+package be.ac.ulb.infof307.g01.client.db;
 
-import be.ac.ulb.infof307.g01.controller.Main;
-import be.ac.ulb.infof307.g01.model.DatabaseModel;
-import be.ac.ulb.infof307.g01.model.MarkerDatabaseModel;
-import be.ac.ulb.infof307.g01.model.MarkerModel;
-import be.ac.ulb.infof307.g01.model.PokemonModel;
+import be.ac.ulb.infof307.g01.client.Main;
+import be.ac.ulb.infof307.g01.client.model.DatabaseModel;
+import be.ac.ulb.infof307.g01.client.model.MarkerDatabaseModel;
+import be.ac.ulb.infof307.g01.client.model.MarkerModel;
+import be.ac.ulb.infof307.g01.client.model.PokemonModel;
+import be.ac.ulb.infof307.g01.client.model.PokemonTypeModel;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import junit.framework.TestCase;
+import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertTrue;
 import org.junit.*;
 
-public class MarkerDatabaseModelTest extends TestCase {
+public class MarkerDatabaseModelTest {
     
     private static MarkerDatabaseModel _database;
     private MarkerModel _markerToInsert;
     
     @Before
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    public void setUp() throws Exception {
         try {
             _database = (MarkerDatabaseModel) new DatabaseModel(Main.getTestDatabasePath());
         } catch(IllegalStateException exception) {
@@ -42,11 +42,12 @@ public class MarkerDatabaseModelTest extends TestCase {
                 timestamp, upVotes, downVotes);
     }
     
+    
     @After
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
+    public void tearDown() throws Exception {
+        DatabaseModel.closeDatabase();
         PokemonModel.clearAllPokemon();
+        PokemonTypeModel.resetAllPokemonType();
     }
     
 

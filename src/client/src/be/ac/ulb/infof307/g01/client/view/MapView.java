@@ -3,7 +3,7 @@ package be.ac.ulb.infof307.g01.client.view;
 import java.net.URL;
 import java.util.HashMap;
 
-import be.ac.ulb.infof307.g01.client.controller.Main;
+import be.ac.ulb.infof307.g01.client.Main;
 import be.ac.ulb.infof307.g01.client.controller.MapController;
 import be.ac.ulb.infof307.g01.client.model.CoordinateModel;
 import be.ac.ulb.infof307.g01.client.model.MarkerModel;

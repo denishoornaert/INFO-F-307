@@ -1,21 +1,22 @@
-package be.ac.ulb.infof307.g01.db;
+package be.ac.ulb.infof307.g01.client.db;
 
-import be.ac.ulb.infof307.g01.controller.Main;
-import be.ac.ulb.infof307.g01.model.DatabaseModel;
-import be.ac.ulb.infof307.g01.model.PokemonTypeDatabaseModel;
-import be.ac.ulb.infof307.g01.model.PokemonTypeModel;
+import be.ac.ulb.infof307.g01.client.Main;
+import be.ac.ulb.infof307.g01.client.model.DatabaseModel;
+import be.ac.ulb.infof307.g01.client.model.PokemonTypeDatabaseModel;
+import be.ac.ulb.infof307.g01.client.model.PokemonTypeModel;
 
 import java.util.ArrayList;
-import junit.framework.TestCase;
+import static junit.framework.TestCase.assertEquals;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
-public class PokemonTypeDatabaseModelTest extends TestCase {
+public class PokemonTypeDatabaseModelTest {
     
     private static PokemonTypeDatabaseModel _database;
     
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         
         try {
             _database = (PokemonTypeDatabaseModel) new DatabaseModel(Main.getTestDatabasePath());
@@ -24,14 +25,15 @@ public class PokemonTypeDatabaseModelTest extends TestCase {
         }
     }
     
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
+    @After
+    public void tearDown() throws Exception {
+        DatabaseModel.closeDatabase();
         PokemonTypeModel.resetAllPokemonType();
     }
     
     @Test
     public void test_getAllPokemonTypesDefaultValue() {
+        PokemonTypeModel.resetAllPokemonType();
         ArrayList<PokemonTypeModel> allPokemonTypes = PokemonTypeModel.getAllPokemonTypes();
         assertEquals(allPokemonTypes.size(), 1);
         assertEquals(allPokemonTypes.get(0).getTypeName(), "NONE");
