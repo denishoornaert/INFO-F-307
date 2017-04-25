@@ -79,7 +79,7 @@ public class PinPopUp extends InformationPopUp {
     }
     
     private void initUpVoteButton() {
-        _upVoteButton = new Button("\uD83D\uDC4D");
+        _upVoteButton = new Button("\uD83D\uDC4D"); //code utf-8 for the thumbs-up
         _upVoteButton.getStyleClass().add("primary");
         _upVoteButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -90,7 +90,7 @@ public class PinPopUp extends InformationPopUp {
     }
     
     private void initDownVoteButton() {
-        _downVoteButton = new Button("\uD83D\uDC4E");
+        _downVoteButton = new Button("\uD83D\uDC4E"); //code utf-8 for the thumbs-down
         _downVoteButton.getStyleClass().add("primary");
         _downVoteButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override

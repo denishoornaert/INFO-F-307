@@ -34,8 +34,6 @@ public class UpdateMarkerPopUpController extends AbstractMarkerPopUpController {
     
     // TODO refactor
     @Override
-    public void askForCreateMarker(double coordinateX, double coordinateY) {
-        System.out.println("be.ac.ulb.infof307.g01.controller.UpdateMarkerPopUpController.askForCreateMarker()");
-    }
+    public void askForCreateMarker(double coordinateX, double coordinateY) {}
     
 }

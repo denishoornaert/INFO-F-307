@@ -15,6 +15,8 @@ public class Configuration {
     private String _dataBasePath = "../../assets/Database.db";
     private String _testDataBasePath = "../../assets/Database.db";
     private String _stylePath = "../../assets/bootstrap.css";
+    private String _unknownPokemonImagePath = "assets/unknown_pokemon.png";
+    private String _spritesPath = "../../assets/sprites/";
     
     private Configuration() {}
 
@@ -39,5 +41,13 @@ public class Configuration {
     
     public String getStylePath() {
         return getCompletePath(_stylePath);
+    }
+    
+    public String getUnknownPokemonImagePath() {
+        return _unknownPokemonImagePath;
+    }
+    
+    public String getSpritesPath() {
+        return _spritesPath;
     }
 }
