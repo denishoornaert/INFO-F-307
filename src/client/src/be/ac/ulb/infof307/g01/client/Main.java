@@ -2,6 +2,7 @@ package be.ac.ulb.infof307.g01.client;
 
 import be.ac.ulb.infof307.g01.client.controller.AuthenticationController;
 import be.ac.ulb.infof307.g01.client.controller.MapController;
+import be.ac.ulb.infof307.g01.client.controller.ServerController;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
@@ -74,6 +75,9 @@ public class Main extends Application {
             return;
         }
         launch(args);
+        
+        System.out.println("Server controller");
+        ServerController.connectClient();
     }  
     
     /**
