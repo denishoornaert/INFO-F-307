@@ -8,7 +8,6 @@ package be.ac.ulb.infof307.g01.client.view;
 import be.ac.ulb.infof307.g01.client.model.PokemonModel;
 import java.util.ArrayList;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;

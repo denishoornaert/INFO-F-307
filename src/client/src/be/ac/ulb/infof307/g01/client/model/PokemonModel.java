@@ -1,6 +1,5 @@
 package be.ac.ulb.infof307.g01.client.model;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -13,7 +12,7 @@ import java.util.NoSuchElementException;
 public class PokemonModel {
 
     private static HashMap<String, PokemonModel> _allPokemon = new HashMap<>();
-    private static final String _pathPrefix = "../../assets" + File.separator + "sprites" + File.separator;
+    private static String _pathPrefix;
     private final String _name;
     private final PokemonTypeModel[] _type;
     private final String _imageName;
@@ -40,7 +39,7 @@ public class PokemonModel {
         _name = name;
         _type = type_array;
         _imageName = imageName;
-        
+        _pathPrefix = Configuration.getInstance().getSpritesPath();
         _allPokemon.put(name, this);
     }
     

@@ -1,5 +1,6 @@
 package be.ac.ulb.infof307.g01.client.controller;
 
+import be.ac.ulb.infof307.g01.client.model.Configuration;
 import be.ac.ulb.infof307.g01.client.model.MarkerModel;
 import java.sql.Timestamp;
 
@@ -13,7 +14,7 @@ public abstract class AbstractMarkerPopUpController {
     
     protected AbstractMarkerPopUp _markerPopUp;
     /** Coordinates associated to the current pop-up. */
-    protected final static String _defaultImagePath = "assets/unknown_pokemon.png";
+    protected static String _defaultImagePath;
     protected MarkerController _markerController;
     protected MarkerModel _marker;
  
@@ -24,6 +25,7 @@ public abstract class AbstractMarkerPopUpController {
     public AbstractMarkerPopUpController(MarkerController markerController, int markerid) {
         _markerController = markerController;
         _marker = _markerController.getMarkerModelFromId(markerid);
+        _defaultImagePath = Configuration.getInstance().getUnknownPokemonImagePath();
     }
     
     public abstract void askForCreateMarker(double coordinateX, double coordinateY);

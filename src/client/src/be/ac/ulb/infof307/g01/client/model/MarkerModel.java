@@ -76,7 +76,7 @@ public class MarkerModel {
     private MarkerModel(int databaseId, String username, PokemonModel pokemon, CoordinateModel coordinate, 
             Timestamp timestamp, int upVotes, int downVotes, int lifepoint, int attack, int defense) {
         try {
-            this._database = new DatabaseModel(Main.getDatabasePath());
+            this._database = new DatabaseModel(Configuration.getInstance().getDataBasePath());
         } catch (IllegalStateException | SQLException | FileNotFoundException ex) {
             // TODO Bonne soirée
         }
