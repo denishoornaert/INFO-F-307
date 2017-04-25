@@ -1,6 +1,7 @@
 package be.ac.ulb.infof307.g01.client.model.db;
 
 import be.ac.ulb.infof307.g01.client.Main;
+import be.ac.ulb.infof307.g01.client.model.Configuration;
 import be.ac.ulb.infof307.g01.client.model.DatabaseModel;
 import be.ac.ulb.infof307.g01.client.model.PokemonModel;
 import be.ac.ulb.infof307.g01.client.model.PokemonTypeModel;
@@ -34,16 +35,16 @@ public class DatabaseModelTest {
     @Test
     public void test_connectionIsSuccessful() throws SQLException, FileNotFoundException {
         // no exception should be thrown
-        DatabaseModel database = new DatabaseModel(Main.getTestDatabasePath());
+        DatabaseModel database = new DatabaseModel(Configuration.getInstance().getTestDataBasePath());
         database.close();
     }
     
     @Test
     public void test_severalConnectionsToDatabaseThrowIllegalStateException()
             throws SQLException, FileNotFoundException {
-        new DatabaseModel(Main.getTestDatabasePath());
+        new DatabaseModel(Configuration.getInstance().getTestDataBasePath());
         expected.expect(IllegalStateException.class);
-        new DatabaseModel(Main.getTestDatabasePath());
+        new DatabaseModel(Configuration.getInstance().getTestDataBasePath());
     }
     
 }
