@@ -1,25 +1,26 @@
 package be.ac.ulb.infof307.g01.controller;
 
-import be.ac.ulb.infof307.g01.view.LoginPopUp;
+import be.ac.ulb.infof307.g01.view.SigninPopUp;
 
 /**
  * Singleton class managing the authentication of the user,
  * and storing its user name.
  */
-public class AuthenticationController {
-	private static AuthenticationController _instance = null;
+public class SigninPopUpController {
+	private static SigninPopUpController _instance = null;
 	private String _username;
-	private LoginPopUp _loginPopUp;
+        private String _password;
+	private SigninPopUp _loginPopUp;
 	
 	/** 
 	 *  Make the constructor private, as this class is a singleton.
 	 */
-	private AuthenticationController() {
+	private SigninPopUpController() {
 		createLoginPopUp();
 	}
 	
 	private void createLoginPopUp() {
-		_loginPopUp = new LoginPopUp(this);
+		_loginPopUp = new SigninPopUp(this);
 	}
 	
 	/**
@@ -28,21 +29,26 @@ public class AuthenticationController {
 	 * @param username The user name.
 	 * @throws IllegalArgumentException If the user name is empty.
 	 */
-	public void authenticate(String username) {
-		if(username.isEmpty()) {
-			throw new IllegalArgumentException("Username can not be empty");
+	public void authenticate(String username, String password) {
+		if(username.isEmpty() || password.isEmpty()) {
+			throw new IllegalArgumentException("Username or Password can not be empty");
 		}
 		_username = username;
+                _password = password;
 		_loginPopUp.close();
 	}
 	
 	public String getUsername() {
 		return _username;
 	}
+        
+        public String getPassword() {
+            return _password;
+        }
 	
-	public static AuthenticationController getInstance() {
+	public static SigninPopUpController getInstance() {
 		if(_instance == null) {
-			_instance = new AuthenticationController();
+			_instance = new SigninPopUpController();
 		}
 		return _instance;
 	}

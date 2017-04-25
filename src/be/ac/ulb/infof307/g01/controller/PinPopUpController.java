@@ -66,7 +66,7 @@ public class PinPopUpController {
     private void updateVoteView() {
         int vote = _marker.getVoteScore();
         _pinPopUp.updateVoteView(vote);
-        if (_marker.getUsername().equals(AuthenticationController.getInstance().getUsername())) {
+        if (_marker.getUsername().equals(SigninPopUpController.getInstance().getUsername())) {
         	_pinPopUp.disableVoteButtons();
         }
     }

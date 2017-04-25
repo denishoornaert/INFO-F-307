@@ -7,6 +7,8 @@ package be.ac.ulb.infof307.g01.view;
 
 import be.ac.ulb.infof307.g01.controller.Main;
 import be.ac.ulb.infof307.g01.controller.PanelController;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -30,11 +32,12 @@ public class PanelView extends VBox{
     private PanelController _controller;
     
     public PanelView(PanelController panel) {
+        _controller = panel;
+        
         initWidgets();
         placeWidgets();
         initStyle();
         Main.getStackPane().setLeft(this);
-        _controller = panel;
     }
     
     private void initWidgets(){
@@ -42,7 +45,9 @@ public class PanelView extends VBox{
         _separation1 = new Separator();
         _separation2 = new Separator();
         _signin = new Button("Sign In");
+        initSignInButton();
         _signup = new Button("Sign Up");
+        initSignUpButton();
     }
     
     private void placeWidgets(){
@@ -60,6 +65,22 @@ public class PanelView extends VBox{
         setXExpandPolicy(_signup);
         setAlignment(Pos.TOP_CENTER);
         setSpacing(5);
+    }
+    
+    private void initSignInButton() {
+        _signin.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent t) {
+            	_controller.openLogin();
+            }
+        });
+    }
+    
+    private void initSignUpButton() {
+        _signup.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent t) {
+            	_controller.openLogin();
+            }
+        });
     }
     
     /**

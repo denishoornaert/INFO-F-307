@@ -46,9 +46,6 @@ public class Main extends Application {
         stage.setScene(_scene);
         
         stage.show();
-        
-        // Create login controller
-        AuthenticationController.getInstance();
     }
     
     public static BorderPane getStackPane() {

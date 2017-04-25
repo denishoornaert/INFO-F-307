@@ -1,24 +1,30 @@
 package be.ac.ulb.infof307.g01.view;
 
-import be.ac.ulb.infof307.g01.controller.AuthenticationController;
+import be.ac.ulb.infof307.g01.controller.SigninPopUpController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.TextField;
 
-public class LoginPopUp extends PopUp {
-    private final AuthenticationController _controller;
+/**
+ * Login with username and password
+ * @author Groupe01
+ */
+public class SigninPopUp extends PopUp {
+    private final SigninPopUpController _controller;
     private VBox _vbox;
     private Label _message;
     private Button _loginButton;
     private TextField _usernameField;
+    private PasswordField _passwordField;
     
 
-    public LoginPopUp(AuthenticationController controller) {
+    public SigninPopUp(SigninPopUpController controller) {
         super();
 	_controller = controller;
         initWidgets();
@@ -31,7 +37,8 @@ public class LoginPopUp extends PopUp {
         _vbox = new VBox();
         initMessageLabel();
         initCloseButton();
-        initUsernameField();
+        _usernameField = new TextField();
+        _passwordField = new PasswordField();
     }
     
     private void initMessageLabel() {
@@ -49,14 +56,11 @@ public class LoginPopUp extends PopUp {
         });
     }
     
-    private void initUsernameField() {
-    	_usernameField = new TextField();
-    }
-    
     private void tryLogin() {
     	final String username = _usernameField.getText();
+        final String password = _passwordField.getText();
     	try {
-    		_controller.authenticate(username);
+    		_controller.authenticate(username,password);
             close();
     	} catch(IllegalArgumentException exception) {
     		_message.setText(exception.getMessage());
@@ -64,7 +68,7 @@ public class LoginPopUp extends PopUp {
     }
 
     private void placeWidgets() {
-        _vbox.getChildren().addAll(_message, _usernameField, _loginButton);
+        _vbox.getChildren().addAll(_message, _usernameField,_passwordField, _loginButton);
         super.add(_vbox);
     }
 

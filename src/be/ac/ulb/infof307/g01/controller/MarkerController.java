@@ -22,7 +22,7 @@ public class MarkerController {
     }
     
     public void createMarker(PokemonModel pokemon, CoordinateModel newMarkerCoordinates, int lifePoint, int attack, int defense, Timestamp date) {
-    	String username = AuthenticationController.getInstance().getUsername();
+    	String username = SigninPopUpController.getInstance().getUsername();
         MarkerModel marker = new MarkerModel(pokemon, newMarkerCoordinates, username, lifePoint, attack, defense, date);
         displayMarker(marker);
     }
