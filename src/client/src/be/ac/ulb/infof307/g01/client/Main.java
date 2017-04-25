@@ -43,7 +43,7 @@ public class Main extends Application {
         new MapController();
         
         _scene = new Scene(_layout);
-        _scene.getStylesheets().add(new File("assets/bootstrap.css").toURI().toString());
+        _scene.getStylesheets().add(new File("../../assets/bootstrap.css").toURI().toString());
         stage.setScene(_scene);
         
         stage.show();
