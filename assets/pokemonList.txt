@@ -812,7 +812,6 @@ Zangoose: NORMAL
 Zapdos: ELECTRIC FLYING
 Zebstrika: ELECTRIC
 Zekrom: ELECTRIC DRAGON
-Zigarde: GROUND DRAGON
 Zigzagoon: NORMAL
 Zoroark: DARK
 Zorua: DARK

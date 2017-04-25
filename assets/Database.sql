@@ -1,4 +1,14 @@
 BEGIN TRANSACTION;
+
+CREATE TABLE `User` (
+	`id`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+	`Username`	TEXT NOT NULL UNIQUE,
+	`Email`	TEXT NOT NULL UNIQUE,
+	`Password`	TEXT NOT NULL,
+	FOREIGN KEY(`Username`) REFERENCES Marker
+);
+/* TODO CHECK FOREIGN KEY IS IT LINK TO Marker Username */
+
 CREATE TABLE `PokemonType` (
 	`Id`	INTEGER PRIMARY KEY AUTOINCREMENT,
 	`Name`	TEXT UNIQUE
@@ -866,7 +876,6 @@ INSERT INTO `Pokemon` (`Name`,`ImagePath`, `TypeFirst`, `TypeSecond`) VALUES
 	("Zapdos", "zapdos.png", (SELECT `Id` FROM PokemonType WHERE `Name`="ELECTRIC"), (SELECT `Id` FROM PokemonType WHERE `Name`="FLYING")),
 	("Zebstrika", "zebstrika.png", (SELECT `Id` FROM PokemonType WHERE `Name`="ELECTRIC"), NULL),
 	("Zekrom", "zekrom.png", (SELECT `Id` FROM PokemonType WHERE `Name`="ELECTRIC"), (SELECT `Id` FROM PokemonType WHERE `Name`="DRAGON")),
-	("Zigarde", "zigarde.png", (SELECT `Id` FROM PokemonType WHERE `Name`="GROUND"), (SELECT `Id` FROM PokemonType WHERE `Name`="DRAGON")),
 	("Zigzagoon", "zigzagoon.png", (SELECT `Id` FROM PokemonType WHERE `Name`="NORMAL"), NULL),
 	("Zoroark", "zoroark.png", (SELECT `Id` FROM PokemonType WHERE `Name`="DARK"), NULL),
 	("Zorua", "zorua.png", (SELECT `Id` FROM PokemonType WHERE `Name`="DARK"), NULL),
