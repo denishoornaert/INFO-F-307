@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Groupe 1
  */
 @XmlRootElement
-public class PokemonType {
+public class PokemonTypeModel {
     
     private int _id;
     private String _name;

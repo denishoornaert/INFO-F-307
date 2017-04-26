@@ -1,6 +1,8 @@
 package be.ac.ulb.infof307.g01.client.model;
 
 import be.ac.ulb.infof307.g01.client.Main;
+import be.ac.ulb.infof307.g01.client.controller.ServerQueryController;
+import be.ac.ulb.infof307.g01.common.MarkerQueryModel;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -19,7 +21,7 @@ public class MarkerModel {
     private Timestamp _timestamp;
     private ReputationScoreModel _reputation;
     private int _lifePoint, _attack, _defense;
-    private MarkerDatabaseModel _database;
+    private MarkerQueryModel _serverQuery;
     
     /**
      * Create a marker pokemon (call from gui)
@@ -35,7 +37,7 @@ public class MarkerModel {
     public MarkerModel(PokemonModel pokemon, CoordinateModel coordinate, 
             String username, int lifePoint, int attack, int defense, Timestamp date) {
         this(0, username, pokemon, coordinate, date, 0, 0, lifePoint, attack, defense);
-        _database.insertMarker(this);
+        _serverQuery.insertMarker(this);
     }
     
     /**
@@ -75,12 +77,7 @@ public class MarkerModel {
      */
     private MarkerModel(int databaseId, String username, PokemonModel pokemon, CoordinateModel coordinate, 
             Timestamp timestamp, int upVotes, int downVotes, int lifepoint, int attack, int defense) {
-        try {
-            this._database = new DatabaseModel(Main.getDatabasePath());
-        } catch (IllegalStateException | SQLException | FileNotFoundException ex) {
-            // TODO Bonne soirée
-        }
-        
+        _serverQuery = (MarkerQueryModel) ServerQueryController.getInstance();
     	_username = username;
         _databaseId = databaseId;
         _pokemon = pokemon;
@@ -90,7 +87,6 @@ public class MarkerModel {
         _lifePoint = lifepoint;
         _attack = attack;
         _defense = defense;
-        _database = (MarkerDatabaseModel) DatabaseModel.getDatabase();
     }
     
     public int getReputationScore() {
@@ -102,7 +98,7 @@ public class MarkerModel {
      */
     public void voteUp() {
         _reputation.vote(ReputationVoteModel.UP);
-        _database.updateMarkerReputation(this);
+        _serverQuery.updateMarkerReputation(this);
     }
     
     /**
@@ -110,7 +106,7 @@ public class MarkerModel {
      */
     public void voteDown() {
         _reputation.vote(ReputationVoteModel.DOWN);
-        _database.updateMarkerReputation(this);
+        _serverQuery.updateMarkerReputation(this);
     }
     
     public void setTimestamp(Timestamp newTimestamp) {

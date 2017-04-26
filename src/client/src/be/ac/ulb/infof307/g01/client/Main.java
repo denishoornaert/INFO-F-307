@@ -2,12 +2,11 @@ package be.ac.ulb.infof307.g01.client;
 
 import be.ac.ulb.infof307.g01.client.controller.AuthenticationController;
 import be.ac.ulb.infof307.g01.client.controller.MapController;
-import be.ac.ulb.infof307.g01.client.controller.ServerController;
+import be.ac.ulb.infof307.g01.client.controller.ServerQueryController;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
 
-import be.ac.ulb.infof307.g01.client.model.DatabaseModel;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
@@ -61,23 +60,8 @@ public class Main extends Application {
         return _stage;
     }
     
-    /** Loads and inits the database. */
-    private static void loadDatabase() throws SQLException, FileNotFoundException {
-        new DatabaseModel(getDatabasePath());
-    }
-    
     public static void main(String[] args) {
-        try {
-            loadDatabase();
-        } catch (SQLException | FileNotFoundException exception) {
-            System.err.println(exception.getMessage());
-            System.err.println("Error loading the database. Application aborted");
-            return;
-        }
         launch(args);
-        
-        System.out.println("Server controller");
-        ServerController.connectClient();
     }  
     
     /**
