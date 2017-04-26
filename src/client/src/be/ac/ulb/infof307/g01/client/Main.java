@@ -38,7 +38,7 @@ public class Main extends Application {
         stage.show();
     }
     
-    public static BorderPane getStackPane() {
+    public static BorderPane getBorderPane() {
         return _layout;
     }
     

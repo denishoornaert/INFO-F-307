@@ -1,5 +1,6 @@
 package be.ac.ulb.infof307.g01.client.controller;
 
+import be.ac.ulb.infof307.g01.client.Main;
 import be.ac.ulb.infof307.g01.client.view.PanelView;
 
 /**
@@ -12,6 +13,7 @@ public class PanelController {
     
     public PanelController() {
         _panelView = new PanelView(this);
+        Main.getBorderPane().setLeft(_panelView);
     }
     
     public void openLogin() {
