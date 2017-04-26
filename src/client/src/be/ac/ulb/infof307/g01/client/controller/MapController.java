@@ -47,7 +47,7 @@ public class MapController {
     
     public void displayPinPopUp(int markerId) {
         MarkerModel marker = _markerController.getMarkerModelFromId(markerId);
-        if (marker.getUsername().equals(AuthenticationController.getInstance().getUsername())) {
+        if (marker.getUsername().equals(SigninPopUpController.getInstance().getUsername())) {
             new UpdateMarkerPopUpController(_markerController, markerId);
         }
         else {

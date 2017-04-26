@@ -1,47 +1,44 @@
 package be.ac.ulb.infof307.g01.client;
 
-import be.ac.ulb.infof307.g01.client.controller.AuthenticationController;
 import be.ac.ulb.infof307.g01.client.controller.MapController;
 import be.ac.ulb.infof307.g01.client.model.Configuration;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
 
 import be.ac.ulb.infof307.g01.client.model.DatabaseModel;
+import be.ac.ulb.infof307.g01.client.controller.PanelController;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class Main extends Application {
   
-    private static StackPane _layout;
-    private static Stage _stage;    
+    private static BorderPane _layout;
+    private static Stage _stage;
     private Scene _scene;
 
     @Override
     public void init() {
-        _layout = new StackPane();
+        _layout = new BorderPane();
     }
   
     @Override
     public void start(Stage stage) {
         _stage = stage;
         
-        // Create MapController
+        // Create MapController & PanelController
         new MapController();
+        new PanelController();
         
         _scene = new Scene(_layout);
         _scene.getStylesheets().add(Configuration.getInstance().getStylePath());
         stage.setScene(_scene);
         
         stage.show();
-        
-        // Create login controller
-        AuthenticationController.getInstance();
     }
     
-    public static StackPane getStackPane() {
+    public static BorderPane getStackPane() {
         return _layout;
     }
     
