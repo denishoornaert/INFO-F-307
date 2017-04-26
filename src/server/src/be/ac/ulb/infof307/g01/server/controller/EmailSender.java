@@ -11,57 +11,77 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 
-import com.google.api.services.gmail.GmailScopes;
-import com.google.api.services.gmail.model.*;
+import java.io.InputStreamReader;
+
+import com.google.api.client.repackaged.org.apache.commons.codec.binary.Base64;
 import com.google.api.services.gmail.Gmail;
+import com.google.api.services.gmail.GmailScopes;
+import com.google.api.services.gmail.model.Message;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.security.GeneralSecurityException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 public class EmailSender {
     /** The mail address of the GMail account used to send mails. */
-    private static String serverAccountMailAddress = "infof307.groupe01@gmail.com";
+    private static final String SERVER_ACCOUNT_MAIL_ADDRESS = "infof307.groupe01@gmail.com";
     
     /** The password of the GMail account used to send mails. */
-    private static String serverAccountPassword = "I0y-9xis3En14Y4m9xP9dN3QNkD0cEAk";
+    private static final String SERVER_ACCOUNT_PASSWORD = "I0y-9xis3En14Y4m9xP9dN3QNkD0cEAk";
     
     /** Application name. */
-    private static final String APPLICATION_NAME =
-        "Gmail API Java Quickstart";
+    private static final String APPLICATION_NAME = "Gotta Map Them All";
+    
+    /** Path to the secret key resource, used for authentication. */
+    private static final String SECRET_KEY_PATH = "/APIs/GMailApiKey.json";
 
     /** Directory to store user credentials for this application. */
     private static final java.io.File DATA_STORE_DIR = new java.io.File(
-        System.getProperty("user.home"), ".credentials/gmail-java-quickstart");
+        System.getProperty("user.home"), ".credentials/gotta-map-them-all");
 
     /** Global instance of the {@link FileDataStoreFactory}. */
-    private static FileDataStoreFactory DATA_STORE_FACTORY;
+    private final FileDataStoreFactory DATA_STORE_FACTORY;
 
     /** Global instance of the JSON factory. */
-    private static final JsonFactory JSON_FACTORY =
-        JacksonFactory.getDefaultInstance();
+    private final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 
     /** Global instance of the HTTP transport. */
-    private static HttpTransport HTTP_TRANSPORT;
+    private final HttpTransport HTTP_TRANSPORT;
+    
+    private final Gmail GMAIL_SERVICE;
+    
+    private static final List<String> SCOPES = Arrays.asList(GmailScopes.GMAIL_LABELS);
+    
+    private static EmailSender _instance = null;
 
-    /** Global instance of the scopes required by this quickstart.
-     *
-     * If modifying these scopes, delete your previously saved credentials
-     * at ~/.credentials/gmail-java-quickstart
-     */
-    private static final List<String> SCOPES =
-        Arrays.asList(GmailScopes.GMAIL_LABELS);
-
-    static {
-        try {
-            HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-            DATA_STORE_FACTORY = new FileDataStoreFactory(DATA_STORE_DIR);
-        } catch (Throwable t) {
-            t.printStackTrace();
-            System.exit(1);
+    private EmailSender() throws GeneralSecurityException, IOException {
+        HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+        DATA_STORE_FACTORY = new FileDataStoreFactory(DATA_STORE_DIR);
+        GMAIL_SERVICE = getGmailService();
+    }
+    
+    static public EmailSender getInstance() throws GeneralSecurityException, IOException {
+        if(_instance == null) {
+            _instance = new EmailSender();
         }
+        return _instance;
+    }
+
+    /**
+     * Builds and returns an authorized Gmail client service.
+     * @return an authorized Gmail client service
+     * @throws IOException
+     */
+    private Gmail getGmailService() throws IOException {
+        Credential credential = authorize();
+        return new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential)
+                .setApplicationName(APPLICATION_NAME)
+                .build();
     }
 
     /**
@@ -69,56 +89,54 @@ public class EmailSender {
      * @return an authorized Credential object.
      * @throws IOException
      */
-    public static Credential authorize() throws IOException {
+    private Credential authorize() throws IOException {
         // Load client secrets.
-        InputStream in =
-            EmailSender.class.getResourceAsStream("/APIs/GMailApiKey.json");
+        InputStream in = EmailSender.class.getResourceAsStream(SECRET_KEY_PATH);
         GoogleClientSecrets clientSecrets =
             GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 
         // Build flow and trigger user authorization request.
-        GoogleAuthorizationCodeFlow flow =
-                new GoogleAuthorizationCodeFlow.Builder(
+        GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
                         HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
                 .setDataStoreFactory(DATA_STORE_FACTORY)
                 .setAccessType("offline")
                 .build();
         Credential credential = new AuthorizationCodeInstalledApp(
             flow, new LocalServerReceiver()).authorize("user");
-        System.out.println(
-                "Credentials saved to " + DATA_STORE_DIR.getAbsolutePath());
         return credential;
+    }
+    
+    /**
+     * Sends an email from the user's mailbox to its recipient.
+     *
+     * @param userId User's email address. The special value "me"
+     * can be used to indicate the authenticated user.
+     * @param email Email to be sent.
+     * @throws java.io.IOException
+     */
+    public void sendSignUpMessage(String userId, String email) throws IOException {
+      Message message = createMessageFromEmailString(email);
+      GMAIL_SERVICE.users().messages().send(userId, message).execute();
     }
 
     /**
-     * Build and return an authorized Gmail client service.
-     * @return an authorized Gmail client service
-     * @throws IOException
+     * Create a Message from an email
+     *
+     * @param email Email to be set to raw of message
+     * @return Message containing base64url encoded email.
      */
-    public static Gmail getGmailService() throws IOException {
-        Credential credential = authorize();
-        return new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential)
-                .setApplicationName(APPLICATION_NAME)
-                .build();
+    private static Message createMessageFromEmailString(String email) {
+      String encodedEmail = Base64.encodeBase64URLSafeString(email.getBytes());
+      Message message = new Message();
+      message.setRaw(encodedEmail);
+      return message;
     }
-
-    public static void main(String[] args) throws IOException {
-        // Build a new authorized API client service.
-        Gmail service = getGmailService();
-
-        // Print the labels in the user's account.
-        String user = "me";
-        ListLabelsResponse listResponse =
-            service.users().labels().list(user).execute();
-        List<Label> labels = listResponse.getLabels();
-        if (labels.size() == 0) {
-            System.out.println("No labels found.");
-        } else {
-            System.out.println("Labels:");
-            for (Label label : labels) {
-                System.out.printf("- %s\n", label.getName());
-            }
+    
+    public static void main(String[] args) {
+        try {
+            EmailSender.getInstance().sendSignUpMessage("theo.verhelst@gmail.com", "Coucou Théo !");
+        } catch (GeneralSecurityException | IOException ex) {
+            Logger.getLogger(EmailSender.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
 }
