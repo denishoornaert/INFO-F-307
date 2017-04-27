@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 import org.junit.*;
-import be.ac.ulb.infof307.g01.client.model.MarkerQueryModel;
+import be.ac.ulb.infof307.g01.common.model.MarkerQueryModel;
 
 public class MarkerDatabaseModelTest {
     

@@ -1,6 +1,6 @@
 package be.ac.ulb.infof307.g01.client.model;
 
-import be.ac.ulb.infof307.g01.common.PokemonTypeSendableModel;
+import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
 
 /** Model of a Pokemon type.
  * The Pokemon type is the element of the pokemon, such as Eletric for Pikachu.
@@ -38,8 +38,12 @@ public class PokemonTypeModel extends PokemonTypeSendableModel {
      * @param typeName the desired name
      * @return the PokemonTypeModel instance or null if not found
      */
-    public static PokemonTypeSendableModel getPokemonTypeByTypeName(String typeName) {
-        return _allPokemonTypes.get(typeName.toUpperCase());
+    public static PokemonTypeModel getPokemonTypeByTypeName(String typeName) {
+        PokemonTypeSendableModel result = _allPokemonTypes.get(typeName.toUpperCase());
+        if(result instanceof PokemonTypeModel) {
+            return (PokemonTypeModel) result;
+        }
+        return null;
     }
     
     /**

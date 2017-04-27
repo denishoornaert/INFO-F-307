@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 import be.ac.ulb.infof307.g01.client.Main;
 import be.ac.ulb.infof307.g01.client.controller.MapController;
-import be.ac.ulb.infof307.g01.common.CoordinateSendableModel;
+import be.ac.ulb.infof307.g01.common.model.CoordinateSendableModel;
 import be.ac.ulb.infof307.g01.client.model.MarkerModel;
 import java.util.ArrayList;
 import javafx.beans.value.ChangeListener;
@@ -78,7 +78,7 @@ public class MapView extends StackPane {
             double latitude = markerCoordinates.getLatitude();
             double longitude = markerCoordinates.getLongitude();
             String pokemonName = marker.getPokemonName();
-            String imageName = marker.getImageName();
+            String imageName = marker.getImagePath();
             
             JSObject window = (JSObject) _webEngine.executeScript("window");
             window.call("addMarker", latitude, longitude, pokemonName, imageName, pinId);

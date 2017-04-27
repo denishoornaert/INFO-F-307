@@ -3,8 +3,8 @@ package be.ac.ulb.infof307.g01.client.controller;
 import be.ac.ulb.infof307.g01.client.model.MarkerModel;
 import be.ac.ulb.infof307.g01.client.view.MapView;
 import java.util.ArrayList;
-import be.ac.ulb.infof307.g01.common.MarkerQueryModel;
-import be.ac.ulb.infof307.g01.common.MarkerSendableModel;
+import be.ac.ulb.infof307.g01.common.model.MarkerQueryModel;
+import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
 
 /** Controller of the map. This class is responsible of creating markers at
  * startup and when the user adds one. For that, it holds an instance of

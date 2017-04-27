@@ -1,5 +1,6 @@
 package be.ac.ulb.infof307.g01.server;
 
+import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.Connection;
@@ -262,7 +263,7 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
      *
      * @param marker The marker that need to be updated in the database.
      */
-    public void updateMarkerReputation(MarkerModel marker) {
+    public void updateMarkerReputation(MarkerSendableModel marker) {
         String query = "UPDATE Marker SET UpVotes=?, DownVotes=? WHERE Id=?;";
         try {
             PreparedStatement statement = _connection.prepareStatement(query);

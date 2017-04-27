@@ -1,4 +1,4 @@
-package be.ac.ulb.infof307.g01.common;
+package be.ac.ulb.infof307.g01.common.model;
 
 import java.sql.Timestamp;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -131,6 +131,14 @@ public class MarkerSendableModel {
      */
     public ReputationScoreSendableModel getReputation() {
         return _reputation;
+    }
+    
+    public int getUpVotes() {
+        return getReputation().getUpVotes();
+    }
+
+    public int getDownVotes() {
+        return getReputation().getDownVotes();
     }
     
     /**

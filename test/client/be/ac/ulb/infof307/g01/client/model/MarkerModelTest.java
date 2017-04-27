@@ -1,10 +1,10 @@
 package be.ac.ulb.infof307.g01.client.model;
 
 import be.ac.ulb.infof307.g01.client.model.db.AbstractDatabaseTest;
+import be.ac.ulb.infof307.g01.common.model.CoordinateSendableModel;
 import java.sql.Timestamp;
 import org.junit.Test;
 
-import static junit.framework.TestCase.assertEquals;
 
 import org.junit.Before;
 import static junit.framework.TestCase.assertEquals;
@@ -21,7 +21,7 @@ public class MarkerModelTest extends AbstractDatabaseTest {
     private static final int ATTACK = 8;
     private static final Timestamp TIME = new Timestamp(System.currentTimeMillis());
     private static final String USERNAME = "bidon";
-    private static final CoordinateModel TEST_COORDINATE = new CoordinateModel(69, 42);
+    private static final CoordinateSendableModel TEST_COORDINATE = new CoordinateSendableModel(69, 42);
     
     private static MarkerModel TEST_MARKER;
     

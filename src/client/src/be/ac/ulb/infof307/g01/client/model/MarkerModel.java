@@ -1,8 +1,8 @@
 package be.ac.ulb.infof307.g01.client.model;
 
-import be.ac.ulb.infof307.g01.common.CoordinateSendableModel;
-import be.ac.ulb.infof307.g01.common.MarkerQueryModel;
-import be.ac.ulb.infof307.g01.common.MarkerSendableModel;
+import be.ac.ulb.infof307.g01.common.model.CoordinateSendableModel;
+import be.ac.ulb.infof307.g01.common.model.MarkerQueryModel;
+import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
 import java.sql.Timestamp;
 
 /** Model of a marker. A marker contains the location of a spotted pokemon,
@@ -189,14 +189,6 @@ public class MarkerModel extends MarkerSendableModel {
 
     public int getVoteScore() {
         return getReputation().getScore();
-    }
-
-    public int getUpVotes() {
-        return getReputation().getUpVotes();
-    }
-
-    public int getDownVotes() {
-        return getReputation().getDownVotes();
     }
 
     public void update(PokemonModel pokemon, int lifePoint, int attack, int defense, 

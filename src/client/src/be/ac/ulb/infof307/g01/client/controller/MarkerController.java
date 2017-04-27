@@ -3,10 +3,10 @@ package be.ac.ulb.infof307.g01.client.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import be.ac.ulb.infof307.g01.client.model.CoordinateModel;
 import be.ac.ulb.infof307.g01.client.model.MarkerModel;
 import be.ac.ulb.infof307.g01.client.model.PokemonModel;
 import be.ac.ulb.infof307.g01.client.view.MapView;
+import be.ac.ulb.infof307.g01.common.model.CoordinateSendableModel;
 import java.sql.Timestamp;
 
 
@@ -22,7 +22,7 @@ public class MarkerController {
         _mapView = mapView;
     }
     
-    public void createMarker(PokemonModel pokemon, CoordinateModel newMarkerCoordinates, 
+    public void createMarker(PokemonModel pokemon, CoordinateSendableModel newMarkerCoordinates, 
             int lifePoint, int attack, int defense, Timestamp date) {
     	String username = AuthenticationController.getInstance().getUsername();
         MarkerModel marker = new MarkerModel(pokemon, newMarkerCoordinates, 

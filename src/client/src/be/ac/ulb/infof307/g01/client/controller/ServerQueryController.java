@@ -1,9 +1,9 @@
 package be.ac.ulb.infof307.g01.client.controller;
 
-import be.ac.ulb.infof307.g01.common.MarkerSendableModel;
-import be.ac.ulb.infof307.g01.common.MarkerQueryModel;
-import be.ac.ulb.infof307.g01.common.PokemonQueryModel;
-import be.ac.ulb.infof307.g01.common.PokemonTypeQueryModel;
+import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
+import be.ac.ulb.infof307.g01.common.model.MarkerQueryModel;
+import be.ac.ulb.infof307.g01.common.model.PokemonQueryModel;
+import be.ac.ulb.infof307.g01.common.model.PokemonTypeQueryModel;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 import java.io.StringReader;

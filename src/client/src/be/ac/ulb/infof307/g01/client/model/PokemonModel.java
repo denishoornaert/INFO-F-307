@@ -1,6 +1,6 @@
 package be.ac.ulb.infof307.g01.client.model;
 
-import be.ac.ulb.infof307.g01.common.PokemonSendableModel;
+import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
 import java.io.File;
 import java.util.NoSuchElementException;
 
@@ -53,11 +53,12 @@ public class PokemonModel extends PokemonSendableModel {
      * @return the PokemonModel instance or null if not found
      */
     public static PokemonModel getPokemonByName(String name) {
-        final PokemonModel res = _allPokemon.get(name);
-        if(res == null) {
-            throw new NoSuchElementException("[[" + _allPokemon.size()+ "]] No pokemon found with the following name: " + name);
+        PokemonSendableModel res = _allPokemon.get(name);
+        if(res == null || !(res instanceof PokemonModel)) {
+            throw new NoSuchElementException("[[" + _allPokemon.size()+ "]] No "
+                + "pokemon found with the following name: " + name);
         }
-        return res;
+        return (PokemonModel) res;
     }
     
     public static void clearAllPokemon() {

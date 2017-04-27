@@ -1,4 +1,4 @@
-package be.ac.ulb.infof307.g01.common;
+package be.ac.ulb.infof307.g01.common.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
