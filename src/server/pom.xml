@@ -53,6 +53,11 @@
     <build>
         <sourceDirectory>src</sourceDirectory>
         <testSourceDirectory>../../test/server</testSourceDirectory>
+        <resources>
+            <resource>
+                <directory>../../assets</directory>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

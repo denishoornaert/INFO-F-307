@@ -11,7 +11,6 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 
-import java.io.InputStreamReader;
 
 import com.google.api.client.repackaged.org.apache.commons.codec.binary.Base64;
 import com.google.api.services.gmail.Gmail;
@@ -20,8 +19,9 @@ import com.google.api.services.gmail.model.Message;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringReader;
 import java.security.GeneralSecurityException;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -55,7 +55,7 @@ public class EmailSender {
     
     private final Gmail GMAIL_SERVICE;
     
-    private static final List<String> SCOPES = Arrays.asList(GmailScopes.GMAIL_LABELS);
+    private static final List<String> SCOPES = new ArrayList(GmailScopes.all());
     
     private static EmailSender _instance = null;
 
@@ -93,7 +93,7 @@ public class EmailSender {
         // Load client secrets.
         InputStream in = EmailSender.class.getResourceAsStream(SECRET_KEY_PATH);
         GoogleClientSecrets clientSecrets =
-            GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
+            GoogleClientSecrets.load(JSON_FACTORY, new StringReader("{\"web\":{\"client_id\":\"524929792591-adl1q6dpjr00a61tksiiatl65aoj1nr5.apps.googleusercontent.com\",\"project_id\":\"gotta-map-them-all\",\"auth_uri\":\"https://accounts.google.com/o/oauth2/auth\",\"token_uri\":\"https://accounts.google.com/o/oauth2/token\",\"auth_provider_x509_cert_url\":\"https://www.googleapis.com/oauth2/v1/certs\",\"client_secret\":\"Kn1YDogd8od9PFamzvUAYQso\",\"redirect_uris\":[\"http://www.google.com\"]}}"));
 
         // Build flow and trigger user authorization request.
         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
@@ -102,7 +102,7 @@ public class EmailSender {
                 .setAccessType("offline")
                 .build();
         Credential credential = new AuthorizationCodeInstalledApp(
-            flow, new LocalServerReceiver()).authorize("user");
+            flow, new LocalServerReceiver()).authorize("me");
         return credential;
     }
     
@@ -133,10 +133,16 @@ public class EmailSender {
     }
     
     public static void main(String[] args) {
+        System.out.println("Jusqu'ici, tout va bien 1.");
         try {
+        System.out.println("Jusqu'ici, tout va bien 2.");
             EmailSender.getInstance().sendSignUpMessage("theo.verhelst@gmail.com", "Coucou Théo !");
+        System.out.println("Jusqu'ici, tout va bien 3.");
         } catch (GeneralSecurityException | IOException ex) {
+        System.out.println("Jusqu'ici, tout va bien 4.");
             Logger.getLogger(EmailSender.class.getName()).log(Level.SEVERE, null, ex);
+        System.out.println("Jusqu'ici, tout va bien 5.");
         }
+        System.out.println("Jusqu'ici, tout va bien 6.");
     }
 }

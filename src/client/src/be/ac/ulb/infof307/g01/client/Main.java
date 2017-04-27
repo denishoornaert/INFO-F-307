@@ -73,6 +73,7 @@ public class Main extends Application {
             System.err.println("Error loading the database. Application aborted");
             return;
         }
+        
         launch(args);
     }  
     
