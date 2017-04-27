@@ -1,9 +1,8 @@
 package be.ac.ulb.infof307.g01.client.controller;
 
-import be.ac.ulb.infof307.g01.common.MarkerModel;
+import be.ac.ulb.infof307.g01.common.MarkerSendableModel;
 import be.ac.ulb.infof307.g01.common.MarkerQueryModel;
 import be.ac.ulb.infof307.g01.common.PokemonQueryModel;
-import be.ac.ulb.infof307.g01.common.PokemonTypeModel;
 import be.ac.ulb.infof307.g01.common.PokemonTypeQueryModel;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
@@ -38,7 +37,7 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
         
         //String response = webResource.accept(MediaType.APPLICATION_XML)
         //        .get(String.class);
-        //PokemonTypeModel pokemonResponse = convertXmlToObject(response, PokemonTypeModel.class);        
+        //PokemonTypeModel pokemonResponse = convertXmlToObject(response, PokemonTypeSendableModel.class);        
     }
     
     private static<T> T convertXmlToObject(String xml, Class<T> className) {
@@ -60,18 +59,19 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
     }
     
     @Override
-    public void insertMarker(MarkerModel marker) {
+    public void insertMarker(MarkerSendableModel marker) {
         WebResource queryPath = _webResource.path("marker").path("insert");
         queryPath.post(Entity.entity(marker, MediaType.APPLICATION_XML));
     }
 
     @Override
-    public ArrayList<MarkerModel> getAllMarkers() {
+    public ArrayList<MarkerSendableModel> getAllMarkers() {
+        // TODO craete a test to check all elements are an instance of MarkerModel
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void updateMarkerReputation(MarkerModel marker) {
+    public void updateMarkerReputation(MarkerSendableModel marker) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

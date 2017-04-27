@@ -7,6 +7,7 @@ import org.junit.Test;
 import static junit.framework.TestCase.assertEquals;
 
 import org.junit.Before;
+import static junit.framework.TestCase.assertEquals;
 
 
 public class MarkerModelTest extends AbstractDatabaseTest {

@@ -2,7 +2,7 @@ package be.ac.ulb.infof307.g01.client.controller;
 
 import java.sql.Timestamp;
 
-import be.ac.ulb.infof307.g01.client.model.CoordinateModel;
+import be.ac.ulb.infof307.g01.common.CoordinateSendableModel;
 import be.ac.ulb.infof307.g01.client.model.MarkerModel;
 import be.ac.ulb.infof307.g01.client.view.PinPopUp;
 
@@ -20,7 +20,7 @@ public class PinPopUpController {
         updateVoteView();
     }
     
-    public CoordinateModel getCoordinates() {
+    public CoordinateSendableModel getCoordinates() {
         return _marker.getCoordinate();
     }
     

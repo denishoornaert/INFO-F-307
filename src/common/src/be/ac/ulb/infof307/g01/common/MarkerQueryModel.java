@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /** Interface to the database related to Marker manipulation. */
 public interface MarkerQueryModel {
     
-    public void insertMarker(MarkerModel marker);
-    public ArrayList<MarkerModel> getAllMarkers();
-    public void updateMarkerReputation(MarkerModel marker);
+    public void insertMarker(MarkerSendableModel marker);
+    public ArrayList<MarkerSendableModel> getAllMarkers();
+    public void updateMarkerReputation(MarkerSendableModel marker);
 }

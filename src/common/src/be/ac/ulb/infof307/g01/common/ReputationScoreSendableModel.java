@@ -3,10 +3,10 @@ package be.ac.ulb.infof307.g01.common;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-class ReputationScoreModel {
+public class ReputationScoreSendableModel {
     
-    private int _upVotes;
-    private int _downVotes;
+    protected int _upVotes;
+    protected int _downVotes;
     
     /**
      * @return the _upVotes

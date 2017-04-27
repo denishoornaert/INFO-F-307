@@ -1,19 +1,11 @@
 package be.ac.ulb.infof307.g01.client.model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import be.ac.ulb.infof307.g01.common.PokemonTypeSendableModel;
 
 /** Model of a Pokemon type.
  * The Pokemon type is the element of the pokemon, such as Eletric for Pikachu.
  */
-public class PokemonTypeModel {
-    
-    /**
-     * HashMap mapping the name (String) of the type to its only instance in the
-     * application
-     */
-    private static HashMap<String, PokemonTypeModel> _allPokemonTypes = new HashMap<>();
-    private final String _typeName;
+public class PokemonTypeModel extends PokemonTypeSendableModel {
     
     static {
         _allPokemonTypes.put("NONE", new PokemonTypeModel("NONE"));
@@ -37,13 +29,6 @@ public class PokemonTypeModel {
         _allPokemonTypes.put(_typeName, this);
     }
     
-    /**
-     * Return the name of the type
-     * @return the name of the type
-     */
-    public String getTypeName() {
-        return _typeName;
-    }
     
     /////////////// STATIC ////////////////
     
@@ -53,16 +38,8 @@ public class PokemonTypeModel {
      * @param typeName the desired name
      * @return the PokemonTypeModel instance or null if not found
      */
-    public static PokemonTypeModel getPokemonTypeByTypeName(String typeName) {
+    public static PokemonTypeSendableModel getPokemonTypeByTypeName(String typeName) {
         return _allPokemonTypes.get(typeName.toUpperCase());
-    }
-    
-    /**
-     * Return all of the PokemonType created so far
-     * @return an ArrayList of PokemonTypeModel instances
-     */
-    public static ArrayList<PokemonTypeModel> getAllPokemonTypes() {
-        return new ArrayList<>(_allPokemonTypes.values());
     }
     
     /**
@@ -73,13 +50,5 @@ public class PokemonTypeModel {
         _allPokemonTypes.clear();
         _allPokemonTypes.put("NONE", new PokemonTypeModel("NONE"));
     }
-        
-        
-    @Override
-    public String toString() {
-        return "PokemonTypeModel(" + _typeName + ")";
-    }
     
-    /*NORMAL,FIRE,WATER,ELECTRIC,GRASS,ICE,FIGHTING,POISON,GROUND,FLYING,PSYCHIC,
-    BUG,ROCK,GHOST,DRAGON,DARK,STEEL,FAIRY,NONE*/
 }

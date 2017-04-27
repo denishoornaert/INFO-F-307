@@ -1,22 +1,16 @@
 package be.ac.ulb.infof307.g01.client.model;
 
+import be.ac.ulb.infof307.g01.common.PokemonSendableModel;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.NoSuchElementException;
 
 /** Model of a pokemon.
  * A pokemon represents the generic pokemon entity, such as "Pikachu". A pokemon
  * spotted on the map is represented by MarkerModel.
  */
-public class PokemonModel {
-
-    private static HashMap<String, PokemonModel> _allPokemon = new HashMap<>();
+public class PokemonModel extends PokemonSendableModel {
+    
     private static final String _pathPrefix = "../../assets" + File.separator + "sprites" + File.separator;
-    private final String _name;
-    private final PokemonTypeModel[] _type;
-    private final String _imageName;
     
     public PokemonModel(String name, String imagePath) {
         // TODO query to get the corresponding type.
@@ -44,44 +38,11 @@ public class PokemonModel {
         _allPokemon.put(name, this);
     }
     
-    /**
-     * Return the name of the Pokemon
-     * @return the name of the Pokemon
-     */
-    public String getName() {
-        return _name;
-    }
-    
-    /**
-     * Return the list of types assigned to the pokemon
-     * @return a list of types assigned to the pokemon
-     */
-    public PokemonTypeModel[] getTypes() {
-        return _type;
-    }
-    
-    /**
-     * Return the path of the sprite of the Pokemon
-     * @return the path of the sprite of the Pokemon
-     */
+    @Override
     public String getImagePath() {
-        return _pathPrefix + _imageName;
+        return _pathPrefix + super.getImagePath();
     }
     
-    public String getImageName() {
-        return _imageName;
-    }
-    
-    /**
-     * Test if two pokemon have same name and type
-     * 
-     * @param otherPokemon the pokemon which must be compared
-     * @return True if it's the same pokemon
-     */
-    public boolean equals(PokemonModel otherPokemon) {
-        return otherPokemon._name.equals(_name) && 
-                Arrays.equals(otherPokemon._type, _type);
-    }
     
     /////////////////// STATIC /////////////////////
     
@@ -97,14 +58,6 @@ public class PokemonModel {
             throw new NoSuchElementException("[[" + _allPokemon.size()+ "]] No pokemon found with the following name: " + name);
         }
         return res;
-    }
-    
-    public static ArrayList<PokemonModel> getAllPokemon() {
-        return new ArrayList<>(_allPokemon.values());
-    }
-    
-    public static ArrayList<String> getAllPokemonName() {
-        return new ArrayList<>(_allPokemon.keySet());
     }
     
     public static void clearAllPokemon() {

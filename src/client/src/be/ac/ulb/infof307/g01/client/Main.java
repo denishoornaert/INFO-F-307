@@ -2,10 +2,7 @@ package be.ac.ulb.infof307.g01.client;
 
 import be.ac.ulb.infof307.g01.client.controller.AuthenticationController;
 import be.ac.ulb.infof307.g01.client.controller.MapController;
-import be.ac.ulb.infof307.g01.client.controller.ServerQueryController;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.sql.SQLException;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
