@@ -1,0 +1,820 @@
+Abomasnow: GRASS ICE
+Abra: PSYCHIC
+Absol: DARK
+Accelgor: BUG
+Aegislash: GHOST STEEL
+Aerodactyl: FLYING ROCK
+Aggron: ROCK STEEL
+Aipom: NORMAL
+Alakazam: PSYCHIC
+Alomomola: WATER
+Altaria: FLYING DRAGON
+Amaura: ICE ROCK
+Ambipom: NORMAL
+Amoonguss: GRASS POISON
+Ampharos: ELECTRIC
+Anorith: BUG ROCK
+Araquanid: WATER BUG
+Arbok: POISON
+Arcanine: FIRE
+Arceus: NORMAL
+Archen: FLYING ROCK
+Archeops: FLYING ROCK
+Ariados: POISON BUG
+Armaldo: BUG ROCK
+Aromatisse: FAIRY
+Aron: ROCK STEEL
+Articuno: ICE FLYING
+Audino: NORMAL
+Aurorus: ICE ROCK
+Avalugg: ICE
+Axew: DRAGON
+Azelf: PSYCHIC
+Azumarill: WATER FAIRY
+Azurill: NORMAL FAIRY
+Bagon: DRAGON
+Baltoy: GROUND PSYCHIC
+Banette: GHOST
+Barbaracle: WATER ROCK
+Barboach: WATER GROUND
+Basculin: WATER
+Bastiodon: ROCK STEEL
+Bayleef: GRASS
+Beartic: ICE
+Beautifly: FLYING BUG
+Beedrill: POISON BUG
+Beheeyem: PSYCHIC
+Beldum: PSYCHIC STEEL
+Bellossom: GRASS
+Bellsprout: GRASS POISON
+Bergmite: ICE
+Bewear: NORMAL FIGHTING
+Bibarel: NORMAL WATER
+Bidoof: NORMAL
+Binacle: WATER ROCK
+Bisharp: DARK STEEL
+Blastoise: WATER
+Blaziken: FIRE FIGHTING
+Blissey: NORMAL
+Blitzle: ELECTRIC
+Boldore: ROCK
+Bonsly: ROCK
+Bouffalant: NORMAL
+Bounsweet: GRASS
+Braixen: FIRE
+Braviary: NORMAL FLYING
+Breloom: GRASS FIGHTING
+Brionne: WATER
+Bronzong: PSYCHIC STEEL
+Bronzor: PSYCHIC STEEL
+Bruxish: WATER PSYCHIC
+Budew: GRASS POISON
+Buizel: WATER
+Bulbasaur: GRASS POISON
+Buneary: NORMAL
+Bunnelby: NORMAL
+Burmy: BUG
+Butterfree: FLYING BUG
+Buzzwole: FIGHTING BUG
+Cacnea: GRASS
+Cacturne: GRASS DARK
+Camerupt: FIRE GROUND
+Carbink: ROCK FAIRY
+Carnivine: GRASS
+Carracosta: WATER ROCK
+Carvanha: WATER DARK
+Cascoon: BUG
+Castform: NORMAL
+Caterpie: BUG
+Celebi: GRASS PSYCHIC
+Celesteela: FLYING STEEL
+Chandelure: FIRE GHOST
+Chansey: NORMAL
+Charizard: FIRE FLYING
+Charjabug: ELECTRIC BUG
+Charmander: FIRE
+Charmeleon: FIRE
+Chatot: NORMAL FLYING
+Cherrim: GRASS
+Cherubi: GRASS
+Chesnaught: GRASS FIGHTING
+Chespin: GRASS
+Chikorita: GRASS
+Chimchar: FIRE
+Chimecho: PSYCHIC
+Chinchou: WATER ELECTRIC
+Chingling: PSYCHIC
+Cinccino: NORMAL
+Clamperl: WATER
+Clauncher: WATER
+Clawitzer: WATER
+Claydol: GROUND PSYCHIC
+Clefable: FAIRY
+Clefairy: FAIRY
+Cleffa: FAIRY
+Cloyster: WATER ICE
+Cobalion: FIGHTING STEEL
+Cofagrigus: GHOST
+Combee: FLYING BUG
+Combusken: FIRE FIGHTING
+Comfey: FAIRY
+Conkeldurr: FIGHTING
+Corphish: WATER
+Corsola: WATER ROCK
+Cosmoem: PSYCHIC
+Cosmog: PSYCHIC
+Cottonee: GRASS FAIRY
+Crabominable: ICE FIGHTING
+Crabrawler: FIGHTING
+Cradily: GRASS ROCK
+Cranidos: ROCK
+Crawdaunt: WATER DARK
+Cresselia: PSYCHIC
+Croagunk: FIGHTING POISON
+Crobat: POISON FLYING
+Croconaw: WATER
+Crustle: BUG ROCK
+Cryogonal: ICE
+Cubchoo: ICE
+Cubone: GROUND
+Cutiefly: BUG FAIRY
+Cyndaquil: FIRE
+Darkrai: DARK
+Darmanitan: FIRE
+Dartrix: GRASS FLYING
+Darumaka: FIRE
+Decidueye: GRASS GHOST
+Dedenne: ELECTRIC FAIRY
+Deerling: NORMAL GRASS
+Deino: DRAGON DARK
+Delcatty: NORMAL
+Delibird: ICE FLYING
+Delphox: FIRE PSYCHIC
+Deoxys: PSYCHIC
+Dewgong: WATER ICE
+Dewott: WATER
+Dewpider: WATER BUG
+Dhelmise: GRASS GHOST
+Dialga: DRAGON STEEL
+Diancie: ROCK FAIRY
+Diggersby: NORMAL GROUND
+Digletta: GROUND STEEL
+Diglett: GROUND
+Ditto: NORMAL
+Dodrio: NORMAL FLYING
+Doduo: NORMAL FLYING
+Donphan: GROUND
+Doublade: GHOST STEEL
+Dragalge: POISON DRAGON
+Dragonair: DRAGON
+Dragonite: FLYING DRAGON
+Drampa: NORMAL DRAGON
+Drapion: POISON DARK
+Dratini: DRAGON
+Drifblim: FLYING GHOST
+Drifloon: FLYING GHOST
+Drilbur: GROUND
+Drowzee: PSYCHIC
+Druddigon: DRAGON
+Ducklett: WATER FLYING
+Dugtrioa: GROUND STEEL
+Dugtrio: GROUND
+Dunsparce: NORMAL
+Duosion: PSYCHIC
+Durant: BUG STEEL
+Dusclops: GHOST
+Dusknoir: GHOST
+Duskull: GHOST
+Dustox: POISON BUG
+Dwebble: BUG ROCK
+Eelektrik: ELECTRIC
+Eelektross: ELECTRIC
+Eevee: NORMAL
+Ekans: POISON
+Electabuzz: ELECTRIC
+Electivire: ELECTRIC
+Electrike: ELECTRIC
+Electrode: ELECTRIC
+Elekid: ELECTRIC
+Elgyem: PSYCHIC
+Emboar: FIRE FIGHTING
+Emolga: ELECTRIC FLYING
+Empoleon: WATER STEEL
+Entei: FIRE
+Escavalier: BUG STEEL
+Espeon: PSYCHIC
+Espurr: PSYCHIC
+Excadrill: GROUND STEEL
+Exeggcute: GRASS PSYCHIC
+Exeggutora: GRASS DRAGON
+Exeggutor: GRASS PSYCHIC
+Exploud: NORMAL
+Farfetchd: NORMAL FLYING
+Fearow: NORMAL FLYING
+Feebas: WATER
+Fennekin: FIRE
+Feraligatr: WATER
+Ferroseed: GRASS STEEL
+Ferrothorn: GRASS STEEL
+Finneon: WATER
+Flaaffy: ELECTRIC
+Flabebe: FAIRY
+Flareon: FIRE
+Fletchinder: FIRE FLYING
+Fletchling: NORMAL FLYING
+Floatzel: WATER
+Floette: FAIRY
+Florges: FAIRY
+Flygon: GROUND DRAGON
+Fomantis: GRASS
+Foongus: GRASS POISON
+Forretress: BUG STEEL
+Fraxure: DRAGON
+Frillish: WATER GHOST
+Froakie: WATER
+Frogadier: WATER
+Froslass: ICE GHOST
+Furfrou: NORMAL
+Furret: NORMAL
+Gabite: GROUND DRAGON
+Gallade: FIGHTING PSYCHIC
+Galvantula: ELECTRIC BUG
+Garbodor: POISON
+Garchomp: GROUND DRAGON
+Gardevoir: PSYCHIC FAIRY
+Gastly: POISON GHOST
+Gastrodon: WATER GROUND
+Genesect: BUG STEEL
+Gengar: POISON GHOST
+Geodudea: ELECTRIC ROCK
+Geodude: GROUND ROCK
+Gible: GROUND DRAGON
+Gigalith: ROCK
+Girafarig: NORMAL PSYCHIC
+Giratina: GHOST DRAGON
+Glaceon: ICE
+Glalie: ICE
+Glameow: NORMAL
+Gligar: GROUND FLYING
+Gliscor: GROUND FLYING
+Gloom: GRASS POISON
+Gogoat: GRASS
+Golbat: POISON FLYING
+Goldeen: WATER
+Golduck: WATER
+Golema: ELECTRIC ROCK
+Golem: GROUND ROCK
+Golett: GROUND GHOST
+Golisopod: WATER BUG
+Golurk: GROUND GHOST
+Goodra: DRAGON
+Goomy: DRAGON
+Gorebyss: WATER
+Gothita: PSYCHIC
+Gothitelle: PSYCHIC
+Gothorita: PSYCHIC
+Gourgeist: GRASS GHOST
+Granbull: FAIRY
+Gravelera: ELECTRIC ROCK
+Graveler: GROUND ROCK
+Greninja: WATER DARK
+Grimera: POISON DARK
+Grimer: POISON
+Grotle: GRASS
+Groudon: GROUND
+Grovyle: GRASS
+Growlithe: FIRE
+Grubbin: BUG
+Grumpig: PSYCHIC
+Gulpin: POISON
+Gumshoos: NORMAL
+Gurdurr: FIGHTING
+Guzzlord: DRAGON DARK
+Gyarados: WATER FLYING
+Hakamo-o: FIGHTING DRAGON
+Happiny: NORMAL
+Hariyama: FIGHTING
+Haunter: POISON GHOST
+Hawlucha: FIGHTING FLYING
+Haxorus: DRAGON
+Heatmor: FIRE
+Heatran: FIRE STEEL
+Heliolisk: NORMAL ELECTRIC
+Helioptile: NORMAL ELECTRIC
+Heracross: FIGHTING BUG
+Herdier: NORMAL
+Hippopotas: GROUND
+Hippowdon: GROUND
+Hitmonchan: FIGHTING
+Hitmonlee: FIGHTING
+Hitmontop: FIGHTING
+Ho-oh: FIRE FLYING
+Honchkrow: FLYING DARK
+Honedge: GHOST STEEL
+Hoopa: PSYCHIC GHOST
+Hoothoot: NORMAL FLYING
+Hoppip: GRASS FLYING
+Horsea: WATER
+Houndoom: FIRE DARK
+Houndour: FIRE DARK
+Huntail: WATER
+Hydreigon: DRAGON DARK
+Hypno: PSYCHIC
+Igglybuff: NORMAL FAIRY
+Illumise: BUG
+Incineroar: FIRE DARK
+Infernape: FIRE FIGHTING
+Inkay: PSYCHIC DARK
+Ivysaur: GRASS POISON
+Jangmo-o: DRAGON
+Jellicent: WATER GHOST
+Jigglypuff: NORMAL FAIRY
+Jirachi: PSYCHIC STEEL
+Jolteon: ELECTRIC
+Joltik: ELECTRIC BUG
+Jumpluff: GRASS FLYING
+Jynx: ICE PSYCHIC
+Kabuto: WATER ROCK
+Kabutops: WATER ROCK
+Kadabra: PSYCHIC
+Kakuna: POISON BUG
+Kangaskhan: NORMAL
+Karrablast: BUG
+Kartana: GRASS STEEL
+Kecleon: NORMAL
+Keldeo: WATER FIGHTING
+Kingdra: WATER DRAGON
+Kingler: WATER
+Kirlia: PSYCHIC FAIRY
+Klang: STEEL
+Klefki: STEEL FAIRY
+Klink: STEEL
+Klinklang: STEEL
+Koffing: POISON
+Komala: NORMAL
+Kommo-o: FIGHTING DRAGON
+Krabby: WATER
+Kricketot: BUG
+Kricketune: BUG
+Krokorok: GROUND DARK
+Krookodile: GROUND DARK
+Kyogre: WATER
+Kyurem: ICE DRAGON
+Lairon: ROCK STEEL
+Lampent: FIRE GHOST
+Landorus: GROUND FLYING
+Lanturn: WATER ELECTRIC
+Lapras: WATER ICE
+Larvesta: FIRE BUG
+Larvitar: GROUND ROCK
+Latias: PSYCHIC DRAGON
+Latios: PSYCHIC DRAGON
+Leafeon: GRASS
+Leavanny: GRASS BUG
+Ledian: FLYING BUG
+Ledyba: FLYING BUG
+Lickilicky: NORMAL
+Lickitung: NORMAL
+Liepard: DARK
+Lileep: GRASS ROCK
+Lilligant: GRASS
+Lillipup: NORMAL
+Linoone: NORMAL
+Litleo: NORMAL FIRE
+Litten: FIRE
+Litwick: FIRE GHOST
+Lombre: WATER GRASS
+Lopunny: NORMAL
+Lotad: WATER GRASS
+Loudred: NORMAL
+Lucario: FIGHTING STEEL
+Ludicolo: WATER GRASS
+Lugia: FLYING PSYCHIC
+Lumineon: WATER
+Lunala: PSYCHIC GHOST
+Lunatone: PSYCHIC ROCK
+Lurantis: GRASS
+Luvdisc: WATER
+Luxio: ELECTRIC
+Luxray: ELECTRIC
+Lycanrock: ROCK
+Machamp: FIGHTING
+Machoke: FIGHTING
+Machop: FIGHTING
+Magby: FIRE
+Magcargo: FIRE ROCK
+Magearna: STEEL FAIRY
+Magikarp: WATER
+Magmar: FIRE
+Magmortar: FIRE
+Magnemite: ELECTRIC STEEL
+Magneton: ELECTRIC STEEL
+Magnezone: ELECTRIC STEEL
+Makuhita: FIGHTING
+Malamar: PSYCHIC DARK
+Mamoswine: ICE GROUND
+Manaphy: WATER
+Mandibuzz: FLYING DARK
+Manectric: ELECTRIC
+Mankey: FIGHTING
+Mantine: WATER FLYING
+Mantyke: WATER FLYING
+Maractus: GRASS
+Mareanie: WATER POISON
+Mareep: ELECTRIC
+Marill: WATER FAIRY
+Marowak-a: FIRE GHOST
+Marowak: GROUND
+Marshadow: FIGHTING GHOST
+Marshtomp: WATER GROUND
+Masquerain: FLYING BUG
+Mawile: STEEL FAIRY
+Medicham: FIGHTING PSYCHIC
+Meditite: FIGHTING PSYCHIC
+Meganium: GRASS
+Meloetta: NORMAL FIGHTING
+Meowstic: PSYCHIC
+Meowtha: DARK
+Meowth: NORMAL
+Mesprit: PSYCHIC
+Metagross: PSYCHIC STEEL
+Metang: PSYCHIC STEEL
+Metapod: BUG
+Mew: PSYCHIC
+Mewtwo: PSYCHIC
+Mienfoo: FIGHTING
+Mienshao: FIGHTING
+Mightyena: DARK
+Milotic: WATER
+Miltank: NORMAL
+Mime-jr: PSYCHIC FAIRY
+Mimikyu: GHOST FAIRY
+Minccino: NORMAL
+Minior: FLYING ROCK
+Minun: ELECTRIC
+Misdreavus: GHOST
+Mismagius: GHOST
+Moltres: FIRE FLYING
+Monferno: FIRE FIGHTING
+Morelull: GRASS FAIRY
+Mothim: FLYING BUG
+Mr-mime: PSYCHIC FAIRY
+Mudbray: GROUND
+Mudkip: WATER
+Mudsdale: GROUND
+Muka: POISON DARK
+Muk: POISON
+Munchlax: NORMAL
+Munna: PSYCHIC
+Murkrow: FLYING DARK
+Musharna: PSYCHIC
+Natu: FLYING PSYCHIC
+Necrozma: PSYCHIC
+Nidoking: POISON GROUND
+Nidoqueen: POISON GROUND
+Nidoran-f: POISON
+Nidoran-m: POISON
+Nidorina: POISON
+Nidorino: POISON
+Nihilego: POISON ROCK
+Nincada: GROUND BUG
+Ninetalesa: ICE FAIRY
+Ninetales: FIRE
+Ninjask: FLYING BUG
+Noctowl: NORMAL FLYING
+Noibat: FLYING DRAGON
+Noivern: FLYING DRAGON
+Nosepass: ROCK
+Numel: FIRE GROUND
+Nuzleaf: GRASS DARK
+Octillery: WATER
+Oddish: GRASS POISON
+Omanyte: WATER ROCK
+Omastar: WATER ROCK
+Onix: GROUND ROCK
+Oranguru: NORMAL PSYCHIC
+Oricorido: FIRE FLYING
+Oshawott: WATER
+Pachirisu: ELECTRIC
+Palkia: WATER DRAGON
+Palossand: GROUND GHOST
+Palpitoad: WATER GROUND
+Pancham: FIGHTING
+Pangoro: FIGHTING DARK
+Panpour: WATER
+Pansage: GRASS
+Pansear: FIRE
+Paras: GRASS BUG
+Parasect: GRASS BUG
+Passimian: FIGHTING
+Patrat: NORMAL
+Pawniard: DARK STEEL
+Pelipper: WATER FLYING
+Persiana: DARK
+Persian: NORMAL
+Petilil: GRASS
+Phanpy: GROUND
+Phantump: GRASS GHOST
+Pheromosa: FIGHTING BUG
+Phione: WATER
+Pichu: ELECTRIC
+Pidgeot: NORMAL FLYING
+Pidgeotto: NORMAL FLYING
+Pidgey: NORMAL FLYING
+Pidove: NORMAL FLYING
+Pignite: FIRE FIGHTING
+Pikachu: ELECTRIC
+Pikipek: NORMAL FLYING
+Piloswine: ICE GROUND
+Pineco: BUG
+Pinsir: BUG
+Piplup: WATER
+Plusle: ELECTRIC
+Politoed: WATER
+Poliwag: WATER
+Poliwhirl: WATER
+Poliwrath: WATER FIGHTING
+Ponyta: FIRE
+Poochyena: DARK
+Popplio: WATER
+Porygon-z: NORMAL
+Porygon2: NORMAL
+Porygon: NORMAL
+Primarina: WATER FAIRY
+Primeape: FIGHTING
+Prinplup: WATER
+Probopass: ROCK STEEL
+Psyduck: WATER
+Pumpkaboo: GRASS GHOST
+Pupitar: GROUND ROCK
+Purrloin: DARK
+Purugly: NORMAL
+Pyroar: NORMAL FIRE
+Pyukumuku: WATER
+Quagsire: WATER GROUND
+Quilava: FIRE
+Quilladin: GRASS
+Qwilfish: WATER POISON
+Raichua: ELECTRIC PSYCHIC
+Raichu: ELECTRIC
+Raikou: ELECTRIC
+Ralts: PSYCHIC FAIRY
+Rampardos: ROCK
+Rapidash: FIRE
+Raticatea: NORMAL DARK
+Raticate: NORMAL
+Rattataa: NORMAL DARK
+Rattata: NORMAL
+Rayquaza: FLYING DRAGON
+Regice: ICE
+Regigigas: NORMAL
+Regirock: ROCK
+Registeel: STEEL
+Relicanth: WATER ROCK
+Remoraid: WATER
+Reshiram: FIRE DRAGON
+Reuniclus: PSYCHIC
+Rhydon: GROUND ROCK
+Rhyhorn: GROUND ROCK
+Rhyperior: GROUND ROCK
+Ribombee: BUG FAIRY
+Riolu: FIGHTING
+Rockruff: ROCK
+Roggenrola: ROCK
+Roselia: GRASS POISON
+Roserade: GRASS POISON
+Rotom: ELECTRIC GHOST
+Rowlet: GRASS FLYING
+Rufflet: NORMAL FLYING
+Sableye: GHOST DARK
+Salamence: FLYING DRAGON
+Salandit: FIRE POISON
+Salazzle: FIRE POISON
+Samurott: WATER
+Sandile: GROUND DARK
+Sandshrewa: ICE STEEL
+Sandshrew: GROUND
+Sandslasha: ICE STEEL
+Sandslash: GROUND
+Sandygast: GROUND GHOST
+Sawk: FIGHTING
+Sawsbuck: NORMAL GRASS
+Scatterbug: BUG
+Sceptile: GRASS
+Scizor: BUG STEEL
+Scolipede: POISON BUG
+Scrafty: FIGHTING DARK
+Scraggy: FIGHTING DARK
+Scyther: FLYING BUG
+Seadra: WATER
+Seaking: WATER
+Sealeo: WATER ICE
+Seedot: GRASS
+Seel: WATER
+Seismitoad: WATER GROUND
+Sentret: NORMAL
+Serperior: GRASS
+Servine: GRASS
+Seviper: POISON
+Sewaddle: GRASS BUG
+Sharpedo: WATER DARK
+Shaymin: GRASS
+Shedinja: BUG GHOST
+Shelgon: DRAGON
+Shellder: WATER
+Shellos: WATER
+Shelmet: BUG
+Shieldon: ROCK STEEL
+Shiftry: GRASS DARK
+Shiinotic: GRASS FAIRY
+Shinx: ELECTRIC
+Shroomish: GRASS
+Shuckle: BUG ROCK
+Shuppet: GHOST
+Sigilyph: FLYING PSYCHIC
+Silcoon: BUG
+Silvally: NORMAL
+Simipour: WATER
+Simisage: GRASS
+Simisear: FIRE
+Skarmory: FLYING STEEL
+Skiddo: GRASS
+Skiploom: GRASS FLYING
+Skitty: NORMAL
+Skorupi: POISON BUG
+Skrelp: WATER POISON
+Skuntank: POISON DARK
+Slaking: NORMAL
+Slakoth: NORMAL
+Sliggoo: DRAGON
+Slowbro: WATER PSYCHIC
+Slowking: WATER PSYCHIC
+Slowpoke: WATER PSYCHIC
+Slugma: FIRE
+Slurpuff: FAIRY
+Smeargle: NORMAL
+Smoochum: ICE PSYCHIC
+Sneasel: ICE DARK
+Snivy: GRASS
+Snorlax: NORMAL
+Snorunt: ICE
+Snover: GRASS ICE
+Snubbull: FAIRY
+Solgaleo: PSYCHIC STEEL
+Solosis: PSYCHIC
+Solrock: PSYCHIC ROCK
+Spearow: NORMAL FLYING
+Spewpa: BUG
+Spheal: WATER ICE
+Spinarak: POISON BUG
+Spinda: NORMAL
+Spiritomb: GHOST DARK
+Spoink: PSYCHIC
+Spritzee: FAIRY
+Squirtle: WATER
+Stantler: NORMAL
+Staraptor: NORMAL FLYING
+Staravia: NORMAL FLYING
+Starly: NORMAL FLYING
+Starmie: WATER PSYCHIC
+Staryu: WATER
+Steelix: GROUND STEEL
+Steenee: GRASS
+Stoutland: NORMAL
+Stufful: NORMAL FIGHTING
+Stunfisk: ELECTRIC GROUND
+Stunky: POISON DARK
+Sudowoodo: ROCK
+Suicune: WATER
+Sunflora: GRASS
+Sunkern: GRASS
+Surskit: WATER BUG
+Swablu: NORMAL FLYING
+Swadloon: GRASS BUG
+Swalot: POISON
+Swampert: WATER GROUND
+Swanna: WATER FLYING
+Swellow: NORMAL FLYING
+Swinub: ICE GROUND
+Swirlix: FAIRY
+Swoobat: FLYING PSYCHIC
+Sylveon: FAIRY
+Taillow: NORMAL FLYING
+Talonflame: FIRE FLYING
+Tangela: GRASS
+Tangrowth: GRASS
+Tapu-bulu: GRASS FAIRY
+Tapu-fini: WATER FAIRY
+Tapu-koko: ELECTRIC FAIRY
+Tapu-lele: PSYCHIC FAIRY
+Tauros: NORMAL
+Teddiursa: NORMAL
+Tentacool: WATER POISON
+Tentacruel: WATER POISON
+Tepig: FIRE
+Terrakion: FIGHTING ROCK
+Throh: FIGHTING
+Thundurus: ELECTRIC FLYING
+Timburr: FIGHTING
+Tirtouga: WATER ROCK
+Togedemaru: ELECTRIC STEEL
+Togekiss: FLYING FAIRY
+Togepi: FAIRY
+Togetic: FLYING FAIRY
+Torchic: FIRE
+Torkoal: FIRE
+Tornadus: FLYING
+Torracat: FIRE
+Torterra: GRASS GROUND
+Totodile: WATER
+Toucannon: NORMAL FLYING
+Toxapex: WATER POISON
+Toxicroak: FIGHTING POISON
+Tranquill: NORMAL FLYING
+Trapinch: GROUND
+Treecko: GRASS
+Trevenant: GRASS GHOST
+Tropius: GRASS FLYING
+Trubbish: POISON
+Trumbeak: NORMAL FLYING
+Tsareena: GRASS
+Turtonator: FIRE DRAGON
+Turtwig: GRASS
+Tympole: WATER
+Tynamo: ELECTRIC
+Type-null: NORMAL
+Typhlosion: FIRE
+Tyranitar: ROCK DARK
+Tyrantrum: ROCK DRAGON
+Tyrogue: FIGHTING
+Tyrunt: ROCK DRAGON
+Umbreon: DARK
+Unfezant: NORMAL FLYING
+Unown: PSYCHIC
+Ursaring: NORMAL
+Uxie: PSYCHIC
+Vanillish: ICE
+Vanillite: ICE
+Vanilluxe: ICE
+Vaporeon: WATER
+Venipede: POISON BUG
+Venomoth: POISON BUG
+Venonat: POISON BUG
+Venusaur: GRASS POISON
+Vespiquen: FLYING BUG
+Vibrava: GROUND DRAGON
+Victini: FIRE PSYCHIC
+Victreebel: GRASS POISON
+Vigoroth: NORMAL
+Vikavolt: ELECTRIC BUG
+Vileplume: GRASS POISON
+Virizion: GRASS FIGHTING
+Vivillon: FLYING BUG
+Volbeat: BUG
+Volcanion: FIRE WATER
+Volcarona: FIRE BUG
+Voltorb: ELECTRIC
+Vullaby: FLYING DARK
+Vulpix-alolan: ICE
+Vulpix: FIRE
+Wailmer: WATER
+Wailord: WATER
+Walrein: WATER ICE
+Wartortle: WATER
+Watchog: NORMAL
+Weavile: ICE DARK
+Weedle: POISON BUG
+Weepinbell: GRASS POISON
+Weezing: POISON
+Whimsicott: GRASS FAIRY
+Whirlipede: POISON BUG
+Whiscash: WATER GROUND
+Whismur: NORMAL
+Wigglytuff: NORMAL FAIRY
+Wimpod: WATER BUG
+Wingull: WATER FLYING
+Wishiwashi: WATER
+Wobbuffet: PSYCHIC
+Woobat: FLYING PSYCHIC
+Wooper: WATER GROUND
+Wormadam: GRASS BUG
+Wurmple: BUG
+Wynaut: PSYCHIC
+Xatu: FLYING PSYCHIC
+Xerneas: FAIRY
+Xurkitree: ELECTRIC
+Yamask: GHOST
+Yanma: FLYING BUG
+Yanmega: FLYING BUG
+Yungoos: NORMAL
+Yveltal: FLYING DARK
+Zangoose: NORMAL
+Zapdos: ELECTRIC FLYING
+Zebstrika: ELECTRIC
+Zekrom: ELECTRIC DRAGON
+Zigzagoon: NORMAL
+Zoroark: DARK
+Zorua: DARK
+Zubat: POISON FLYING
+Zweilous: DRAGON DARK
+Zygarde: DRAGON GROUND

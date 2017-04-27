@@ -22,7 +22,7 @@ public class PanelController {
     
     public void openSignIn() {
         // Create Sign Up controller
-        
+        SignupPopUpController.getInstance();
     }
     
 }

@@ -42,7 +42,7 @@ public class SigninPopUp extends PopUp {
     }
     
     private void initMessageLabel() {
-        _message = new Label("Enter your username, please.");
+        _message = new Label("Username and password, please.");
         _message.setMaxWidth(Region.USE_PREF_SIZE);
         _message.setWrapText(true);
     }

@@ -73,7 +73,7 @@ public class PanelView extends VBox{
     private void initSignUpButton() {
         _signup.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent t) {
-            	_controller.openLogin();
+            	_controller.openSignIn();
             }
         });
     }
