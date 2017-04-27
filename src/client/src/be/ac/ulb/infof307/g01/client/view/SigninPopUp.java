@@ -5,11 +5,14 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 
 /**
  * Login with username and password
@@ -75,5 +78,10 @@ public class SigninPopUp extends PopUp {
     private void setStyle() {
         _vbox.setAlignment(Pos.CENTER);
         _vbox.setSpacing(10);
+    }
+    
+    protected void setXExpandPolicy(Control control) {
+        HBox.setHgrow(control, Priority.ALWAYS);
+        control.setMaxWidth(Double.MAX_VALUE);
     }
 }
