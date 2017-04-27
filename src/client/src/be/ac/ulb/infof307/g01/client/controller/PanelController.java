@@ -18,13 +18,13 @@ public class PanelController {
     
     public void openLogin() {
         // Create Sign In controller
-        SigninPopUpController.getInstance();
+        new SigninPopUpController();
         // TODO : Change panelView Aspect
     }
     
     public void openSignUp() {
         // Create Sign Up controller
-        SignupPopUpController.getInstance();
+        new SignupPopUpController();
         
     }
     

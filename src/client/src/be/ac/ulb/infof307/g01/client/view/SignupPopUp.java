@@ -10,6 +10,9 @@
  */
 package be.ac.ulb.infof307.g01.client.view;
 
+import be.ac.ulb.infof307.g01.client.controller.SignupPopUpController;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -23,10 +26,10 @@ import javafx.scene.layout.VBox;
 
 /**
  *
- * @author Nathan
+ * @author Groupe01
  */
 public class SignupPopUp extends PopUp{
-    //private final SignupPopUpController _controller;
+    private final SignupPopUpController _controller;
     private VBox _containerV;
     private HBox _containerH;
     private Label _usernameLabel;
@@ -38,8 +41,8 @@ public class SignupPopUp extends PopUp{
     private Button _submit;
     private Button _cancel;
     
-    public SignupPopUp (/*SignupPopUpController controller*/){
-        //_controller = controller;
+    public SignupPopUp (SignupPopUpController controller){
+        _controller = controller;
         initWidgets();
         placeWidgets();
         setStyle();
@@ -57,6 +60,8 @@ public class SignupPopUp extends PopUp{
         _username = new TextField();
         _email = new TextField();
         _password = new PasswordField();
+        initCancelButton();
+        initSubmitButton();
     }
     
     private void placeWidgets() {
@@ -74,10 +79,27 @@ public class SignupPopUp extends PopUp{
         _containerV.setSpacing(5);
     }
     
-    protected void setXExpandPolicy(Control control) {
+    private void setXExpandPolicy(Control control) {
         HBox.setHgrow(control, Priority.ALWAYS);
         control.setMaxWidth(Double.MAX_VALUE);
     }
     
+    private void initCancelButton() {
+        _cancel = getCloseButton("Login", "primary");
+        _cancel.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent t) {
+                _controller.cancel();
+            }
+        });
+    }
+    
+    private void initSubmitButton() {
+        _submit = getCloseButton("Login", "primary");
+        _submit.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent t) {
+                _controller.submit(_email.getText(),_username.getText(),_password.getText());
+            }
+        });
+    }
 }
 
