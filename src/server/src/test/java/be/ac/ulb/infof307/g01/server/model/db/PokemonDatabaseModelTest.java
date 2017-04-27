@@ -1,20 +1,11 @@
-package be.ac.ulb.infof307.g01.client.model.db;
+package test.java.be.ac.ulb.infof307.g01.server.model.db;
 
-import be.ac.ulb.infof307.g01.client.model.DatabaseModel;
-import be.ac.ulb.infof307.g01.client.model.PokemonModel;
-import be.ac.ulb.infof307.g01.client.model.PokemonTypeModel;
+import be.ac.ulb.infof307.g01.server.model.PokemonModel;
 import static junit.framework.TestCase.assertFalse;
-import org.junit.After;
+
 import org.junit.Test;
 
 public class PokemonDatabaseModelTest extends AbstractDatabaseTest  {
-    
-    @After
-    public void tearDown() {
-        DatabaseModel.closeDatabase();
-        PokemonModel.clearAllPokemon();
-        PokemonTypeModel.resetAllPokemonType();
-    }
     
     @Test
     public void test_loadPokemonNotEmpty(){

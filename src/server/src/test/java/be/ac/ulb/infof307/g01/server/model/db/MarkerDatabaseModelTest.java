@@ -1,44 +1,23 @@
-package be.ac.ulb.infof307.g01.client.model.db;
+package test.java.be.ac.ulb.infof307.g01.server.model.db;
 
-import be.ac.ulb.infof307.g01.client.Main;
-import be.ac.ulb.infof307.g01.client.model.DatabaseModel;
-import be.ac.ulb.infof307.g01.client.model.MarkerModel;
-import be.ac.ulb.infof307.g01.client.model.PokemonModel;
-import be.ac.ulb.infof307.g01.client.model.PokemonTypeModel;
-import java.io.FileNotFoundException;
-import java.sql.SQLException;
+import be.ac.ulb.infof307.g01.server.model.MarkerModel;
+import be.ac.ulb.infof307.g01.server.model.PokemonModel;
+
+import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 import org.junit.*;
-import be.ac.ulb.infof307.g01.common.model.MarkerQueryModel;
 
-public class MarkerDatabaseModelTest {
-    
-    private static MarkerQueryModel _database;
+public class MarkerDatabaseModelTest extends AbstractDatabaseTest {
     private MarkerModel _markerToInsert;
     
-    @BeforeClass
-    public static void setUpClass() {
-        try {
-            _database = new DatabaseModel(Main.getTestDatabasePath());
-        } catch (SQLException | FileNotFoundException ex) {
-            System.err.println("SQL database not init");
-        }
-    }
-    
-    @AfterClass
-    public static void teamDownClass() {
-        DatabaseModel.closeDatabase();
-        PokemonModel.clearAllPokemon();
-        PokemonTypeModel.resetAllPokemonType();
-    }
-    
     @Before
-    public void setUp() throws Exception {
-        
+    @Override
+    public void setUp() {
+        super.setUp();
         PokemonModel Abomasnow = PokemonModel.getPokemonByName("Abomasnow");
         
         final int id = 0;
@@ -61,6 +40,7 @@ public class MarkerDatabaseModelTest {
      */
     @Test
     public void test_insertMarker_incrementsAmountsOfMarkers() {
+        System.out.println(_database);
         final int initialAmountOfMarkers = _database.getAllMarkers().size();
         _database.insertMarker(_markerToInsert);
         assertEquals(initialAmountOfMarkers+1, _database.getAllMarkers().size());
@@ -73,8 +53,8 @@ public class MarkerDatabaseModelTest {
     @Test
     public void test_getAllMarkers_returnsLastInserted() {
         _database.insertMarker(_markerToInsert);
-        ArrayList<MarkerModel> markers = _database.getAllMarkers();
-        MarkerModel loadedMarker = markers.get(markers.size()-1);
+        ArrayList<MarkerSendableModel> markers = _database.getAllMarkers();
+        MarkerSendableModel loadedMarker = markers.get(markers.size()-1);
         assertTrue(_markerToInsert.equals(loadedMarker));
     }
     

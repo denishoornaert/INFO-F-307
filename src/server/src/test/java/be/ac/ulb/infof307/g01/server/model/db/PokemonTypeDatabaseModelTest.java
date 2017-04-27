@@ -1,6 +1,7 @@
-package be.ac.ulb.infof307.g01.client.model.db;
+package test.java.be.ac.ulb.infof307.g01.server.model.db;
 
-import be.ac.ulb.infof307.g01.client.model.PokemonTypeModel;
+import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
+import be.ac.ulb.infof307.g01.server.model.PokemonTypeModel;
 
 import java.util.ArrayList;
 import static junit.framework.TestCase.assertEquals;
@@ -11,7 +12,7 @@ public class PokemonTypeDatabaseModelTest extends AbstractDatabaseTest {
     @Test
     public void test_getAllPokemonTypesDefaultValue() {
         PokemonTypeModel.resetAllPokemonType();
-        ArrayList<PokemonTypeModel> allPokemonTypes = PokemonTypeModel.getAllPokemonTypes();
+        ArrayList<PokemonTypeSendableModel> allPokemonTypes = PokemonTypeModel.getAllPokemonTypes();
         assertEquals(allPokemonTypes.size(), 1);
         assertEquals(allPokemonTypes.get(0).getTypeName(), "NONE");
     }

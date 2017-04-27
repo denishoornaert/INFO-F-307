@@ -1,4 +1,4 @@
-package be.ac.ulb.infof307.g01.client.model;
+package be.ac.ulb.infof307.g01.server.model;
 
 /** A vote on the reputation of a marker, can be up or down. */
 public enum ReputationVoteModel {

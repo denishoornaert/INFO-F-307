@@ -1,4 +1,4 @@
-package be.ac.ulb.infof307.g01.client.model;
+package be.ac.ulb.infof307.g01.server.model;
 
 import be.ac.ulb.infof307.g01.common.model.ReputationScoreSendableModel;
 

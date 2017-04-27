@@ -1,4 +1,4 @@
-package be.ac.ulb.infof307.g01.client.model;
+package be.ac.ulb.infof307.g01.server.model;
 
 import be.ac.ulb.infof307.g01.common.model.CoordinateSendableModel;
 import be.ac.ulb.infof307.g01.common.model.MarkerQueryModel;
@@ -10,7 +10,7 @@ import java.sql.Timestamp;
  */
 public class MarkerModel extends MarkerSendableModel {
     
-    private MarkerQueryModel _serverQuery;
+    private MarkerQueryModel _query;
     
     /**
      * Create a marker pokemon (call from gui)
@@ -27,7 +27,7 @@ public class MarkerModel extends MarkerSendableModel {
             String username, int lifePoint, int attack, int defense, Timestamp date) {
         this(pokemon, coordinate, username, lifePoint, attack, defense, date, 
                 0, 0);
-        _serverQuery.insertMarker(this);
+        _query.insertMarker(this);
     }
     
     /**
@@ -127,7 +127,7 @@ public class MarkerModel extends MarkerSendableModel {
      */
     public void voteUp() {
         getReputation().vote(ReputationVoteModel.UP);
-        _serverQuery.updateMarkerReputation(this);
+        _query.updateMarkerReputation(this);
     }
     
     /**
@@ -135,7 +135,7 @@ public class MarkerModel extends MarkerSendableModel {
      */
     public void voteDown() {
         getReputation().vote(ReputationVoteModel.DOWN);
-        _serverQuery.updateMarkerReputation(this);
+        _query.updateMarkerReputation(this);
     }
     
     // TODO Check to call Super
@@ -158,10 +158,6 @@ public class MarkerModel extends MarkerSendableModel {
     @Override
     public PokemonModel getPokemon() {
         return (PokemonModel) _pokemon;
-    }
-    
-    public String getPokemonName() {
-        return _pokemon.getName();
     }
     
     public String getImagePath() {
