@@ -5,16 +5,20 @@ import be.ac.ulb.infof307.g01.common.model.MarkerQueryModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonQueryModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonTypeQueryModel;
 import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import java.io.StringReader;
 import java.util.ArrayList;
-import javax.ws.rs.client.Entity;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ws.rs.core.MediaType;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
-
+/**
+ * Connect to server and handles client queries
+ */
 public class ServerQueryController implements MarkerQueryModel, PokemonQueryModel, PokemonTypeQueryModel {
     
     private WebResource _webResource;
@@ -33,7 +37,7 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
     
     private void connectClient() {
         Client client = Client.create();
-        _webResource = client.resource("http://localhost:8080/server/rest");
+        _webResource = client.resource("http://localhost:8080/server/rest").path("query");
         
         //String response = webResource.accept(MediaType.APPLICATION_XML)
         //        .get(String.class);
@@ -53,21 +57,47 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
         return null;
     }
 
-    private <T> T sendQuery(WebResource url, Class<T> className) {
+    /**
+     * Executes a GET HTTP request
+     * @param <T> the type of the object to get
+     * @param url the web resource's url
+     * @param className the class name of the expected object
+     * @return the expected object
+     */
+    private <T> T sendGetQuery(WebResource url, Class<T> className) {
         String response = url.accept(MediaType.APPLICATION_XML).get(String.class);
         return convertXmlToObject(response, className);
     }
     
+    /**
+     * Executes a POST HTTP request
+     * @param url the web resource's url
+     * @param postObject the object to post
+     * @return true if the request was accepted, false otherwise
+     */
+    private boolean sendPostQuery(WebResource url, Object postObject) {
+        ClientResponse response = url.accept(MediaType.APPLICATION_XML).post(ClientResponse.class, postObject);
+        switch (response.getClientResponseStatus()) {
+            case OK:
+            case ACCEPTED: 
+                return true;
+        }
+        return false;
+    }
+    
     @Override
     public void insertMarker(MarkerSendableModel marker) {
-        WebResource queryPath = _webResource.path("marker").path("insert");
-        queryPath.post(Entity.entity(marker, MediaType.APPLICATION_XML));
+        WebResource resource = _webResource.path("marker").path("insert");
+        if (!sendPostQuery(resource, marker)) {
+            Logger.getLogger(getClass().getName()).log(Level.WARNING, "Could not insert marker");
+        }
     }
 
     @Override
     public ArrayList<MarkerSendableModel> getAllMarkers() {
-        // TODO craete a test to check all elements are an instance of MarkerModel
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        WebResource resource = _webResource.path("marker").path("getall");
+        ArrayList<MarkerSendableModel> allMarkers = sendGetQuery(resource, ArrayList.class);
+        return allMarkers;
     }
 
     @Override

@@ -4,7 +4,6 @@ import java.sql.Timestamp;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-
 public class MarkerSendableModel {
     
     /** The ID of this marker in the database. With this attribute,

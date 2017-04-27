@@ -2,6 +2,8 @@ package be.ac.ulb.infof307.g01.client;
 
 import be.ac.ulb.infof307.g01.client.controller.AuthenticationController;
 import be.ac.ulb.infof307.g01.client.controller.MapController;
+import be.ac.ulb.infof307.g01.client.controller.ServerQueryController;
+import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
 import java.io.File;
 
 import javafx.application.Application;
@@ -58,6 +60,10 @@ public class Main extends Application {
     }
     
     public static void main(String[] args) {
+        
+        MarkerSendableModel markerSend = new MarkerSendableModel();
+        ServerQueryController.getInstance().insertMarker(markerSend);
+        
         launch(args);
     }  
     
