@@ -1,6 +1,12 @@
 package be.ac.ulb.infof307.g01.server;
 
+import be.ac.ulb.infof307.g01.common.model.CoordinateSendableModel;
+import be.ac.ulb.infof307.g01.common.model.MarkerQueryModel;
 import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
+import be.ac.ulb.infof307.g01.common.model.PokemonQueryModel;
+import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
+import be.ac.ulb.infof307.g01.common.model.PokemonTypeQueryModel;
+import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.Connection;
@@ -27,8 +33,8 @@ import java.util.logging.Logger;
  * // Now database allows to call only queries related to pokemon types.
  * }
  */
-public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseModel,
-        MarkerDatabaseModel {
+public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
+        MarkerQueryModel {
 
     private static DatabaseModel _instance = null;
 
@@ -135,7 +141,7 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
         try {
             while(result.next()) {
                 try {
-                    new PokemonTypeModel(result.getString("Name"));
+                    new PokemonTypeSendableModel(result.getString("Name"));
                 } catch(IllegalStateException exception) {
                     System.err.println(exception.getMessage());
                     break;
@@ -163,12 +169,12 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
                     String firstType = result.getString("T1Name");
                     String secondType = result.getString("T2Name");
                     if(secondType == null) {
-                        new PokemonModel(pokemonName,imagePath,
-                                PokemonTypeModel.getPokemonTypeByTypeName(firstType));
+                        new PokemonSendableModel(pokemonName,imagePath,
+                                PokemonTypeSendableModel.getPokemonTypeByTypeName(firstType));
                     } else {
-                        new PokemonModel(pokemonName,imagePath,
-                                PokemonTypeModel.getPokemonTypeByTypeName(firstType),
-                                PokemonTypeModel.getPokemonTypeByTypeName(secondType));
+                        new PokemonSendableModel(pokemonName,imagePath,
+                                PokemonTypeSendableModel.getPokemonTypeByTypeName(firstType),
+                                PokemonTypeSendableModel.getPokemonTypeByTypeName(secondType));
                     }
                 } catch(IllegalStateException exception) {
                     System.err.println(exception.getMessage());
@@ -185,7 +191,7 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
      * @param marker the marker to create in database
      */
     @Override
-    public void insertMarker(MarkerModel marker) {
+    public void insertMarker(MarkerSendableModel marker) {
         String query = "INSERT INTO Marker(PokemonId, Username, Latitude, Longitude, TimeStamp, UpVotes, DownVotes, LifePoint, Attack, Defense) "
                 + "VALUES("
                     + "(SELECT Id "
@@ -193,7 +199,7 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
                     + "WHERE Name=?), "
                 + "?, ?, ?, ?, 0, 0, ?, ?, ?);";
         try {
-            CoordinateModel markerCoordinate = marker.getCoordinate();
+            CoordinateSendableModel markerCoordinate = marker.getCoordinate();
             PreparedStatement statement = _connection.prepareStatement(query);
             String timestampString = marker.getTimestamp().toString();
             
@@ -202,9 +208,9 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
             statement.setDouble(3, markerCoordinate.getLatitude());
             statement.setDouble(4, markerCoordinate.getLongitude());
             statement.setString(5, timestampString);
-            statement.setInt(6, marker.getPokemonLife());
-            statement.setInt(7, marker.getPokemonAttack());
-            statement.setInt(8, marker.getPokemonDefense());
+            statement.setInt(6, marker.getLifePoint());
+            statement.setInt(7, marker.getAttack());
+            statement.setInt(8, marker.getDefense());
             statement.execute();
             
 
@@ -220,8 +226,8 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
      * @return a list of markers that are in database
      */
     @Override
-    public ArrayList<MarkerModel> getAllMarkers() {
-        ArrayList<MarkerModel> allMarkers = new ArrayList<>();
+    public ArrayList<MarkerSendableModel> getAllMarkers() {
+        ArrayList<MarkerSendableModel> allMarkers = new ArrayList<>();
         String query = "SELECT M.Id, M.Username, P.Name, M.Latitude, M.Longitude, M.TimeStamp, M.UpVotes, M.DownVotes, M.LifePoint, M.Attack, M.Defense "
                 + "FROM Marker M "
                 + "JOIN Pokemon P "
@@ -237,7 +243,7 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
         return allMarkers;
     }
 
-    private MarkerModel createMarker(ResultSet cursor) throws SQLException {
+    private MarkerSendableModel createMarker(ResultSet cursor) throws SQLException {
     	int i = 0;
         final int id = cursor.getInt(++i);
         final String username = cursor.getString(++i);
@@ -250,7 +256,15 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
         final int lifePoint = cursor.getInt(++i);
         final int attack = cursor.getInt(++i);
         final int defense = cursor.getInt(++i);
-        return new MarkerModel(id, username, pokemonName, latitude, longitude,
+        
+        /*
+        int databaseId, String username, 
+            PokemonSendableModel pokemon, CoordinateSendableModel coordinate, 
+            Timestamp timestamp, ReputationScoreSendableModel reputation, int lifePoint, 
+            int attack, int defense
+        */
+        
+        return new MarkerSendableModel(id, username, pokemonName, latitude, longitude,
                 Timestamp.valueOf(timestampString), upVotes, downVotes, lifePoint, attack, defense);
     }
 

@@ -17,7 +17,16 @@ public class PokemonTypeSendableModel {
      */
     protected static HashMap<String, PokemonTypeSendableModel> _allPokemonTypes = new HashMap<>();
     protected String _typeName;
-
+    
+    public PokemonTypeSendableModel() { } // Must exist
+    
+    public PokemonTypeSendableModel(String typeName) {
+        _typeName = typeName;
+        
+        _allPokemonTypes.put(_typeName, this);
+    }
+    
+    
     /**
      * Return the name of the type
      * @return the name of the type
@@ -48,10 +57,15 @@ public class PokemonTypeSendableModel {
     }
 
     /**
-     * @param aAllPokemonTypes the _allPokemonTypes to set
+     * @param aAllPokemonTypes the allPokemonTypes to set
      */
     public static void setAllPokemonTypes(HashMap<String, PokemonTypeSendableModel> aAllPokemonTypes) {
         _allPokemonTypes = aAllPokemonTypes;
+    }
+    
+    public static PokemonTypeSendableModel getPokemonTypeByTypeName(String typeName) {
+        PokemonTypeSendableModel result = _allPokemonTypes.get(typeName.toUpperCase());
+        return result;
     }
     
 }

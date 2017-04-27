@@ -8,6 +8,13 @@ public class ReputationScoreSendableModel {
     protected int _upVotes;
     protected int _downVotes;
     
+    public ReputationScoreSendableModel() { } // do not remove
+    
+    public ReputationScoreSendableModel(int upVotes, int downVotes) {
+        _upVotes = upVotes;
+        _downVotes = downVotes;
+    }
+    
     /**
      * @return the _upVotes
      */

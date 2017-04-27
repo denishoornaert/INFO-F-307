@@ -13,7 +13,27 @@ public class PokemonSendableModel {
     protected String _name;
     protected PokemonTypeSendableModel[] _type;
     protected String _imageName;
-
+    
+    public PokemonSendableModel() { } // Must exist
+    
+    public PokemonSendableModel(String pokemonName, String imagePath, 
+            PokemonTypeSendableModel pokemonType) {
+        this(pokemonName, imagePath, pokemonType, 
+            PokemonTypeSendableModel.getPokemonTypeByTypeName("NONE"));
+    }
+    
+    public PokemonSendableModel(String pokemonName, String imagePath, 
+            PokemonTypeSendableModel pokemonTypeOne, 
+            PokemonTypeSendableModel pokemonTypeTwo) {
+        _name = pokemonName;
+        _imageName = imagePath;
+        _type = new PokemonTypeSendableModel[2];
+        _type[0] = pokemonTypeOne;
+        _type[1] = pokemonTypeTwo;
+        
+        _allPokemon.put(pokemonName, this);
+    }
+    
     /**
      * Return the name of the Pokemon
      * @return the name of the Pokemon
@@ -82,6 +102,10 @@ public class PokemonSendableModel {
     
     public static ArrayList<String> getAllPokemonName() {
         return new ArrayList<>(_allPokemon.keySet());
+    }
+    
+    public static PokemonSendableModel getPokemonByName(String pokemonName) {
+        return _allPokemon.get(pokemonName);
     }
     
 }
