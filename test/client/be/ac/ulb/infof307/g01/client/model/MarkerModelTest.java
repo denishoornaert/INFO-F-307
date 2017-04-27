@@ -1,6 +1,5 @@
 package be.ac.ulb.infof307.g01.client.model;
 
-import be.ac.ulb.infof307.g01.client.model.db.AbstractDatabaseTest;
 import be.ac.ulb.infof307.g01.common.model.CoordinateSendableModel;
 import java.sql.Timestamp;
 import org.junit.Test;
@@ -10,10 +9,9 @@ import org.junit.Before;
 import static junit.framework.TestCase.assertEquals;
 
 
-public class MarkerModelTest extends AbstractDatabaseTest {
+public class MarkerModelTest {
     
     private static final String TYPE_NAME = "FIRE";
-    private static final PokemonTypeModel TYPE_TEST =  new PokemonTypeModel(TYPE_NAME);
     private static final PokemonModel TEST_POKEMON = new PokemonModel("arceus","", 
                 PokemonTypeModel.getPokemonTypeByTypeName(TYPE_NAME));
     private static final int LIFE_POINT = 10;
@@ -25,13 +23,10 @@ public class MarkerModelTest extends AbstractDatabaseTest {
     
     private static MarkerModel TEST_MARKER;
     
-    
     @Before
-    @Override
     public void setUp() {
-        super.setUp();
-       TEST_MARKER = new MarkerModel(TEST_POKEMON, 
-               TEST_COORDINATE,USERNAME,LIFE_POINT,ATTACK,DEFENSE,TIME);
+        TEST_MARKER = new MarkerModel(TEST_POKEMON, 
+               TEST_COORDINATE, USERNAME, LIFE_POINT, ATTACK, DEFENSE, TIME);
     }
     
     @Test
@@ -50,7 +45,7 @@ public class MarkerModelTest extends AbstractDatabaseTest {
     }  
     
     @Test
-    public void test_getDefence(){
+    public void test_getDefense(){
         assertEquals(TEST_MARKER.getPokemonDefense(), DEFENSE);
     }
     
