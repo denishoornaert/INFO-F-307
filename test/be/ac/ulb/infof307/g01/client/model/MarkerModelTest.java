@@ -28,7 +28,7 @@ public class MarkerModelTest extends AbstractDatabaseTest {
     @Before
     @Override
     public void setUp() {
-        super.setUp();
+       super.setUp();
        TEST_MARKER = new MarkerModel(TEST_POKEMON, 
                TEST_COORDINATE,USERNAME,LIFE_POINT,ATTACK,DEFENSE,TIME);
     }
