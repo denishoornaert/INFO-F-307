@@ -1,4 +1,4 @@
-package be.ac.ulb.infof307.g01.client.model;
+package be.ac.ulb.infof307.g01.server;
 
 import java.io.File;
 
@@ -7,22 +7,20 @@ import java.io.File;
  * magic numbers and magic string (relative paths, url, ...).
  * The class must be accesible from almst everywhere therefore we design it as a singleton.
  *
+ * @author Groupe01
  */
-public class Configuration {
+public class ServerConfiguration {
     
-    private static Configuration _configuration = null;
+    private static ServerConfiguration _configuration = null;
     
     private String _dataBasePath = "../../assets/Database.db";
     private String _testDataBasePath = "../../assets/Database.db";
-    private String _stylePath = "../../assets/bootstrap.css";
-    private String _unknownPokemonImagePath = "assets/unknown_pokemon.png";
-    private String _spritesPath = "../../assets/sprites/";
     
-    private Configuration() {}
+    private ServerConfiguration() {}
 
-    public static Configuration getInstance() {			
+    public static ServerConfiguration getInstance() {			
             if(_configuration == null) {
-                _configuration = new Configuration();	
+                _configuration = new ServerConfiguration();	
             }
             return _configuration;
     }
@@ -39,15 +37,4 @@ public class Configuration {
         return _testDataBasePath;
     }
     
-    public String getStylePath() {
-        return getCompletePath(_stylePath);
-    }
-    
-    public String getUnknownPokemonImagePath() {
-        return _unknownPokemonImagePath;
-    }
-    
-    public String getSpritesPath() {
-        return _spritesPath;
-    }
 }
