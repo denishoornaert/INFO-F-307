@@ -29,7 +29,7 @@ public class Main extends Application {
         
         // Create MapController & PanelController
         new MapController();
-        new PanelController();
+        PanelController.getInstance();
         
         _scene = new Scene(_layout);
         _scene.getStylesheets().add(Configuration.getInstance().getStylePath());

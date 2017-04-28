@@ -14,13 +14,6 @@ public class SignupPopUpController {
     }
     
     /**
-     * Close popup
-     */
-    public void cancel() {
-        _signup.close();
-    }
-    
-    /**
      * 
      * @param email user email
      * @param user username
@@ -28,5 +21,10 @@ public class SignupPopUpController {
      */
     public void submit(String email, String user, String password) {
         UserController.getInstance().register(email, user, password);
+        PanelController.getInstance().setUser();
+    }
+    
+    public void cancel() {
+        _signup.close();
     }
 }

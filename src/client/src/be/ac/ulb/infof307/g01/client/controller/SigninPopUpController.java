@@ -24,6 +24,7 @@ public class SigninPopUpController {
 	 */
 	public void authenticate(String username, String password) {
             UserController.getInstance().authenticate(username, password);
+            PanelController.getInstance().setUser();
 	}
         
         /**
