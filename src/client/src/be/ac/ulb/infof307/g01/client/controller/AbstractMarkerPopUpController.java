@@ -1,6 +1,6 @@
 package be.ac.ulb.infof307.g01.client.controller;
 
-import be.ac.ulb.infof307.g01.client.model.Configuration;
+import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
 import be.ac.ulb.infof307.g01.client.model.MarkerModel;
 import java.sql.Timestamp;
 
@@ -25,7 +25,7 @@ public abstract class AbstractMarkerPopUpController {
     public AbstractMarkerPopUpController(MarkerController markerController, int markerid) {
         _markerController = markerController;
         _marker = _markerController.getMarkerModelFromId(markerid);
-        _defaultImagePath = Configuration.getInstance().getUnknownPokemonImagePath();
+        _defaultImagePath = ClientConfiguration.getInstance().getUnknownPokemonImagePath();
     }
     
     public abstract void askForCreateMarker(double coordinateX, double coordinateY);
