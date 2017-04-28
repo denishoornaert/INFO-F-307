@@ -1,9 +1,7 @@
 package be.ac.ulb.infof307.g01.server.model.db;
 
-import be.ac.ulb.infof307.g01.server.model.MarkerModel;
-import be.ac.ulb.infof307.g01.server.model.PokemonModel;
-
 import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
+import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -12,13 +10,12 @@ import static junit.framework.TestCase.assertTrue;
 import org.junit.*;
 
 public class MarkerDatabaseModelTest extends AbstractDatabaseTest {
-    private MarkerModel _markerToInsert;
+    private MarkerSendableModel _markerToInsert;
     
     @Before
-    @Override
     public void setUp() {
         super.setUp();
-        PokemonModel Abomasnow = PokemonModel.getPokemonByName("Abomasnow");
+        PokemonSendableModel Abomasnow = PokemonSendableModel.getPokemonByName("Arceus");
         
         final int id = 0;
         final String username = "bidon";
@@ -31,7 +28,7 @@ public class MarkerDatabaseModelTest extends AbstractDatabaseTest {
         final int lifePoint = 0;
         final int attack = 0;
         final int defense = 0;
-        _markerToInsert = new MarkerModel(id, username, pokemonName, latitude, longitude,
+        _markerToInsert = new MarkerSendableModel(id, username, pokemonName, latitude, longitude,
                 timestamp, upVotes, downVotes,lifePoint,attack,defense);
     }
     

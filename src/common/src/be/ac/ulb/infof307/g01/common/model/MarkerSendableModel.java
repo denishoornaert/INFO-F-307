@@ -241,5 +241,11 @@ public class MarkerSendableModel {
     public void setDefense(int defense) {
         _defense = defense;
     }
+    
+    public boolean equals(MarkerSendableModel other) {
+        return _pokemon.getName().equals(other.getPokemonName())
+                && _timestamp.equals(other.getTimestamp())
+                && _coordinate.equals(other.getCoordinate());
+    }
 
 }

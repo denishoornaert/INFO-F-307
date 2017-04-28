@@ -126,12 +126,6 @@ public class MarkerModel extends MarkerSendableModel {
         return _pokemon.getImagePath();
     }
     
-    public boolean equals(MarkerModel other) {
-        return _pokemon.getName().equals(other.getPokemonName())
-                && _timestamp.equals(other.getTimestamp())
-                && _coordinate.equals(other.getCoordinate());
-    }
-    
     // TODO check method name
     public int getPokemonAttack() {
         return _attack;

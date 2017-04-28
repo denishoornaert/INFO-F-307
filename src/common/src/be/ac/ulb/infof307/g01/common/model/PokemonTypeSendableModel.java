@@ -21,8 +21,13 @@ public class PokemonTypeSendableModel {
     public PokemonTypeSendableModel() { } // Must exist
     
     public PokemonTypeSendableModel(String typeName) {
-        _typeName = typeName;
+        typeName = typeName.toUpperCase();
+        if(_allPokemonTypes.containsKey(typeName)) {
+            throw new IllegalStateException("PokemonType " + typeName + 
+                    " already created");
+        }
         
+        _typeName = typeName;
         _allPokemonTypes.put(_typeName, this);
     }
     
@@ -66,6 +71,15 @@ public class PokemonTypeSendableModel {
     public static PokemonTypeSendableModel getPokemonTypeByTypeName(String typeName) {
         PokemonTypeSendableModel result = _allPokemonTypes.get(typeName.toUpperCase());
         return result;
+    }
+    
+    /**
+     * Remove all existing PokemonType (and juste add NONE type)<br>
+     * Warning: only for test !
+     */
+    public static void resetAllPokemonType() {
+        _allPokemonTypes.clear();
+        _allPokemonTypes.put("NONE", new PokemonTypeSendableModel("NONE"));
     }
     
 }

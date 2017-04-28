@@ -60,19 +60,5 @@ public class PokemonModel extends PokemonSendableModel {
         }
         return (PokemonModel) res;
     }
-    
-    public static void clearAllPokemon() {
-        _allPokemon.clear();
-    }
-    
-    /**
-     * Get the number of loaded pokemon
-     * 
-     * @return number of pokemon 
-     * TODO renommer avec un nom plus logique, par exemple getNumberLoadedPokemons
-     */
-    public static int getSizePokemonModel(){
-        return _allPokemon.size();
-    }
 
 }

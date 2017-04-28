@@ -90,7 +90,6 @@ public class PokemonSendableModel {
                 Arrays.equals(otherPokemon._type, _type);
     }
     
-    
     /////////////// STATIC ///////////////
     
     /**
@@ -106,6 +105,20 @@ public class PokemonSendableModel {
     
     public static PokemonSendableModel getPokemonByName(String pokemonName) {
         return _allPokemon.get(pokemonName);
+    }
+    
+    public static void clearAllPokemon() {
+        _allPokemon.clear();
+    }
+    
+    /**
+     * Get the number of loaded pokemon
+     * 
+     * @return number of pokemon 
+     * TODO renommer avec un nom plus logique, par exemple getNumberLoadedPokemons
+     */
+    public static int getSizePokemonModel(){
+        return _allPokemon.size();
     }
     
 }
