@@ -43,7 +43,7 @@ public class MarkerModel extends MarkerSendableModel {
      * @param date the date of the marker
      * @param reputation of the marker
      */
-    private MarkerModel(PokemonModel pokemon, CoordinateSendableModel coordinate, 
+    public MarkerModel(PokemonModel pokemon, CoordinateSendableModel coordinate, 
             String username, int lifePoint, int attack, int defense, Timestamp date,
             int upVotes, int downVotes) {
         this(0, username, pokemon, coordinate, date, upVotes, downVotes, lifePoint, 
@@ -68,7 +68,7 @@ public class MarkerModel extends MarkerSendableModel {
             Timestamp timestamp, int upVotes, int downVotes, int lifePoint, int attack, int defense) {
         super(databaseId, username, pokemon, coordinate, timestamp.getTime(), 
                 new ReputationScoreModel(upVotes, downVotes), lifePoint, attack, defense);
-        _serverQuery = ServerQueryController.getInstance();
+        _serverQuery = (MarkerQueryModel) ServerQueryController.getInstance();
     }
     
     public int getReputationScore() {
@@ -125,12 +125,6 @@ public class MarkerModel extends MarkerSendableModel {
     
     public String getImagePath() {
         return _pokemon.getImagePath();
-    }
-    
-    public boolean equals(MarkerModel other) {
-        return _pokemon.getName().equals(other.getPokemonName())
-                && getTimestamp().equals(other.getTimestamp())
-                && _coordinate.equals(other.getCoordinate());
     }
     
     // TODO check method name

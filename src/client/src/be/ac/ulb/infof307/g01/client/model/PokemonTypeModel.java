@@ -19,14 +19,7 @@ public class PokemonTypeModel extends PokemonTypeSendableModel {
      * sert deja de factory. Seule PokemonTypeModel devrait pouvoir appeler le constructeur
      */
     public PokemonTypeModel(String typeName) {
-        typeName = typeName.toUpperCase();
-        if(_allPokemonTypes.containsKey(typeName)) {
-            throw new IllegalStateException("PokemonType " + typeName + 
-                    " already created");
-        }
-        
-        _typeName = typeName;
-        _allPokemonTypes.put(_typeName, this);
+        super(typeName);
     }
     
     
@@ -44,15 +37,6 @@ public class PokemonTypeModel extends PokemonTypeSendableModel {
             return (PokemonTypeModel) result;
         }
         return null;
-    }
-    
-    /**
-     * Remove all existing PokemonType (and juste add NONE type)<br>
-     * Warning: only for test !
-     */
-    public static void resetAllPokemonType() {
-        _allPokemonTypes.clear();
-        _allPokemonTypes.put("NONE", new PokemonTypeModel("NONE"));
     }
     
 }

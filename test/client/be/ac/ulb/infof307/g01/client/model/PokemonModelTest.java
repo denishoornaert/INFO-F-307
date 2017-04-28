@@ -24,7 +24,6 @@ public class PokemonModelTest {
         new PokemonTypeModel("FIRE");
         new PokemonTypeModel("ELECTRIC");
         
-        System.out.println("test marker pokemon model");
         arceus = new PokemonModel("arceus", "arceus.png",
                 PokemonTypeModel.getPokemonTypeByTypeName("DARK"));
     }
