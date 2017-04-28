@@ -58,4 +58,9 @@ public class MapController {
     public void clusterClicked(ArrayList<Integer> markersIds) {
         new ClusterPopUpController(_markerController, markersIds);
     }
+    
+    public MapView getView() {
+        return _mapView;
+    }
+    
 }

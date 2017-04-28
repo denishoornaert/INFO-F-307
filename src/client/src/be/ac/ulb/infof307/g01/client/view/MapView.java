@@ -52,8 +52,6 @@ public class MapView extends StackPane {
 
         // Add the webview to ourselves
         getChildren().add(_webView);
-        // Add ourselves to the main layout
-        Main.getBorderPane().setCenter(this);
     }
     
     /** Sets bridge member so that JavaScript event handlers can call Java functions. */

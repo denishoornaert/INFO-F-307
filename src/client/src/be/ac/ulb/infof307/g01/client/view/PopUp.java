@@ -1,7 +1,5 @@
 package be.ac.ulb.infof307.g01.client.view;
 
-import java.io.File;
-
 import be.ac.ulb.infof307.g01.client.Main;
 import be.ac.ulb.infof307.g01.client.model.Configuration;
 import javafx.collections.ObservableList;

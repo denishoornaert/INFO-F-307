@@ -1,6 +1,5 @@
 package be.ac.ulb.infof307.g01.client.controller;
 
-import be.ac.ulb.infof307.g01.client.Main;
 import be.ac.ulb.infof307.g01.client.view.PanelView;
 
 /**
@@ -13,7 +12,6 @@ public class PanelController {
     
     public PanelController() {
         _panelView = new PanelView(this);
-        Main.getBorderPane().setLeft(_panelView);
     }
     
     private void setUser() {
@@ -30,6 +28,10 @@ public class PanelController {
         // Create Sign Up controller
         new SignupPopUpController();
         
+    }
+    
+    public PanelView getView() {
+        return _panelView;
     }
     
 }

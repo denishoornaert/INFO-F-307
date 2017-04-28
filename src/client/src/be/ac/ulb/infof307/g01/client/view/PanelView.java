@@ -32,7 +32,6 @@ public class PanelView extends VBox{
         initWidgets();
         placeWidgets();
         initStyle();
-        Main.getBorderPane().setLeft(this);
     }
     
     private void initWidgets(){
