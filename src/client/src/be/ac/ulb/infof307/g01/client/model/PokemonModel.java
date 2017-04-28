@@ -10,7 +10,8 @@ import java.util.NoSuchElementException;
  */
 public class PokemonModel extends PokemonSendableModel {
     
-    private static final String _pathPrefix = "../../assets" + File.separator + "sprites" + File.separator;
+    private static final String _pathPrefix = "../../assets" + File.separator 
+            + "client" + File.separator + "sprites" + File.separator;
     
     public PokemonModel(String name, String imagePath) {
         // TODO query to get the corresponding type.

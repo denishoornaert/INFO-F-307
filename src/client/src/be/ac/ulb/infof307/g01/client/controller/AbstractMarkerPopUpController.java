@@ -13,7 +13,7 @@ public abstract class AbstractMarkerPopUpController {
     
     protected AbstractMarkerPopUp _markerPopUp;
     /** Coordinates associated to the current pop-up. */
-    protected final static String _defaultImagePath = "assets/unknown_pokemon.png";
+    protected final static String _defaultImagePath = "assets/client/unknown_pokemon.png";
     protected MarkerController _markerController;
     protected MarkerModel _marker;
  

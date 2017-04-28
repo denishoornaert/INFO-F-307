@@ -37,6 +37,9 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
         MarkerQueryModel {
 
     private static DatabaseModel _instance = null;
+    private static final String FOLDER_DATABSE = "/home/remy/Documents/"
+            + "BA3/GénieLogiciel/Groupe01/assets/server/";
+    
 
     /**
      * The database connection
@@ -45,7 +48,7 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
 
     public static DatabaseModel getInstance() {
         if(_instance == null) {
-            _instance = new DatabaseModel("../../assets/Database.db");
+            _instance = new DatabaseModel(FOLDER_DATABSE + "Database.db");
         }
         return _instance;
     }
@@ -203,9 +206,11 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
     /**
      * Create a new marker in database
      * @param marker the marker to create in database
+     * @return True if all is ok, false otherwise
      */
     @Override
-    public void insertMarker(MarkerSendableModel marker) {
+    public boolean insertMarker(MarkerSendableModel marker) {
+        boolean result = false;
         String query = "INSERT INTO Marker(PokemonId, Username, Latitude, Longitude, TimeStamp, UpVotes, DownVotes, LifePoint, Attack, Defense) "
                 + "VALUES("
                     + "(SELECT Id "
@@ -231,9 +236,11 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
 
             final int generatedId = statement.getGeneratedKeys().getInt(1);
             marker.setDatabaseId(generatedId);
+            result = true;
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseModel.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return result;
     }
 
     /**
@@ -297,17 +304,6 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseModel.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    ///////////////////// STATIC /////////////////////
-
-    /**
-     * Return the instance of database (to make queries)
-     *
-     * @return the DatabaseModel instance
-     */
-    public static DatabaseModel getDatabase() {
-        return _instance;
     }
 
 }

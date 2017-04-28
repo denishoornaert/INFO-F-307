@@ -54,7 +54,7 @@ public abstract class PopUp extends Stage {
     }
 
     private void initStyle() {
-        _scene.getStylesheets().add(new File("../../assets/bootstrap.css").toURI().toString());
+        _scene.getStylesheets().add(new File("../../assets/client/bootstrap.css").toURI().toString());
         _layout.setStyle(""
                 + "-fx-background-color: #d2d7dd;"
                 + "-fx-padding: 10;-fx-spacing: 5;"

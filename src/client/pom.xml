@@ -28,7 +28,7 @@
         <testSourceDirectory>../../test/client</testSourceDirectory>
         <resources>
             <resource>
-                <directory>../../assets</directory>
+                <directory>../../assets/client</directory>
             </resource>
         </resources>
     </build>

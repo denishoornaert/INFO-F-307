@@ -9,6 +9,8 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ws.rs.core.MediaType;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -85,21 +87,23 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
     }
     
     @Override
-    public void insertMarker(MarkerSendableModel marker) {
+    public boolean insertMarker(MarkerSendableModel marker) {
+        boolean result = true;
         WebResource resource = _webResource.path("marker").path("insert");
         
-        ClientResponse response = resource.accept(MediaType.APPLICATION_XML)
-                .post(ClientResponse.class, marker);
-        System.out.println("Response: " + response.getClientResponseStatus());
-        
-//        if (!sendPostQuery(resource, marker)) {
-//            Logger.getLogger(getClass().getName()).log(Level.WARNING, "Could not insert marker");
-//        }
+        if (!sendPostQuery(resource, marker)) {
+            Logger.getLogger(getClass().getName()).log(Level.WARNING, "Could not insert marker");
+            result = false;
+        }
+        return result;
     }
 
     @Override
     public ArrayList<MarkerSendableModel> getAllMarkers() {
-//        WebResource resource = _webResource.path("marker").path("getall");
+        WebResource resource = _webResource.path("marker").path("getall");
+        String response = resource.accept(MediaType.APPLICATION_XML).get(String.class);
+        System.out.println("Reponse: " + response);
+        
 //        ArrayList<MarkerSendableModel> allMarkers = sendGetQuery(resource, ArrayList.class);
         return new ArrayList<MarkerSendableModel>();
     }

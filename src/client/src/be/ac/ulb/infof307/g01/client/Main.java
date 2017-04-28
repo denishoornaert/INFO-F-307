@@ -2,12 +2,7 @@ package be.ac.ulb.infof307.g01.client;
 
 import be.ac.ulb.infof307.g01.client.controller.AuthenticationController;
 import be.ac.ulb.infof307.g01.client.controller.MapController;
-import be.ac.ulb.infof307.g01.client.controller.ServerQueryController;
-import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
-import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
-import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
 import java.io.File;
-import java.sql.Timestamp;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -45,7 +40,7 @@ public class Main extends Application {
         new MapController();
         
         _scene = new Scene(_layout);
-        _scene.getStylesheets().add(new File("../../assets/bootstrap.css").toURI().toString());
+        _scene.getStylesheets().add(new File("../../assets/client/bootstrap.css").toURI().toString());
         stage.setScene(_scene);
         
         stage.show();
@@ -64,13 +59,18 @@ public class Main extends Application {
     
     public static void main(String[] args) {
         
-        PokemonTypeSendableModel pokemonType = new PokemonTypeSendableModel("typeTest");
-        MarkerSendableModel markerSend = new MarkerSendableModel(12,
-            "test", new PokemonSendableModel("name", "path", pokemonType), 
-                5, 12, new Timestamp(System.currentTimeMillis()).getTime(), 3, 1,
-            5, 7, 9);
-        ServerQueryController.getInstance().insertMarker(markerSend);
+        // TODO remove test
+//        ArrayList<MarkerSendableModel> allMarker = ServerQueryController.getInstance().getAllMarkers();
+//        for(MarkerSendableModel mark : allMarker) {
+//            System.out.println("Marker !");
+//        }
         
+//        PokemonTypeSendableModel pokemonType = new PokemonTypeSendableModel("typeTest");
+//        MarkerSendableModel markerSend = new MarkerSendableModel(12,
+//            "test", new PokemonSendableModel("name", "path", pokemonType), 
+//                5, 12, new Timestamp(System.currentTimeMillis()).getTime(), 3, 1,
+//            5, 7, 9);
+//        ServerQueryController.getInstance().insertMarker(markerSend);
         launch(args);
     }  
     
