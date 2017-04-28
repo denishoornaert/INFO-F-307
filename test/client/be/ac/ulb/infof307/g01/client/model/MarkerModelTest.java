@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import org.junit.Before;
 import static junit.framework.TestCase.assertEquals;
+import org.junit.After;
 
 
 public class MarkerModelTest {
@@ -17,6 +18,8 @@ public class MarkerModelTest {
     private static final int LIFE_POINT = 10;
     private static final int DEFENSE = 3;
     private static final int ATTACK = 8;
+    private static final int VOTE_UP = 0;
+    private static final int VOTE_DOWN = 0;
     private static final Timestamp TIME = new Timestamp(System.currentTimeMillis());
     private static final String USERNAME = "bidon";
     private static final CoordinateSendableModel TEST_COORDINATE = new CoordinateSendableModel(69, 42);
@@ -26,7 +29,12 @@ public class MarkerModelTest {
     @Before
     public void setUp() {
         TEST_MARKER = new MarkerModel(TEST_POKEMON, 
-               TEST_COORDINATE, USERNAME, LIFE_POINT, ATTACK, DEFENSE, TIME);
+               TEST_COORDINATE, USERNAME, LIFE_POINT, ATTACK, DEFENSE, TIME, VOTE_UP, VOTE_DOWN);
+    }
+    
+    @After
+    public void tearDown() {
+        PokemonModel.clearAllPokemon();
     }
     
     @Test
@@ -62,7 +70,7 @@ public class MarkerModelTest {
     @Test
     public void test_Equals(){
         MarkerModel OtherTestMarker = new MarkerModel(TEST_POKEMON, 
-               TEST_COORDINATE,USERNAME,LIFE_POINT,ATTACK,DEFENSE,TIME);
+               TEST_COORDINATE, USERNAME, LIFE_POINT, ATTACK, DEFENSE, TIME, VOTE_UP, VOTE_DOWN);
         assertEquals(TEST_MARKER.equals(OtherTestMarker),true);
     }
     
