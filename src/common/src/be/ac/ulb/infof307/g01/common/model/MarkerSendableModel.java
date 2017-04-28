@@ -1,6 +1,5 @@
 package be.ac.ulb.infof307.g01.common.model;
 
-import java.sql.Timestamp;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -13,7 +12,7 @@ public class MarkerSendableModel {
     protected String _username; // TODO may be final
     protected PokemonSendableModel _pokemon;
     protected CoordinateSendableModel _coordinate;
-    protected Timestamp _timestamp;
+    protected Long _longTimestamp;
     protected ReputationScoreSendableModel _reputation;
     protected int _lifePoint, _attack, _defense;
     
@@ -35,7 +34,7 @@ public class MarkerSendableModel {
      * @param defense pokemon defense stat
      */
     public MarkerSendableModel(int databaseId, String username, String pokemonName, double latitude, double longitude, 
-            Timestamp timestamp, int upVotes, int downVotes, int lifePoint, int attack, int defense) {
+            Long timestamp, int upVotes, int downVotes, int lifePoint, int attack, int defense) {
         this(databaseId, username, PokemonSendableModel.getPokemonByName(pokemonName), latitude,
                 longitude, timestamp, upVotes, downVotes, lifePoint, attack,
                 defense);
@@ -59,7 +58,7 @@ public class MarkerSendableModel {
      */
     public MarkerSendableModel(int databaseId, String username, 
             PokemonSendableModel pokemon, double latitude, double longitude, 
-            Timestamp timestamp, int upVotes, int downVotes, int lifePoint, 
+            Long timestamp, int upVotes, int downVotes, int lifePoint, 
             int attack, int defense) {
         this(databaseId, username, pokemon, new CoordinateSendableModel(latitude, longitude), timestamp, 
                 new ReputationScoreSendableModel(upVotes, downVotes), lifePoint, attack, defense);
@@ -81,14 +80,14 @@ public class MarkerSendableModel {
      */
     protected MarkerSendableModel(int databaseId, String username, 
             PokemonSendableModel pokemon, CoordinateSendableModel coordinate, 
-            Timestamp timestamp, ReputationScoreSendableModel reputation, int lifePoint, 
+            Long timestamp, ReputationScoreSendableModel reputation, int lifePoint, 
             int attack, int defense) {
         
     	_username = username;
         _databaseId = databaseId;
         _pokemon = pokemon;
         _coordinate = coordinate;
-        _timestamp = timestamp;
+        _longTimestamp = timestamp;
         _reputation = reputation;
         _lifePoint = lifePoint;
         _attack = attack;
@@ -163,21 +162,15 @@ public class MarkerSendableModel {
     public void setCoordinate(CoordinateSendableModel coordinate) {
         this._coordinate = coordinate;
     }
-
-    /**
-     * @return the timestamp
-     */
-    public Timestamp getTimestamp() {
-        return _timestamp;
+    
+    public Long getLongTimestamp() {
+        return _longTimestamp;
     }
-
-    /**
-     * @param _timestamp the timestamp to set
-     */
-    public void setTimestamp(Timestamp timestamp) {
-        this._timestamp = timestamp;
+    
+    public void setLongTimestamp(Long newLongTimestamp) {
+        _longTimestamp = newLongTimestamp;
     }
-
+    
     /**
      * @return the reputation
      */

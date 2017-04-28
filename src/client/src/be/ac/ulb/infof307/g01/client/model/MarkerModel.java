@@ -66,7 +66,7 @@ public class MarkerModel extends MarkerSendableModel {
      */
     public MarkerModel(int databaseId, String username, PokemonModel pokemon, CoordinateSendableModel coordinate, 
             Timestamp timestamp, int upVotes, int downVotes, int lifePoint, int attack, int defense) {
-        super(databaseId, username, pokemon, coordinate, timestamp, 
+        super(databaseId, username, pokemon, coordinate, timestamp.getTime(), 
                 new ReputationScoreModel(upVotes, downVotes), lifePoint, attack, defense);
         _serverQuery = ServerQueryController.getInstance();
     }
@@ -97,20 +97,21 @@ public class MarkerModel extends MarkerSendableModel {
     }
     
     // TODO Check to call Super
-    @Override
     public void setTimestamp(Timestamp newTimestamp) {
-        _timestamp = newTimestamp;
         // TODO Set timestamp in DB
         // So for the moment :
-        _timestamp = new Timestamp(System.currentTimeMillis());
+        newTimestamp = new Timestamp(System.currentTimeMillis());
+        super.setLongTimestamp(newTimestamp.getTime());
     }
     
-    @Override
     public Timestamp getTimestamp() {
-        if(_timestamp == null) {
-            return new Timestamp(System.currentTimeMillis());
+        Timestamp timestamp;
+        Long longTimestamp = super.getLongTimestamp();
+        if(longTimestamp == null || longTimestamp == 0) {
+            longTimestamp = System.currentTimeMillis();
         }
-        return _timestamp;
+        timestamp = new Timestamp(longTimestamp);
+        return timestamp;
     }
     
     @Override
@@ -128,7 +129,7 @@ public class MarkerModel extends MarkerSendableModel {
     
     public boolean equals(MarkerModel other) {
         return _pokemon.getName().equals(other.getPokemonName())
-                && _timestamp.equals(other.getTimestamp())
+                && getTimestamp().equals(other.getTimestamp())
                 && _coordinate.equals(other.getCoordinate());
     }
     
@@ -152,10 +153,10 @@ public class MarkerModel extends MarkerSendableModel {
     public void update(PokemonModel pokemon, int lifePoint, int attack, int defense, 
             Timestamp timestamp) {
         // TODO : call database
-        _pokemon = pokemon;
-        _timestamp = timestamp;
-        _lifePoint = lifePoint;
-        _attack = attack;
-        _defense = defense;
+        setPokemon(pokemon);
+        setTimestamp(timestamp);
+        setLifePoint(lifePoint);
+        setAttack(attack);
+        setDefense(defense);
     }
 }

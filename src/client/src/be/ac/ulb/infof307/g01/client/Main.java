@@ -4,7 +4,10 @@ import be.ac.ulb.infof307.g01.client.controller.AuthenticationController;
 import be.ac.ulb.infof307.g01.client.controller.MapController;
 import be.ac.ulb.infof307.g01.client.controller.ServerQueryController;
 import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
+import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
+import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
 import java.io.File;
+import java.sql.Timestamp;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -61,7 +64,11 @@ public class Main extends Application {
     
     public static void main(String[] args) {
         
-        MarkerSendableModel markerSend = new MarkerSendableModel();
+        PokemonTypeSendableModel pokemonType = new PokemonTypeSendableModel("typeTest");
+        MarkerSendableModel markerSend = new MarkerSendableModel(12,
+            "test", new PokemonSendableModel("name", "path", pokemonType), 
+                5, 12, new Timestamp(System.currentTimeMillis()).getTime(), 3, 1,
+            5, 7, 9);
         ServerQueryController.getInstance().insertMarker(markerSend);
         
         launch(args);

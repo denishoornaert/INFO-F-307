@@ -215,7 +215,8 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
         try {
             CoordinateSendableModel markerCoordinate = marker.getCoordinate();
             PreparedStatement statement = _connection.prepareStatement(query);
-            String timestampString = marker.getTimestamp().toString();
+            Timestamp timestamp = new Timestamp(marker.getLongTimestamp());
+            String timestampString = timestamp.toString();
             
             statement.setString(1, marker.getPokemonName());
             statement.setString(2, marker.getUsername());
@@ -271,15 +272,9 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
         final int attack = cursor.getInt(++i);
         final int defense = cursor.getInt(++i);
         
-        /*
-        int databaseId, String username, 
-            PokemonSendableModel pokemon, CoordinateSendableModel coordinate, 
-            Timestamp timestamp, ReputationScoreSendableModel reputation, int lifePoint, 
-            int attack, int defense
-        */
-        
         return new MarkerSendableModel(id, username, pokemonName, latitude, longitude,
-                Timestamp.valueOf(timestampString), upVotes, downVotes, lifePoint, attack, defense);
+                Timestamp.valueOf(timestampString).getTime(), upVotes, 
+                downVotes, lifePoint, attack, defense);
     }
 
     @Override
