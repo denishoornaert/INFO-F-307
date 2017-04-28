@@ -76,7 +76,8 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
      * @return true if the request was accepted, false otherwise
      */
     private boolean sendPostQuery(WebResource url, Object postObject) {
-        ClientResponse response = url.accept(MediaType.APPLICATION_XML).post(ClientResponse.class, postObject);
+        ClientResponse response = url.accept(MediaType.APPLICATION_XML)
+                .post(ClientResponse.class, postObject);
         switch (response.getClientResponseStatus()) {
             case OK:
             case ACCEPTED: 

@@ -1,5 +1,6 @@
 package be.ac.ulb.infof307.g01.client.model;
 
+import be.ac.ulb.infof307.g01.client.controller.ServerQueryController;
 import be.ac.ulb.infof307.g01.common.model.CoordinateSendableModel;
 import be.ac.ulb.infof307.g01.common.model.MarkerQueryModel;
 import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
@@ -67,6 +68,7 @@ public class MarkerModel extends MarkerSendableModel {
             Timestamp timestamp, int upVotes, int downVotes, int lifePoint, int attack, int defense) {
         super(databaseId, username, pokemon, coordinate, timestamp, 
                 new ReputationScoreModel(upVotes, downVotes), lifePoint, attack, defense);
+        _serverQuery = ServerQueryController.getInstance();
     }
     
     public int getReputationScore() {
