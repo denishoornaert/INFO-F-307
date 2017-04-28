@@ -17,7 +17,7 @@ public class MarkerSendableModel {
     protected ReputationScoreSendableModel _reputation;
     protected int _lifePoint, _attack, _defense;
     
-    public MarkerSendableModel() {} // Should not be remove
+    public MarkerSendableModel() {} // Should not be removed
     
     /**
      * Constructor to create marker in memory (not in database)
@@ -144,10 +144,10 @@ public class MarkerSendableModel {
     }
     
     /**
-     * @param _pokemon the pokemon to set
+     * @param pokemon the pokemon to set
      */
-    public void setPokemon(PokemonSendableModel _pokemon) {
-        this._pokemon = _pokemon;
+    public void setPokemon(PokemonSendableModel pokemon) {
+        this._pokemon = pokemon;
     }
 
     /**
@@ -158,10 +158,10 @@ public class MarkerSendableModel {
     }
 
     /**
-     * @param _coordinate the coordinate to set
+     * @param coordinate the coordinate to set
      */
-    public void setCoordinate(CoordinateSendableModel _coordinate) {
-        this._coordinate = _coordinate;
+    public void setCoordinate(CoordinateSendableModel coordinate) {
+        this._coordinate = coordinate;
     }
 
     /**
@@ -174,8 +174,8 @@ public class MarkerSendableModel {
     /**
      * @param _timestamp the timestamp to set
      */
-    public void setTimestamp(Timestamp _timestamp) {
-        this._timestamp = _timestamp;
+    public void setTimestamp(Timestamp timestamp) {
+        this._timestamp = timestamp;
     }
 
     /**
@@ -194,10 +194,10 @@ public class MarkerSendableModel {
     }
     
     /**
-     * @param _reputation the reputation to set
+     * @param reputation the reputation to set
      */
-    public void setReputation(ReputationScoreSendableModel _reputation) {
-        this._reputation = _reputation;
+    public void setReputation(ReputationScoreSendableModel reputation) {
+        this._reputation = reputation;
     }
 
     /**
@@ -208,10 +208,10 @@ public class MarkerSendableModel {
     }
 
     /**
-     * @param _lifePoint the lifePoint to set
+     * @param lifePoint the lifePoint to set
      */
-    public void setLifePoint(int _lifePoint) {
-        this._lifePoint = _lifePoint;
+    public void setLifePoint(int lifePoint) {
+        this._lifePoint = lifePoint;
     }
 
     /**
@@ -222,10 +222,10 @@ public class MarkerSendableModel {
     }
 
     /**
-     * @param _attack the attack to set
+     * @param attack the _attack to set
      */
-    public void setAttack(int _attack) {
-        this._attack = _attack;
+    public void setAttack(int attack) {
+        _attack = attack;
     }
 
     /**
@@ -236,10 +236,10 @@ public class MarkerSendableModel {
     }
 
     /**
-     * @param _defense the defense to set
+     * @param defense the defense to set
      */
-    public void setDefense(int _defense) {
-        this._defense = _defense;
+    public void setDefense(int defense) {
+        _defense = defense;
     }
 
 }

@@ -41,7 +41,6 @@ public class PokemonTypeService {
     public PokemonTypeSendableModel getAllTypes() {
         PokemonTypeSendableModel pokemonType = new PokemonTypeSendableModel();
         // TODO
-        
         return pokemonType;
     }
     

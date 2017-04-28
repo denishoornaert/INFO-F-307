@@ -3,9 +3,6 @@ package be.ac.ulb.infof307.g01.client.model;
 import junit.framework.TestCase;
 import org.junit.Test;
 
-import be.ac.ulb.infof307.g01.client.model.ReputationScoreModel;
-import be.ac.ulb.infof307.g01.client.model.ReputationVoteModel;
-
 public class ReputationScoreModelTest extends TestCase {
     
     private final int _upVotes = 42;
@@ -25,7 +22,7 @@ public class ReputationScoreModelTest extends TestCase {
     
     @Test
     public void test_voteDown_normal() {
-        int n = 7;
+        int n = 7;  // arbitrary number
         for (int k = 0; k < n; k++) {
             _score.vote(ReputationVoteModel.DOWN);
         }
@@ -35,7 +32,7 @@ public class ReputationScoreModelTest extends TestCase {
     
     @Test
     public void test_voteUp_normal() {
-        int n = 19;
+        int n = 19;  // arbitrary and cute number
         for (int k = 0; k < n; k++) {
             _score.vote(ReputationVoteModel.UP);
         }

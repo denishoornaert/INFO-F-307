@@ -59,5 +59,10 @@ public class CoordinateSendableModel {
         return getLatitude() == other.getLatitude() && getLongitude() == other.getLongitude();
     }
     
+    @Override
+    public String toString() {
+        return "(" + getLatitude() + ", " + getLongitude() + ")";
+    }
+    
     
 }

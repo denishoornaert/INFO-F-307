@@ -1,6 +1,7 @@
 package be.ac.ulb.infof307.g01.server;
 
 import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
+import be.ac.ulb.infof307.g01.server.model.DatabaseModel;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
