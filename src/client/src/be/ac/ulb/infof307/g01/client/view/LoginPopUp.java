@@ -10,6 +10,9 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.TextField;
 
+/**
+ * TODO description
+ */
 public class LoginPopUp extends PopUp {
 	private final AuthenticationController _controller;
     private VBox _vbox;

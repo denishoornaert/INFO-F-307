@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class CoordinateSendableModel {
 
-    // Check if it must be "final"
+    // TODO Check if it must be "final"
     private double _latitude;
     private double _longitude;
     

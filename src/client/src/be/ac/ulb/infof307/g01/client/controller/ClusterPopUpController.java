@@ -6,8 +6,9 @@ import be.ac.ulb.infof307.g01.client.view.ClusterPopUp;
 import java.util.ArrayList;
 
 /**
- *
- * @author hoornaert
+ * TODO description
+ * 
+ * @author Groupe01
  */
 public class ClusterPopUpController {
     

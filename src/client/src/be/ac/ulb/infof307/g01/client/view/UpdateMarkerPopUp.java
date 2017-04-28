@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package be.ac.ulb.infof307.g01.client.view;
 
-import be.ac.ulb.infof307.g01.client.view.AbstractMarkerPopUp;
 import be.ac.ulb.infof307.g01.client.controller.UpdateMarkerPopUpController;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -18,8 +12,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 
 /**
- *
- * @author hoornaert
+ * TODO description
+ * @author Groupe01
  */
 public class UpdateMarkerPopUp extends AbstractMarkerPopUp {
     

@@ -1,4 +1,4 @@
-package test.java.be.ac.ulb.infof307.g01.server.model.db;
+package be.ac.ulb.infof307.g01.server.model.db;
 
 import be.ac.ulb.infof307.g01.server.model.MarkerModel;
 import be.ac.ulb.infof307.g01.server.model.PokemonModel;

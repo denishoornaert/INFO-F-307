@@ -7,8 +7,9 @@ import be.ac.ulb.infof307.g01.client.model.PokemonModel;
 import be.ac.ulb.infof307.g01.client.view.NewMarkerPopUp;
 
 /**
- *
- * @author hoornaert
+ * TODO description
+ * 
+ * @author Groupe01
  */
 public class NewMarkerPopUpController extends AbstractMarkerPopUpController {
     

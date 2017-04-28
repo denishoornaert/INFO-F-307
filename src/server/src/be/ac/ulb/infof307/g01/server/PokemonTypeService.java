@@ -7,10 +7,11 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 /**
- *
+ * TODO description
  * @author Groupe 1
  */
 @Path("/pokemontype")
+@Deprecated
 public class PokemonTypeService {
     
     

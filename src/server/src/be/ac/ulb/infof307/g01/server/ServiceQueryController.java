@@ -6,6 +6,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  * Respond to request of client with jersey
@@ -13,14 +14,16 @@ import javax.ws.rs.core.MediaType;
  * @author Groupe 1
  */
 @Path("/query")
-public class ServerQueryController {
+public class ServiceQueryController {
     
     @POST
     @Produces(MediaType.APPLICATION_XML)
     @Path("marker/insert")
-    public void insertMarker(MarkerSendableModel marker) {
+    public Response insertMarker(MarkerSendableModel marker) {
         System.out.println("Réception InsertMarker !!");
         DatabaseModel.getDatabase().insertMarker(marker);
+        
+        return Response.status(201).entity(marker).build();
     }
     
 }

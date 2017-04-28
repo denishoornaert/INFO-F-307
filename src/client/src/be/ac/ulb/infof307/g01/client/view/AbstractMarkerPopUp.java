@@ -22,8 +22,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 /**
- *
- * @author hoornaert
+ * TODO add description
+ * 
+ * @author Groupe01
  */
 public abstract class AbstractMarkerPopUp extends InformationPopUp {
     
@@ -46,11 +47,14 @@ public abstract class AbstractMarkerPopUp extends InformationPopUp {
     protected final AbstractMarkerPopUpController _controller;
     protected final MarkerModel _markerModel;
     
-    public AbstractMarkerPopUp(AbstractMarkerPopUpController controller, ArrayList<String> pokemonsName) {
-        this(controller, pokemonsName, 0); // TODO : très moche magic number. dois être rectifier mais j'ai la flemme...
+    public AbstractMarkerPopUp(AbstractMarkerPopUpController controller, 
+            ArrayList<String> pokemonsName) {
+        // TODO : très moche magic number. dois être rectifier mais j'ai la flemme...
+        this(controller, pokemonsName, 0); 
     }
     
-    public AbstractMarkerPopUp(AbstractMarkerPopUpController controller, ArrayList<String> pokemonsName, int markerId) {
+    public AbstractMarkerPopUp(AbstractMarkerPopUpController controller, 
+            ArrayList<String> pokemonsName, int markerId) {
         super();
         _pokemonNames = new ArrayList<>(pokemonsName);
         MarkerController markerController = controller.getMarkerController();
@@ -208,10 +212,13 @@ public abstract class AbstractMarkerPopUp extends InformationPopUp {
     }
     
     private void placeWidgets() {
-        HBox hboxDates = placeInRow(_dateHour, _dateHourLabel, _dateMinute, _dateMinuteLabel);
-        HBox hboxSpinner = placeInRow(_lifeLabel, _lifeSpinner, _attackLabel, _attackSpinner, _defenseLabel, _defenseSpinner);
+        HBox hboxDates = placeInRow(_dateHour, _dateHourLabel, _dateMinute, 
+                _dateMinuteLabel);
+        HBox hboxSpinner = placeInRow(_lifeLabel, _lifeSpinner, _attackLabel,
+                _attackSpinner, _defenseLabel, _defenseSpinner);
         HBox hboxButtons = placeInRow(_closeButton, _okButton);
-        VBox vboxDataEntries = placeInColumn(_pokemonName, hboxSpinner, _dateMonthYear, hboxDates, hboxButtons);
+        VBox vboxDataEntries = placeInColumn(_pokemonName, hboxSpinner, 
+                _dateMonthYear, hboxDates, hboxButtons);
         super.add(vboxDataEntries);
     }
 
