@@ -7,17 +7,11 @@ import be.ac.ulb.infof307.g01.client.view.SignupPopUp;
  * and storing its user name.
  */
 public class SignupPopUpController {
+    
     private SignupPopUp _signup;
 	
     public SignupPopUpController() {
         _signup = new SignupPopUp(this);
-    }
-    
-    /**
-     * Close popup
-     */
-    public void cancel() {
-        _signup.close();
     }
     
     /**
@@ -28,5 +22,9 @@ public class SignupPopUpController {
      */
     public void submit(String email, String user, String password) {
         UserController.getInstance().register(email, user, password);
+    }
+    
+    public void cancel() {
+        _signup.close();
     }
 }

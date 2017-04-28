@@ -7,6 +7,7 @@ import be.ac.ulb.infof307.g01.client.view.SigninPopUp;
  * and storing its user name.
  */
 public class SigninPopUpController {
+    
 	private SigninPopUp _signinPopUp;
 	
 	/** 

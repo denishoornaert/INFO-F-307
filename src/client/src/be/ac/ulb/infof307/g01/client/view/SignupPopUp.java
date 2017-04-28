@@ -100,6 +100,7 @@ public class SignupPopUp extends PopUp{
             @Override public void handle(ActionEvent t) {
                 try {
                     _controller.submit(_email.getText(),_username.getText(),_password.getText());
+                    _controller.cancel();
                 } catch (IllegalArgumentException ex) {
                     Logger logger = Logger.getLogger(SigninPopUpController.class.getName());
                     logger.log(Level.WARNING,ex.getMessage());
