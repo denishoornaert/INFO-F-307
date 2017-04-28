@@ -1,6 +1,8 @@
 package be.ac.ulb.infof307.g01.client.view;
 
 import be.ac.ulb.infof307.g01.client.controller.SigninPopUpController;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -62,7 +64,6 @@ public class SigninPopUp extends PopUp {
     }
 
     private void setStyle() {
-        _vbox.setAlignment(Pos.CENTER);
         _vbox.setSpacing(10);
     }
     
@@ -77,8 +78,13 @@ public class SigninPopUp extends PopUp {
             @Override public void handle(ActionEvent t) {
             	final String username = _usernameField.getText();
                 final String password = _passwordField.getText();
-                _controller.authenticate(username,password);
-                _controller.cancel();
+                try {
+                    _controller.authenticate(username,password);
+                    _controller.cancel();
+                } catch(IllegalArgumentException ex) {
+                    Logger logger = Logger.getLogger(SigninPopUpController.class.getName());
+                    logger.log(Level.WARNING,ex.getMessage());
+                }
             }
         });
     }

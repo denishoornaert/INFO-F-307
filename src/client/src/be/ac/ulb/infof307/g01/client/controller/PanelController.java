@@ -16,6 +16,10 @@ public class PanelController {
         Main.getBorderPane().setLeft(_panelView);
     }
     
+    private void setUser() {
+        // TODO : add user to the panel
+    }
+    
     public void openLogin() {
         // Create Sign In controller
         new SigninPopUpController();

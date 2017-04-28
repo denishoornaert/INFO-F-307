@@ -20,9 +20,10 @@ public class SigninPopUpController {
 	 * Try to authenticate with the given user name.
 	 * For now, there is no check in database, any user is accepted.
 	 * @param username The user name.
+         * @param password The password
 	 */
 	public void authenticate(String username, String password) {
-            (UserController.getInstance()).authenticate(username, password);
+            UserController.getInstance().authenticate(username, password);
 	}
         
         /**

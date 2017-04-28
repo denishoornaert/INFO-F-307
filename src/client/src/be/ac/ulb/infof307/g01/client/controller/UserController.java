@@ -12,7 +12,6 @@ package be.ac.ulb.infof307.g01.client.controller;
 public class UserController {
     private static UserController _instance = null;
     private String _username;
-    private String _password;
     private String _email;
     
     /**
@@ -20,15 +19,11 @@ public class UserController {
      */
     private UserController() {
         _username = null;
-        _password = null;
         _email = null;
     }
     
     public String getUsername() {
         return _username;
-    }
-    public String getPassword() {
-        return _password;
     }
     public String getEmail() {
         return _email;
@@ -42,10 +37,9 @@ public class UserController {
     */
     public void authenticate(String username, String password) {
         if(username.isEmpty() || password.isEmpty()) {
-            throw new IllegalArgumentException("Username or Password can not be empty");
+            throw new IllegalArgumentException("All fields are required");
         }
         _username = username;
-        _password = password;
         // _email = getEmailFromDB -> TODO
     }
     
@@ -61,7 +55,6 @@ public class UserController {
         }
         _email = email;
         _username = username;
-        _password = password;
     }
     
     public static UserController getInstance() {

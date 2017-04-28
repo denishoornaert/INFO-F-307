@@ -10,7 +10,10 @@
  */
 package be.ac.ulb.infof307.g01.client.view;
 
+import be.ac.ulb.infof307.g01.client.controller.SigninPopUpController;
 import be.ac.ulb.infof307.g01.client.controller.SignupPopUpController;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -85,7 +88,6 @@ public class SignupPopUp extends PopUp{
     }
     
     private void initCancelButton() {
-        _cancel = getCloseButton("Login", "primary");
         _cancel.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent t) {
                 _controller.cancel();
@@ -94,10 +96,14 @@ public class SignupPopUp extends PopUp{
     }
     
     private void initSubmitButton() {
-        _submit = getCloseButton("Login", "primary");
         _submit.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent t) {
-                _controller.submit(_email.getText(),_username.getText(),_password.getText());
+                try {
+                    _controller.submit(_email.getText(),_username.getText(),_password.getText());
+                } catch (IllegalArgumentException ex) {
+                    Logger logger = Logger.getLogger(SigninPopUpController.class.getName());
+                    logger.log(Level.WARNING,ex.getMessage());
+                }
             }
         });
     }
