@@ -6,7 +6,8 @@ import be.ac.ulb.infof307.g01.client.view.ClusterPopUp;
 import java.util.ArrayList;
 
 /**
- * TODO description
+ * Simple popUp that shows the differents pokemon contained in a cluster of pokemons.
+ * This pop-up is displayed when the user click on a cluster displayed on the MapView.
  * 
  * @author Groupe01
  */
