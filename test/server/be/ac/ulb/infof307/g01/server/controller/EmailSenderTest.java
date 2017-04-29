@@ -19,31 +19,30 @@ public class EmailSenderTest {
     private String _testAccountEmailAddress;
     private String _testAccountPassword;
     private final String TEST_IMAP_HOST = "imap.gmail.com";
+    private final int TEST_IMAP_PORT = 993;
     Session _session;
     Store _store;
     Folder _mailBox;
-    final int MAIL_RECEIPTION_TIMEOUT = 2000;
+    final long MAIL_RECEIPTION_TIMEOUT = 2000;
     
     @Before
-    public void setUp() {
+    public void setUp() throws MessagingException {
         // We also use the server mail account as test mail box
         _testAccountEmailAddress = _emailSender.getServerAccountMailAddress();
         _testAccountPassword = _emailSender.getServerAccountPassword();
-    }
-    
-    private void openMailbox() throws MessagingException {
+        
         // Connect to the server
 	Properties props = new java.util.Properties();
 	props.setProperty("mail.imap.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 	props.setProperty("mail.imap.socketFactory.fallback", "false");
-	props.setProperty("mail.imap.socketFactory.port", "993");
+	props.setProperty("mail.imap.socketFactory.port", String.valueOf(TEST_IMAP_PORT));
         _session = Session.getInstance(props, null);
         _store = _session.getStore("imap");
         _store.connect(TEST_IMAP_HOST, _testAccountEmailAddress, _testAccountPassword);
         
-        // Open the inbox folder
+        // Get the inbox folder, but do not open it yet. The test will have to
+        // open it, in order for the received mail to be properly seen.
         _mailBox = _store.getFolder("INBOX");
-        _mailBox.open(Folder.READ_WRITE);
     }
     
     @After
@@ -61,7 +60,8 @@ public class EmailSenderTest {
         // Wait a little bit to let the mail make his way through the internet
         Thread.sleep(MAIL_RECEIPTION_TIMEOUT);
         
-        openMailbox();
+        // Open the mail box
+        _mailBox.open(Folder.READ_WRITE);
         
         // We search for a mail that was sent by the server
         final SearchTerm senderSearchTerm = new FromTerm(new InternetAddress(_emailSender.getServerAccountMailAddress()));
@@ -74,7 +74,7 @@ public class EmailSenderTest {
         
         Message messages[] = _mailBox.search(searchTerms);
         
-        assertEquals(messages.length, 1);
+        assertEquals(1, messages.length);
         // Delete the message, so that we can re-run the test
         messages[0].setFlag(Flags.Flag.DELETED, true);
     }

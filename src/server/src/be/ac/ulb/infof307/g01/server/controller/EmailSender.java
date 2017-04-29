@@ -14,16 +14,10 @@ import javax.mail.internet.MimeMessage;
  * confirmation mail.
  */
 public class EmailSender {
-
-    /**
-     * The mail address of the GMail account used to send mails.
-     */
     private final String SERVER_ACCOUNT_MAIL_ADDRESS = "infof307.groupe01@gmail.com";
-
-    /**
-     * The password of the GMail account used to send mails.
-     */
     private final String SERVER_ACCOUNT_PASSWORD = "I0y-9xis3En14Y4m9xP9dN3QNkD0cEAk";
+    private final String SERVER_SMTP_HOST = "smtp.gmail.com";
+    private final int SERVER_SMTP_PORT = 465;
     
     /**
      * Configuration needed to connect with SMTP protocol.
@@ -59,11 +53,11 @@ public class EmailSender {
     private void configureSmtp(Properties properties) {
         // All these properties are usual for SMTP connection. We could put
         // them in variables, but the gain is marginal, and just adds more code.
-        properties.put("mail.smtp.host", "smtp.gmail.com");
-        properties.put("mail.smtp.socketFactory.port", "465");
+        properties.put("mail.smtp.host", SERVER_SMTP_HOST);
+        properties.put("mail.smtp.socketFactory.port", String.valueOf(SERVER_SMTP_PORT));
         properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         properties.put("mail.smtp.auth", "true");
-        properties.put("mail.smtp.port", "465");
+        properties.put("mail.smtp.port", String.valueOf(SERVER_SMTP_PORT));
     }
     
     /**
