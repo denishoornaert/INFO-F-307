@@ -95,7 +95,7 @@ public class SignupPopUp extends PopUp {
         _submit.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent t) {
                 try {
-                    _controller.submit(_email.getText(),_username.getText());
+                    _controller.submit(_email.getText(),_username.getText(), _termsAndConditionBox.isSelected());
                     _controller.cancel();
                 } catch (IllegalArgumentException ex) {
                     Logger logger = Logger.getLogger(SignupPopUpController.class.getName());
