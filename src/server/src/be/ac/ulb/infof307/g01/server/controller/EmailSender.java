@@ -46,41 +46,65 @@ public class EmailSender {
             + "You can now connect to Gotta Map Them All with the following password:\n"
             + "%s\n";
     
-    /**
-     * Instance of the singleton.
-     */
-    private static EmailSender _instance = null;
+    public EmailSender() {
+        configureSmtp(SMTP_PROPERTIES);
+        CURRENT_SESSION = authenticate();
+    }
     
-    private EmailSender() {
+    /**
+     * Configures the SMTP options.
+     * @param properties The propertie object in which put the configuration
+     * options.
+     */
+    private void configureSmtp(Properties properties) {
         // All these properties are usual for SMTP connection. We could put
         // them in variables, but the gain is marginal, and just adds more code.
-        SMTP_PROPERTIES.put("mail.smtp.host", "smtp.gmail.com");
-        SMTP_PROPERTIES.put("mail.smtp.socketFactory.port", "465");
-        SMTP_PROPERTIES.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-        SMTP_PROPERTIES.put("mail.smtp.auth", "true");
-        SMTP_PROPERTIES.put("mail.smtp.port", "465");
-        
-        CURRENT_SESSION = Session.getDefaultInstance(SMTP_PROPERTIES, new javax.mail.Authenticator() {
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.socketFactory.port", "465");
+        properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.port", "465");
+    }
+    
+    /**
+     * Authenticates this instance with the SMTP protocol to the server mail
+     * account. Make sure that configureSmtp has been previously called.
+     * @return The session object representing the authentication.
+     */
+    private Session authenticate() {
+        return Session.getDefaultInstance(SMTP_PROPERTIES, new javax.mail.Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(SERVER_ACCOUNT_MAIL_ADDRESS, SERVER_ACCOUNT_PASSWORD);
             }
         });
     }
-        
-    public static EmailSender getInstance() {
-        if(_instance == null) {
-            _instance = new EmailSender();
-        }
-        return _instance;
-    }
     
-    public void sendMessage(String userMailAddress, String userPassword) throws MessagingException {
+    /**
+     * Sends a mail to the user in order to validate its account.
+     * For now, the validation process is just a password sent into the mail.
+     * @param userMailAddress The email address to which send the mail
+     * @param userPassword The generated password for the user account
+     * @throws MessagingException If the mail couldn't be sent.
+     */
+    public void sendConfirmationMail(String userMailAddress, String userPassword) throws MessagingException {
         Message message = new MimeMessage(CURRENT_SESSION);
         message.setFrom(new InternetAddress(SERVER_ACCOUNT_MAIL_ADDRESS));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(userMailAddress));
         message.setSubject(CONFIRMATION_MAIL_TITLE);
         message.setText(String.format(CONFIRMATION_MAIL_CONTENT, userPassword));
         Transport.send(message);
+    }
+
+    public String getServerAccountMailAddress() {
+        return SERVER_ACCOUNT_MAIL_ADDRESS;
+    }
+
+    public String getServerAccountPassword() {
+        return SERVER_ACCOUNT_PASSWORD;
+    }
+
+    public String getConfirmationMailTitle() {
+        return CONFIRMATION_MAIL_TITLE;
     }
 }
