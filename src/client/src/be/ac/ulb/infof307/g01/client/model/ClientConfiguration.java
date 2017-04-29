@@ -14,9 +14,9 @@ public class ClientConfiguration {
     private static ClientConfiguration _configuration = null;
     
     private final String _serverUrl = "127.0.0.1";
-    private final String _stylePath = "../../assets/bootstrap.css";
-    private final String _unknownPokemonImagePath = "assets/unknown_pokemon.png";
-    private final String _spritesPath = "../../assets/sprites/";
+    private final String _stylePath = "../../assets/client/bootstrap.css";
+    private final String _unknownPokemonImagePath = "assets/client/unknown_pokemon.png";
+    private final String _spritesPath = "../../assets/client/sprites/";
     
     private ClientConfiguration() {}
 
