@@ -7,7 +7,10 @@ import be.ac.ulb.infof307.g01.client.model.MarkerModel;
 import be.ac.ulb.infof307.g01.client.view.PinPopUp;
 
 /**
- * TODO: add description
+ * 
+ * Pop that shows the information of a marker to the user. Typically, this pop-up
+ * is displayed when the user click on a marker that he has not created.
+ * 
  */
 public class PinPopUpController {
     private final MarkerModel _marker;
