@@ -1,8 +1,6 @@
 package be.ac.ulb.infof307.g01.server.controller;
 
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -39,6 +37,7 @@ public class EmailSender {
         SMTP_PROPERTIES.put("mail.smtp.port", "465");
         
         CURRENT_SESSION = Session.getDefaultInstance(SMTP_PROPERTIES, new javax.mail.Authenticator() {
+            @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(SERVER_ACCOUNT_MAIL_ADDRESS, SERVER_ACCOUNT_PASSWORD);
             }
@@ -50,14 +49,6 @@ public class EmailSender {
             _instance = new EmailSender();
         }
         return _instance;
-    }
-
-    public static void main(String[] args) {
-        try {
-            EmailSender.getInstance().sendMessage("theo.verhelst@gmail.com", "ma bite");
-        } catch (MessagingException ex) {
-            Logger.getLogger(EmailSender.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
     
     public void sendMessage(String userMailAddress, String userPassword) throws MessagingException {
