@@ -1,7 +1,7 @@
 package be.ac.ulb.infof307.g01.client;
 
 import be.ac.ulb.infof307.g01.client.controller.MapController;
-import be.ac.ulb.infof307.g01.client.model.Configuration;
+import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
 
@@ -32,7 +32,7 @@ public class Main extends Application {
         new PanelController();
         
         _scene = new Scene(_layout);
-        _scene.getStylesheets().add(Configuration.getInstance().getStylePath());
+        _scene.getStylesheets().add(ClientConfiguration.getInstance().getStylePath());
         stage.setScene(_scene);
         
         stage.show();
@@ -48,7 +48,7 @@ public class Main extends Application {
     
     /** Loads and inits the database. */
     private static void loadDatabase() throws SQLException, FileNotFoundException {
-        new DatabaseModel(Configuration.getInstance().getDataBasePath());
+        new DatabaseModel(ClientConfiguration.getInstance().getDataBasePath());
     }
     
     public static void main(String[] args) {
