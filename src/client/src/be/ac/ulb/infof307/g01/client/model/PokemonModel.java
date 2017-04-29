@@ -39,7 +39,7 @@ public class PokemonModel {
         _name = name;
         _type = type_array;
         _imageName = imageName;
-        _pathPrefix = Configuration.getInstance().getSpritesPath();
+        _pathPrefix = ClientConfiguration.getInstance().getSpritesPath();
         _allPokemon.put(name, this);
     }
     

@@ -36,7 +36,7 @@ public class Main extends Application {
     
     /** Loads and inits the database. */
     private static void loadDatabase() throws SQLException, FileNotFoundException {
-        new DatabaseModel(Configuration.getInstance().getDataBasePath());
+        new DatabaseModel(ClientConfiguration.getInstance().getDataBasePath());
     }
     
     public static void main(String[] args) {

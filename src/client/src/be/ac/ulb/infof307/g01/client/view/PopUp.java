@@ -1,7 +1,7 @@
 package be.ac.ulb.infof307.g01.client.view;
 
 import be.ac.ulb.infof307.g01.client.Main;
-import be.ac.ulb.infof307.g01.client.model.Configuration;
+import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -53,7 +53,7 @@ public abstract class PopUp extends Stage {
     }
 
     private void initStyle() {
-        _scene.getStylesheets().add(Configuration.getInstance().getStylePath());
+        _scene.getStylesheets().add(ClientConfiguration.getInstance().getStylePath());
         _layout.setStyle(""
                 + "-fx-background-color: #d2d7dd;"
                 + "-fx-padding: 10;-fx-spacing: 5;"

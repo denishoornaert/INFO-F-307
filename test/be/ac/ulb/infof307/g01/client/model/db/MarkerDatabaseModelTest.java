@@ -1,6 +1,6 @@
 package be.ac.ulb.infof307.g01.client.model.db;
 
-import be.ac.ulb.infof307.g01.client.model.Configuration;
+import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
 import be.ac.ulb.infof307.g01.client.model.DatabaseModel;
 import be.ac.ulb.infof307.g01.client.model.MarkerDatabaseModel;
 import be.ac.ulb.infof307.g01.client.model.MarkerModel;
@@ -23,7 +23,7 @@ public class MarkerDatabaseModelTest {
     @BeforeClass
     public static void setUpClass() {
         try {
-            _database = new DatabaseModel(Configuration.getInstance().getTestDataBasePath());
+            _database = new DatabaseModel(ClientConfiguration.getInstance().getTestDataBasePath());
         } catch (SQLException | FileNotFoundException ex) {
             System.err.println("SQL database not init");
         }
