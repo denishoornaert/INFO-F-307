@@ -24,7 +24,6 @@ public class PokemonModelTest {
         new PokemonTypeModel("FIRE");
         new PokemonTypeModel("ELECTRIC");
         
-        System.out.println("test marker pokemon model");
         arceus = new PokemonModel("arceus", "arceus.png",
                 PokemonTypeModel.getPokemonTypeByTypeName("DARK"));
     }
@@ -41,8 +40,8 @@ public class PokemonModelTest {
     
     @Test
     public void test_getType() {
-        assertEquals(arceus.getTypes().length, 1);
-        assertEquals(arceus.getTypes()[0], 
+        assertEquals(arceus.getType().length, 1);
+        assertEquals(arceus.getType()[0], 
                 PokemonTypeModel.getPokemonTypeByTypeName("DARK"));
     }
     

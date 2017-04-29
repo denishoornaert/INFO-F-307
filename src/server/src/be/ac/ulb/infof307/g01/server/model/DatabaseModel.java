@@ -1,5 +1,12 @@
-package be.ac.ulb.infof307.g01.client.model;
+package be.ac.ulb.infof307.g01.server.model;
 
+import be.ac.ulb.infof307.g01.common.model.CoordinateSendableModel;
+import be.ac.ulb.infof307.g01.common.model.MarkerQueryModel;
+import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
+import be.ac.ulb.infof307.g01.common.model.PokemonQueryModel;
+import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
+import be.ac.ulb.infof307.g01.common.model.PokemonTypeQueryModel;
+import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.Connection;
@@ -26,30 +33,47 @@ import java.util.logging.Logger;
  * // Now database allows to call only queries related to pokemon types.
  * }
  */
-public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseModel,
-        MarkerDatabaseModel {
+public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
+        MarkerQueryModel {
 
     private static DatabaseModel _instance = null;
+    private static final String FOLDER_DATABSE = "/home/remy/Documents/"
+            + "BA3/GénieLogiciel/Groupe01/assets/server/";
+    
 
     /**
      * The database connection
      */
     private Connection _connection;
 
+    public static DatabaseModel getInstance() {
+        if(_instance == null) {
+            _instance = new DatabaseModel(FOLDER_DATABSE + "Database.db");
+        }
+        return _instance;
+    }
+    
+    public static DatabaseModel getTestInstance() {
+        if(_instance == null) {
+            _instance = new DatabaseModel("../../assets/TestDatabase.db");
+        }
+        return _instance;
+    }
+    
     /**
      * Init database
      *
      * @param pathToDatabase path to database
-     * @throws java.sql.SQLException sql exception
-     * @throws java.io.FileNotFoundException database file not exist
      */
-    public DatabaseModel(String pathToDatabase) throws SQLException, FileNotFoundException {
-        if(_instance != null) {
-            throw new IllegalStateException("DatabaseModel was already instanciated");
+    protected DatabaseModel(String pathToDatabase) {
+        try {
+            // stops the function if file doesn't exist
+            assertDatabaseFileExists(pathToDatabase);
+            connectToSqlite(pathToDatabase);
+        } catch (SQLException | FileNotFoundException ex) {
+            Logger.getLogger(DatabaseModel.class.getName()).log(Level.SEVERE, null, ex);
+            System.exit(1);   // TODO: gérer proprement les codes d'erreur avec une énum
         }
-        // stops the function if file doesn't exist
-        assertDatabaseFileExists(pathToDatabase);
-        connectToSqlite(pathToDatabase);
         loadAllTables();
 
         _instance = this;
@@ -134,7 +158,7 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
         try {
             while(result.next()) {
                 try {
-                    new PokemonTypeModel(result.getString("Name"));
+                    new PokemonTypeSendableModel(result.getString("Name"));
                 } catch(IllegalStateException exception) {
                     System.err.println(exception.getMessage());
                     break;
@@ -162,12 +186,12 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
                     String firstType = result.getString("T1Name");
                     String secondType = result.getString("T2Name");
                     if(secondType == null) {
-                        new PokemonModel(pokemonName,imagePath,
-                                PokemonTypeModel.getPokemonTypeByTypeName(firstType));
+                        new PokemonSendableModel(pokemonName,imagePath,
+                                PokemonTypeSendableModel.getPokemonTypeByTypeName(firstType));
                     } else {
-                        new PokemonModel(pokemonName,imagePath,
-                                PokemonTypeModel.getPokemonTypeByTypeName(firstType),
-                                PokemonTypeModel.getPokemonTypeByTypeName(secondType));
+                        new PokemonSendableModel(pokemonName,imagePath,
+                                PokemonTypeSendableModel.getPokemonTypeByTypeName(firstType),
+                                PokemonTypeSendableModel.getPokemonTypeByTypeName(secondType));
                     }
                 } catch(IllegalStateException exception) {
                     System.err.println(exception.getMessage());
@@ -182,9 +206,11 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
     /**
      * Create a new marker in database
      * @param marker the marker to create in database
+     * @return True if all is ok, false otherwise
      */
     @Override
-    public void insertMarker(MarkerModel marker) {
+    public boolean insertMarker(MarkerSendableModel marker) {
+        boolean result = false;
         String query = "INSERT INTO Marker(PokemonId, Username, Latitude, Longitude, TimeStamp, UpVotes, DownVotes, LifePoint, Attack, Defense) "
                 + "VALUES("
                     + "(SELECT Id "
@@ -192,26 +218,29 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
                     + "WHERE Name=?), "
                 + "?, ?, ?, ?, 0, 0, ?, ?, ?);";
         try {
-            CoordinateModel markerCoordinate = marker.getCoordinate();
+            CoordinateSendableModel markerCoordinate = marker.getCoordinate();
             PreparedStatement statement = _connection.prepareStatement(query);
-            String timestampString = marker.getTimestamp().toString();
+            Timestamp timestamp = new Timestamp(marker.getLongTimestamp());
+            String timestampString = timestamp.toString();
             
             statement.setString(1, marker.getPokemonName());
             statement.setString(2, marker.getUsername());
             statement.setDouble(3, markerCoordinate.getLatitude());
             statement.setDouble(4, markerCoordinate.getLongitude());
             statement.setString(5, timestampString);
-            statement.setInt(6, marker.getPokemonLife());
-            statement.setInt(7, marker.getPokemonAttack());
-            statement.setInt(8, marker.getPokemonDefense());
+            statement.setInt(6, marker.getLifePoint());
+            statement.setInt(7, marker.getAttack());
+            statement.setInt(8, marker.getDefense());
             statement.execute();
             
 
             final int generatedId = statement.getGeneratedKeys().getInt(1);
             marker.setDatabaseId(generatedId);
+            result = true;
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseModel.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return result;
     }
 
     /**
@@ -219,8 +248,8 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
      * @return a list of markers that are in database
      */
     @Override
-    public ArrayList<MarkerModel> getAllMarkers() {
-        ArrayList<MarkerModel> allMarkers = new ArrayList<>();
+    public ArrayList<MarkerSendableModel> getAllMarkers() {
+        ArrayList<MarkerSendableModel> allMarkers = new ArrayList<>();
         String query = "SELECT M.Id, M.Username, P.Name, M.Latitude, M.Longitude, M.TimeStamp, M.UpVotes, M.DownVotes, M.LifePoint, M.Attack, M.Defense "
                 + "FROM Marker M "
                 + "JOIN Pokemon P "
@@ -236,7 +265,7 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
         return allMarkers;
     }
 
-    private MarkerModel createMarker(ResultSet cursor) throws SQLException {
+    private MarkerSendableModel createMarker(ResultSet cursor) throws SQLException {
     	int i = 0;
         final int id = cursor.getInt(++i);
         final String username = cursor.getString(++i);
@@ -249,8 +278,10 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
         final int lifePoint = cursor.getInt(++i);
         final int attack = cursor.getInt(++i);
         final int defense = cursor.getInt(++i);
-        return new MarkerModel(id, username, pokemonName, latitude, longitude,
-                Timestamp.valueOf(timestampString), upVotes, downVotes, lifePoint, attack, defense);
+        
+        return new MarkerSendableModel(id, username, pokemonName, latitude, longitude,
+                Timestamp.valueOf(timestampString).getTime(), upVotes, 
+                downVotes, lifePoint, attack, defense);
     }
 
     @Override
@@ -262,7 +293,7 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
      *
      * @param marker The marker that need to be updated in the database.
      */
-    public void updateMarkerReputation(MarkerModel marker) {
+    public void updateMarkerReputation(MarkerSendableModel marker) {
         String query = "UPDATE Marker SET UpVotes=?, DownVotes=? WHERE Id=?;";
         try {
             PreparedStatement statement = _connection.prepareStatement(query);
@@ -273,17 +304,6 @@ public class DatabaseModel implements PokemonDatabaseModel, PokemonTypeDatabaseM
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseModel.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    ///////////////////// STATIC /////////////////////
-
-    /**
-     * Return the instance of database (to make queries)
-     *
-     * @return the DatabaseModel instance
-     */
-    public static DatabaseModel getDatabase() {
-        return _instance;
     }
 
 }

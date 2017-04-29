@@ -1,19 +1,11 @@
 package be.ac.ulb.infof307.g01.client.model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
 
 /** Model of a Pokemon type.
  * The Pokemon type is the element of the pokemon, such as Eletric for Pikachu.
  */
-public class PokemonTypeModel {
-    
-    /**
-     * HashMap mapping the name (String) of the type to its only instance in the
-     * application
-     */
-    private static HashMap<String, PokemonTypeModel> _allPokemonTypes = new HashMap<>();
-    private final String _typeName;
+public class PokemonTypeModel extends PokemonTypeSendableModel {
     
     static {
         _allPokemonTypes.put("NONE", new PokemonTypeModel("NONE"));
@@ -27,23 +19,9 @@ public class PokemonTypeModel {
      * sert deja de factory. Seule PokemonTypeModel devrait pouvoir appeler le constructeur
      */
     public PokemonTypeModel(String typeName) {
-        typeName = typeName.toUpperCase();
-        if(_allPokemonTypes.containsKey(typeName)) {
-            throw new IllegalStateException("PokemonType " + typeName + 
-                    " already created");
-        }
-        
-        _typeName = typeName;
-        _allPokemonTypes.put(_typeName, this);
+        super(typeName);
     }
     
-    /**
-     * Return the name of the type
-     * @return the name of the type
-     */
-    public String getTypeName() {
-        return _typeName;
-    }
     
     /////////////// STATIC ////////////////
     
@@ -54,32 +32,11 @@ public class PokemonTypeModel {
      * @return the PokemonTypeModel instance or null if not found
      */
     public static PokemonTypeModel getPokemonTypeByTypeName(String typeName) {
-        return _allPokemonTypes.get(typeName.toUpperCase());
+        PokemonTypeSendableModel result = _allPokemonTypes.get(typeName.toUpperCase());
+        if(result instanceof PokemonTypeModel) {
+            return (PokemonTypeModel) result;
+        }
+        return null;
     }
     
-    /**
-     * Return all of the PokemonType created so far
-     * @return an ArrayList of PokemonTypeModel instances
-     */
-    public static ArrayList<PokemonTypeModel> getAllPokemonTypes() {
-        return new ArrayList<>(_allPokemonTypes.values());
-    }
-    
-    /**
-     * Remove all existing PokemonType (and juste add NONE type)<br>
-     * Warning: only for test !
-     */
-    public static void resetAllPokemonType() {
-        _allPokemonTypes.clear();
-        _allPokemonTypes.put("NONE", new PokemonTypeModel("NONE"));
-    }
-        
-        
-    @Override
-    public String toString() {
-        return "PokemonTypeModel(" + _typeName + ")";
-    }
-    
-    /*NORMAL,FIRE,WATER,ELECTRIC,GRASS,ICE,FIGHTING,POISON,GROUND,FLYING,PSYCHIC,
-    BUG,ROCK,GHOST,DRAGON,DARK,STEEL,FAIRY,NONE*/
 }

@@ -5,8 +5,9 @@ import be.ac.ulb.infof307.g01.client.view.UpdateMarkerPopUp;
 import java.sql.Timestamp;
 
 /**
- *
- * @author hoornaert
+ * TODO description
+ * 
+ * @author Groupe01
  */
 public class UpdateMarkerPopUpController extends AbstractMarkerPopUpController {
     

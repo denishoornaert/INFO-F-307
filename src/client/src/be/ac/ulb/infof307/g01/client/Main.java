@@ -5,7 +5,6 @@ import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
 
-import be.ac.ulb.infof307.g01.client.model.DatabaseModel;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -34,19 +33,20 @@ public class Main extends Application {
         return _stage;
     }
     
-    /** Loads and inits the database. */
-    private static void loadDatabase() throws SQLException, FileNotFoundException {
-        new DatabaseModel(ClientConfiguration.getInstance().getDataBasePath());
-    }
-    
     public static void main(String[] args) {
-        try {
-            loadDatabase();
-        } catch (SQLException | FileNotFoundException exception) {
-            System.err.println(exception.getMessage());
-            System.err.println("Error loading the database. Application aborted");
-            return;
-        }
+        
+        // TODO remove test
+//        ArrayList<MarkerSendableModel> allMarker = ServerQueryController.getInstance().getAllMarkers();
+//        for(MarkerSendableModel mark : allMarker) {
+//            System.out.println("Marker !");
+//        }
+        
+//        PokemonTypeSendableModel pokemonType = new PokemonTypeSendableModel("typeTest");
+//        MarkerSendableModel markerSend = new MarkerSendableModel(12,
+//            "test", new PokemonSendableModel("name", "path", pokemonType), 
+//                5, 12, new Timestamp(System.currentTimeMillis()).getTime(), 3, 1,
+//            5, 7, 9);
+//        ServerQueryController.getInstance().insertMarker(markerSend);
         launch(args);
     }
 

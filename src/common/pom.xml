@@ -10,7 +10,8 @@
     <artifactId>common</artifactId>
     <packaging>jar</packaging>
     <build>
-        <sourceDirectory>src/</sourceDirectory>
+        <sourceDirectory>src</sourceDirectory>
+        <testSourceDirectory>../../test/common</testSourceDirectory>
     </build>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>

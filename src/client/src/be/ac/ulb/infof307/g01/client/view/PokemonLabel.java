@@ -17,8 +17,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
 /**
- *
- * @author hoornaert
+ * TODO description
+ * @author Groupe01
  */
 public class PokemonLabel extends BorderPane {
     

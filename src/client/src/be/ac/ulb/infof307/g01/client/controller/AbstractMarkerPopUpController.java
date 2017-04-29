@@ -13,7 +13,6 @@ import be.ac.ulb.infof307.g01.client.view.AbstractMarkerPopUp;
 public abstract class AbstractMarkerPopUpController {
     
     protected AbstractMarkerPopUp _markerPopUp;
-    /** Coordinates associated to the current pop-up. */
     protected static String _defaultImagePath;
     protected MarkerController _markerController;
     protected MarkerModel _marker;
