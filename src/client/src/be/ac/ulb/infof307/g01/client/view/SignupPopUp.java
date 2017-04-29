@@ -8,7 +8,9 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Control;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -23,11 +25,14 @@ public class SignupPopUp extends PopUp {
     
     private final SignupPopUpController _controller;
     private VBox _containerV;
-    private HBox _containerH;
+    private HBox _containerHTerms;
+    private HBox _containerHClose;
     private Label _usernameLabel;
     private Label _emailLabel;
+    private Hyperlink _termsAndConditionLabel;
     private TextField _username;
     private TextField _email;
+    private CheckBox _termsAndConditionBox;
     private Button _submit;
     private Button _cancel;
     
@@ -42,25 +47,30 @@ public class SignupPopUp extends PopUp {
     
     private void initWidgets() {
         _containerV = new VBox();
-        _containerH = new HBox();
+        _containerHTerms = new HBox();
+        _containerHClose = new HBox();
         _usernameLabel = new Label("Username :");
         _emailLabel = new Label("Email :");
+        _termsAndConditionLabel = new Hyperlink("I accept the terms and conditions.");
         _submit = new Button("Submit");
         _cancel = new Button("Cancel");
+        _termsAndConditionBox = new CheckBox();
         _username = new TextField();
         _email = new TextField();
         initCancelButton();
         initSubmitButton();
+        initTermsAndConditionLabel();
     }
     
     private void placeWidgets() {
         _containerV.getChildren().addAll(_emailLabel, _email, _usernameLabel, _username);
-        _containerH.getChildren().addAll(_cancel,_submit);
+        _containerHTerms.getChildren().addAll(_termsAndConditionBox, _termsAndConditionLabel);
+        _containerHClose.getChildren().addAll(_cancel,_submit);
         setXExpandPolicy(_cancel);
         setXExpandPolicy(_submit);
-        _containerH.setAlignment(Pos.CENTER);
-        _containerH.setPadding(new Insets(5, 0, 0, 0));
-        _containerV.getChildren().addAll(_containerH);
+        _containerHClose.setAlignment(Pos.CENTER);
+        _containerHClose.setPadding(new Insets(5, 0, 0, 0));
+        _containerV.getChildren().addAll(_containerHTerms, _containerHClose);
         super.add(_containerV);
     }
     
@@ -92,6 +102,12 @@ public class SignupPopUp extends PopUp {
                     logger.log(Level.WARNING,ex.getMessage());
                 }
             }
+        });
+    }
+
+    private void initTermsAndConditionLabel() {
+        _termsAndConditionLabel.setOnAction((ActionEvent e) -> {
+           _controller.openTermsAndconditionPopUp(); 
         });
     }
 }

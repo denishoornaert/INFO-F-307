@@ -27,4 +27,8 @@ public class SignupPopUpController {
     public void cancel() {
         _signup.close();
     }
+
+    public void openTermsAndconditionPopUp() {
+        new TermsAndConditionsPopUpController();
+    }
 }
