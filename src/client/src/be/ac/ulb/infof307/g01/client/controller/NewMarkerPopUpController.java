@@ -7,7 +7,7 @@ import be.ac.ulb.infof307.g01.client.model.PokemonModel;
 import be.ac.ulb.infof307.g01.client.view.NewMarkerPopUp;
 
 /**
- * TODO description
+ * class that manage and create a NewMarkerPopUp.
  * 
  * @author Groupe01
  */
