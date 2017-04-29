@@ -19,7 +19,11 @@ import javafx.scene.layout.Priority;
  * @author Groupe01
  */
 public class PanelView extends VBox{
-    private Label _title;
+    private Label _title1;
+    private Label _title2;
+    private Label _userLabel;
+    private Label _emailLabel;
+    private Label _location;
     private Button _signin;
     private Button _signup;
     private Separator _separation1;
@@ -32,21 +36,21 @@ public class PanelView extends VBox{
         initWidgets();
         placeWidgets();
         initStyle();
-        Main.getStackPane().setLeft(this);
     }
     
     private void initWidgets(){
-        _title = new Label("Connection");
+        _title1 = new Label("Connection");
+        _title2 = new Label("Informations");
         _separation1 = new Separator();
         _separation2 = new Separator();
         _signin = new Button("Sign In");
-        initSignInButton();
         _signup = new Button("Sign Up");
+        initSignInButton();
         initSignUpButton();
     }
     
     private void placeWidgets(){
-        getChildren().add(_title);
+        getChildren().add(_title1);
         getChildren().add(_separation1);
         getChildren().add(_signin);
         getChildren().add(_signup);
@@ -54,8 +58,8 @@ public class PanelView extends VBox{
     }
     
     private void initStyle(){
-        _title.setStyle("-fx-font-size:20px Tahoma");
-        _title.setPadding(new Insets(10,45,0,45));
+        _title1.setStyle("-fx-font-size:20px Tahoma");
+        _title1.setPadding(new Insets(10,45,0,45));
         setXExpandPolicy(_signin);
         setXExpandPolicy(_signup);
         setAlignment(Pos.TOP_CENTER);
@@ -73,7 +77,7 @@ public class PanelView extends VBox{
     private void initSignUpButton() {
         _signup.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent t) {
-            	_controller.openSignIn();
+            	_controller.openSignUp();
             }
         });
     }
@@ -87,6 +91,13 @@ public class PanelView extends VBox{
         HBox.setHgrow(control, Priority.ALWAYS);
         control.setMaxWidth(185);
         control.setMaxHeight(5);
+    }
+    
+    public void setUser(String username, String email) {
+        _userLabel = new Label("User : "+username);
+        _emailLabel = new Label("Email : "+email);
+        _location = new Label("Your location");
+        getChildren().addAll(_title2,_userLabel,_emailLabel,_location);
     }
     
 }

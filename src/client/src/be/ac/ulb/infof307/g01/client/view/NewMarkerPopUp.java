@@ -20,7 +20,6 @@ public class NewMarkerPopUp extends AbstractMarkerPopUp {
     
     public NewMarkerPopUp(NewMarkerPopUpController controller, ArrayList<String> pokemonsName) {
         super(controller, pokemonsName);
-        System.out.println("2.1");
     }
     
     @Override

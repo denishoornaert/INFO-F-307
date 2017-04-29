@@ -1,45 +1,33 @@
 package be.ac.ulb.infof307.g01.client;
 
-import be.ac.ulb.infof307.g01.client.controller.MapController;
-import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
+import be.ac.ulb.infof307.g01.client.controller.WindowController;
+import be.ac.ulb.infof307.g01.client.model.Configuration;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
 
 import be.ac.ulb.infof307.g01.client.model.DatabaseModel;
-import be.ac.ulb.infof307.g01.client.controller.PanelController;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class Main extends Application {
   
-    private static BorderPane _layout;
     private static Stage _stage;
-    private Scene _scene;
-
-    @Override
-    public void init() {
-        _layout = new BorderPane();
-    }
+    private static Scene _scene;
   
     @Override
     public void start(Stage stage) {
         _stage = stage;
         
-        // Create MapController & PanelController
-        new MapController();
-        new PanelController();
-        
-        _scene = new Scene(_layout);
-        _scene.getStylesheets().add(ClientConfiguration.getInstance().getStylePath());
-        stage.setScene(_scene);
+        new WindowController();
         
         stage.show();
     }
     
-    public static BorderPane getStackPane() {
-        return _layout;
+    public static void setScene(Scene scene) {
+        _scene = scene;
+        _stage.setScene(_scene);
+        _scene.getStylesheets().add(Configuration.getInstance().getStylePath());
     }
     
     public static Stage getStage() {

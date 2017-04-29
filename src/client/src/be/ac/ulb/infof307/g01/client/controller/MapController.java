@@ -47,7 +47,7 @@ public class MapController {
     
     public void displayPinPopUp(int markerId) {
         MarkerModel marker = _markerController.getMarkerModelFromId(markerId);
-        if (marker.getUsername().equals(SigninPopUpController.getInstance().getUsername())) {
+        if (marker.getUsername().equals(UserController.getInstance().getUsername())) {
             new UpdateMarkerPopUpController(_markerController, markerId);
         }
         else {
@@ -58,4 +58,9 @@ public class MapController {
     public void clusterClicked(ArrayList<Integer> markersIds) {
         new ClusterPopUpController(_markerController, markersIds);
     }
+    
+    public MapView getView() {
+        return _mapView;
+    }
+    
 }
