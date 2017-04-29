@@ -8,8 +8,7 @@ import be.ac.ulb.infof307.g01.client.view.PinPopUp;
 
 /**
  * 
- * Pop that shows the information of a marker to the user. Typically, this pop-up
- * is displayed when the user click on a marker that he has not created.
+ * Class that manage and create a PinPopUp.
  * 
  */
 public class PinPopUpController {
