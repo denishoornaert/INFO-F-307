@@ -5,29 +5,16 @@
  */
 package be.ac.ulb.infof307.g01.client.controller;
 
+import be.ac.ulb.infof307.g01.client.model.UserModel;
+
 /**
  *
  * @author Nathan
  */
 public class UserController {
     private static UserController _instance = null;
-    private String _username;
-    private String _email;
     
-    /**
-     * Private controller : Singleton
-     */
-    private UserController() {
-        _username = null;
-        _email = null;
-    }
-    
-    public String getUsername() {
-        return _username;
-    }
-    public String getEmail() {
-        return _email;
-    }
+    private UserController() { }
     
     /**
      * Try to authenticate with the given user name.
@@ -39,8 +26,7 @@ public class UserController {
         if(username.isEmpty() || password.isEmpty()) {
             throw new IllegalArgumentException("All fields are required");
         }
-        _username = username;
-        // _email = getEmailFromDB -> TODO
+        UserModel.getInstance().signin(username, password);
     }
     
     /**
@@ -52,8 +38,7 @@ public class UserController {
         if (email.isEmpty() || username.isEmpty()) {
             throw new IllegalArgumentException("All fields are required");
         }
-        _email = email;
-        _username = username;
+        UserModel.getInstance().signup(username, email);
     }
     
     public static UserController getInstance() {
