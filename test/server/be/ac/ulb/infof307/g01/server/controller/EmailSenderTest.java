@@ -33,13 +33,17 @@ public class EmailSenderTest {
     
     private void openMailbox() throws MessagingException {
         // Connect to the server
-        _session = Session.getInstance(new Properties(), null);
+	Properties props = new java.util.Properties();
+	props.setProperty("mail.imap.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+	props.setProperty("mail.imap.socketFactory.fallback", "false");
+	props.setProperty("mail.imap.socketFactory.port", "993");
+        _session = Session.getInstance(props, null);
         _store = _session.getStore("imap");
         _store.connect(TEST_IMAP_HOST, _testAccountEmailAddress, _testAccountPassword);
         
         // Open the inbox folder
         _mailBox = _store.getFolder("INBOX");
-        _mailBox.open(Folder.READ_ONLY);
+        _mailBox.open(Folder.READ_WRITE);
     }
     
     @After
