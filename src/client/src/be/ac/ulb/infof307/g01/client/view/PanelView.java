@@ -1,6 +1,5 @@
 package be.ac.ulb.infof307.g01.client.view;
 
-import be.ac.ulb.infof307.g01.client.Main;
 import be.ac.ulb.infof307.g01.client.controller.PanelController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -69,9 +68,10 @@ public class PanelView extends VBox{
     private void initSignInButton() {
         _signin.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent t) {
-            	_controller.openLogin();
+            	_controller.openSignin();
             }
         });
+        _signin.getStyleClass().add("primary");
     }
     
     private void initSignUpButton() {
@@ -80,6 +80,7 @@ public class PanelView extends VBox{
             	_controller.openSignUp();
             }
         });
+        _signup.getStyleClass().add("primary");
     }
     
     /**

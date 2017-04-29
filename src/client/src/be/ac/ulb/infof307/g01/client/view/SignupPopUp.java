@@ -1,16 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package be.ac.ulb.infof307.g01.client.view;
 
-import be.ac.ulb.infof307.g01.client.controller.SigninPopUpController;
 import be.ac.ulb.infof307.g01.client.controller.SignupPopUpController;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,7 +19,8 @@ import javafx.scene.layout.VBox;
  *
  * @author Groupe01
  */
-public class SignupPopUp extends PopUp{
+public class SignupPopUp extends PopUp {
+    
     private final SignupPopUpController _controller;
     private VBox _containerV;
     private HBox _containerH;
@@ -41,7 +31,8 @@ public class SignupPopUp extends PopUp{
     private Button _submit;
     private Button _cancel;
     
-    public SignupPopUp (SignupPopUpController controller){
+    public SignupPopUp (SignupPopUpController controller) {
+        super();
         _controller = controller;
         initWidgets();
         placeWidgets();
@@ -97,7 +88,7 @@ public class SignupPopUp extends PopUp{
                     _controller.submit(_email.getText(),_username.getText());
                     _controller.cancel();
                 } catch (IllegalArgumentException ex) {
-                    Logger logger = Logger.getLogger(SigninPopUpController.class.getName());
+                    Logger logger = Logger.getLogger(SignupPopUpController.class.getName());
                     logger.log(Level.WARNING,ex.getMessage());
                 }
             }

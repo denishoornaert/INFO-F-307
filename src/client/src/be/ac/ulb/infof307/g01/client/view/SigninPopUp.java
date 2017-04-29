@@ -21,6 +21,7 @@ import javafx.scene.layout.Priority;
  * @author Groupe01
  */
 public class SigninPopUp extends PopUp {
+    
     private final SigninPopUpController _controller;
     private VBox _vbox;
     private HBox _hbox;
@@ -99,4 +100,4 @@ public class SigninPopUp extends PopUp {
     }
     
     
-}
+}
