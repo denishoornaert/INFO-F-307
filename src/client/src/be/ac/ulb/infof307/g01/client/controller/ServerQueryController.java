@@ -37,6 +37,7 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
     
     private void connectClient() {
         Client client = Client.create();
+        // TODO use client config for the url
         _webResource = client.resource("http://localhost:8080/server/rest").path("query");
         
         //String response = webResource.accept(MediaType.APPLICATION_XML)
