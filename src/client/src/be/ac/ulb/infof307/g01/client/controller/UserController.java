@@ -40,7 +40,7 @@ public class UserController {
             throw new IllegalArgumentException("All fields are required");
         }
         _username = username;
-        // _email = getEmailFromDB -> TODO
+        // Send request to the server
     }
     
     /**
