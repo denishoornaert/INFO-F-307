@@ -48,8 +48,8 @@ public class UserController {
      * @param email the email
      * @param username the username
      */
-    public void register(String email, String username) {
-        if (email.isEmpty() || username.isEmpty()) {
+    public void register(String email, String username, boolean terms) {
+        if (email.isEmpty() || username.isEmpty() || !terms) {
             throw new IllegalArgumentException("All fields are required");
         }
         _email = email;

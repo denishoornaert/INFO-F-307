@@ -8,10 +8,7 @@ import be.ac.ulb.infof307.g01.client.view.PanelView;
  */
 public class PanelController {
 
-    private final PanelView _panelView; 
-    
-    private SigninPopUpController _signIn;
-    private SignupPopUpController _signUp;
+    private final PanelView _panelView;
     
     public PanelController() {
         _panelView = new PanelView(this);
@@ -24,14 +21,14 @@ public class PanelController {
         _panelView.setUser(username,email);
     }
     
-    public void openLogin() {
+    public void openSignin() {
         // Create Sign In controller
-        _signIn = new SigninPopUpController();
+        new SigninPopUpController();
     }
     
     public void openSignUp() {
         // Create Sign Up controller
-        _signUp = new SignupPopUpController();
+        new SignupPopUpController();
     }
     
     public PanelView getView() {

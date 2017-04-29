@@ -18,13 +18,16 @@ public class SignupPopUpController {
      * 
      * @param email user email
      * @param user username
-     * @param password user password
      */
-    public void submit(String email, String user) {
-        UserController.getInstance().register(email, user);
+    public void submit(String email, String user, boolean terms) {
+        UserController.getInstance().register(email, user, terms);
     }
     
     public void cancel() {
         _signup.close();
+    }
+
+    public void openTermsAndconditionPopUp() {
+        new TermsAndConditionsPopUpController();
     }
 }
