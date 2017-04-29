@@ -7,7 +7,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 /**
- * TODO description
+ * Test class that serves as an template
  * @author Groupe 1
  */
 @Path("/pokemontype")
