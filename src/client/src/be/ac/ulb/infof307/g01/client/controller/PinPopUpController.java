@@ -7,7 +7,9 @@ import be.ac.ulb.infof307.g01.client.model.MarkerModel;
 import be.ac.ulb.infof307.g01.client.view.PinPopUp;
 
 /**
- * TODO: add description
+ * 
+ * Class that manage and create a PinPopUp.
+ * 
  */
 public class PinPopUpController {
     private final MarkerModel _marker;

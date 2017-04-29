@@ -72,7 +72,7 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
             connectToSqlite(pathToDatabase);
         } catch (SQLException | FileNotFoundException ex) {
             Logger.getLogger(DatabaseModel.class.getName()).log(Level.SEVERE, null, ex);
-            System.exit(1);   // TODO: gérer proprement les codes d'erreur avec une énum
+            System.exit(1);
         }
         loadAllTables();
 

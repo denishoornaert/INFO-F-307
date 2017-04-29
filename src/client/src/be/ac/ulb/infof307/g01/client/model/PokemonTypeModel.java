@@ -15,10 +15,8 @@ public class PokemonTypeModel extends PokemonTypeSendableModel {
      * Create a new PokemonType
      * @param typeName the name of the brand new type
      * @throws IllegalStateException if type already exists
-     * TODO Ce constructeur devrait être privé, puisque getPokemonTypeByTypeName
-     * sert deja de factory. Seule PokemonTypeModel devrait pouvoir appeler le constructeur
      */
-    public PokemonTypeModel(String typeName) {
+    private PokemonTypeModel(String typeName) {
         super(typeName);
     }
     

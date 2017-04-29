@@ -7,7 +7,7 @@ import be.ac.ulb.infof307.g01.client.model.PokemonModel;
 import be.ac.ulb.infof307.g01.client.view.NewMarkerPopUp;
 
 /**
- * TODO description
+ * class that manage and create a NewMarkerPopUp.
  * 
  * @author Groupe01
  */
@@ -35,7 +35,6 @@ public class NewMarkerPopUpController extends AbstractMarkerPopUpController {
         }
     }
     
-    @Override
     public void askForCreateMarker(double coordinateX, double coordinateY) {
         if(_markerPopUp == null) {
             // Converts from event coordinate (centered in the upper left corner)

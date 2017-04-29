@@ -15,7 +15,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 /**
- * TODO: add description
+ * 
+ * Pop that shows the information of a marker to the user. Typically, this pop-up
+ * is displayed when the user click on a marker that he has not created.
+ * 
  */
 public class PinPopUp extends InformationPopUp {
     private final PinPopUpController _controller;

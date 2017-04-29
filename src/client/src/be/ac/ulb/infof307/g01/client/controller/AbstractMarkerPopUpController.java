@@ -26,9 +26,7 @@ public abstract class AbstractMarkerPopUpController {
         _marker = _markerController.getMarkerModelFromId(markerid);
         _defaultImagePath = ClientConfiguration.getInstance().getUnknownPokemonImagePath();
     }
-    
-    public abstract void askForCreateMarker(double coordinateX, double coordinateY);
-    
+        
     public void cancelPopUpCreateMarker() {
         _markerPopUp.close();
         _markerPopUp = null;

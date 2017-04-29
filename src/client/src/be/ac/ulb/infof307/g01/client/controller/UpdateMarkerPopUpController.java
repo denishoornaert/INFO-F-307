@@ -5,7 +5,7 @@ import be.ac.ulb.infof307.g01.client.view.UpdateMarkerPopUp;
 import java.sql.Timestamp;
 
 /**
- * TODO description
+ * Class that manages and creates an UpadateMarkerPopUp.
  * 
  * @author Groupe01
  */
@@ -32,9 +32,5 @@ public class UpdateMarkerPopUpController extends AbstractMarkerPopUpController {
             _markerPopUp.errorInPokemonName();
         }
     }
-    
-    // TODO refactor
-    @Override
-    public void askForCreateMarker(double coordinateX, double coordinateY) {}
     
 }

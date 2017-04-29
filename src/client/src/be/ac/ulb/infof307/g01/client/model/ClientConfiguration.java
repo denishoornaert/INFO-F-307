@@ -13,7 +13,7 @@ public class ClientConfiguration {
     
     private static ClientConfiguration _configuration = null;
     
-    private final String _serverUrl = "127.0.0.1";
+    private final String _serverUrl = "http://localhost:8080/server/rest";
     private final String _stylePath = "../../assets/client/bootstrap.css";
     private final String _unknownPokemonImagePath = "assets/client/unknown_pokemon.png";
     private final String _spritesPath = "../../assets/client/sprites/";
@@ -49,5 +49,9 @@ public class ClientConfiguration {
     
     public String getSpritesPath() {
         return _spritesPath;
+    }
+    
+    public String getURL() {
+        return _serverUrl;
     }
 }
