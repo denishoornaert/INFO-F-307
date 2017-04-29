@@ -26,10 +26,7 @@ public class ServiceQueryController {
     @Consumes(MediaType.APPLICATION_XML)
     @Produces(MediaType.APPLICATION_XML)
     public Response insertMarker(MarkerSendableModel marker) {
-        System.out.println("Réception InsertMarker !!");
-//        System.out.println("Marker: " + marker.getDatabaseId());
         DatabaseModel.getInstance().insertMarker(marker);
-        
         return Response.status(Status.OK).entity(marker).build();
     }
     
@@ -37,9 +34,7 @@ public class ServiceQueryController {
     @GET
     @Produces(MediaType.APPLICATION_XML)
     public Response getAllMarker() {
-        System.out.println("GetAll Marker !!");
         ArrayList<MarkerSendableModel> arrayListMarker = DatabaseModel.getInstance().getAllMarkers();
-        
         GenericEntity<ArrayList<MarkerSendableModel>> entity = 
                 new GenericEntity<ArrayList<MarkerSendableModel>>(arrayListMarker) {};
         Response response = Response.ok(entity).build();

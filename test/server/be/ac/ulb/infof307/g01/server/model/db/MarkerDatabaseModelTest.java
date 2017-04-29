@@ -39,7 +39,6 @@ public class MarkerDatabaseModelTest extends AbstractDatabaseTest {
      */
     @Test
     public void test_insertMarker_incrementsAmountsOfMarkers() {
-        System.out.println(_database);
         final int initialAmountOfMarkers = _database.getAllMarkers().size();
         _database.insertMarker(_markerToInsert);
         assertEquals(initialAmountOfMarkers+1, _database.getAllMarkers().size());

@@ -16,7 +16,7 @@ public class PokemonTypeModel extends PokemonTypeSendableModel {
      * @param typeName the name of the brand new type
      * @throws IllegalStateException if type already exists
      */
-    private PokemonTypeModel(String typeName) {
+    public PokemonTypeModel(String typeName) {
         super(typeName);
     }
     

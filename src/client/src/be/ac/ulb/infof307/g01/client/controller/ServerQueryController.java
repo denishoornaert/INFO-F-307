@@ -103,7 +103,6 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
     public ArrayList<MarkerSendableModel> getAllMarkers() {
 //        WebResource resource = _webResource.path("marker").path("getall");
 //            String response = resource.accept(MediaType.APPLICATION_XML).get(String.class);
-//        System.out.println("Reponse: " + response);
 //        
 ////        ArrayList<MarkerSendableModel> allMarkers = sendGetQuery(resource, ArrayList.class);
         return new ArrayList<MarkerSendableModel>();

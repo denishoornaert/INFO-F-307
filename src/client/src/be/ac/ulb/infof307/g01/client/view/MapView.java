@@ -97,14 +97,6 @@ public class MapView extends StackPane {
         private boolean isLoaded = false;
         
         /**
-         * Displays a message on the Java console.
-         * @param message is the log content.
-         */
-        public void log(String message) {
-            System.out.println("JS Console: " + message);
-        }
-        
-        /**
          * Indicate that the javascript is loaded
          */
         public void javaScriptMapIsLoad() {
