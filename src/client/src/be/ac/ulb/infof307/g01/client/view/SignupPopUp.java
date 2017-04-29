@@ -21,7 +21,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -36,11 +35,9 @@ public class SignupPopUp extends PopUp{
     private VBox _containerV;
     private HBox _containerH;
     private Label _usernameLabel;
-    private Label _passwordLabel;
     private Label _emailLabel;
     private TextField _username;
     private TextField _email;
-    private PasswordField _password;
     private Button _submit;
     private Button _cancel;
     
@@ -57,18 +54,16 @@ public class SignupPopUp extends PopUp{
         _containerH = new HBox();
         _usernameLabel = new Label("Username :");
         _emailLabel = new Label("Email :");
-        _passwordLabel = new Label("Password :");
         _submit = new Button("Submit");
         _cancel = new Button("Cancel");
         _username = new TextField();
         _email = new TextField();
-        _password = new PasswordField();
         initCancelButton();
         initSubmitButton();
     }
     
     private void placeWidgets() {
-        _containerV.getChildren().addAll(_emailLabel, _email, _usernameLabel, _username, _passwordLabel, _password);
+        _containerV.getChildren().addAll(_emailLabel, _email, _usernameLabel, _username);
         _containerH.getChildren().addAll(_cancel,_submit);
         setXExpandPolicy(_cancel);
         setXExpandPolicy(_submit);
@@ -99,7 +94,7 @@ public class SignupPopUp extends PopUp{
         _submit.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent t) {
                 try {
-                    _controller.submit(_email.getText(),_username.getText(),_password.getText());
+                    _controller.submit(_email.getText(),_username.getText());
                     _controller.cancel();
                 } catch (IllegalArgumentException ex) {
                     Logger logger = Logger.getLogger(SigninPopUpController.class.getName());

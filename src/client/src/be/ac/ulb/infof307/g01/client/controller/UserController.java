@@ -47,10 +47,9 @@ public class UserController {
      * 
      * @param email the email
      * @param username the username
-     * @param password the password
      */
-    public void register(String email, String username, String password) {
-        if (email.isEmpty() || username.isEmpty() || password.isEmpty()) {
+    public void register(String email, String username) {
+        if (email.isEmpty() || username.isEmpty()) {
             throw new IllegalArgumentException("All fields are required");
         }
         _email = email;

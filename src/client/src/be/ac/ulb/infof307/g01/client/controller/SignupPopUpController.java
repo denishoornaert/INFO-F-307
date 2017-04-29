@@ -20,8 +20,8 @@ public class SignupPopUpController {
      * @param user username
      * @param password user password
      */
-    public void submit(String email, String user, String password) {
-        UserController.getInstance().register(email, user, password);
+    public void submit(String email, String user) {
+        UserController.getInstance().register(email, user);
     }
     
     public void cancel() {
