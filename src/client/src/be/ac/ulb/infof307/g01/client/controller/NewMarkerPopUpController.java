@@ -35,7 +35,6 @@ public class NewMarkerPopUpController extends AbstractMarkerPopUpController {
         }
     }
     
-    @Override
     public void askForCreateMarker(double coordinateX, double coordinateY) {
         if(_markerPopUp == null) {
             // Converts from event coordinate (centered in the upper left corner)
