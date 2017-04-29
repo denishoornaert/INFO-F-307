@@ -1,7 +1,7 @@
 package be.ac.ulb.infof307.g01.client;
 
 import be.ac.ulb.infof307.g01.client.controller.WindowController;
-import be.ac.ulb.infof307.g01.client.model.Configuration;
+import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
 
@@ -27,7 +27,7 @@ public class Main extends Application {
     public static void setScene(Scene scene) {
         _scene = scene;
         _stage.setScene(_scene);
-        _scene.getStylesheets().add(Configuration.getInstance().getStylePath());
+        _scene.getStylesheets().add(ClientConfiguration.getInstance().getStylePath());
     }
     
     public static Stage getStage() {

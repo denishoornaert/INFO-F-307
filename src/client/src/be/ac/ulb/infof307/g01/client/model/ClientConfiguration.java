@@ -32,11 +32,11 @@ public class ClientConfiguration {
     }
     
     public String getDataBasePath() {
-        return "../assets/Database.db";
+        return "../../assets/Database.db";
     }
     
     public String getTestDataBasePath() {
-        return "../assets/TestDatabase.db";
+        return "../../assets/TestDatabase.db";
     }
     
     public String getStylePath() {
