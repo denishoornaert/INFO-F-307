@@ -9,6 +9,10 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+/**
+ * This class is responsible of sending mails to the users, such as registering
+ * confirmation mail.
+ */
 public class EmailSender {
 
     /**
@@ -20,16 +24,36 @@ public class EmailSender {
      * The password of the GMail account used to send mails.
      */
     private final String SERVER_ACCOUNT_PASSWORD = "I0y-9xis3En14Y4m9xP9dN3QNkD0cEAk";
-    private final Properties SMTP_PROPERTIES = new Properties(); 
+    
+    /**
+     * Configuration needed to connect with SMTP protocol.
+     */
+    private final Properties SMTP_PROPERTIES = new Properties();
+    
+    /**
+     * An authentication session, while this object is alive we don't need to
+     * authenticate again.
+     */
     private final Session CURRENT_SESSION;
+    
     private final String CONFIRMATION_MAIL_TITLE = "Welcome to Gotta Map Them All!";
+    
+    /**
+     * The content of the confirmation mail. For now, we just send the password
+     * to the user. To insert the password in the mail, use String.format.
+     */
     private final String CONFIRMATION_MAIL_CONTENT = "Hello dear user,\n"
             + "You can now connect to Gotta Map Them All with the following password:\n"
             + "%s\n";
     
+    /**
+     * Instance of the singleton.
+     */
     private static EmailSender _instance = null;
     
     private EmailSender() {
+        // All these properties are usual for SMTP connection. We could put
+        // them in variables, but the gain is marginal, and just adds more code.
         SMTP_PROPERTIES.put("mail.smtp.host", "smtp.gmail.com");
         SMTP_PROPERTIES.put("mail.smtp.socketFactory.port", "465");
         SMTP_PROPERTIES.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
