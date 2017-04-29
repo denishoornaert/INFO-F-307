@@ -1,5 +1,6 @@
 package be.ac.ulb.infof307.g01.client.controller;
 
+import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
 import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
 import be.ac.ulb.infof307.g01.common.model.MarkerQueryModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonQueryModel;
@@ -38,7 +39,7 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
     private void connectClient() {
         Client client = Client.create();
         // TODO use client config for the url
-        _webResource = client.resource("http://localhost:8080/server/rest").path("query");
+        _webResource = client.resource(ClientConfiguration.getInstance().getURL()).path("query");
         
         //String response = webResource.accept(MediaType.APPLICATION_XML)
         //        .get(String.class);
