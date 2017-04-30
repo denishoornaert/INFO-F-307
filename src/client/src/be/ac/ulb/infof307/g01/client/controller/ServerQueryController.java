@@ -27,6 +27,7 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
     
     private ServerQueryController() {
         connectClient();
+        loadAllTables();
     }
     
     public static ServerQueryController getInstance() {
@@ -83,6 +84,14 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
         return false;
     }
     
+    /**
+     * Load all Data (Pokemon and PokemonType)
+     */
+    private void loadAllTables() {
+        loadAllPokemonTypes();
+        loadAllPokemons();
+    }
+    
     @Override
     public boolean insertMarker(MarkerSendableModel marker) {
         boolean result = true;
@@ -115,12 +124,12 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
 
     @Override
     public void loadAllPokemons() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void loadAllPokemonTypes() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
