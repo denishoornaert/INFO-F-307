@@ -137,7 +137,9 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
 
     @Override
     public void loadAllPokemonTypes() {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        WebResource resource = _webResource.path("pokemonType").path("getall");
+        
+        
     }
 
     @Override
