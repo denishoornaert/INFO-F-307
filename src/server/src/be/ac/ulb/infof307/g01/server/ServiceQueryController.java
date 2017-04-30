@@ -51,4 +51,12 @@ public class ServiceQueryController {
         return Response.status(Status.OK).entity(marker).build();
     }
     
+    @Path("marker/updateReputation")
+    @POST
+    @Consumes(MediaType.APPLICATION_XML)
+    public Response updateMarkerReputation(MarkerSendableModel marker) {
+        DatabaseModel.getInstance().updateMarkerReputation(marker);
+        return Response.status(Status.OK).entity(marker).build();
+    }
+    
 }

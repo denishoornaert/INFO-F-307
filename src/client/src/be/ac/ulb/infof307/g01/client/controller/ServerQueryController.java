@@ -106,7 +106,11 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
 
     @Override
     public void updateMarkerReputation(MarkerSendableModel marker) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        WebResource resource = _webResource.path("marker").path("updateReputation");
+        
+        if (!sendPostQuery(resource, marker)) {
+            Logger.getLogger(getClass().getName()).log(Level.WARNING, "Could not update marker");
+        }
     }
 
     @Override
