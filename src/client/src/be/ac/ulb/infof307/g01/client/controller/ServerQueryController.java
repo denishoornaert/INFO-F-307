@@ -7,9 +7,11 @@ import be.ac.ulb.infof307.g01.common.model.PokemonQueryModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonTypeQueryModel;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.GenericType;
 import com.sun.jersey.api.client.WebResource;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ws.rs.core.MediaType;
@@ -39,7 +41,7 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
     
     private void connectClient() {
         Client client = Client.create();
-        _webResource = client.resource(ClientConfiguration.getInstance().getURL()).path("query");      
+        _webResource = client.resource(ClientConfiguration.getInstance().getURL()).path("query");
     }
     
     private static<T> T convertXmlToObject(String xml, Class<T> className) {
@@ -47,10 +49,10 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
             JAXBContext context = JAXBContext.newInstance(className);
             Unmarshaller un = context.createUnmarshaller();
             StringReader stringXml = new StringReader(xml);
-            T emp = (T) un.unmarshal(stringXml);
-            return emp;
+            T res = (T) un.unmarshal(stringXml);
+            return res;
         } catch (JAXBException e) {
-            e.printStackTrace();
+            // TODO catch error
         }
         return null;
     }
@@ -106,11 +108,10 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
 
     @Override
     public ArrayList<MarkerSendableModel> getAllMarkers() {
-//        WebResource resource = _webResource.path("marker").path("getall");
-//            String response = resource.accept(MediaType.APPLICATION_XML).get(String.class);
-//        
-////        ArrayList<MarkerSendableModel> allMarkers = sendGetQuery(resource, ArrayList.class);
-        return new ArrayList<MarkerSendableModel>();
+        WebResource resource = _webResource.path("marker").path("getall");
+        List<MarkerSendableModel> result = resource.get(
+                new GenericType<List<MarkerSendableModel>>(){});
+        return new ArrayList<>(result);
     }
 
     @Override
