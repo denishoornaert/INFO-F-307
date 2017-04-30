@@ -31,7 +31,7 @@ public class MapController {
     
     private void initMarkers() {
         for(MarkerSendableModel markerSendableModel : _query.getAllMarkers()) {
-            _markerController.displayMarker((MarkerModel) markerSendableModel);
+            _markerController.displayMarker(new MarkerModel(markerSendableModel));
         }
     }
     

@@ -72,6 +72,11 @@ public class MarkerModel extends MarkerSendableModel {
         _serverQuery = (MarkerQueryModel) ServerQueryController.getInstance();
     }
     
+    public MarkerModel(MarkerSendableModel marker) {
+        super(marker);
+        _serverQuery.insertMarker(this);
+    }
+    
     public int getReputationScore() {
         return getReputation().getScore();
     }
