@@ -1,6 +1,7 @@
 package be.ac.ulb.infof307.g01.server;
 
 import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
+import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
 import be.ac.ulb.infof307.g01.server.model.DatabaseModel;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +54,18 @@ public class ServiceQueryController {
     public Response updateMarkerReputation(MarkerSendableModel marker) {
         DatabaseModel.getInstance().updateMarkerReputation(marker);
         return Response.status(Status.OK).entity(marker).build();
+    }
+    
+    @Path("pokemon/getall")
+    @GET
+    @Produces(MediaType.APPLICATION_XML)
+    public List<PokemonSendableModel> loadAllPokemons() {
+        ArrayList<PokemonSendableModel> arrayListPokemon = PokemonSendableModel.getAllPokemon();
+        if(arrayListPokemon.isEmpty()) {
+            DatabaseModel.getInstance().loadAllPokemonTypes();
+        }
+        arrayListPokemon = PokemonSendableModel.getAllPokemon();
+        return arrayListPokemon;
     }
     
 }

@@ -1,9 +1,12 @@
 package be.ac.ulb.infof307.g01.client.controller;
 
 import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
+import be.ac.ulb.infof307.g01.client.model.MarkerModel;
+import be.ac.ulb.infof307.g01.client.model.PokemonModel;
 import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
 import be.ac.ulb.infof307.g01.common.model.MarkerQueryModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonQueryModel;
+import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonTypeQueryModel;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
@@ -125,7 +128,11 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
 
     @Override
     public void loadAllPokemons() {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        WebResource resource = _webResource.path("pokemon").path("getall");
+        List<PokemonSendableModel> result = resource.get(new GenericType<List<PokemonSendableModel>>(){});
+        for (PokemonSendableModel pokemon: result) {
+            new PokemonModel(pokemon);
+        }
     }
 
     @Override
