@@ -38,11 +38,7 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
     
     private void connectClient() {
         Client client = Client.create();
-        _webResource = client.resource(ClientConfiguration.getInstance().getURL()).path("query");
-        
-        //String response = webResource.accept(MediaType.APPLICATION_XML)
-        //        .get(String.class);
-        //PokemonTypeModel pokemonResponse = convertXmlToObject(response, PokemonTypeSendableModel.class);        
+        _webResource = client.resource(ClientConfiguration.getInstance().getURL()).path("query");      
     }
     
     private static<T> T convertXmlToObject(String xml, Class<T> className) {
