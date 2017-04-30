@@ -1,13 +1,14 @@
 package be.ac.ulb.infof307.g01.client.controller;
 
 import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
-import be.ac.ulb.infof307.g01.client.model.MarkerModel;
 import be.ac.ulb.infof307.g01.client.model.PokemonModel;
+import be.ac.ulb.infof307.g01.client.model.PokemonTypeModel;
 import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
 import be.ac.ulb.infof307.g01.common.model.MarkerQueryModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonQueryModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonTypeQueryModel;
+import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.GenericType;
@@ -59,7 +60,11 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
         }
         return null;
     }
-
+    
+    private static<T> List<T> sendGetQuery(WebResource resource) {
+        return resource.get(new GenericType<List<T>>(){});
+    }
+    
     /**
      * Executes a GET HTTP request
      * @param <T> the type of the object to get
@@ -67,10 +72,10 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
      * @param className the class name of the expected object
      * @return the expected object
      */
-    private <T> T sendGetQuery(WebResource url, Class<T> className) {
-        String response = url.accept(MediaType.APPLICATION_XML).get(String.class);
-        return convertXmlToObject(response, className);
-    }
+//    private <T> T sendGetQuery(WebResource url, Class<T> className) {
+//        String response = url.accept(MediaType.APPLICATION_XML).get(String.class);
+//        return convertXmlToObject(response, className);
+//    }
     
     /**
      * Executes a POST HTTP request
@@ -112,8 +117,7 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
     @Override
     public ArrayList<MarkerSendableModel> getAllMarkers() {
         WebResource resource = _webResource.path("marker").path("getall");
-        List<MarkerSendableModel> result = resource.get(
-                new GenericType<List<MarkerSendableModel>>(){});
+        List<MarkerSendableModel> result = sendGetQuery(resource);
         return new ArrayList<>(result);
     }
 
@@ -137,9 +141,11 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
 
     @Override
     public void loadAllPokemonTypes() {
-        WebResource resource = _webResource.path("pokemonType").path("getall");
-        
-        
+        WebResource resource = _webResource.path("pokemontype").path("getall");
+        List<PokemonTypeSendableModel> result = sendGetQuery(resource);
+        for(PokemonTypeSendableModel pokemonType : result) {
+            new PokemonTypeModel(pokemonType);
+        }
     }
 
     @Override

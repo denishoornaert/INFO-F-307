@@ -28,8 +28,8 @@ public class MarkerModelTest {
     
     @Before
     public void setUp() {
-        TEST_MARKER = new MarkerModel(TEST_POKEMON, 
-               TEST_COORDINATE, USERNAME, LIFE_POINT, ATTACK, DEFENSE, TIME, VOTE_UP, VOTE_DOWN);
+        TEST_MARKER = new MarkerModel(TEST_POKEMON, TEST_COORDINATE, USERNAME, 
+                LIFE_POINT, ATTACK, DEFENSE, TIME, VOTE_UP, VOTE_DOWN, false);
     }
     
     @After
@@ -70,7 +70,8 @@ public class MarkerModelTest {
     @Test
     public void test_Equals(){
         MarkerModel OtherTestMarker = new MarkerModel(TEST_POKEMON, 
-               TEST_COORDINATE, USERNAME, LIFE_POINT, ATTACK, DEFENSE, TIME, VOTE_UP, VOTE_DOWN);
+                TEST_COORDINATE, USERNAME, LIFE_POINT, ATTACK, DEFENSE, TIME, 
+                VOTE_UP, VOTE_DOWN, false);
         assertEquals(TEST_MARKER.equals(OtherTestMarker),true);
     }
     

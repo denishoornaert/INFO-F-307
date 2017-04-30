@@ -11,6 +11,10 @@ public class PokemonTypeModel extends PokemonTypeSendableModel {
         _allPokemonTypes.put("NONE", new PokemonTypeModel("NONE"));
     }
     
+    public PokemonTypeModel(PokemonTypeSendableModel pokemonType) {
+        super(pokemonType);
+    }
+    
     /**
      * Create a new PokemonType
      * @param typeName the name of the brand new type

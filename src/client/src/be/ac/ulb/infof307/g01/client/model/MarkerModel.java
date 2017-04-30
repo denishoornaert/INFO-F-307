@@ -28,7 +28,7 @@ public class MarkerModel extends MarkerSendableModel {
     public MarkerModel(PokemonSendableModel pokemon, CoordinateSendableModel coordinate, 
             String username, int lifePoint, int attack, int defense, Timestamp date) {
         this(pokemon, coordinate, username, lifePoint, attack, defense, date, 
-                0, 0);
+                0, 0, true);
         _serverQuery.insertMarker(this);
     }
     
@@ -42,13 +42,15 @@ public class MarkerModel extends MarkerSendableModel {
      * @param attack pokemon attack stat
      * @param defense pokemon defense stat
      * @param date the date of the marker
-     * @param reputation of the marker
+     * @param upVotes number of positives votes
+     * @param downVotes number of negatives votes
+     * @param loadDatabase True to load database
      */
     public MarkerModel(PokemonSendableModel pokemon, CoordinateSendableModel coordinate, 
             String username, int lifePoint, int attack, int defense, Timestamp date,
-            int upVotes, int downVotes) {
+            int upVotes, int downVotes, boolean loadDatabase) {
         this(0, username, pokemon, coordinate, date, upVotes, downVotes, lifePoint, 
-                attack, defense);
+                attack, defense, loadDatabase);
     }
     
     /**
@@ -64,17 +66,21 @@ public class MarkerModel extends MarkerSendableModel {
      * @param lifePoint pokemon life point
      * @param attack pokemon attack stat
      * @param defense pokemon defense stat
+     * @param loadDatabase True to load database
      */
-    public MarkerModel(int databaseId, String username, PokemonSendableModel pokemon, CoordinateSendableModel coordinate, 
-            Timestamp timestamp, int upVotes, int downVotes, int lifePoint, int attack, int defense) {
+    public MarkerModel(int databaseId, String username, PokemonSendableModel pokemon, 
+            CoordinateSendableModel coordinate, Timestamp timestamp, int upVotes, 
+            int downVotes, int lifePoint, int attack, int defense, boolean loadDatabase) {
         super(databaseId, username, pokemon, coordinate, timestamp.getTime(), 
                 new ReputationScoreModel(upVotes, downVotes), lifePoint, attack, defense);
-        _serverQuery = (MarkerQueryModel) ServerQueryController.getInstance();
+        if(loadDatabase) {
+            _serverQuery = (MarkerQueryModel) ServerQueryController.getInstance();
+        }
     }
     
     public MarkerModel(MarkerSendableModel marker) {
         super(marker);
-        _serverQuery.insertMarker(this);
+        _serverQuery = (MarkerQueryModel) ServerQueryController.getInstance();
     }
     
     public int getReputationScore() {
