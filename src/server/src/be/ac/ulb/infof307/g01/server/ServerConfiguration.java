@@ -13,8 +13,8 @@ public class ServerConfiguration {
     
     private static ServerConfiguration _configuration = null;
     
-    private String _dataBasePath = "../../assets/Database.db";
-    private String _testDataBasePath = "../../assets/Database.db";
+    private final String _dataBasePath = "../../assets/Database.db";
+    private final String _testDataBasePath = "../../assets/Database.db";
     
     private ServerConfiguration() {}
 

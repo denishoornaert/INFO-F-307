@@ -306,4 +306,25 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
         }
     }
 
+    @Override
+    public boolean updateMarker(MarkerSendableModel marker) {
+        boolean res = false;
+        
+        String query = "UPDATE Marker SET PokemonId=(SELECT Id FROM Pokemon WHERE Name=?), TimeStamp=?, LifePoint=?, Attack=?, Defense=? WHERE Id=?;";
+        
+        try {
+            PreparedStatement statement = _connection.prepareStatement(query);
+            statement.setString(1, marker.getPokemon().getName());
+            statement.setTimestamp(2, new Timestamp(marker.getLongTimestamp()));
+            statement.setInt(3, marker.getAttack());
+            statement.setInt(3, marker.getDefense());
+            statement.setInt(3, marker.getDatabaseId());
+            res = (statement.executeUpdate() == 1);
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return res;
+    }
+        
 }

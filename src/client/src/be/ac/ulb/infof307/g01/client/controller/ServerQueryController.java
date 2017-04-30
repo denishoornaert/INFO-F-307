@@ -118,5 +118,17 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
     public void loadAllPokemonTypes() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public boolean updateMarker(MarkerSendableModel marker) {
+        boolean result = true;
+        WebResource resource = _webResource.path("marker").path("update");
+        
+        if (!sendPostQuery(resource, marker)) {
+            Logger.getLogger(getClass().getName()).log(Level.WARNING, "Could not update marker");
+            result = false;
+        }
+        return result;
+    }
     
 }

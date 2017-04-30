@@ -42,6 +42,13 @@ public class ServiceQueryController {
         return response;
     }
     
-    
+    @Path("marker/update")
+    @POST
+    @Consumes(MediaType.APPLICATION_XML)
+    @Produces(MediaType.APPLICATION_XML)
+    public Response updateMarker(MarkerSendableModel marker) {
+        DatabaseModel.getInstance().updateMarker(marker);
+        return Response.status(Status.OK).entity(marker).build();
+    }
     
 }

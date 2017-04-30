@@ -115,10 +115,12 @@ public class MarkerModel extends MarkerSendableModel {
         return timestamp;
     }
     
+    @Override
     public PokemonModel getPokemon() {
         return (PokemonModel) _pokemon;
     }
     
+    @Override
     public String getPokemonName() {
         return _pokemon.getName();
     }
@@ -146,11 +148,11 @@ public class MarkerModel extends MarkerSendableModel {
 
     public void update(PokemonModel pokemon, int lifePoint, int attack, int defense, 
             Timestamp timestamp) {
-        // TODO : call database
         setPokemon(pokemon);
         setTimestamp(timestamp);
         setLifePoint(lifePoint);
         setAttack(attack);
         setDefense(defense);
+        _serverQuery.updateMarker(this);
     }
 }
