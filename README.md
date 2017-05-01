@@ -16,32 +16,20 @@ Pour *compiler*, il faut également disposer de :
 
 ## Compilation
 
+Une version du code source déjà compilée et compatible avec les plate-formes visées se trouve dans le dossier `dist/` du projet.
+
 Afin de compiler le code source, exécuter la commande suivante à la racine du projet :  
 ```mvn compile```
 
 ## Démarrage 
 
- - Linux : ```java -jar Groupe01.jar``` (same for bash on Windows)
- - Windows : installation de Linux suivi de la comande écrite ci-dessus
- - MacOS : installation de Linux suivi de la comande écrite ci-dessus
+### Serveur
 
-# Configuration :
+### Client
 
-## Serveur 
+Pour lancer l'exécution du programme côté client, il suffit d'exécuter :  
+```java -jar Groupe01.jar```
 
-Irrelevant
-
-## Client
-
-Pour le moment, le programme fonctionne en "stand alone" et ne nécessite aucunement un serveur auquel se connecter.
-
-# Tests :
-
-Go Netbeans
-
-# Misc :
-
-## Développement
 
 ## Screenshot
 
