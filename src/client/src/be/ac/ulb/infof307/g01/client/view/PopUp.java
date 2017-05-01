@@ -14,7 +14,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 /**
- * TODO: add description
+ * A very minimalist abstract pop-up class defining the defaut pop-up 
+ * layout and scene 
+ * 
+ * @author Groupe01
  */
 public abstract class PopUp extends Stage {
 

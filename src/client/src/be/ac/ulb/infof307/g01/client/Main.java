@@ -53,19 +53,7 @@ public class Main extends Application {
     }
     
     public static void main(String[] args) {
-        // TODO remove test
-//        ArrayList<MarkerSendableModel> allMarker = ServerQueryController.getInstance().getAllMarkers();
-//        for(MarkerSendableModel mark : allMarker) {
-//            System.out.println("Marker !");
-//        }
-        
-//        PokemonTypeSendableModel pokemonType = new PokemonTypeSendableModel("typeTest");
-//        MarkerSendableModel markerSend = new MarkerSendableModel(12,
-//            "test", new PokemonSendableModel("name", "path", pokemonType), 
-//                5, 12, new Timestamp(System.currentTimeMillis()).getTime(), 3, 1,
-//            5, 7, 9);
-//        ServerQueryController.getInstance().insertMarker(markerSend);
-        launch(args);
+    launch(args);
     }
 
 }

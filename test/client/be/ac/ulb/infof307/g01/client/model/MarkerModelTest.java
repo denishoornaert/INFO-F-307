@@ -6,8 +6,8 @@ import org.junit.Test;
 
 
 import org.junit.Before;
-import static junit.framework.TestCase.assertEquals;
 import org.junit.After;
+import static junit.framework.TestCase.assertEquals;
 
 
 public class MarkerModelTest {
@@ -44,17 +44,17 @@ public class MarkerModelTest {
     
     @Test
     public void test_getLifePoint(){
-       assertEquals(TEST_MARKER.getPokemonLife(), LIFE_POINT);
+       assertEquals(TEST_MARKER.geMarkerLife(), LIFE_POINT);
     }
     
    @Test
     public void test_getAttack(){
-        assertEquals(TEST_MARKER.getPokemonAttack(), ATTACK);
+        assertEquals(TEST_MARKER.getMarkerAttack(), ATTACK);
     }  
     
     @Test
     public void test_getDefense(){
-        assertEquals(TEST_MARKER.getPokemonDefense(), DEFENSE);
+        assertEquals(TEST_MARKER.getMarkerDefense(), DEFENSE);
     }
     
     @Test

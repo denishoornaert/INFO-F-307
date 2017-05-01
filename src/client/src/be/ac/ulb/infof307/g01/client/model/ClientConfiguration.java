@@ -30,7 +30,7 @@ public class ClientConfiguration {
         _stylePath = "../../assets/client/bootstrap.css";
         _serverUrl = "http://localhost:8080/server/rest";
         _applicationTitle = "Gotta Map'Em All !";
-        _applicationIconsPaths = new ArrayList<String>(Arrays.asList(
+        _applicationIconsPaths = new ArrayList<>(Arrays.asList(
             "../../assets/client/icons/application_icon_16.png",
             "../../assets/client/icons/application_icon_32.png",
             "../../assets/client/icons/application_icon_64.png",

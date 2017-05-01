@@ -11,7 +11,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.control.TextField;
 
 /**
- * TODO description
+ * Pop-up to login in an already existant user, asking him its username and password
+ * 
+ * @author Group01
  */
 public class LoginPopUp extends PopUp {
     

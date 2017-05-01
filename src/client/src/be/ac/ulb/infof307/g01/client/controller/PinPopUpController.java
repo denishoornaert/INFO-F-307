@@ -39,15 +39,15 @@ public class PinPopUpController {
     }
     
     public String getPokemonLife() {
-        return "" + _marker.getPokemonLife();
+        return "" + _marker.geMarkerLife();
     }
     
     public String getPokemonAttack() {
-        return "" + _marker.getPokemonAttack();
+        return "" + _marker.getMarkerAttack();
     }
     
     public String getPokemonDefense() {
-        return "" + _marker.getPokemonDefense();
+        return "" + _marker.getMarkerDefense();
     }
     
     public String getVoteScore() {

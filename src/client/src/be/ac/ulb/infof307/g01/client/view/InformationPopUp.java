@@ -12,11 +12,11 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 /**
- * TODO description
+ * Abstract pop-up which will serve as a minimalist template for a Pokemon view
  * 
  * @author Groupe01
  */
-public class InformationPopUp extends PopUp {
+public abstract class InformationPopUp extends PopUp {
     
     private ImageView _selectedPokemonView;
     private HBox _widgets;

@@ -140,16 +140,15 @@ public class MarkerModel extends MarkerSendableModel {
         return _pokemon.getImagePath();
     }
     
-    // TODO check method name
-    public int getPokemonAttack() {
+    public int getMarkerAttack() {
         return _attack;
     }
     
-    public int getPokemonDefense() {
+    public int getMarkerDefense() {
         return _defense;
     }
     
-    public int getPokemonLife() {
+    public int geMarkerLife() {
         return _lifePoint;
     }
 

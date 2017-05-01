@@ -22,7 +22,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 /**
- * TODO add description
+ * Abstract class that will serve as a template of Pop-Up over a PokemonMaker for
+ * both its creation and update (by the user who created it) as they share the
+ * same layout and information
  * 
  * @author Groupe01
  */
@@ -42,6 +44,7 @@ public abstract class AbstractMarkerPopUp extends InformationPopUp {
     private Label _defenseLabel;
     private Button _closeButton;
     private Button _okButton;
+    private static final int DEFAULT_MARKER_ID = 0;
     
     private final ArrayList<String> _pokemonNames;
     protected final AbstractMarkerPopUpController _controller;
@@ -49,8 +52,7 @@ public abstract class AbstractMarkerPopUp extends InformationPopUp {
     
     public AbstractMarkerPopUp(AbstractMarkerPopUpController controller, 
             ArrayList<String> pokemonsName) {
-        // TODO : très moche magic number. dois être rectifier mais j'ai la flemme...
-        this(controller, pokemonsName, 0); 
+        this(controller, pokemonsName, DEFAULT_MARKER_ID); 
     }
     
     public AbstractMarkerPopUp(AbstractMarkerPopUpController controller, 

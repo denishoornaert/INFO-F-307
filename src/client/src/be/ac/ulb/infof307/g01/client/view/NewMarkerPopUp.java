@@ -11,12 +11,15 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Spinner;
 
 /**
- * TODO: add description
+ * Marker Pop-up for a new created Marker, must define the hours and minutes
+ * when the pokemon was met
+ * 
+ * @author Groupe01
  */
 public class NewMarkerPopUp extends AbstractMarkerPopUp {
     
-    private final int _hours = 24;
-    private final int _minutes = 60;
+    private static final int MAX_HOURS = 24;
+    private static final int MAX_MINUTES = 60;
     
     public NewMarkerPopUp(NewMarkerPopUpController controller, ArrayList<String> pokemonsName) {
         super(controller, pokemonsName);
@@ -56,7 +59,7 @@ public class NewMarkerPopUp extends AbstractMarkerPopUp {
     @Override
     protected void initComboBoxHour(int hour) {
         _dateHour = new ComboBox();
-        setComboBox(_dateHour, _hours, hour);
+        setComboBox(_dateHour, MAX_HOURS, hour);
         _dateHour.setPromptText(Integer.toString(hour));
         
     }
@@ -64,7 +67,7 @@ public class NewMarkerPopUp extends AbstractMarkerPopUp {
     @Override
     protected void initComboBoxMinutes(int minute) {
         _dateMinute = new ComboBox();
-        setComboBox(_dateMinute, _minutes, minute);
+        setComboBox(_dateMinute, MAX_MINUTES, minute);
         _dateMinute.setPromptText(Integer.toString(minute));
     }
     

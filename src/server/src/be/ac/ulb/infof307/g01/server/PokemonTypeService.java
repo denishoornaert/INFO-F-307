@@ -41,7 +41,7 @@ public class PokemonTypeService {
     @Produces(MediaType.APPLICATION_XML)
     public PokemonTypeSendableModel getAllTypes() {
         PokemonTypeSendableModel pokemonType = new PokemonTypeSendableModel();
-        // TODO
+        // TODO (pas d'explications ????)
         return pokemonType;
     }
     

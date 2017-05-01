@@ -12,7 +12,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 
 /**
- * TODO description
+ * Pop-up which appeared when a user want to update/change a marker that he
+ * already created
+ * 
  * @author Groupe01
  */
 public class UpdateMarkerPopUp extends AbstractMarkerPopUp {
@@ -30,11 +32,11 @@ public class UpdateMarkerPopUp extends AbstractMarkerPopUp {
     @Override
     protected void initSpinners() {
         _lifeSpinner = createSpinner();
-        _lifeSpinner.getValueFactory().setValue(_markerModel.getPokemonLife());
+        _lifeSpinner.getValueFactory().setValue(_markerModel.geMarkerLife());
         _defenseSpinner = createSpinner();
-        _defenseSpinner.getValueFactory().setValue(_markerModel.getPokemonDefense());
+        _defenseSpinner.getValueFactory().setValue(_markerModel.getMarkerDefense());
         _attackSpinner = createSpinner();
-        _attackSpinner.getValueFactory().setValue(_markerModel.getPokemonAttack());
+        _attackSpinner.getValueFactory().setValue(_markerModel.getMarkerAttack());
     }
         
     @Override
