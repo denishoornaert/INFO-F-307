@@ -287,7 +287,7 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
     public ArrayList<MarkerSendableModel> getAllMarkers() {
         ArrayList<MarkerSendableModel> allMarkers = new ArrayList<>();
         String query = "SELECT M.Id, M.Username, P.Name, M.Latitude, "
-                + "M.Longitude, M.TimeStamp, M.LifePoints, M.Attack, M.Defense,"
+                + "M.Longitude, M.TimeStamp, M.LifePoints, M.Attack, M.Defense "
                 + "FROM Marker M "
                 + "JOIN Pokemon P ON P.Id=M.PokemonId;";
         try {

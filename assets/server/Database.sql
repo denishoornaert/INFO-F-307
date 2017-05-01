@@ -4,7 +4,7 @@ CREATE TABLE `User` (
 	`Id`		INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
 	`Username`	TEXT NOT NULL UNIQUE,
 	`Email`		TEXT NOT NULL UNIQUE,
-	`Password`	TEXT NOT NULL,
+	`Password`	TEXT NOT NULL
 );
 
 CREATE TABLE `PokemonType` (
@@ -18,7 +18,7 @@ CREATE TABLE `Pokemon` (
 	`ImagePath`	TEXT NOT NULL,
 	`TypeFirst`	INTEGER NOT NULL,
 	`TypeSecond`	INTEGER,
-	FOREIGN KEY(`TypeFirst`) REFERENCES `PokemonType`
+	FOREIGN KEY(`TypeFirst`) REFERENCES `PokemonType`,
 	FOREIGN KEY(`TypeSecond`) REFERENCES `PokemonType`
 );
 
