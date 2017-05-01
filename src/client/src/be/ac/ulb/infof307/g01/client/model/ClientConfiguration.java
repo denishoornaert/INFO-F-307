@@ -20,6 +20,8 @@ public class ClientConfiguration {
     private final String _unknownPokemonImagePath;
     private final String _spritesPath;
     private final String _termsAndConditionPath;
+    private final String _applicationTitle;
+    private final ArrayList<String> _applicationIconsPaths;
     
     private ClientConfiguration() {
         _termsAndConditionPath = "../../assets/client/terms_and_conditions.txt";
@@ -27,6 +29,15 @@ public class ClientConfiguration {
         _unknownPokemonImagePath = "assets/client/unknown_pokemon.png";
         _stylePath = "../../assets/client/bootstrap.css";
         _serverUrl = "http://localhost:8080/server/rest";
+        _applicationTitle = "Gotta Map'Em All !";
+        _applicationIconsPaths = new ArrayList<String>(Arrays.asList(
+            "../../assets/client/icons/application_icon_16.png",
+            "../../assets/client/icons/application_icon_32.png",
+            "../../assets/client/icons/application_icon_64.png",
+            "../../assets/client/icons/application_icon_128.png",
+            "../../assets/client/icons/application_icon_256.png",
+            "../../assets/client/icons/application_icon_512.png"
+        ));
     }
 
     public static ClientConfiguration getInstance() {			
