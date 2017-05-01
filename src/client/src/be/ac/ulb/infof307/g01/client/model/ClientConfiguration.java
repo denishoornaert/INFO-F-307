@@ -1,6 +1,8 @@
 package be.ac.ulb.infof307.g01.client.model;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Class used almost everywhere because this is the one who contains all the
@@ -18,6 +20,14 @@ public class ClientConfiguration {
     private final String _unknownPokemonImagePath = "assets/client/unknown_pokemon.png";
     private final String _spritesPath = "../../assets/client/sprites/";
     private final String _applicationTitle = "Gotta Catch'em All !";
+    private final ArrayList<String> _applicationIconsPaths = new ArrayList<String>(Arrays.asList(
+        "assets/client/icons/application_icon_16.png",
+        "assets/client/icons/application_icon_32.png",
+        "assets/client/icons/application_icon_64.png",
+        "assets/client/icons/application_icon_128.png",
+        "assets/client/icons/application_icon_256.png",
+        "assets/client/icons/application_icon_512.png"
+    ));
     
     private ClientConfiguration() {}
 
@@ -54,6 +64,10 @@ public class ClientConfiguration {
     
     public String getApplicationTitle() {
         return _applicationTitle;
+    }
+    
+    public ArrayList<String> getApplicationIconsPaths() {
+        return _applicationIconsPaths;
     }
     
     public String getURL() {
