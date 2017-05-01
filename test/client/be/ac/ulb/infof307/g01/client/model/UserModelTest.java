@@ -47,10 +47,3 @@ public class UserModelTest {
     }
     
 */
-    
-    
-    
-    
-    
-    
-}
