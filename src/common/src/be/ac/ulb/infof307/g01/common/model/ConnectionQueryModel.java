@@ -12,6 +12,6 @@ package be.ac.ulb.infof307.g01.common.model;
 public interface ConnectionQueryModel {
 
     public void signin(String username, String password);
-    public void signup(String username, String email);
+    public void signup(String username, String email, String password);
     
 }

@@ -45,7 +45,7 @@ public class UserController {
         if (email.isEmpty() || username.isEmpty() || password.isEmpty() || !terms) {
             throw new IllegalArgumentException("All fields are required");
         }
-        _connection.signup(username, email);
+        _connection.signup(username, email, password);
     }
     
     public static UserController getInstance() {
@@ -55,11 +55,15 @@ public class UserController {
         return _instance;
     }
 
-    String getEmail() {
+    public String getEmail() {
         return _user.getEmail();
     }
 
-    String getUsername() {
+    public String getUsername() {
         return _user.getUsername();
+    }
+
+    public String getPassword() {
+        return _user.getPassword();
     }
 }
