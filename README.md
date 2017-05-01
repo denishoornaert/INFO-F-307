@@ -4,7 +4,7 @@ Le projet a pour but de permettre à un utilisateur de l'application "Pokemon Go
 
 ## Dépendances
 
-Pour *fonctionner*, le projet a besoin des librairies suivantes :
+Pour *fonctionner* (à partir d'un `.jar` déjà compilé), le projet a besoin des librairies suivantes :
 
  - [Java Runtime Environment 8](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html), pour exécuter le code Java
  - [SQLite 3](https://sqlite.org/download.html), pour gérer la base de données
@@ -16,7 +16,8 @@ Pour *compiler*, il faut également disposer de :
 
 ## Compilation
 
-TO DO: Informations sur la façon de compiler votre projet 
+Afin de compiler le code source, exécuter la commande suivante à la racine du projet :  
+```mvn compile```
 
 ## Démarrage 
 
