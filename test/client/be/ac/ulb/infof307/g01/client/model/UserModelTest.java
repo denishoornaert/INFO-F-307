@@ -4,15 +4,16 @@
  * and open the template in the editor.
  */
 package be.ac.ulb.infof307.g01.client.model;
-
+/*
 import static junit.framework.TestCase.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
-
+*/
 /**
  * Test the interaction with the User
  *
  */
+/*
 public class UserModelTest {
     private final String PASSWORD = "12345";
     private final String USERNAME = "GLGP";
@@ -45,7 +46,7 @@ public class UserModelTest {
               
     }
     
-    
+*/
     
     
     

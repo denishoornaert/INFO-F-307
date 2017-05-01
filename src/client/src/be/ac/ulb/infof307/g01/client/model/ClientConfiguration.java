@@ -53,11 +53,11 @@ public class ClientConfiguration {
     }
     
     public String getApplicationTitle() {
-        return _applicationTitle;
+        return ""; //_applicationTitle;
     }
     
     public ArrayList<String> getApplicationIconsPaths() {
-        return _applicationIconsPaths;
+        return new ArrayList<>(); //_applicationIconsPaths;
     }
     
     public String getURL() {

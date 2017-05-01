@@ -5,28 +5,21 @@
  */
 package be.ac.ulb.infof307.g01.client.controller;
 
+import be.ac.ulb.infof307.g01.common.model.ConnectionQueryModel;
+import be.ac.ulb.infof307.g01.common.model.UserSendableModel;
+
 /**
  *
  * @author Nathan
  */
 public class UserController {
+    
     private static UserController _instance = null;
-    private String _username;
-    private String _email;
+    private UserSendableModel _user;
+    private ConnectionQueryModel _connection;
     
-    /**
-     * Private controller : Singleton
-     */
     private UserController() {
-        _username = null;
-        _email = null;
-    }
-    
-    public String getUsername() {
-        return _username;
-    }
-    public String getEmail() {
-        return _email;
+        //_connection = (ConnectionQueryModel) DatabaseModel.getInstance()
     }
     
     /**
@@ -39,8 +32,8 @@ public class UserController {
         if(username.isEmpty() || password.isEmpty()) {
             throw new IllegalArgumentException("All fields are required");
         }
-        _username = username;
-        // Send request to the server
+
+        _connection.signin(username, password);
     }
     
     /**
@@ -48,12 +41,11 @@ public class UserController {
      * @param email the email
      * @param username the username
      */
-    public void register(String email, String username, boolean terms) {
-        if (email.isEmpty() || username.isEmpty() || !terms) {
+    public void register(String email, String username, String password, boolean terms) {
+        if (email.isEmpty() || username.isEmpty() || password.isEmpty() || !terms) {
             throw new IllegalArgumentException("All fields are required");
         }
-        _email = email;
-        _username = username;
+        _connection.signup(username, email);
     }
     
     public static UserController getInstance() {
@@ -61,5 +53,13 @@ public class UserController {
             _instance = new UserController();
         }
         return _instance;
+    }
+
+    String getEmail() {
+        return _user.getEmail();
+    }
+
+    String getUsername() {
+        return _user.getUsername();
     }
 }
