@@ -77,7 +77,7 @@ public class SignupPopUp extends PopUp {
         setXExpandPolicy(_submit);
         _containerHClose.setAlignment(Pos.CENTER);
         _containerHClose.setPadding(new Insets(5, 0, 0, 0));
-        _containerV.getChildren().addAll(_containerHTerms, _containerHClose);
+        _containerV.getChildren().addAll(_containerHTerms, _containerHClose, _remarks);
         super.add(_containerV);
     }
     
@@ -120,6 +120,5 @@ public class SignupPopUp extends PopUp {
 
     public void showError(String msg) {
         _remarks.setText(msg);
-        _containerV.getChildren().add(_remarks);
     }
 }
