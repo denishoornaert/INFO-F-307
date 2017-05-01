@@ -8,7 +8,7 @@ import be.ac.ulb.infof307.g01.client.view.SignupPopUp;
  */
 public class SignupPopUpController {
     
-    private SignupPopUp _signup;
+    private final SignupPopUp _signup;
 	
     public SignupPopUpController() {
         _signup = new SignupPopUp(this);
@@ -18,6 +18,8 @@ public class SignupPopUpController {
      * 
      * @param email user email
      * @param user username
+     * @param password
+     * @param terms
      */
     public void submit(String email, String user, String password, boolean terms) {
         try {

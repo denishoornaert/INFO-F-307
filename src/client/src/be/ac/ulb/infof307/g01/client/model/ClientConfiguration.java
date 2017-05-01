@@ -28,7 +28,7 @@ public class ClientConfiguration {
         _spritesPath = "../../assets/client/sprites/";
         _unknownPokemonImagePath = "assets/client/unknown_pokemon.png";
         _stylePath = "../../assets/client/bootstrap.css";
-        _serverUrl = "http://localhost:8080/server/rest/";
+        _serverUrl = "localhost:8080/server";
         _applicationTitle = "Gotta Map'Em All !";
         _applicationIconsPaths = new ArrayList<String>(Arrays.asList(
             "../../assets/client/icons/application_icon_16.png",
