@@ -24,7 +24,7 @@ bin/
 /lib/junit_4-2/junit-4.12-sources.jar
 
 # Database
-assets/Database.db
-assets/TestDatabase.db
+assets/server/Database.db
+assets/server/TestDatabase.db
 /.project
 /.classpath
