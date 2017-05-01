@@ -2,7 +2,8 @@ package be.ac.ulb.infof307.g01.common.model;
 
 import org.junit.Before;
 import org.junit.Test;
-import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 /**
  * Test the interaction with the User
@@ -33,7 +34,9 @@ public class UserSendableModelTest {
     
     @Test
     public void test_getPassword() {
-        assertEquals(_userSendable.getPassword(), PASSWORD);
+        String cryptPassword = _userSendable.cryptPassword(PASSWORD);
+        assertEquals(_userSendable.getPassword(), cryptPassword);
+        assertNotEquals(_userSendable.getPassword(), PASSWORD);
     }
 
 }
