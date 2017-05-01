@@ -55,13 +55,13 @@ public class PinPopUpController {
     }
 
     public void addDownVote() {
-        _marker.voteDown();
+        _marker.addVote(UserController.getInstance().getUsername(), false);
         _pinPopUp.disableVoteButtons();
         updateVoteView();
     }
 
     public void addUpVote() {
-        _marker.voteUp();
+        _marker.addVote(UserController.getInstance().getUsername(), true);
         _pinPopUp.disableVoteButtons();
         updateVoteView();
     }

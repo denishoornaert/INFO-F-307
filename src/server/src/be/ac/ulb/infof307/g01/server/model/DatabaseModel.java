@@ -1,6 +1,5 @@
 package be.ac.ulb.infof307.g01.server.model;
 
-import be.ac.ulb.infof307.g01.common.model.CoordinateSendableModel;
 import be.ac.ulb.infof307.g01.common.model.MarkerQueryModel;
 import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonQueryModel;
@@ -63,7 +62,7 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
     }
     
     /**
-     * Init database
+     * Initializes database
      *
      * @param pathToDatabase path to database
      */
@@ -251,28 +250,25 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
     @Override
     public boolean insertMarker(MarkerSendableModel marker) {
         boolean result = false;
-        String query = "INSERT INTO Marker(PokemonId, Username, Latitude, Longitude, TimeStamp, UpVotes, DownVotes, LifePoint, Attack, Defense) "
+        String query = "INSERT INTO Marker(PokemonId, Username, Latitude, Longitude, TimeStamp, LifePoints, Attack, Defense) "
                 + "VALUES("
                     + "(SELECT Id "
                     + "FROM Pokemon "
                     + "WHERE Name=?), "
-                + "?, ?, ?, ?, 0, 0, ?, ?, ?);";
+                + "?, ?, ?, ?, ?, ?, ?);";
         try {
-            CoordinateSendableModel markerCoordinate = marker.getCoordinate();
             PreparedStatement statement = _connection.prepareStatement(query);
-            Timestamp timestamp = new Timestamp(marker.getLongTimestamp());
-            String timestampString = timestamp.toString();
             
-            statement.setString(1, marker.getPokemonName());
-            statement.setString(2, marker.getUsername());
-            statement.setDouble(3, markerCoordinate.getLatitude());
-            statement.setDouble(4, markerCoordinate.getLongitude());
-            statement.setString(5, timestampString);
-            statement.setInt(6, marker.getLifePoint());
-            statement.setInt(7, marker.getAttack());
-            statement.setInt(8, marker.getDefense());
+            int i = 0; // index of statement
+            statement.setString(++i, marker.getPokemonName());
+            statement.setString(++i, marker.getUsername());
+            statement.setDouble(++i, marker.getCoordinate().getLatitude());
+            statement.setDouble(++i, marker.getCoordinate().getLongitude());
+            statement.setString(++i, marker.getLongTimestamp().toString());
+            statement.setInt(++i, marker.getLifePoints());
+            statement.setInt(++i, marker.getAttack());
+            statement.setInt(++i, marker.getDefense());
             statement.execute();
-            
 
             final int generatedId = statement.getGeneratedKeys().getInt(1);
             marker.setDatabaseId(generatedId);
@@ -290,10 +286,10 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
     @Override
     public ArrayList<MarkerSendableModel> getAllMarkers() {
         ArrayList<MarkerSendableModel> allMarkers = new ArrayList<>();
-        String query = "SELECT M.Id, M.Username, P.Name, M.Latitude, M.Longitude, M.TimeStamp, M.UpVotes, M.DownVotes, M.LifePoint, M.Attack, M.Defense "
+        String query = "SELECT M.Id, M.Username, P.Name, M.Latitude, "
+                + "M.Longitude, M.TimeStamp, M.LifePoints, M.Attack, M.Defense,"
                 + "FROM Marker M "
-                + "JOIN Pokemon P "
-                + "    ON P.Id=M.PokemonId;";
+                + "JOIN Pokemon P ON P.Id=M.PokemonId;";
         try {
             ResultSet allMarkersCursor = executeQuery(query);
             while(allMarkersCursor.next()) {
@@ -313,15 +309,43 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
         final double latitude = cursor.getDouble(++i);
         final double longitude = cursor.getDouble(++i);
         final String timestampString = cursor.getString(++i);
-        final int upVotes = cursor.getInt(++i);
-        final int downVotes = cursor.getInt(++i);
-        final int lifePoint = cursor.getInt(++i);
+        final int upVotes = getMarkerUpVotes(id);
+        final int downVotes = getMarkerDownVotes(id);
+        final int lifePoints = cursor.getInt(++i);
         final int attack = cursor.getInt(++i);
         final int defense = cursor.getInt(++i);
         
         return new MarkerSendableModel(id, username, pokemonName, latitude, longitude,
                 Timestamp.valueOf(timestampString).getTime(), upVotes, 
-                downVotes, lifePoint, attack, defense);
+                downVotes, lifePoints, attack, defense);
+    }
+    
+    public int getMarkerUpVotes(int markerId) {
+        return getMarkerVotes(markerId, true);
+    }
+    
+    public int getMarkerDownVotes(int markerId) {
+        return getMarkerVotes(markerId, false);
+    }
+    
+    private int getMarkerVotes(int markerId, boolean isUp) {
+        int votes = 0;
+        String query = "SELECT COUNT(*) FROM MarkerVote V "
+                + "WHERE MarkerId=? AND IsUp=?;";
+        
+        try {
+            PreparedStatement statement = _connection.prepareStatement(query);
+            
+            int i = 0; // index of statement
+            statement.setInt(++i, markerId);
+            statement.setBoolean(++i, isUp);
+            statement.execute();
+            
+            votes = statement.getGeneratedKeys().getInt(1);
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return votes;
     }
 
     @Override
