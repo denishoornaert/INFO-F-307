@@ -21,12 +21,12 @@ public class ClientConfiguration {
     private final String _spritesPath = "../../assets/client/sprites/";
     private final String _applicationTitle = "Gotta Catch'em All !";
     private final ArrayList<String> _applicationIconsPaths = new ArrayList<String>(Arrays.asList(
-        "assets/client/icons/application_icon_16.png",
-        "assets/client/icons/application_icon_32.png",
-        "assets/client/icons/application_icon_64.png",
-        "assets/client/icons/application_icon_128.png",
-        "assets/client/icons/application_icon_256.png",
-        "assets/client/icons/application_icon_512.png"
+        "../../assets/client/icons/application_icon_16.png",
+        "../../assets/client/icons/application_icon_32.png",
+        "../../assets/client/icons/application_icon_64.png",
+        "../../assets/client/icons/application_icon_128.png",
+        "../../assets/client/icons/application_icon_256.png",
+        "../../assets/client/icons/application_icon_512.png"
     ));
     
     private ClientConfiguration() {}
