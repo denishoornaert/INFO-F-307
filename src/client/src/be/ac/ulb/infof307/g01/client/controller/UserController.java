@@ -16,10 +16,10 @@ public class UserController {
     
     private static UserController _instance = null;
     private UserSendableModel _user;
-    private ConnectionQueryModel _connection;
+    private final ConnectionQueryModel _connection;
     
     private UserController() {
-        //_connection = (ConnectionQueryModel) DatabaseModel.getInstance()
+        _connection = (ConnectionQueryModel) ServerQueryController.getInstance();
     }
     
     /**
@@ -32,9 +32,11 @@ public class UserController {
         if(username.isEmpty() || password.isEmpty()) {
             throw new IllegalArgumentException("All fields are required");
         }
-
-        _connection.signin(new UserSendableModel(username, password));
-        // TODO : si ok set _user = new UserSendableModel(username, password)
+        UserSendableModel temporaryProfil = new UserSendableModel(username, password);
+        boolean successfullySignin = _connection.signin(temporaryProfil);
+        if(!successfullySignin) {
+            throw new IllegalArgumentException("User name already taken.");
+        }
     }
     
     /**
@@ -43,10 +45,11 @@ public class UserController {
      * @param username the username
      */
     public void register(String email, String username, String password, boolean terms) {
-        if (email.isEmpty() || username.isEmpty() || password.isEmpty() || !terms) {
+        if(email.isEmpty() || username.isEmpty() || password.isEmpty() || !terms) {
             throw new IllegalArgumentException("All fields are required");
         }
-        _connection.signup(new UserSendableModel(username, email, password));
+        UserSendableModel temporaryProfil = new UserSendableModel(username, email, password);
+        _connection.signup(temporaryProfil);
     }
     
     public static UserController getInstance() {

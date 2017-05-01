@@ -163,7 +163,7 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
     }
 
     @Override
-    public void signin(UserSendableModel user) {
+    public boolean signin(UserSendableModel user) {
         boolean result = true;
         WebResource resource = _webResource.path("user").path("signin");
         
@@ -171,11 +171,11 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
             Logger.getLogger(getClass().getName()).log(Level.WARNING, "Could not sign in");
             result = false;
         }
-        //return result;
+        return result;
     }
 
     @Override
-    public void signup(UserSendableModel user) {
+    public boolean signup(UserSendableModel user) {
         boolean result = true;
         WebResource resource = _webResource.path("marker").path("signup");
         
@@ -183,7 +183,7 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
             Logger.getLogger(getClass().getName()).log(Level.WARNING, "Could not sign up");
             result = false;
         }
-        //return result;
+        return result;
     }
     
 }

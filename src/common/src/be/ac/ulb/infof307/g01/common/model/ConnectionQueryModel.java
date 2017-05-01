@@ -11,7 +11,7 @@ package be.ac.ulb.infof307.g01.common.model;
  */
 public interface ConnectionQueryModel {
 
-    public void signin(UserSendableModel userSendableModel);
-    public void signup(UserSendableModel userSendableModel);
+    public boolean signin(UserSendableModel userSendableModel);
+    public boolean signup(UserSendableModel userSendableModel);
     
 }
