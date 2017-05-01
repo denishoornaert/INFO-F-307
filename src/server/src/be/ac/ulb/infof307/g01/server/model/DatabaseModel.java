@@ -7,6 +7,7 @@ import be.ac.ulb.infof307.g01.common.model.PokemonQueryModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonTypeQueryModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
+import be.ac.ulb.infof307.g01.common.model.UserSendableModel;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.Connection;
@@ -325,6 +326,14 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
         }
         
         return res;
+    }
+
+    public void signin(UserSendableModel user) {
+        // TODO : Remy
+    }
+
+    public void signup(UserSendableModel user) {
+        // TODO : Remy
     }
         
 }

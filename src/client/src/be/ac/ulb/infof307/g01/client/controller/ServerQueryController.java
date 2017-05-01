@@ -3,12 +3,14 @@ package be.ac.ulb.infof307.g01.client.controller;
 import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
 import be.ac.ulb.infof307.g01.client.model.PokemonModel;
 import be.ac.ulb.infof307.g01.client.model.PokemonTypeModel;
+import be.ac.ulb.infof307.g01.common.model.ConnectionQueryModel;
 import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
 import be.ac.ulb.infof307.g01.common.model.MarkerQueryModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonQueryModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonTypeQueryModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
+import be.ac.ulb.infof307.g01.common.model.UserSendableModel;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.GenericType;
@@ -26,7 +28,7 @@ import javax.xml.bind.Unmarshaller;
 /**
  * Connect to server and handles client queries
  */
-public class ServerQueryController implements MarkerQueryModel, PokemonQueryModel, PokemonTypeQueryModel {
+public class ServerQueryController implements MarkerQueryModel, PokemonQueryModel, PokemonTypeQueryModel, ConnectionQueryModel {
     
     private WebResource _webResource;
     private static ServerQueryController _instance;
@@ -158,6 +160,30 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
             result = false;
         }
         return result;
+    }
+
+    @Override
+    public void signin(UserSendableModel user) {
+        boolean result = true;
+        WebResource resource = _webResource.path("user").path("signin");
+        
+        if (!sendPostQuery(resource, user)) {
+            Logger.getLogger(getClass().getName()).log(Level.WARNING, "Could not sign in");
+            result = false;
+        }
+        //return result;
+    }
+
+    @Override
+    public void signup(UserSendableModel user) {
+        boolean result = true;
+        WebResource resource = _webResource.path("marker").path("signup");
+        
+        if (!sendPostQuery(resource, user)) {
+            Logger.getLogger(getClass().getName()).log(Level.WARNING, "Could not sign up");
+            result = false;
+        }
+        //return result;
     }
     
 }

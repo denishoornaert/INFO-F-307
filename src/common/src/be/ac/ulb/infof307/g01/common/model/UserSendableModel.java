@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package be.ac.ulb.infof307.g01.common.model;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -18,20 +13,17 @@ public class UserSendableModel {
     protected String _username;
     protected String _password;
     protected String _email;
-    protected boolean _signin;
     
     public UserSendableModel() { } // Do not remove !
-    
-    public void signin(String user, String password) {
-        _username = user;
-        _password = password;
-        _signin = true;
+
+    public UserSendableModel(String username, String password) {
+        this(username, "", password);
     }
     
-    public void signup(String user, String email) {
-        _username = user;
+    public UserSendableModel(String username, String email, String password) {
+        _username = username;
+        _password = password;
         _email = email;
-        _signin = false;
     }
     
     public String getUsername() {
@@ -44,10 +36,6 @@ public class UserSendableModel {
     
     public String getEmail() {
         return _email;
-    }
-    
-    public boolean getEvent() {
-        return _signin;
     }
     
 }

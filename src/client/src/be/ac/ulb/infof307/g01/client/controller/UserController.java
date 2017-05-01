@@ -33,7 +33,8 @@ public class UserController {
             throw new IllegalArgumentException("All fields are required");
         }
 
-        _connection.signin(username, password);
+        _connection.signin(new UserSendableModel(username, password));
+        // TODO : si ok set _user = new UserSendableModel(username, password)
     }
     
     /**
@@ -45,7 +46,7 @@ public class UserController {
         if (email.isEmpty() || username.isEmpty() || password.isEmpty() || !terms) {
             throw new IllegalArgumentException("All fields are required");
         }
-        _connection.signup(username, email, password);
+        _connection.signup(new UserSendableModel(username, email, password));
     }
     
     public static UserController getInstance() {

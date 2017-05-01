@@ -3,6 +3,7 @@ package be.ac.ulb.infof307.g01.server;
 import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
+import be.ac.ulb.infof307.g01.common.model.UserSendableModel;
 import be.ac.ulb.infof307.g01.server.model.DatabaseModel;
 import java.util.ArrayList;
 import java.util.List;
@@ -80,6 +81,24 @@ public class ServiceQueryController {
         allPokemonType = PokemonTypeSendableModel.getAllPokemonTypes();
         
         return allPokemonType;
+    }
+    
+    @Path("user/signin")
+    @POST
+    @Consumes(MediaType.APPLICATION_XML)
+    @Produces(MediaType.APPLICATION_XML)
+    public Response userSignin(UserSendableModel user) {
+        DatabaseModel.getInstance().signin(user);
+        return Response.status(Status.OK).entity(user).build();
+    }
+    
+    @Path("user/signup")
+    @POST
+    @Consumes(MediaType.APPLICATION_XML)
+    @Produces(MediaType.APPLICATION_XML)
+    public Response userSignup(UserSendableModel user) {
+        DatabaseModel.getInstance().signup(user);
+        return Response.status(Status.OK).entity(user).build();
     }
     
 }
