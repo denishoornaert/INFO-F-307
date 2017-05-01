@@ -2,9 +2,17 @@
 
 Le projet a pour but de permettre à un utilisateur de l'application "Pokemon Go" de signaler aux autres utilisateurs les pokémons qu'il rencontre. Le programme se veut fonctionnel sur les trois OS les plus connus/utilisés (Linux, Windows et MacOS).
 
-# Utilisation :
+## Dépendances
 
-TO DO: Informations sur le système de build et la version du Java/Librairies utilisés dans l'implementation.
+Pour *fonctionner*, le projet a besoin des librairies suivantes :
+
+ - [Java Runtime Environment 8](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html), pour exécuter le code Java
+ - [SQLite 3](https://sqlite.org/download.html), pour gérer la base de données
+ 
+Pour *compiler*, il faut également disposer de :
+
+ - [Java Development Kit 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html), pour compiler le code Java
+ - [Maven 3](https://maven.apache.org/download.cgi), permettant de gérer la structure et les dépendances du code 
 
 ## Compilation
 
