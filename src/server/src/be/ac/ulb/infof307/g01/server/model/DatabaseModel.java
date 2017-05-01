@@ -7,8 +7,12 @@ import be.ac.ulb.infof307.g01.common.model.PokemonQueryModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonTypeQueryModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
+import be.ac.ulb.infof307.g01.server.ServerConfiguration;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -37,10 +41,8 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
         MarkerQueryModel {
 
     private static DatabaseModel _instance = null;
-    private static final String FOLDER_DATABSE = "/home/remy/Documents/"
-            + "BA3/GénieLogiciel/Groupe01/assets/server/";
+    private static final ServerConfiguration CONFIG = ServerConfiguration.getInstance();
     
-
     /**
      * The database connection
      */
@@ -48,14 +50,14 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
 
     public static DatabaseModel getInstance() {
         if(_instance == null) {
-            _instance = new DatabaseModel(FOLDER_DATABSE + "Database.db");
+            _instance = new DatabaseModel(CONFIG.getDataBasePath());
         }
         return _instance;
     }
     
     public static DatabaseModel getTestInstance() {
         if(_instance == null) {
-            _instance = new DatabaseModel("../../assets/TestDatabase.db");
+            _instance = new DatabaseModel(CONFIG.getTestDataBasePath());
         }
         return _instance;
     }
@@ -67,13 +69,16 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
      */
     protected DatabaseModel(String pathToDatabase) {
         try {
-            // stops the function if file doesn't exist
-            assertDatabaseFileExists(pathToDatabase);
+            boolean justeCreated = createDatabaseFile(pathToDatabase);
             connectToSqlite(pathToDatabase);
-        } catch (SQLException | FileNotFoundException ex) {
+            if(justeCreated) {
+                createAllTables(pathToDatabase);
+            }
+        } catch(IOException | SQLException ex) {
             Logger.getLogger(DatabaseModel.class.getName()).log(Level.SEVERE, null, ex);
             System.exit(1);
         }
+        
         loadAllTables();
 
         _instance = this;
@@ -88,16 +93,18 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
     }
 
     /**
-     * Returns whether *.db file exists
+     * Create the database file (.db from .sql)
      *
      * @param path path to database
-     * @return true if file exists and false otherwise
+     * @return false if file already exist, true if file have been juste created
      */
-    private void assertDatabaseFileExists(String path) throws FileNotFoundException {
+    private boolean createDatabaseFile(String path) throws IOException {
         File file = new File(path);
         if(!file.exists()) {
-            throw new FileNotFoundException("File " + path + " not found!");
+            file.createNewFile();
+            return true;
         }
+        return false;
     }
 
     /**
@@ -110,7 +117,40 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
         _connection = DriverManager.getConnection(
                 "jdbc:sqlite:" + pathToDatabase);
     }
-
+    
+    /**
+     * Get the content of .sql file
+     * 
+     * @return the file content
+     */
+    private String[] getContentSqlFile(String pathToSqlFile) throws FileNotFoundException, IOException {
+        StringBuilder sb = new StringBuilder();
+        FileReader fr = new FileReader(new File(pathToSqlFile));
+        BufferedReader br = new BufferedReader(fr);
+        
+        String s;
+        while((s = br.readLine()) != null) {
+            sb.append(s);
+        }
+        br.close();
+        
+        return sb.toString().split(";");
+    }
+    
+    private void createAllTables(String pathToDatabase) {
+        String pathToSqlFile = pathToDatabase.substring(0, pathToDatabase.lastIndexOf('.'));
+        try {
+            String[] content = getContentSqlFile(pathToSqlFile + ".sql");
+            for(String query : content) {
+                executeQuery(query);
+            }
+            
+        } catch (IOException ex) {
+            Logger.getLogger(DatabaseModel.class.getName()).log(Level.SEVERE, 
+                    null, "Couls not read sql file (" + pathToSqlFile + ")" + ex);
+        }
+    }
+    
     /**
      * Properly close the connection to the database
      */
