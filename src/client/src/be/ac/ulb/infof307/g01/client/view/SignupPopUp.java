@@ -70,7 +70,6 @@ public class SignupPopUp extends PopUp {
     }
     
     private void placeWidgets() {
-        _containerV.getChildren().addAll(_emailLabel, _email, _usernameLabel, _username);
         _containerHTerms.getChildren().addAll(_termsAndConditionBox, _termsAndConditionLabel);
         _containerHClose.getChildren().addAll(_cancel,_submit);
         _containerV.getChildren().addAll(_emailLabel, _email, _usernameLabel, _username, _passwordLabel, _password);
