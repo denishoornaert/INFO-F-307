@@ -165,7 +165,7 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
                 }
             }
         } catch (SQLException exception) {
-            System.err.println(exception.getMessage());
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, exception.getMessage());
         }
     }
 

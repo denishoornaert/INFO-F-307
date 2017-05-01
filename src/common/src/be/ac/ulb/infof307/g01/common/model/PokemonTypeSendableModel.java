@@ -78,12 +78,19 @@ public class PokemonTypeSendableModel {
     }
     
     /**
-     * Remove all existing PokemonType (and juste add NONE type)<br>
+     * Remove all existing PokemonType<br>
      * Warning: only for test !
      */
     public static void resetAllPokemonType() {
         _allPokemonTypes.clear();
-        _allPokemonTypes.put("NONE", new PokemonTypeSendableModel("NONE"));
+    }
+    
+    public static PokemonTypeSendableModel getNoneType() {
+        PokemonTypeSendableModel noneType = _allPokemonTypes.get("NONE");
+        if(noneType == null) {
+            noneType = new PokemonTypeSendableModel("NONE");
+        }
+        return noneType;
     }
     
 }

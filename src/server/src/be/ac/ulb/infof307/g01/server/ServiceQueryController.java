@@ -69,7 +69,7 @@ public class ServiceQueryController {
     @GET
     @Produces(MediaType.APPLICATION_XML)
     public List<PokemonSendableModel> loadAllPokemons() {
-        ArrayList<PokemonSendableModel> arrayListPokemon = PokemonSendableModel.getAllPokemon();
+        List<PokemonSendableModel> arrayListPokemon = PokemonSendableModel.getAllPokemon();
         if(arrayListPokemon.isEmpty()) {
             DatabaseModel.getInstance().loadAllPokemonTypes();
         }
