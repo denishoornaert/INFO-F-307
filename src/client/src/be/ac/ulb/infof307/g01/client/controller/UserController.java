@@ -23,7 +23,7 @@ public class UserController {
      * @param username The user name.
      * @param password The password.
     */
-    public void authenticate(String username, String password) {
+    public void authenticate(String username, String password) throws IllegalArgumentException {
         if(username.isEmpty() || password.isEmpty()) {
             throw new IllegalArgumentException("All fields are required");
         }
@@ -43,7 +43,8 @@ public class UserController {
      * @param password of the user
      * @param terms are accepted
      */
-    public void register(String email, String username, String password, boolean terms) {
+    public void register(String email, String username, String password, 
+            boolean terms) throws IllegalArgumentException {
         if(email.isEmpty() || username.isEmpty() || password.isEmpty() || !terms) {
             throw new IllegalArgumentException("All fields are required");
         }

@@ -73,6 +73,7 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
     private boolean sendPostQuery(WebResource url, Object postObject) {
         ClientResponse response = url.accept(MediaType.APPLICATION_XML)
                 .post(ClientResponse.class, postObject);
+        
         switch (response.getClientResponseStatus()) {
             case OK:
             case ACCEPTED: 
@@ -164,7 +165,7 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
     @Override
     public boolean signup(UserSendableModel user) {
         boolean result = true;
-        WebResource resource = _webResource.path("marker").path("signup");
+        WebResource resource = _webResource.path("user").path("signup");
         
         if (!sendPostQuery(resource, user)) {
             Logger.getLogger(getClass().getName()).log(Level.WARNING, "Could not sign up");

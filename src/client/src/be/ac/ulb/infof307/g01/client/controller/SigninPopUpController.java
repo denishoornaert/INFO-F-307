@@ -26,7 +26,7 @@ public class SigninPopUpController {
 	public void authenticate(String username, String password) {
             try {
                 UserController.getInstance().authenticate(username, password);
-            } catch(Exception e) {
+            } catch(IllegalArgumentException e) {
                 _signinPopUp.showError(e.getMessage());
             }
 	}

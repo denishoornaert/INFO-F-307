@@ -24,7 +24,9 @@ public class SignupPopUpController {
     public void submit(String email, String user, String password, boolean terms) {
         try {
             UserController.getInstance().register(email, user, password, terms);
-        } catch(Exception e) {
+            System.out.println("ici");
+        } catch(IllegalArgumentException e) {
+            System.out.println("Error ");
             _signup.showError(e.getMessage());
         }
     }
