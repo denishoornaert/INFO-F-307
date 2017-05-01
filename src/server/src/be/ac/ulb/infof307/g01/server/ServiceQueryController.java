@@ -36,8 +36,18 @@ public class ServiceQueryController {
     @Consumes(MediaType.APPLICATION_XML)
     @Produces(MediaType.APPLICATION_XML)
     public Response insertMarker(MarkerSendableModel marker) {
-        DatabaseModel.getInstance().insertMarker(marker);
-        return Response.status(Status.OK).entity(marker).build();
+        Response response;
+        Logger.getLogger(getClass().getName()).log(Level.INFO, 
+                "Insert Marker: {0} - {1} - {2}", 
+                new Object[]{marker.getPokemonName(), marker.getUsername(), 
+                    marker.getAttack()});
+        
+        if(DatabaseModel.getInstance().insertMarker(marker)) {
+            response = Response.status(Status.OK).entity(marker).build();
+        } else {
+            response = Response.status(Status.NOT_ACCEPTABLE).build();
+        }
+        return response;
     }
     
     @Path("marker/getall")
