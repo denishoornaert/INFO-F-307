@@ -19,7 +19,7 @@ public class PokemonSendableModel {
     public PokemonSendableModel(String pokemonName, String imagePath, 
             PokemonTypeSendableModel pokemonType) {
         this(pokemonName, imagePath, pokemonType, 
-            PokemonTypeSendableModel.getPokemonTypeByTypeName("NONE"));
+            PokemonTypeSendableModel.getNoneType());
     }
     
     public PokemonSendableModel(String pokemonName, String imagePath, 
@@ -35,13 +35,7 @@ public class PokemonSendableModel {
     }
     
     public PokemonSendableModel(PokemonSendableModel other) {
-        _name = other._name;
-        _imageName = other._imageName;
-        _type = other._type;
-        _type[0] = other._type[0];
-        _type[1] = other._type[1];
-        
-        _allPokemon.put(other._name, this);
+        this(other._name, other._imageName, other._type[0], other._type[1]);
     }
     
     /**

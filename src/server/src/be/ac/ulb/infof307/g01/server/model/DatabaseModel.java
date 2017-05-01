@@ -7,6 +7,7 @@ import be.ac.ulb.infof307.g01.common.model.PokemonQueryModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonTypeQueryModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
+import be.ac.ulb.infof307.g01.common.model.UserSendableModel;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.Connection;
@@ -37,8 +38,7 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
         MarkerQueryModel {
 
     private static DatabaseModel _instance = null;
-    private static final String FOLDER_DATABSE = "/home/remy/Documents/"
-            + "BA3/GénieLogiciel/Groupe01/assets/server/";
+    private static final String FOLDER_DATABSE = "/home/remy/Documents/BA3/GénieLogiciel/Groupe01/assets/server/";
     
 
     /**
@@ -165,7 +165,7 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
                 }
             }
         } catch (SQLException exception) {
-            System.err.println(exception.getMessage());
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, exception.getMessage());
         }
     }
 
@@ -211,7 +211,9 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
     @Override
     public boolean insertMarker(MarkerSendableModel marker) {
         boolean result = false;
-        String query = "INSERT INTO Marker(PokemonId, Username, Latitude, Longitude, TimeStamp, UpVotes, DownVotes, LifePoint, Attack, Defense) "
+        String query = "INSERT INTO Marker(PokemonId, Username, Latitude, "
+                + "Longitude, TimeStamp, UpVotes, DownVotes, LifePoint, "
+                + "Attack, Defense) "
                 + "VALUES("
                     + "(SELECT Id "
                     + "FROM Pokemon "
@@ -250,7 +252,9 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
     @Override
     public ArrayList<MarkerSendableModel> getAllMarkers() {
         ArrayList<MarkerSendableModel> allMarkers = new ArrayList<>();
-        String query = "SELECT M.Id, M.Username, P.Name, M.Latitude, M.Longitude, M.TimeStamp, M.UpVotes, M.DownVotes, M.LifePoint, M.Attack, M.Defense "
+        String query = "SELECT M.Id, M.Username, P.Name, M.Latitude, M.Longitude,"
+                + " M.TimeStamp, M.UpVotes, M.DownVotes, M.LifePoint,"
+                + " M.Attack, M.Defense "
                 + "FROM Marker M "
                 + "JOIN Pokemon P "
                 + "    ON P.Id=M.PokemonId;";
@@ -310,7 +314,9 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
     public boolean updateMarker(MarkerSendableModel marker) {
         boolean res = false;
         
-        String query = "UPDATE Marker SET PokemonId=(SELECT Id FROM Pokemon WHERE Name=?), TimeStamp=?, LifePoint=?, Attack=?, Defense=? WHERE Id=?;";
+        String query = "UPDATE Marker SET PokemonId=(SELECT Id FROM Pokemon "
+                + "WHERE Name=?), TimeStamp=?, LifePoint=?, Attack=?, Defense=? "
+                + "WHERE Id=?;";
         
         try {
             PreparedStatement statement = _connection.prepareStatement(query);
@@ -325,6 +331,72 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
         }
         
         return res;
+    }
+    
+    /**
+     * Sign in (connect) a user
+     * 
+     * @param user all user informations
+     * @return True if user have send the good password
+     * @throws java.sql.SQLException error with sql
+     */
+    public boolean signin(UserSendableModel user) throws SQLException {
+        String query = "SELECT Password FROM User WHERE Username = ? AND Token = '';";
+        
+        PreparedStatement statement = _connection.prepareStatement(query);
+        statement.setString(1, user.getUsername());
+        ResultSet result = statement.executeQuery();
+        
+        if(result.next()) {
+            if(result.getString("Password").equals(user.getPassword())) {
+               return true; 
+            } else {
+                Logger.getLogger(getClass().getName()).log(Level.INFO, 
+                    "User: {0} failded password: {1}", 
+                    new Object[]{user.getUsername(), user.getPassword()});
+            }
+        }
+        
+        return false;
+    }
+    
+    /**
+     * Sign Up (register) a new user
+     * 
+     * @param user all user informations
+     * @param token with must be send to email
+     * @throws java.sql.SQLException error with sql
+     */
+    public void signup(UserSendableModel user, String token) throws SQLException {
+        String query = "INSERT INTO User (Username, Email, Password, Token) "
+                + "VALUES (?, ?, ?, ?);";
+        
+        Logger.getLogger(getClass().getName()).log(Level.INFO, "Create user: "
+                + "{0} - {1} - {2}", new Object[]{user.getUsername(), 
+                    user.getEmail(), user.getPassword()});
+        
+        PreparedStatement statement = _connection.prepareStatement(query);
+        statement.setString(1, user.getUsername());
+        statement.setString(2, user.getEmail());
+        statement.setString(3, user.getPassword());
+        statement.setString(4, token);
+        statement.execute();
+    }
+
+    /**
+     * Confirm a user account
+     * 
+     * @param token the token who confirm account
+     * @return True if the token have been confirm
+     * @throws java.sql.SQLException an sql error
+     */
+    public boolean confirmAccount(String token) throws SQLException {
+        String query = "UPDATE User SET Token = '' WHERE Token = ?";
+        
+        PreparedStatement statement = _connection.prepareStatement(query);
+        statement.setString(1, token);
+        
+        return statement.executeUpdate() == 1;
     }
         
 }

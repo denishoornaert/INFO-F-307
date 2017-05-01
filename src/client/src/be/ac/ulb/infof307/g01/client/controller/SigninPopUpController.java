@@ -1,6 +1,8 @@
 package be.ac.ulb.infof307.g01.client.controller;
 
 import be.ac.ulb.infof307.g01.client.view.SigninPopUp;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Singleton class managing the authentication of the user,
@@ -24,7 +26,13 @@ public class SigninPopUpController {
          * @param password The password
 	 */
 	public void authenticate(String username, String password) {
-            UserController.getInstance().authenticate(username, password);
+            try {
+                UserController.getInstance().authenticate(username, password);
+            } catch(IllegalArgumentException error) {
+                Logger.getLogger(getClass().getName()).log(Level.INFO, 
+                        "Signin message: {0}", error.getMessage());
+                _signinPopUp.showError(error.getMessage());
+            }
 	}
         
         /**

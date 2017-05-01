@@ -38,6 +38,7 @@ public class SignupPopUp extends PopUp {
     private PasswordField _password;
     private Button _submit;
     private Button _cancel;
+    private Label _remarks;
     
     public SignupPopUp (SignupPopUpController controller) {
         super();
@@ -62,13 +63,13 @@ public class SignupPopUp extends PopUp {
         _username = new TextField();
         _email = new TextField();
         _password = new PasswordField();
+        _remarks = new Label("");
         initCancelButton();
         initSubmitButton();
         initTermsAndConditionLabel();
     }
     
     private void placeWidgets() {
-        _containerV.getChildren().addAll(_emailLabel, _email, _usernameLabel, _username);
         _containerHTerms.getChildren().addAll(_termsAndConditionBox, _termsAndConditionLabel);
         _containerHClose.getChildren().addAll(_cancel,_submit);
         _containerV.getChildren().addAll(_emailLabel, _email, _usernameLabel, _username, _passwordLabel, _password);
@@ -76,7 +77,7 @@ public class SignupPopUp extends PopUp {
         setXExpandPolicy(_submit);
         _containerHClose.setAlignment(Pos.CENTER);
         _containerHClose.setPadding(new Insets(5, 0, 0, 0));
-        _containerV.getChildren().addAll(_containerHTerms, _containerHClose);
+        _containerV.getChildren().addAll(_containerHTerms, _containerHClose, _remarks);
         super.add(_containerV);
     }
     
@@ -115,5 +116,9 @@ public class SignupPopUp extends PopUp {
         _termsAndConditionLabel.setOnAction((ActionEvent e) -> {
            _controller.openTermsAndconditionPopUp(); 
         });
+    }
+
+    public void showError(String msg) {
+        _remarks.setText(msg);
     }
 }
