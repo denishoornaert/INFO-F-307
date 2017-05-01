@@ -30,7 +30,7 @@ public class UserController {
         UserSendableModel temporaryProfil = new UserSendableModel(username, password);
         boolean successfullySignin = _connection.signin(temporaryProfil);
         if(!successfullySignin) {
-            throw new IllegalArgumentException("User name already taken.");
+            throw new IllegalArgumentException("there's something wrong.");
         } else {
             _user = temporaryProfil;
         }
