@@ -1,11 +1,13 @@
 package be.ac.ulb.infof307.g01.client.model;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
- * Class used almost everywhere beacause this is the one who contains all the
+ * Class used almost everywhere because this is the one who contains all the
  * magic numbers and magic string (relative paths, url, ...).
- * The class must be accesible from almst everywhere therefore we design it as a singleton.
+ * The class must be accessible from almost everywhere therefore we designed it as a singleton.
  *
  * @author Groupe01
  */
@@ -48,6 +50,14 @@ public class ClientConfiguration {
     
     public String getSpritesPath() {
         return _spritesPath;
+    }
+    
+    public String getApplicationTitle() {
+        return _applicationTitle;
+    }
+    
+    public ArrayList<String> getApplicationIconsPaths() {
+        return _applicationIconsPaths;
     }
     
     public String getURL() {

@@ -20,7 +20,6 @@ public class MapController {
     /** Instance of the current popup. Is equal to null if no popup is open,
      *  and is set to null when the popup is closed.
      */
-    //private AbstractMarkerPopUpController _newMarkerPopUpController;    
     
     public MapController() {
         _query = (MarkerQueryModel) ServerQueryController.getInstance();
@@ -40,8 +39,6 @@ public class MapController {
     }
 
     public void askForCreateMarker(double latitude, double longitude) {
-        //_newMarkerPopUpController = new NewMarkerPopUpController(_markerController);
-        //_newMarkerPopUpController.askForCreateMarker(latitude, longitude);
         new NewMarkerPopUpController(_markerController, latitude, longitude);
     }
     
