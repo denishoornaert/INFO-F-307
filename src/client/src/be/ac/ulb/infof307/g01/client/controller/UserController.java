@@ -5,16 +5,22 @@
  */
 package be.ac.ulb.infof307.g01.client.controller;
 
-import be.ac.ulb.infof307.g01.client.model.UserModel;
+import be.ac.ulb.infof307.g01.common.model.ConnectionQueryModel;
+import be.ac.ulb.infof307.g01.common.model.UserSendableModel;
 
 /**
  *
  * @author Nathan
  */
 public class UserController {
-    private static UserController _instance = null;
     
-    private UserController() { }
+    private static UserController _instance = null;
+    private UserSendableModel _user;
+    private ConnectionQueryModel _connection;
+    
+    private UserController() {
+        //_connection = (ConnectionQueryModel) DatabaseModel.getInstance()
+    }
     
     /**
      * Try to authenticate with the given user name.
@@ -26,7 +32,7 @@ public class UserController {
         if(username.isEmpty() || password.isEmpty()) {
             throw new IllegalArgumentException("All fields are required");
         }
-        UserModel.getInstance().signin(username, password);
+        _connection.signin(username, password);
     }
     
     /**
@@ -34,11 +40,11 @@ public class UserController {
      * @param email the email
      * @param username the username
      */
-    public void register(String email, String username) {
-        if (email.isEmpty() || username.isEmpty()) {
+    public void register(String email, String username, String password) {
+        if (email.isEmpty() || username.isEmpty() || password.isEmpty()) {
             throw new IllegalArgumentException("All fields are required");
         }
-        UserModel.getInstance().signup(username, email);
+        _connection.signup(username, email);
     }
     
     public static UserController getInstance() {
@@ -46,5 +52,13 @@ public class UserController {
             _instance = new UserController();
         }
         return _instance;
+    }
+
+    String getEmail() {
+        return _user.getEmail();
+    }
+
+    String getUsername() {
+        return _user.getUsername();
     }
 }
