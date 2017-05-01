@@ -1,63 +1,69 @@
 BEGIN TRANSACTION;
 
 CREATE TABLE `User` (
-	`id`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+	`Id`		INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
 	`Username`	TEXT NOT NULL UNIQUE,
-	`Email`	TEXT NOT NULL UNIQUE,
-	`Password`	TEXT NOT NULL,
-	FOREIGN KEY(`Username`) REFERENCES Marker
+	`Email`		TEXT NOT NULL UNIQUE,
+	`Password`	TEXT NOT NULL
 );
-/* TODO CHECK FOREIGN KEY IS IT LINK TO Marker Username */
 
 CREATE TABLE `PokemonType` (
-	`Id`	INTEGER PRIMARY KEY AUTOINCREMENT,
-	`Name`	TEXT UNIQUE
+	`Id`		INTEGER PRIMARY KEY AUTOINCREMENT,
+	`Name`		TEXT UNIQUE
 );
 
 CREATE TABLE `Pokemon` (
-	`Id`	     INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-	`Name`	     TEXT NOT NULL UNIQUE,
-	`ImagePath`  TEXT NOT NULL,
-    `TypeFirst`  INTEGER NOT NULL,
-    `TypeSecond` INTEGER,
-	FOREIGN KEY(`TypeFirst`) REFERENCES `PokemonType`
+	`Id`		INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+	`Name`		TEXT NOT NULL UNIQUE,
+	`ImagePath`	TEXT NOT NULL,
+	`TypeFirst`	INTEGER NOT NULL,
+	`TypeSecond`	INTEGER,
+	FOREIGN KEY(`TypeFirst`) REFERENCES `PokemonType`,
 	FOREIGN KEY(`TypeSecond`) REFERENCES `PokemonType`
 );
 
 CREATE TABLE `Marker` (
-    `Id`        INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-    `Username`  TEXT    NOT NULL,
-    `PokemonId` INTEGER NOT NULL,
-    `Latitude`  DOUBLE  NOT NULL,
-    `Longitude` DOUBLE  NOT NULL,
-    `TimeStamp` TEXT    NOT NULL,
-    `UpVotes`   INTEGER NOT NULL,
-    `DownVotes` INTEGER NOT NULL,
-    `LifePoint` INTEGER NOT NULL,
-    `Attack` INTEGER NOT NULL,
-    `Defense` INTEGER NOT NULL,
-	FOREIGN KEY(`PokemonId`) REFERENCES Pokemon
+	`Id`		INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+	`UserId`	INTEGER NOT NULL,
+	`PokemonId`	INTEGER NOT NULL,
+	`Latitude`	DOUBLE  NOT NULL,
+	`Longitude`	DOUBLE  NOT NULL,
+	`TimeStamp`	TEXT NOT NULL,
+	`LifePoints`	INTEGER NOT NULL,
+	`Attack`	INTEGER NOT NULL,
+	`Defense`	INTEGER NOT NULL,
+	FOREIGN KEY (`UserId`) REFERENCES `User`,
+	FOREIGN KEY(`PokemonId`) REFERENCES `Pokemon`
+);
+
+CREATE TABLE `MarkerVote` (
+	`Id`		INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+	`UserId`	INTEGER NOT NULL,
+	`MarkerId`	INTEGER NOT NULL,
+	`IsUp`		BOOLEAN NOT NULL,
+	FOREIGN KEY (`UserId`) REFERENCES `User`,
+	FOREIGN KEY (`MarkerId`) REFERENCES `Marker`
 );
 
 INSERT INTO `PokemonType` (`Name`) VALUES
-    ("NORMAL"),
-    ("FIRE"),
-    ("WATER"),
-    ("ELECTRIC"),
-    ("GRASS"),
-    ("ICE"),
-    ("FIGHTING"),
-    ("POISON"),
-    ("GROUND"),
-    ("FLYING"),
-    ("PSYCHIC"),
-    ("BUG"),
-    ("ROCK"),
-    ("GHOST"),
-    ("DRAGON"),
-    ("DARK"),
-    ("STEEL"),
-    ("FAIRY");
+	("NORMAL"),
+	("FIRE"),
+	("WATER"),
+	("ELECTRIC"),
+	("GRASS"),
+	("ICE"),
+	("FIGHTING"),
+	("POISON"),
+	("GROUND"),
+	("FLYING"),
+	("PSYCHIC"),
+	("BUG"),
+	("ROCK"),
+	("GHOST"),
+	("DRAGON"),
+	("DARK"),
+	("STEEL"),
+	("FAIRY");
 
 INSERT INTO `Pokemon` (`Name`,`ImagePath`, `TypeFirst`, `TypeSecond`) VALUES
 	("Abomasnow", "abomasnow.png", (SELECT `Id` FROM PokemonType WHERE `Name`="GRASS"), (SELECT `Id` FROM PokemonType WHERE `Name`="ICE")),

@@ -250,18 +250,17 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
     @Override
     public boolean insertMarker(MarkerSendableModel marker) {
         boolean result = false;
-        String query = "INSERT INTO Marker(PokemonId, Username, Latitude, Longitude, TimeStamp, LifePoints, Attack, Defense) "
+        String query = "INSERT INTO Marker(UserId, PokemonId, Latitude, Longitude, TimeStamp, LifePoints, Attack, Defense) "
                 + "VALUES("
-                    + "(SELECT Id "
-                    + "FROM Pokemon "
-                    + "WHERE Name=?), "
-                + "?, ?, ?, ?, ?, ?, ?);";
+                    + "(SELECT Id FROM User WHERE Username=?), "
+                    + "(SELECT Id FROM Pokemon WHERE Name=?), "
+                + "?, ?, ?, ?, ?, ?);";
         try {
             PreparedStatement statement = _connection.prepareStatement(query);
             
             int i = 0; // index of statement
-            statement.setString(++i, marker.getPokemonName());
             statement.setString(++i, marker.getUsername());
+            statement.setString(++i, marker.getPokemonName());
             statement.setDouble(++i, marker.getCoordinate().getLatitude());
             statement.setDouble(++i, marker.getCoordinate().getLongitude());
             statement.setString(++i, marker.getLongTimestamp().toString());
@@ -286,9 +285,10 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
     @Override
     public ArrayList<MarkerSendableModel> getAllMarkers() {
         ArrayList<MarkerSendableModel> allMarkers = new ArrayList<>();
-        String query = "SELECT M.Id, M.Username, P.Name, M.Latitude, "
+        String query = "SELECT M.Id, U.Username, P.Name, M.Latitude, "
                 + "M.Longitude, M.TimeStamp, M.LifePoints, M.Attack, M.Defense "
                 + "FROM Marker M "
+                + "JOIN User U ON U.Id=M.UserId "
                 + "JOIN Pokemon P ON P.Id=M.PokemonId;";
         try {
             ResultSet allMarkersCursor = executeQuery(query);
