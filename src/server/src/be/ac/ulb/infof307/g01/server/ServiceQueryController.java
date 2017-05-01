@@ -1,14 +1,16 @@
 package be.ac.ulb.infof307.g01.server;
 
 import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
+import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
+import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
 import be.ac.ulb.infof307.g01.server.model.DatabaseModel;
 import java.util.ArrayList;
+import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -33,13 +35,51 @@ public class ServiceQueryController {
     @Path("marker/getall")
     @GET
     @Produces(MediaType.APPLICATION_XML)
-    public Response getAllMarker() {
+    public List<MarkerSendableModel> getAllMarker() {
         ArrayList<MarkerSendableModel> arrayListMarker = DatabaseModel.getInstance().getAllMarkers();
-        GenericEntity<ArrayList<MarkerSendableModel>> entity = 
-                new GenericEntity<ArrayList<MarkerSendableModel>>(arrayListMarker) {};
-        Response response = Response.ok(entity).build();
+        return arrayListMarker;
+    }
+    
+    @Path("marker/update")
+    @POST
+    @Consumes(MediaType.APPLICATION_XML)
+    @Produces(MediaType.APPLICATION_XML)
+    public Response updateMarker(MarkerSendableModel marker) {
+        DatabaseModel.getInstance().updateMarker(marker);
+        return Response.status(Status.OK).entity(marker).build();
+    }
+    
+    @Path("marker/updateReputation")
+    @POST
+    @Consumes(MediaType.APPLICATION_XML)
+    public Response updateMarkerReputation(MarkerSendableModel marker) {
+        DatabaseModel.getInstance().updateMarkerReputation(marker);
+        return Response.status(Status.OK).entity(marker).build();
+    }
+    
+    @Path("pokemon/getall")
+    @GET
+    @Produces(MediaType.APPLICATION_XML)
+    public List<PokemonSendableModel> loadAllPokemons() {
+        ArrayList<PokemonSendableModel> arrayListPokemon = PokemonSendableModel.getAllPokemon();
+        if(arrayListPokemon.isEmpty()) {
+            DatabaseModel.getInstance().loadAllPokemonTypes();
+        }
+        arrayListPokemon = PokemonSendableModel.getAllPokemon();
+        return arrayListPokemon;
+    }
+    
+    @Path("pokemontype/getall")
+    @GET
+    @Produces(MediaType.APPLICATION_XML)
+    public List<PokemonTypeSendableModel> getAllPokemonType() {
+        ArrayList<PokemonTypeSendableModel> allPokemonType = PokemonTypeSendableModel.getAllPokemonTypes();
+        if(allPokemonType.isEmpty()) {
+            DatabaseModel.getInstance().loadAllPokemonTypes();
+        }
+        allPokemonType = PokemonTypeSendableModel.getAllPokemonTypes();
         
-        return response;
+        return allPokemonType;
     }
     
 }

@@ -15,21 +15,19 @@ public class ClientConfiguration {
     
     private static ClientConfiguration _configuration = null;
     
-    private final String _serverUrl = "http://localhost:8080/server/rest";
-    private final String _stylePath = "../../assets/client/bootstrap.css";
-    private final String _unknownPokemonImagePath = "assets/client/unknown_pokemon.png";
-    private final String _spritesPath = "../../assets/client/sprites/";
-    private final String _applicationTitle = "Gotta Catch'em All !";
-    private final ArrayList<String> _applicationIconsPaths = new ArrayList<String>(Arrays.asList(
-        "../../assets/client/icons/application_icon_16.png",
-        "../../assets/client/icons/application_icon_32.png",
-        "../../assets/client/icons/application_icon_64.png",
-        "../../assets/client/icons/application_icon_128.png",
-        "../../assets/client/icons/application_icon_256.png",
-        "../../assets/client/icons/application_icon_512.png"
-    ));
+    private final String _serverUrl;
+    private final String _stylePath;
+    private final String _unknownPokemonImagePath;
+    private final String _spritesPath;
+    private final String _termsAndConditionPath;
     
-    private ClientConfiguration() {}
+    private ClientConfiguration() {
+        _termsAndConditionPath = "../../assets/client/terms_and_conditions.txt";
+        _spritesPath = "../../assets/client/sprites/";
+        _unknownPokemonImagePath = "assets/client/unknown_pokemon.png";
+        _stylePath = "../../assets/client/bootstrap.css";
+        _serverUrl = "http://localhost:8080/server/rest";
+    }
 
     public static ClientConfiguration getInstance() {			
             if(_configuration == null) {
@@ -40,14 +38,6 @@ public class ClientConfiguration {
     
     private String getCompletePath(String relativePath) {
         return new File(relativePath).toURI().toString();
-    }
-    
-    public String getDataBasePath() {
-        return "../../assets/Database.db";
-    }
-    
-    public String getTestDataBasePath() {
-        return "../../assets/TestDatabase.db";
     }
     
     public String getStylePath() {
@@ -73,4 +63,9 @@ public class ClientConfiguration {
     public String getURL() {
         return _serverUrl;
     }
+    
+    public String getTermsAndContionsPath() {
+        return _termsAndConditionPath;
+    }
+    
 }

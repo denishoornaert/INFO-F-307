@@ -94,6 +94,18 @@ public class MarkerSendableModel {
         _defense = defense;
     }
     
+    protected MarkerSendableModel(MarkerSendableModel other) {
+        _username = other._username;
+        _databaseId = other._databaseId;
+        _pokemon = other._pokemon;
+        _coordinate = other._coordinate;
+        _longTimestamp = other._longTimestamp;
+        _reputation = other._reputation;
+        _lifePoint = other._lifePoint;
+        _attack = other._attack;
+        _defense = other._defense;
+    }
+    
     /** Get the database ID.
      * This function should be used only by DatabaseModel, since the ID is 
      * managed by it.

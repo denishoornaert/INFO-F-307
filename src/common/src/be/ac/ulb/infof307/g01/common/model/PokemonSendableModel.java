@@ -34,6 +34,16 @@ public class PokemonSendableModel {
         _allPokemon.put(pokemonName, this);
     }
     
+    public PokemonSendableModel(PokemonSendableModel other) {
+        _name = other._name;
+        _imageName = other._imageName;
+        _type = other._type;
+        _type[0] = other._type[0];
+        _type[1] = other._type[1];
+        
+        _allPokemon.put(other._name, this);
+    }
+    
     /**
      * Return the name of the Pokemon
      * @return the name of the Pokemon

@@ -38,6 +38,11 @@ public class PokemonModel extends PokemonSendableModel {
         _allPokemon.put(name, this);
     }
     
+    public PokemonModel(PokemonSendableModel pokemon) {
+        super(pokemon);
+        _pathPrefix = ClientConfiguration.getInstance().getSpritesPath();
+    }
+    
     @Override
     public String getImagePath() {
         return _pathPrefix + super.getImagePath();

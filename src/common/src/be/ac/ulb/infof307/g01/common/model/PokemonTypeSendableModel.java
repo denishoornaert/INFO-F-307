@@ -20,6 +20,10 @@ public class PokemonTypeSendableModel {
     
     public PokemonTypeSendableModel() { } // Must exist
     
+    public PokemonTypeSendableModel(PokemonTypeSendableModel other) {
+        this(other._typeName);
+    }
+    
     public PokemonTypeSendableModel(String typeName) {
         typeName = typeName.toUpperCase();
         if(_allPokemonTypes.containsKey(typeName)) {

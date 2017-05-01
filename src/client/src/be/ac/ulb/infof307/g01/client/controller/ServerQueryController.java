@@ -1,15 +1,21 @@
 package be.ac.ulb.infof307.g01.client.controller;
 
 import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
+import be.ac.ulb.infof307.g01.client.model.PokemonModel;
+import be.ac.ulb.infof307.g01.client.model.PokemonTypeModel;
 import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
 import be.ac.ulb.infof307.g01.common.model.MarkerQueryModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonQueryModel;
+import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonTypeQueryModel;
+import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.GenericType;
 import com.sun.jersey.api.client.WebResource;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ws.rs.core.MediaType;
@@ -27,6 +33,7 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
     
     private ServerQueryController() {
         connectClient();
+        loadAllTables();
     }
     
     public static ServerQueryController getInstance() {
@@ -39,10 +46,6 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
     private void connectClient() {
         Client client = Client.create();
         _webResource = client.resource(ClientConfiguration.getInstance().getURL()).path("query");
-        
-        //String response = webResource.accept(MediaType.APPLICATION_XML)
-        //        .get(String.class);
-        //PokemonTypeModel pokemonResponse = convertXmlToObject(response, PokemonTypeSendableModel.class);        
     }
     
     private static<T> T convertXmlToObject(String xml, Class<T> className) {
@@ -50,14 +53,18 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
             JAXBContext context = JAXBContext.newInstance(className);
             Unmarshaller un = context.createUnmarshaller();
             StringReader stringXml = new StringReader(xml);
-            T emp = (T) un.unmarshal(stringXml);
-            return emp;
+            T res = (T) un.unmarshal(stringXml);
+            return res;
         } catch (JAXBException e) {
-            e.printStackTrace();
+            // TODO catch error
         }
         return null;
     }
-
+    
+    private static<T> List<T> sendGetQuery(WebResource resource) {
+        return resource.get(new GenericType<List<T>>(){});
+    }
+    
     /**
      * Executes a GET HTTP request
      * @param <T> the type of the object to get
@@ -65,10 +72,10 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
      * @param className the class name of the expected object
      * @return the expected object
      */
-    private <T> T sendGetQuery(WebResource url, Class<T> className) {
-        String response = url.accept(MediaType.APPLICATION_XML).get(String.class);
-        return convertXmlToObject(response, className);
-    }
+//    private <T> T sendGetQuery(WebResource url, Class<T> className) {
+//        String response = url.accept(MediaType.APPLICATION_XML).get(String.class);
+//        return convertXmlToObject(response, className);
+//    }
     
     /**
      * Executes a POST HTTP request
@@ -87,6 +94,14 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
         return false;
     }
     
+    /**
+     * Load all Data (Pokemon and PokemonType)
+     */
+    private void loadAllTables() {
+        loadAllPokemonTypes();
+        loadAllPokemons();
+    }
+    
     @Override
     public boolean insertMarker(MarkerSendableModel marker) {
         boolean result = true;
@@ -101,26 +116,48 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
 
     @Override
     public ArrayList<MarkerSendableModel> getAllMarkers() {
-//        WebResource resource = _webResource.path("marker").path("getall");
-//            String response = resource.accept(MediaType.APPLICATION_XML).get(String.class);
-//        
-////        ArrayList<MarkerSendableModel> allMarkers = sendGetQuery(resource, ArrayList.class);
-        return new ArrayList<MarkerSendableModel>();
+        WebResource resource = _webResource.path("marker").path("getall");
+        List<MarkerSendableModel> result = sendGetQuery(resource);
+        return new ArrayList<>(result);
     }
 
     @Override
     public void updateMarkerReputation(MarkerSendableModel marker) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        WebResource resource = _webResource.path("marker").path("updateReputation");
+        
+        if (!sendPostQuery(resource, marker)) {
+            Logger.getLogger(getClass().getName()).log(Level.WARNING, "Could not update marker");
+        }
     }
 
     @Override
     public void loadAllPokemons() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        WebResource resource = _webResource.path("pokemon").path("getall");
+        List<PokemonSendableModel> result = resource.get(new GenericType<List<PokemonSendableModel>>(){});
+        for (PokemonSendableModel pokemon: result) {
+            new PokemonModel(pokemon);
+        }
     }
 
     @Override
     public void loadAllPokemonTypes() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        WebResource resource = _webResource.path("pokemontype").path("getall");
+        List<PokemonTypeSendableModel> result = sendGetQuery(resource);
+        for(PokemonTypeSendableModel pokemonType : result) {
+            new PokemonTypeModel(pokemonType);
+        }
+    }
+
+    @Override
+    public boolean updateMarker(MarkerSendableModel marker) {
+        boolean result = true;
+        WebResource resource = _webResource.path("marker").path("update");
+        
+        if (!sendPostQuery(resource, marker)) {
+            Logger.getLogger(getClass().getName()).log(Level.WARNING, "Could not update marker");
+            result = false;
+        }
+        return result;
     }
     
 }
