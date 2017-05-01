@@ -3,6 +3,37 @@ package be.ac.ulb.infof307.g01.client.model;
 import java.io.File;
 import org.junit.Test;
 import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.assertTrue;
 
 /**
  * Tests the ClientConfiguration class.

@@ -16,15 +16,16 @@ public abstract class AbstractMarkerPopUpController {
     protected static String _defaultImagePath;
     protected MarkerController _markerController;
     protected MarkerModel _marker;
+    private static int DEFAULT_MARKER_ID = 0;
  
     public AbstractMarkerPopUpController(MarkerController markerController) {
-        this(markerController, 0);
+        this(markerController, DEFAULT_MARKER_ID);
     }
     
     public AbstractMarkerPopUpController(MarkerController markerController, int markerid) {
         _markerController = markerController;
         _marker = _markerController.getMarkerModelFromId(markerid);
-        _defaultImagePath = ClientConfiguration.getInstance().getUnknownPokemonImagePath();
+        _defaultImagePath = ClientConfiguration.getInstance().getUnknownPokemonSpritePath();
     }
         
     public void cancelPopUpCreateMarker() {
@@ -32,7 +33,18 @@ public abstract class AbstractMarkerPopUpController {
         _markerPopUp = null;
     }
     
-    public abstract void endPopUpMarker(String pokemonName, int lifePoint, int attack, int defense, Timestamp dateView);
+    protected boolean isPokemonNameNotEmpty(String pokemonName) {
+        return (!"".equals(pokemonName) && pokemonName != null);
+    }
+        
+    public void endPopUpMarker(String pokemonName, int lifePoint, int attack, int defense, Timestamp dateView) {
+        if(isPokemonNameNotEmpty(pokemonName)) { 
+            cancelPopUpCreateMarker();
+        }
+        else {
+            _markerPopUp.errorInPokemonName();
+        }
+    }
     
     /*
     * Method called when the user has selected a pokemon name listed among the combobox.

@@ -22,15 +22,11 @@ public class UpdateMarkerPopUpController extends AbstractMarkerPopUpController {
     
     @Override
     public void endPopUpMarker(String pokemonName, int lifePoint, int attack, int defense, Timestamp dateView) {
-        if(pokemonName != "" && pokemonName != null) { // better safe than sorry
-            _markerPopUp.close();
-            _markerPopUp = null;
+        super.endPopUpMarker(pokemonName, lifePoint, attack, defense, dateView);
+        if(isPokemonNameNotEmpty(pokemonName)) { 
             PokemonModel pokemon = PokemonModel.getPokemonByName(pokemonName);
             _markerController.updateMarker(_markerId, pokemon, lifePoint, attack, defense, dateView);
-        }
-        else {
-            _markerPopUp.errorInPokemonName();
-        }
+        } 
     }
     
 }

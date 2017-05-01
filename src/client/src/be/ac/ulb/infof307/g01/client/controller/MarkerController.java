@@ -32,7 +32,7 @@ public class MarkerController {
         _markerMap.put(_newMarkerId, marker);
         _mapView.createPin(marker, _newMarkerId);
         
-        _newMarkerId += 1;
+        _newMarkerId++;
     }
     
     public MarkerModel getMarkerModelFromId(int markerId) {

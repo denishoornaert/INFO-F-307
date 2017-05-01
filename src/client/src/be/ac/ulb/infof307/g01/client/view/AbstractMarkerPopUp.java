@@ -44,7 +44,13 @@ public abstract class AbstractMarkerPopUp extends InformationPopUp {
     private Label _defenseLabel;
     private Button _closeButton;
     private Button _okButton;
+    
     private static final int DEFAULT_MARKER_ID = 0;
+    private static String DATE_HOUR_LABEL_STR = " h ";
+    private static String DATE_MINUTE_LABEL_STR = "min";
+    private static String LIFE_LABEL_STR = "life : ";
+    private static String ATTACK_LABEL_STR = "atk : ";
+    private static String DEFENSE_LABEL_STR = "def : ";
     
     private final ArrayList<String> _pokemonNames;
     protected final AbstractMarkerPopUpController _controller;
@@ -107,11 +113,11 @@ public abstract class AbstractMarkerPopUp extends InformationPopUp {
     protected abstract void initComboBoxMinutes(int value);
     
     private void initLabels() {
-        _dateHourLabel = new Label(" h ");
-        _dateMinuteLabel = new Label("min");
-        _lifeLabel = new Label("life : ");
-        _attackLabel = new Label("atk : ");
-        _defenseLabel = new Label("def : ");
+        _dateHourLabel = new Label(DATE_HOUR_LABEL_STR);
+        _dateMinuteLabel = new Label(DATE_MINUTE_LABEL_STR);
+        _lifeLabel = new Label(LIFE_LABEL_STR);
+        _attackLabel = new Label(ATTACK_LABEL_STR);
+        _defenseLabel = new Label(DEFENSE_LABEL_STR);
     }
     
     

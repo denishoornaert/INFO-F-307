@@ -36,11 +36,6 @@ public class UserController {
         _connection.signin(username, password);
     }
     
-    /**
-     * 
-     * @param email the email
-     * @param username the username
-     */
     public void register(String email, String username, String password, boolean terms) {
         if (email.isEmpty() || username.isEmpty() || password.isEmpty() || !terms) {
             throw new IllegalArgumentException("All fields are required");

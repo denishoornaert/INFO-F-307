@@ -8,7 +8,7 @@ import be.ac.ulb.infof307.g01.client.view.SigninPopUp;
  */
 public class SigninPopUpController {
     
-	private SigninPopUp _signinPopUp;
+	private final SigninPopUp _signinPopUp;
 	
 	/** 
 	 *  Make the constructor private, as this class is a singleton.

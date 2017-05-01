@@ -14,7 +14,7 @@ public class WindowController {
     private PanelController _panelController;
     private boolean _showPanel = false;
     
-    private Window _window;
+    private final Window _window;
     
     public WindowController() {
         initControllers();

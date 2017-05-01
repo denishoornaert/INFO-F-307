@@ -34,13 +34,13 @@ public class PokemonModel extends PokemonSendableModel {
         _name = name;
         _type = type_array;
         _imageName = imageName;
-        _pathPrefix = ClientConfiguration.getInstance().getSpritesPath();
+        _pathPrefix = ClientConfiguration.getInstance().getSpritePath();
         _allPokemon.put(name, this);
     }
     
     public PokemonModel(PokemonSendableModel pokemon) {
         super(pokemon);
-        _pathPrefix = ClientConfiguration.getInstance().getSpritesPath();
+        _pathPrefix = ClientConfiguration.getInstance().getSpritePath();
     }
     
     @Override

@@ -15,28 +15,23 @@ public class ClientConfiguration {
     
     private static ClientConfiguration _configuration = null;
     
-    private final String _serverUrl;
-    private final String _stylePath;
-    private final String _unknownPokemonImagePath;
-    private final String _spritesPath;
-    private final String _termsAndConditionPath;
-    private final String _applicationTitle;
-    private final ArrayList<String> _applicationIconsPaths;
+    private static final String PATH_TO_ASSETS = "../../assets/client/";
+    private static final String SERVER_URL = "http://localhost:8080/server/rest";
+    private static final String STYLE_PATH = PATH_TO_ASSETS + "bootstrap.css";
+    private static final String UNKNOWN_POKEMON_SPRITE_PATH = PATH_TO_ASSETS + "unknown_pokemon.png";
+    private static final String SPRITES_PATH = PATH_TO_ASSETS + "sprites/";
+    private static final String TERMS_AND_CONDITIONS_PATH = PATH_TO_ASSETS + "terms_and_conditions.txt";
+    private static final String APPLICATION_TITLE = "Gotta Map'Em All !";
+    private final ArrayList<String> _applicationIconsPaths; // TODO : vérifier si cet atribut peut être static aussi
     
     private ClientConfiguration() {
-        _termsAndConditionPath = "../../assets/client/terms_and_conditions.txt";
-        _spritesPath = "../../assets/client/sprites/";
-        _unknownPokemonImagePath = "assets/client/unknown_pokemon.png";
-        _stylePath = "../../assets/client/bootstrap.css";
-        _serverUrl = "http://localhost:8080/server/rest";
-        _applicationTitle = "Gotta Map'Em All !";
         _applicationIconsPaths = new ArrayList<>(Arrays.asList(
-            "../../assets/client/icons/application_icon_16.png",
-            "../../assets/client/icons/application_icon_32.png",
-            "../../assets/client/icons/application_icon_64.png",
-            "../../assets/client/icons/application_icon_128.png",
-            "../../assets/client/icons/application_icon_256.png",
-            "../../assets/client/icons/application_icon_512.png"
+            PATH_TO_ASSETS + "icons/application_icon_16.png",
+            PATH_TO_ASSETS + "icons/application_icon_32.png",
+            PATH_TO_ASSETS + "icons/application_icon_64.png",
+            PATH_TO_ASSETS + "icons/application_icon_128.png",
+            PATH_TO_ASSETS + "icons/application_icon_256.png",
+            PATH_TO_ASSETS + "icons/application_icon_512.png"
         ));
     }
 
@@ -52,31 +47,31 @@ public class ClientConfiguration {
     }
     
     public String getStylePath() {
-        return getCompletePath(_stylePath);
+        return getCompletePath(STYLE_PATH);
     }
     
-    public String getUnknownPokemonImagePath() {
-        return _unknownPokemonImagePath;
+    public String getUnknownPokemonSpritePath() {
+        return UNKNOWN_POKEMON_SPRITE_PATH;
     }
     
-    public String getSpritesPath() {
-        return _spritesPath;
+    public String getSpritePath() {
+        return SPRITES_PATH;
     }
     
     public String getApplicationTitle() {
-        return ""; //_applicationTitle;
+        return APPLICATION_TITLE;
     }
     
     public ArrayList<String> getApplicationIconsPaths() {
         return new ArrayList<>(); //_applicationIconsPaths;
     }
     
-    public String getURL() {
-        return _serverUrl;
+    public String getServerURL() {
+        return SERVER_URL;
     }
     
     public String getTermsAndContionsPath() {
-        return _termsAndConditionPath;
+        return TERMS_AND_CONDITIONS_PATH;
     }
     
 }
