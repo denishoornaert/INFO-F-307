@@ -37,9 +37,7 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
         MarkerQueryModel {
 
     private static DatabaseModel _instance = null;
-    private static final String FOLDER_DATABSE = "/home/remy/Documents/"
-            + "BA3/GénieLogiciel/Groupe01/assets/server/";
-    
+    private static final String FOLDER_DATABASE = "/../../assets/server/";
 
     /**
      * The database connection
@@ -48,20 +46,20 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
 
     public static DatabaseModel getInstance() {
         if(_instance == null) {
-            _instance = new DatabaseModel(FOLDER_DATABSE + "Database.db");
+            _instance = new DatabaseModel(FOLDER_DATABASE + "Database.db");
         }
         return _instance;
     }
     
     public static DatabaseModel getTestInstance() {
         if(_instance == null) {
-            _instance = new DatabaseModel("../../assets/TestDatabase.db");
+            _instance = new DatabaseModel(FOLDER_DATABASE + "TestDatabase.db");
         }
         return _instance;
     }
     
     /**
-     * Init database
+     * Initializes database
      *
      * @param pathToDatabase path to database
      */
