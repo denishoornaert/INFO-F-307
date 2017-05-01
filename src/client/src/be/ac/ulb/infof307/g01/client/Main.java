@@ -2,9 +2,6 @@ package be.ac.ulb.infof307.g01.client;
 
 import be.ac.ulb.infof307.g01.client.controller.WindowController;
 import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
-import java.io.FileNotFoundException;
-import java.sql.SQLException;
-
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -25,8 +22,14 @@ public class Main extends Application {
     
     public static void setScene(Scene scene) {
         _scene = scene;
+        setApplicationTitle();
         _stage.setScene(_scene);
         _scene.getStylesheets().add(ClientConfiguration.getInstance().getStylePath());
+    }
+
+    public static void setApplicationTitle() {
+        String title = ClientConfiguration.getInstance().getApplicationTitle();
+        _stage.setTitle(title);
     }
     
     public static Stage getStage() {
