@@ -4,6 +4,7 @@ import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
 import be.ac.ulb.infof307.g01.common.model.UserSendableModel;
+import be.ac.ulb.infof307.g01.server.controller.EmailSender;
 import be.ac.ulb.infof307.g01.server.model.DatabaseModel;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.mail.MessagingException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -141,8 +143,13 @@ public class ServiceQueryController {
             Logger.getLogger(ServiceQueryController.class.getName()).log(Level.SEVERE, null, ex);
             return Response.status(Status.BAD_REQUEST).build();
         }
-        // send email with token
-        
+        EmailSender sender = new EmailSender();
+        try {
+            sender.sendConfirmationEmail(user.getEmail(), token);
+        } catch (MessagingException ex) {
+            Logger.getLogger(ServiceQueryController.class.getName()).log(Level.SEVERE, null, ex);
+            return Response.status(Status.NOT_ACCEPTABLE).build();
+        }
         return Response.status(Status.OK).entity(user).build();
     }
     

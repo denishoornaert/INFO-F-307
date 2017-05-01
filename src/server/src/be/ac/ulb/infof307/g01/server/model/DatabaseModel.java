@@ -38,8 +38,7 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
         MarkerQueryModel {
 
     private static DatabaseModel _instance = null;
-    private static final String FOLDER_DATABSE = "/home/remy/Documents/"
-            + "BA3/GénieLogiciel/Groupe01/assets/server/";
+    private static final String FOLDER_DATABSE = "/home/hoornaert/GitHub/Groupe01/assets/server/";
     
 
     /**

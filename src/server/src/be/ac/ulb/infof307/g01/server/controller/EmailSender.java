@@ -32,8 +32,9 @@ public class EmailSender {
      * to the user. To insert the password in the mail, use String.format.
      */
     private final String CONFIRMATION_MAIL_CONTENT = "Hello dear user,\n"
-            + "You can now connect to Gotta Map Them All with the following password:\n"
-            + "%s\n";
+            + "You will be able to connect to Gotta Map Them All after having"
+            + " confirmed your account by clicking on this link : "
+            + "http://localhost:8080/server/rest/query/user/confirm?token=%s";
     
     public EmailSender() {
         SMTP_SESSION = createSmtpSession();
@@ -59,12 +60,12 @@ public class EmailSender {
      * @param userPassword The generated password for the user account
      * @throws MessagingException If the mail couldn't be sent.
      */
-    public void sendConfirmationEmail(String userMailAddress, String userPassword) throws MessagingException {
+    public void sendConfirmationEmail(String userMailAddress, String token) throws MessagingException {
         Message message = new MimeMessage(SMTP_SESSION);
         message.setFrom(new InternetAddress(SERVER_MAIL_ADDRESS));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(userMailAddress));
         message.setSubject(CONFIRMATION_MAIL_TITLE);
-        message.setText(String.format(CONFIRMATION_MAIL_CONTENT, userPassword));
+        message.setText(String.format(CONFIRMATION_MAIL_CONTENT, token));
         Transport.send(message, SERVER_MAIL_ADDRESS, SERVER_MAIL_PASSWORD);
     }
 
