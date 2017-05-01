@@ -2,8 +2,6 @@ package be.ac.ulb.infof307.g01.client;
 
 import be.ac.ulb.infof307.g01.client.controller.WindowController;
 import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
-import java.io.FileNotFoundException;
-import java.sql.SQLException;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -34,7 +32,6 @@ public class Main extends Application {
     }
     
     public static void main(String[] args) {
-        
         // TODO remove test
 //        ArrayList<MarkerSendableModel> allMarker = ServerQueryController.getInstance().getAllMarkers();
 //        for(MarkerSendableModel mark : allMarker) {
