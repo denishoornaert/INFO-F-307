@@ -263,7 +263,7 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
             statement.setString(++i, marker.getPokemonName());
             statement.setDouble(++i, marker.getCoordinate().getLatitude());
             statement.setDouble(++i, marker.getCoordinate().getLongitude());
-            statement.setString(++i, marker.getLongTimestamp().toString());
+            statement.setString(++i, new Timestamp(marker.getLongTimestamp()).toString());
             statement.setInt(++i, marker.getLifePoints());
             statement.setInt(++i, marker.getAttack());
             statement.setInt(++i, marker.getDefense());

@@ -45,6 +45,8 @@ CREATE TABLE `MarkerVote` (
 	FOREIGN KEY (`MarkerId`) REFERENCES `Marker`
 );
 
+INSERT INTO `User`(`Username`, `Email`, `Password`) VALUES("bidon", "bidon@outlook.fr", "abcdef");
+
 INSERT INTO `PokemonType` (`Name`) VALUES
 	("NORMAL"),
 	("FIRE"),
