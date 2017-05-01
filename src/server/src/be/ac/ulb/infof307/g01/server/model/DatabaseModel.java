@@ -41,7 +41,6 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
         MarkerQueryModel {
 
     private static DatabaseModel _instance = null;
-    private static final String FOLDER_DATABSE = "/home/remy/Documents/BA3/GénieLogiciel/Groupe01/assets/server/";
     private static final ServerConfiguration CONFIG = ServerConfiguration.getInstance();
     
     /**
@@ -252,8 +251,8 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
     @Override
     public boolean insertMarker(MarkerSendableModel marker) {
         boolean result = false;
-        String query = "INSERT INTO Marker(PokemonId, Username, Latitude, "
-                + "Longitude, TimeStamp, UpVotes, DownVotes, LifePoint, "
+        String query = "INSERT INTO Marker(UserId, PokemonId, Latitude, "
+                + "Longitude, TimeStamp, LifePoints, "
                 + "Attack, Defense) "
                 + "VALUES("
                     + "(SELECT Id FROM User WHERE Username=?), "
@@ -289,16 +288,22 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
     @Override
     public ArrayList<MarkerSendableModel> getAllMarkers() {
         ArrayList<MarkerSendableModel> allMarkers = new ArrayList<>();
-        String query = "SELECT M.Id, M.Username, P.Name, M.Latitude, M.Longitude,"
-                + " M.TimeStamp, M.UpVotes, M.DownVotes, M.LifePoint,"
-                + " M.Attack, M.Defense "
-                + "FROM Marker M "
-                + "JOIN User U ON U.Id=M.UserId "
-                + "JOIN Pokemon P ON P.Id=M.PokemonId;";
+        String query = "SELECT M.Id, U.Username, P.Name, M.Latitude, M.Longitude, " +
+            "M.TimeStamp, COUNT(V.IsUp = 1) AS UpVotes, " +
+            "COUNT(V.IsUp = 0) AS DownVotes, M.LifePoints, " +
+            "M.Attack, M.Defense " +
+            "FROM Marker M " +
+            "JOIN User U ON U.Id=M.UserId " +
+            "JOIN Pokemon P ON P.Id=M.PokemonId " +
+            "JOIN MarkerVote V ON V.UserId = U.Id AND V.MarkerId = M.Id;";
+        
         try {
             ResultSet allMarkersCursor = executeQuery(query);
             while(allMarkersCursor.next()) {
-                allMarkers.add(createMarker(allMarkersCursor));
+                MarkerSendableModel newMarker = createMarker(allMarkersCursor);
+                if(newMarker != null) {
+                    allMarkers.add(newMarker);
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseModel.class.getName()).log(Level.SEVERE, null, ex);
@@ -319,6 +324,10 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
         final int lifePoints = cursor.getInt(++i);
         final int attack = cursor.getInt(++i);
         final int defense = cursor.getInt(++i);
+        
+        if(timestampString == null || timestampString.isEmpty()) {
+            return null;
+        }
         
         return new MarkerSendableModel(id, username, pokemonName, latitude, longitude,
                 Timestamp.valueOf(timestampString).getTime(), upVotes, 
