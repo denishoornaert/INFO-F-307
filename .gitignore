@@ -28,3 +28,4 @@ assets/Database.db
 assets/TestDatabase.db
 /.project
 /.classpath
+/src/server/nbproject/
