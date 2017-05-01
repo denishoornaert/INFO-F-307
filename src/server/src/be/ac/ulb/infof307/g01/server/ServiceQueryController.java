@@ -5,8 +5,12 @@ import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
 import be.ac.ulb.infof307.g01.common.model.UserSendableModel;
 import be.ac.ulb.infof307.g01.server.model.DatabaseModel;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -88,7 +92,17 @@ public class ServiceQueryController {
     @Consumes(MediaType.APPLICATION_XML)
     @Produces(MediaType.APPLICATION_XML)
     public Response userSignin(UserSendableModel user) {
-        boolean successfullySignin = DatabaseModel.getInstance().signin(user);
+        boolean successfullySignin = false;
+        try {
+            successfullySignin = DatabaseModel.getInstance().signin(user);
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceQueryController.class.getName()).log(Level.SEVERE, null, ex);
+            return Response.status(Status.BAD_REQUEST).build();
+        }
+        
+        if(!successfullySignin) {
+            return Response.status(Status.UNAUTHORIZED).build();
+        }
         return Response.status(Status.OK).entity(user).build();
     }
     
@@ -97,11 +111,20 @@ public class ServiceQueryController {
     @Consumes(MediaType.APPLICATION_XML)
     @Produces(MediaType.APPLICATION_XML)
     public Response userSignup(UserSendableModel user) {
-        boolean successfullySignup = DatabaseModel.getInstance().signup(user);
-        if(successfullySignup) {
-            // TODO send an email
+        String token = generateToken();
+        try {
+            DatabaseModel.getInstance().signup(user, token);
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceQueryController.class.getName()).log(Level.SEVERE, null, ex);
+            return Response.status(Status.BAD_REQUEST).build();
         }
+        // send email with token
+        
         return Response.status(Status.OK).entity(user).build();
+    }
+    
+    private String generateToken() {
+        return UUID.randomUUID().toString();
     }
     
 }

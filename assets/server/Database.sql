@@ -5,6 +5,7 @@ CREATE TABLE `User` (
 	`Username`	TEXT NOT NULL UNIQUE,
 	`Email`	TEXT NOT NULL UNIQUE,
 	`Password`	TEXT NOT NULL,
+	`Token` TEXT NOT NULL,
 	FOREIGN KEY(`Username`) REFERENCES Marker
 );
 /* TODO CHECK FOREIGN KEY IS IT LINK TO Marker Username */

@@ -6,7 +6,7 @@ import org.junit.Test;
 
 
 
-public class CoordinateModelTest extends TestCase {
+public class CoordinateSendableModelTest extends TestCase {
     
     @Test
     public void test_getLatitude() {

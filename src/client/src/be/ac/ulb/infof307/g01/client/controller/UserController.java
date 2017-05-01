@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package be.ac.ulb.infof307.g01.client.controller;
 
 import be.ac.ulb.infof307.g01.common.model.ConnectionQueryModel;
@@ -10,7 +5,7 @@ import be.ac.ulb.infof307.g01.common.model.UserSendableModel;
 
 /**
  *
- * @author Nathan
+ * @author Groupe 01
  */
 public class UserController {
     
@@ -19,7 +14,15 @@ public class UserController {
     private final ConnectionQueryModel _connection;
     
     private UserController() {
-        _connection = (ConnectionQueryModel) ServerQueryController.getInstance();
+        this(true);
+    }
+    
+    private UserController(boolean initConnection) {
+        if(initConnection) {
+            _connection = (ConnectionQueryModel) ServerQueryController.getInstance();
+        } else {
+            _connection = null;
+        }
     }
     
     /**
@@ -33,23 +36,39 @@ public class UserController {
             throw new IllegalArgumentException("All fields are required");
         }
         UserSendableModel temporaryProfil = new UserSendableModel(username, password);
-        boolean successfullySignin = _connection.signin(temporaryProfil);
-        if(!successfullySignin) {
-            throw new IllegalArgumentException("User name already taken.");
+        if(_connection != null) {
+            boolean successfullySignin = _connection.signin(temporaryProfil);
+            if(!successfullySignin) {
+                throw new IllegalArgumentException("User name already taken.");
+            } else {
+                _user = temporaryProfil;
+            }
         }
     }
     
     /**
      * 
-     * @param email the email
      * @param username the username
+     * @param email the email
+     * @param password of the user
+     * @param terms are accepted
      */
     public void register(String email, String username, String password, boolean terms) {
         if(email.isEmpty() || username.isEmpty() || password.isEmpty() || !terms) {
             throw new IllegalArgumentException("All fields are required");
         }
-        UserSendableModel temporaryProfil = new UserSendableModel(username, email, password);
-        _connection.signup(temporaryProfil);
+        UserSendableModel temporaryUser = new UserSendableModel(username, email, password);
+        
+        if(_connection != null) {
+            _connection.signup(temporaryUser);
+        }
+    }
+    
+    public static UserController getTestInstance() {
+        if(_instance == null) {
+            _instance = new UserController(false);
+        }
+        return _instance;
     }
     
     public static UserController getInstance() {

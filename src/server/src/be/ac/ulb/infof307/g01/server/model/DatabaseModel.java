@@ -212,7 +212,9 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
     @Override
     public boolean insertMarker(MarkerSendableModel marker) {
         boolean result = false;
-        String query = "INSERT INTO Marker(PokemonId, Username, Latitude, Longitude, TimeStamp, UpVotes, DownVotes, LifePoint, Attack, Defense) "
+        String query = "INSERT INTO Marker(PokemonId, Username, Latitude, "
+                + "Longitude, TimeStamp, UpVotes, DownVotes, LifePoint, "
+                + "Attack, Defense) "
                 + "VALUES("
                     + "(SELECT Id "
                     + "FROM Pokemon "
@@ -251,7 +253,9 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
     @Override
     public ArrayList<MarkerSendableModel> getAllMarkers() {
         ArrayList<MarkerSendableModel> allMarkers = new ArrayList<>();
-        String query = "SELECT M.Id, M.Username, P.Name, M.Latitude, M.Longitude, M.TimeStamp, M.UpVotes, M.DownVotes, M.LifePoint, M.Attack, M.Defense "
+        String query = "SELECT M.Id, M.Username, P.Name, M.Latitude, M.Longitude,"
+                + " M.TimeStamp, M.UpVotes, M.DownVotes, M.LifePoint,"
+                + " M.Attack, M.Defense "
                 + "FROM Marker M "
                 + "JOIN Pokemon P "
                 + "    ON P.Id=M.PokemonId;";
@@ -311,7 +315,9 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
     public boolean updateMarker(MarkerSendableModel marker) {
         boolean res = false;
         
-        String query = "UPDATE Marker SET PokemonId=(SELECT Id FROM Pokemon WHERE Name=?), TimeStamp=?, LifePoint=?, Attack=?, Defense=? WHERE Id=?;";
+        String query = "UPDATE Marker SET PokemonId=(SELECT Id FROM Pokemon "
+                + "WHERE Name=?), TimeStamp=?, LifePoint=?, Attack=?, Defense=? "
+                + "WHERE Id=?;";
         
         try {
             PreparedStatement statement = _connection.prepareStatement(query);
@@ -327,13 +333,41 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
         
         return res;
     }
-
-    public boolean signin(UserSendableModel user) {
-        // TODO : Remy
+    
+    /**
+     * Sign in (connect) a user
+     * 
+     * @param user all user informations
+     * @return True if user have send the good password
+     * @throws java.sql.SQLException error with sql
+     */
+    public boolean signin(UserSendableModel user) throws SQLException {
+        String query = "SELECT Password FROM User WHERE Username = ? AND Token = '';";
+        
+        PreparedStatement statement = _connection.prepareStatement(query);
+        statement.setString(1, user.getUsername());
+        ResultSet result = statement.executeQuery();
+        
+        return result.next() && result.getString("Password").equals(user.getPassword());
     }
-
-    public boolean signup(UserSendableModel user) {
-        // TODO : Remy
+    
+    /**
+     * Sign Up (register) a new user
+     * 
+     * @param user all user informations
+     * @param token with must be send to email
+     * @throws java.sql.SQLException error with sql
+     */
+    public void signup(UserSendableModel user, String token) throws SQLException {
+        String query = "INSERT INTO User (Username, Email, Password, Token) "
+                + "VALUES (?, ?, ?, ?);";
+        
+        PreparedStatement statement = _connection.prepareStatement(query);
+        statement.setString(1, user.getUsername());
+        statement.setString(2, user.getEmail());
+        statement.setString(3, user.getPassword());
+        statement.setString(4, token);
+        statement.execute();
     }
         
 }
