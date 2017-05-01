@@ -328,11 +328,11 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
         return res;
     }
 
-    public void signin(UserSendableModel user) {
+    public boolean signin(UserSendableModel user) {
         // TODO : Remy
     }
 
-    public void signup(UserSendableModel user) {
+    public boolean signup(UserSendableModel user) {
         // TODO : Remy
     }
         

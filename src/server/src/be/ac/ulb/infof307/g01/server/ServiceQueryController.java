@@ -88,7 +88,7 @@ public class ServiceQueryController {
     @Consumes(MediaType.APPLICATION_XML)
     @Produces(MediaType.APPLICATION_XML)
     public Response userSignin(UserSendableModel user) {
-        DatabaseModel.getInstance().signin(user);
+        boolean successfullySignin = DatabaseModel.getInstance().signin(user);
         return Response.status(Status.OK).entity(user).build();
     }
     
@@ -97,7 +97,10 @@ public class ServiceQueryController {
     @Consumes(MediaType.APPLICATION_XML)
     @Produces(MediaType.APPLICATION_XML)
     public Response userSignup(UserSendableModel user) {
-        DatabaseModel.getInstance().signup(user);
+        boolean successfullySignup = DatabaseModel.getInstance().signup(user);
+        if(successfullySignup) {
+            // TODO send an email
+        }
         return Response.status(Status.OK).entity(user).build();
     }
     
