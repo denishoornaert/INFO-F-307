@@ -14,15 +14,7 @@ public class UserController {
     private final ConnectionQueryModel _connection;
     
     private UserController() {
-        this(true);
-    }
-    
-    private UserController(boolean initConnection) {
-        if(initConnection) {
-            _connection = (ConnectionQueryModel) ServerQueryController.getInstance();
-        } else {
-            _connection = null;
-        }
+        _connection = (ConnectionQueryModel) ServerQueryController.getInstance();
     }
     
     /**
@@ -36,13 +28,11 @@ public class UserController {
             throw new IllegalArgumentException("All fields are required");
         }
         UserSendableModel temporaryProfil = new UserSendableModel(username, password);
-        if(_connection != null) {
-            boolean successfullySignin = _connection.signin(temporaryProfil);
-            if(!successfullySignin) {
-                throw new IllegalArgumentException("User name already taken.");
-            } else {
-                _user = temporaryProfil;
-            }
+        boolean successfullySignin = _connection.signin(temporaryProfil);
+        if(!successfullySignin) {
+            throw new IllegalArgumentException("User name already taken.");
+        } else {
+            _user = temporaryProfil;
         }
     }
     
@@ -57,18 +47,7 @@ public class UserController {
         if(email.isEmpty() || username.isEmpty() || password.isEmpty() || !terms) {
             throw new IllegalArgumentException("All fields are required");
         }
-        UserSendableModel temporaryUser = new UserSendableModel(username, email, password);
-        
-        if(_connection != null) {
-            _connection.signup(temporaryUser);
-        }
-    }
-    
-    public static UserController getTestInstance() {
-        if(_instance == null) {
-            _instance = new UserController(false);
-        }
-        return _instance;
+        _connection.signup(new UserSendableModel(username, email, password));
     }
     
     public static UserController getInstance() {
