@@ -2,6 +2,8 @@ package be.ac.ulb.infof307.g01.client.controller;
 
 import be.ac.ulb.infof307.g01.common.model.ConnectionQueryModel;
 import be.ac.ulb.infof307.g01.common.model.UserSendableModel;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -33,6 +35,8 @@ public class UserController {
             throw new IllegalArgumentException("there's something wrong.");
         } else {
             _user = temporaryProfil;
+            Logger.getLogger(getClass().getName()).log(Level.INFO, 
+                    "User {0} is login !", username);
         }
     }
     

@@ -78,6 +78,12 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
             case OK:
             case ACCEPTED: 
                 return true;
+              
+            default:
+                Logger.getLogger(getClass().getName()).log(Level.WARNING, 
+                    "Recive {0}", response.getClientResponseStatus().getReasonPhrase());
+                break;
+                
         }
         return false;
     }

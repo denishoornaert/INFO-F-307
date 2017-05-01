@@ -80,8 +80,13 @@ public class EmailSenderTest {
         
         Message messages[] = _mailBox.search(searchTerms);
         
-        assertEquals(1, messages.length);
+        int nbrReceive = messages.length;
+        
         // Delete the message, so that we can re-run the test
-        messages[0].setFlag(Flags.Flag.DELETED, true);
+        for(Message msg : messages) {
+            msg.setFlag(Flags.Flag.DELETED, true);
+        }
+        
+        assertEquals(1, nbrReceive);
     }
 }

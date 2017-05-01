@@ -63,7 +63,7 @@ public class SignupPopUp extends PopUp {
         _username = new TextField();
         _email = new TextField();
         _password = new PasswordField();
-        _remarks = new Label();
+        _remarks = new Label("");
         initCancelButton();
         initSubmitButton();
         initTermsAndConditionLabel();

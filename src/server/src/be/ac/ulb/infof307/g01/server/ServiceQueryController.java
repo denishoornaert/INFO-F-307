@@ -95,11 +95,11 @@ public class ServiceQueryController {
     @Consumes(MediaType.APPLICATION_XML)
     @Produces(MediaType.APPLICATION_XML)
     public Response userSignin(UserSendableModel user) {
-        boolean successfullySignin = false;
+        boolean successfullySignin;
         try {
             successfullySignin = DatabaseModel.getInstance().signin(user);
         } catch (SQLException ex) {
-            Logger.getLogger(ServiceQueryController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage());
             return Response.status(Status.BAD_REQUEST).build();
         }
         
@@ -140,7 +140,7 @@ public class ServiceQueryController {
         try {
             DatabaseModel.getInstance().signup(user, token);
         } catch (SQLException ex) {
-            Logger.getLogger(ServiceQueryController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage());
             return Response.status(Status.BAD_REQUEST).build();
         }
         EmailSender sender = new EmailSender();
@@ -150,7 +150,7 @@ public class ServiceQueryController {
             Logger.getLogger(ServiceQueryController.class.getName()).log(Level.SEVERE, null, ex);
             return Response.status(Status.NOT_ACCEPTABLE).build();
         }
-        return Response.status(Status.OK).entity(user).build();
+        return Response.status(Status.OK).build();
     }
     
     private String generateToken() {

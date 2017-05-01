@@ -81,11 +81,14 @@ public class SigninPopUp extends PopUp {
             @Override public void handle(ActionEvent t) {
             	final String username = _usernameField.getText();
                 final String password = _passwordField.getText();
+                Logger logger = Logger.getLogger(SigninPopUpController.class.getName());
+                
                 try {
                     _controller.authenticate(username,password);
                     _controller.cancel();
+                    logger.log(Level.INFO, "Try to login: {0} - {1}", 
+                            new Object[]{username, password});
                 } catch(IllegalArgumentException ex) {
-                    Logger logger = Logger.getLogger(SigninPopUpController.class.getName());
                     logger.log(Level.WARNING,ex.getMessage());
                 }
             }

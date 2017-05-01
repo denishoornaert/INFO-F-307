@@ -14,9 +14,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class UserSendableModel {
     
-    protected String _username;
-    protected String _password;
-    protected String _email;
+    private String _username;
+    private String _password;
+    private String _email;
     
     public UserSendableModel() { } // Do not remove !
 
@@ -52,6 +52,27 @@ public class UserSendableModel {
                 null, "MD5 algorithm doesn't exist, skip encrypt ! (" + ex + ")");
         }
         return res;
+    }
+
+    /**
+     * @param _username the _username to set
+     */
+    public void setUsername(String _username) {
+        this._username = _username;
+    }
+
+    /**
+     * @param _password the _password to set
+     */
+    public void setPassword(String _password) {
+        this._password = _password;
+    }
+
+    /**
+     * @param _email the _email to set
+     */
+    public void setEmail(String _email) {
+        this._email = _email;
     }
     
 }

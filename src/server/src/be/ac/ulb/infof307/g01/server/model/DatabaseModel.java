@@ -347,7 +347,17 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
         statement.setString(1, user.getUsername());
         ResultSet result = statement.executeQuery();
         
-        return result.next() && result.getString("Password").equals(user.getPassword());
+        if(result.next()) {
+            if(result.getString("Password").equals(user.getPassword())) {
+               return true; 
+            } else {
+                Logger.getLogger(getClass().getName()).log(Level.INFO, 
+                    "User: {0} failded password: {1}", 
+                    new Object[]{user.getUsername(), user.getPassword()});
+            }
+        }
+        
+        return false;
     }
     
     /**
@@ -360,6 +370,10 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
     public void signup(UserSendableModel user, String token) throws SQLException {
         String query = "INSERT INTO User (Username, Email, Password, Token) "
                 + "VALUES (?, ?, ?, ?);";
+        
+        Logger.getLogger(getClass().getName()).log(Level.INFO, "Create user: "
+                + "{0} - {1} - {2}", new Object[]{user.getUsername(), 
+                    user.getEmail(), user.getPassword()});
         
         PreparedStatement statement = _connection.prepareStatement(query);
         statement.setString(1, user.getUsername());
