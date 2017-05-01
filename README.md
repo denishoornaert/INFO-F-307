@@ -25,12 +25,13 @@ Afin de compiler le code source, exécuter la commande suivante à la racine du 
 
 ### Serveur
 
+Le déploiement du serveur n'est pas encore testé.
+
 ### Client
 
 Pour lancer l'exécution du programme côté client, il suffit d'exécuter :  
 ```java -jar Groupe01.jar```
 
-
-## Screenshot
-
 ## License
+
+[THE BEER-WARE LICENSE (Revision 42)](https://people.freebsd.org/~phk/)
