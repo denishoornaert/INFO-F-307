@@ -3,10 +3,8 @@ BEGIN TRANSACTION;
 CREATE TABLE `User` (
 	`Id`		INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
 	`Username`	TEXT NOT NULL UNIQUE,
-	`Email`	TEXT NOT NULL UNIQUE,
-	`Password`	TEXT NOT NULL,
-	`Token` TEXT NOT NULL,
-	FOREIGN KEY(`Username`) REFERENCES Marker
+	`Email`		TEXT NOT NULL UNIQUE,
+	`Password`	TEXT NOT NULL
 );
 
 CREATE TABLE `PokemonType` (
@@ -46,6 +44,8 @@ CREATE TABLE `MarkerVote` (
 	FOREIGN KEY (`UserId`) REFERENCES `User`,
 	FOREIGN KEY (`MarkerId`) REFERENCES `Marker`
 );
+
+INSERT INTO `User`(`Username`, `Email`, `Password`) VALUES("bidon", "bidon@outlook.fr", "abcdef");
 
 INSERT INTO `PokemonType` (`Name`) VALUES
 	("NORMAL"),

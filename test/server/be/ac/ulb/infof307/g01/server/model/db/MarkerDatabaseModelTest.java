@@ -22,7 +22,7 @@ public class MarkerDatabaseModelTest extends AbstractDatabaseTest {
         final String username = "bidon";
         final double latitude = 250;
         final double longitude = 500;
-        final Timestamp timestamp = new Timestamp(0);
+        final Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         final String pokemonName = Abomasnow.getName();
         final int upVotes = 0;
         final int downVotes = 0;
