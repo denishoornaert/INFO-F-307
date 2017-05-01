@@ -28,7 +28,8 @@ import javax.xml.bind.Unmarshaller;
 /**
  * Connect to server and handles client queries
  */
-public class ServerQueryController implements MarkerQueryModel, PokemonQueryModel, PokemonTypeQueryModel, ConnectionQueryModel {
+public class ServerQueryController implements MarkerQueryModel, PokemonQueryModel, 
+        PokemonTypeQueryModel, ConnectionQueryModel {
     
     private WebResource _webResource;
     private static ServerQueryController _instance;

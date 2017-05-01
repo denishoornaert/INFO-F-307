@@ -16,6 +16,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -104,6 +105,28 @@ public class ServiceQueryController {
             return Response.status(Status.UNAUTHORIZED).build();
         }
         return Response.status(Status.OK).entity(user).build();
+    }
+    
+    @Path("user/confirm")
+    @GET
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_HTML)
+    public String confirmAccount(@QueryParam("token") String token) {
+        String htmlPage = "<html> " + "<title>" + "Confirm User Account" + "</title><body>"
+                + "<h1>" + "Validate Account" + "</h1>";
+        try {
+            boolean isValide = DatabaseModel.getInstance().confirmAccount(token);
+            if(isValide) {
+                htmlPage += "Your account have been validate";
+            } else {
+                htmlPage += "An error was occured";
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceQueryController.class.getName()).log(Level.SEVERE, null, ex);
+            htmlPage += "Internal server error";
+        }
+        return htmlPage + "</body>" + "</html> ";
     }
     
     @Path("user/signup")

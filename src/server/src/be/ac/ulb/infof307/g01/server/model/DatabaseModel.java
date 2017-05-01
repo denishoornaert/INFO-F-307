@@ -369,5 +369,21 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
         statement.setString(4, token);
         statement.execute();
     }
+
+    /**
+     * Confirm a user account
+     * 
+     * @param token the token who confirm account
+     * @return True if the token have been confirm
+     * @throws java.sql.SQLException an sql error
+     */
+    public boolean confirmAccount(String token) throws SQLException {
+        String query = "UPDATE User SET Token = '' WHERE Token = ?";
+        
+        PreparedStatement statement = _connection.prepareStatement(query);
+        statement.setString(1, token);
+        
+        return statement.executeUpdate() == 1;
+    }
         
 }
