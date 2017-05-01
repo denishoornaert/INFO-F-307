@@ -114,14 +114,14 @@ public class ServiceQueryController {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_HTML)
     public String confirmAccount(@QueryParam("token") String token) {
-        String htmlPage = "<html> " + "<title>" + "Confirm User Account" + "</title><body>"
+        String htmlPage = "<html> " + "<title>" + "User Account Conrfirmation" + "</title><body>"
                 + "<h1>" + "Validate Account" + "</h1>";
         try {
             boolean isValide = DatabaseModel.getInstance().confirmAccount(token);
             if(isValide) {
-                htmlPage += "Your account have been validate";
+                htmlPage += "Your account has been validated";
             } else {
-                htmlPage += "An error was occured";
+                htmlPage += "An error has occured";
             }
             
         } catch (SQLException ex) {
