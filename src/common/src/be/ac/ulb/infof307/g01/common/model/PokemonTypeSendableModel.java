@@ -21,7 +21,8 @@ public class PokemonTypeSendableModel {
     public PokemonTypeSendableModel() { } // Must exist
     
     public PokemonTypeSendableModel(PokemonTypeSendableModel other) {
-        this(other._typeName);
+        _typeName = other._typeName;
+        _allPokemonTypes.put(_typeName, this);
     }
     
     public PokemonTypeSendableModel(String typeName) {
