@@ -38,6 +38,7 @@ public class SignupPopUp extends PopUp {
     private PasswordField _password;
     private Button _submit;
     private Button _cancel;
+    private Label _remarks;
     
     public SignupPopUp (SignupPopUpController controller) {
         super();
@@ -62,6 +63,7 @@ public class SignupPopUp extends PopUp {
         _username = new TextField();
         _email = new TextField();
         _password = new PasswordField();
+        _remarks = new Label();
         initCancelButton();
         initSubmitButton();
         initTermsAndConditionLabel();
@@ -115,5 +117,10 @@ public class SignupPopUp extends PopUp {
         _termsAndConditionLabel.setOnAction((ActionEvent e) -> {
            _controller.openTermsAndconditionPopUp(); 
         });
+    }
+
+    public void showError(String msg) {
+        _remarks.setText(msg);
+        _containerV.getChildren().add(_remarks);
     }
 }

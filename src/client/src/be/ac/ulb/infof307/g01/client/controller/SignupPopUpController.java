@@ -20,7 +20,11 @@ public class SignupPopUpController {
      * @param user username
      */
     public void submit(String email, String user, String password, boolean terms) {
-        UserController.getInstance().register(email, user, password, terms);
+        try {
+            UserController.getInstance().register(email, user, password, terms);
+        } catch(Exception e) {
+            _signup.showError(e.getMessage());
+        }
     }
     
     public void cancel() {

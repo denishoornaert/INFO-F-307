@@ -31,6 +31,7 @@ public class SigninPopUp extends PopUp {
     private Button _cancel;
     private TextField _usernameField;
     private PasswordField _passwordField;
+    private Label _remarks;
     
 
     public SigninPopUp(SigninPopUpController controller) {
@@ -47,6 +48,7 @@ public class SigninPopUp extends PopUp {
         _hbox = new HBox();
         _username = new Label("Username :");
         _password = new Label("Password :");
+        _remarks = new Label();
         _usernameField = new TextField();
         _passwordField = new PasswordField();
         initLoginButton();
@@ -99,5 +101,9 @@ public class SigninPopUp extends PopUp {
         });
     }
     
+    public void showError(String msg) {
+        _remarks.setText(msg);
+        _vbox.getChildren().add(_remarks);
+    }
     
 }

@@ -47,7 +47,13 @@ public class UserController {
         if(email.isEmpty() || username.isEmpty() || password.isEmpty() || !terms) {
             throw new IllegalArgumentException("All fields are required");
         }
-        _connection.signup(new UserSendableModel(username, email, password));
+        UserSendableModel temporaryProfil = new UserSendableModel(username, email, password);
+        boolean successfullySignup = _connection.signup(temporaryProfil);
+        if(!successfullySignup) {
+            throw new IllegalArgumentException("User name or email already taken.");
+        } else {
+            throw new IllegalArgumentException("Your can check your mails and then login.");
+        }
     }
     
     public static UserController getInstance() {

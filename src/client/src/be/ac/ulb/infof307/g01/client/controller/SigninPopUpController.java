@@ -24,7 +24,11 @@ public class SigninPopUpController {
          * @param password The password
 	 */
 	public void authenticate(String username, String password) {
-            UserController.getInstance().authenticate(username, password);
+            try {
+                UserController.getInstance().authenticate(username, password);
+            } catch(Exception e) {
+                _signinPopUp.showError(e.getMessage());
+            }
 	}
         
         /**
