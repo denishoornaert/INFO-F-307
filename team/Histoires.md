@@ -18,7 +18,7 @@ points.
 |   | [3](#géolocalisation-et-proximité) | Géolocalisation et proximité | 5 | 2 | 35 |  |
 |   | [6](#réputation) | Réputation | 4 | 1 | 28 | / |
 |   | 10 | Synchronisation et gestion de conflits | 7 | 3 | 49 |  |
-| 3 | 4 | Intégration avec Maps | 5 | 3 | 35 | / |
+| 3 | 4 | Intégration avec Maps | 5 | 3 | 50 | / |
 |   | 7 | Tuto | 7 | 1 | 49 |  |
 |   | 8 | Application mobile | 8 | 3 | 56 |  |
 |   | 9 | Partage sur réseaux sociaux | 2 | 1 | 14 |  |
