@@ -16,7 +16,7 @@ public class ServerConfiguration {
     // Example:
     // private final String _assetFolder = "/home/remy/Documents/" +
     //        "BA3/GénieLogiciel/Groupe01/assets/server/";
-    private final String _assetFolder = "/home/remy/Documents/BA3/GénieLogiciel/Groupe01/assets/server/"; // TODO Must be change (GlassFish like only absolute path)
+    private final String _assetFolder = "/home/hoornaert/GitHub/Groupe01/assets/server/"; // TODO Must be change (GlassFish like only absolute path)
     private final String _dataBasePath = "Database.db";
     private final String _testDataBasePath = "Database.db";
     

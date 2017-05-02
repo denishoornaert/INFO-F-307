@@ -12,6 +12,7 @@ public class PokemonTypeDatabaseModelTest extends AbstractDatabaseTest {
     public void test_getAllPokemonTypesDefaultValue() {
         PokemonTypeSendableModel.resetAllPokemonType();
         ArrayList<PokemonTypeSendableModel> allPokemonTypes = PokemonTypeSendableModel.getAllPokemonTypes();
+        System.out.println("SIZE : "+allPokemonTypes.size());
         assertEquals(allPokemonTypes.size(), 1);
         assertEquals(allPokemonTypes.get(0).getTypeName(), "NONE");
     }
