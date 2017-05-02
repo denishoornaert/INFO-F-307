@@ -100,7 +100,6 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
     public boolean insertMarker(MarkerSendableModel marker) {
         boolean result = true;
         WebResource resource = _webResource.path("marker").path("insert");
-        
         if (!sendPostQuery(resource, marker)) {
             Logger.getLogger(getClass().getName()).log(Level.WARNING, "Could not insert marker");
             result = false;
