@@ -84,6 +84,7 @@ public class PokemonTypeSendableModel {
      */
     public static void resetAllPokemonType() {
         _allPokemonTypes.clear();
+        new PokemonTypeSendableModel("NONE");
     }
     
     public static PokemonTypeSendableModel getNoneType() {
