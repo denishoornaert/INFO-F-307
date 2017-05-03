@@ -23,7 +23,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.sqlite.SQLiteException;
 
 /** Class that interacts with the database.
  * This class implements all queries needed in the application. It is not
