@@ -23,6 +23,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.sqlite.SQLiteException;
 
 /** Class that interacts with the database.
  * This class implements all queries needed in the application. It is not
@@ -414,6 +415,7 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
      * @return True if user have send the good password
      */
     public boolean signin(UserSendableModel user){
+        boolean res = false;
         String query = "SELECT Password FROM User WHERE Username = ? AND Token = '';";
         ResultSet result = null;
         try {
@@ -423,7 +425,7 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
             result = statement.executeQuery();
             if(result.next()) {
                 if(result.getString("Password").equals(user.getPassword())) {
-                    return true; 
+                    res = true; 
                 } else {
                     Logger.getLogger(getClass().getName()).log(Level.INFO, 
                         "User: {0} failded password: {1}", 
@@ -433,7 +435,7 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseModel.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return false;
+        return res;
     }
     
     /**
@@ -441,8 +443,10 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
      * 
      * @param user all user informations
      * @param token with must be send to email
+     * @return 
      */
     public boolean signup(UserSendableModel user, String token){
+        boolean res = false;
         String query = "INSERT INTO User (Username, Email, Password, Token) "
                     + "VALUES (?, ?, ?, ?);";
             
@@ -456,11 +460,11 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
             statement.setString(3, user.getPassword());
             statement.setString(4, token);
             statement.execute();
-            return true;
+            res = true;
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseModel.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return false;
+        return res;
     }
 
     /**
@@ -468,18 +472,18 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
      * 
      * @param token the token who confirm account
      * @return True if the token have been confirm
-     * @throws java.sql.SQLException an sql error
      */
     public boolean confirmAccount(String token){
+        boolean res = false;
         String query = "UPDATE User SET Token = '' WHERE Token = ?";
         try {
             PreparedStatement statement = _connection.prepareStatement(query);
             statement.setString(1, token);
-            return statement.executeUpdate() == 1;
+            res = statement.executeUpdate() == 1;
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseModel.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return false;
+        return res;
     }
         
 }
