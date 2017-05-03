@@ -6,7 +6,6 @@ import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
 import be.ac.ulb.infof307.g01.common.model.UserSendableModel;
 import be.ac.ulb.infof307.g01.server.controller.EmailSender;
 import be.ac.ulb.infof307.g01.server.model.DatabaseModel;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -119,17 +118,11 @@ public class ServiceQueryController {
     public String confirmAccount(@QueryParam("token") String token) {
         String htmlPage = "<html> " + "<title>" + "User Account Conrfirmation" + "</title><body>"
                 + "<h1>" + "Validate Account" + "</h1>";
-        try {
-            boolean isValide = DatabaseModel.getInstance().confirmAccount(token);
-            if(isValide) {
-                htmlPage += "Your account has been validated";
-            } else {
-                htmlPage += "An error has occured";
-            }
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(ServiceQueryController.class.getName()).log(Level.SEVERE, null, ex);
-            htmlPage += "Internal server error";
+        boolean isValide = DatabaseModel.getInstance().confirmAccount(token);
+        if(isValide) {
+            htmlPage += "Your account has been validated";
+        } else {
+            htmlPage += "An error has occured";
         }
         return htmlPage + "</body>" + "</html> ";
     }
