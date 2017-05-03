@@ -105,14 +105,7 @@ public class ServiceQueryController {
     @Consumes(MediaType.APPLICATION_XML)
     @Produces(MediaType.APPLICATION_XML)
     public Response userSignin(UserSendableModel user) {
-        boolean successfullySignin;
-        try {
-            successfullySignin = DatabaseModel.getInstance().signin(user);
-        } catch (SQLException ex) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage());
-            return Response.status(Status.BAD_REQUEST).build();
-        }
-        
+        boolean successfullySignin = DatabaseModel.getInstance().signin(user);
         if(!successfullySignin) {
             return Response.status(Status.UNAUTHORIZED).build();
         }
@@ -147,10 +140,8 @@ public class ServiceQueryController {
     @Produces(MediaType.APPLICATION_XML)
     public Response userSignup(UserSendableModel user) {
         String token = generateToken();
-        try {
-            DatabaseModel.getInstance().signup(user, token);
-        } catch (SQLException ex) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage());
+        boolean successfulySignup = DatabaseModel.getInstance().signup(user, token);
+        if (!successfulySignup) {
             return Response.status(Status.BAD_REQUEST).build();
         }
         EmailSender sender = new EmailSender();

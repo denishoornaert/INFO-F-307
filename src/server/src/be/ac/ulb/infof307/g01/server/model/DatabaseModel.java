@@ -412,25 +412,27 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
      * 
      * @param user all user informations
      * @return True if user have send the good password
-     * @throws java.sql.SQLException error with sql
      */
-    public boolean signin(UserSendableModel user) throws SQLException {
+    public boolean signin(UserSendableModel user){
         String query = "SELECT Password FROM User WHERE Username = ? AND Token = '';";
-        
-        PreparedStatement statement = _connection.prepareStatement(query);
-        statement.setString(1, user.getUsername());
-        ResultSet result = statement.executeQuery();
-        
-        if(result.next()) {
-            if(result.getString("Password").equals(user.getPassword())) {
-               return true; 
-            } else {
-                Logger.getLogger(getClass().getName()).log(Level.INFO, 
-                    "User: {0} failded password: {1}", 
+        ResultSet result = null;
+        try {
+            PreparedStatement statement;
+            statement = _connection.prepareStatement(query);
+            statement.setString(1, user.getUsername());
+            result = statement.executeQuery();
+            if(result.next()) {
+                if(result.getString("Password").equals(user.getPassword())) {
+                    return true; 
+                } else {
+                    Logger.getLogger(getClass().getName()).log(Level.INFO, 
+                        "User: {0} failded password: {1}", 
                     new Object[]{user.getUsername(), user.getPassword()});
+                }
             }
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseModel.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         return false;
     }
     
@@ -439,22 +441,26 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
      * 
      * @param user all user informations
      * @param token with must be send to email
-     * @throws java.sql.SQLException error with sql
      */
-    public void signup(UserSendableModel user, String token) throws SQLException {
+    public boolean signup(UserSendableModel user, String token){
         String query = "INSERT INTO User (Username, Email, Password, Token) "
-                + "VALUES (?, ?, ?, ?);";
-        
+                    + "VALUES (?, ?, ?, ?);";
+            
         Logger.getLogger(getClass().getName()).log(Level.INFO, "Create user: "
-                + "{0} - {1} - {2}", new Object[]{user.getUsername(), 
-                    user.getEmail(), user.getPassword()});
-        
-        PreparedStatement statement = _connection.prepareStatement(query);
-        statement.setString(1, user.getUsername());
-        statement.setString(2, user.getEmail());
-        statement.setString(3, user.getPassword());
-        statement.setString(4, token);
-        statement.execute();
+                    + "{0} - {1} - {2}", new Object[]{user.getUsername(),
+                        user.getEmail(), user.getPassword()});
+        try {
+            PreparedStatement statement = _connection.prepareStatement(query);
+            statement.setString(1, user.getUsername());
+            statement.setString(2, user.getEmail());
+            statement.setString(3, user.getPassword());
+            statement.setString(4, token);
+            statement.execute();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     /**
@@ -464,13 +470,16 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
      * @return True if the token have been confirm
      * @throws java.sql.SQLException an sql error
      */
-    public boolean confirmAccount(String token) throws SQLException {
+    public boolean confirmAccount(String token){
         String query = "UPDATE User SET Token = '' WHERE Token = ?";
-        
-        PreparedStatement statement = _connection.prepareStatement(query);
-        statement.setString(1, token);
-        
-        return statement.executeUpdate() == 1;
+        try {
+            PreparedStatement statement = _connection.prepareStatement(query);
+            statement.setString(1, token);
+            return statement.executeUpdate() == 1;
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
         
 }
