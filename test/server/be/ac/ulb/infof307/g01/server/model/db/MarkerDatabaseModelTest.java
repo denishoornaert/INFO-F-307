@@ -10,7 +10,6 @@ public class MarkerDatabaseModelTest extends AbstractDatabaseTest {
     private MarkerSendableModel _markerToInsert;
     
     @Before
-    @Override
     public void setUp() {
         super.setUp();
         PokemonSendableModel Abomasnow = PokemonSendableModel.getPokemonByName("Arceus");

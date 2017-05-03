@@ -6,7 +6,6 @@ import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
 import be.ac.ulb.infof307.g01.common.model.UserSendableModel;
 import be.ac.ulb.infof307.g01.server.controller.EmailSender;
 import be.ac.ulb.infof307.g01.server.model.DatabaseModel;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -105,14 +104,7 @@ public class ServiceQueryController {
     @Consumes(MediaType.APPLICATION_XML)
     @Produces(MediaType.APPLICATION_XML)
     public Response userSignin(UserSendableModel user) {
-        boolean successfullySignin;
-        try {
-            successfullySignin = DatabaseModel.getInstance().signin(user);
-        } catch (SQLException ex) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage());
-            return Response.status(Status.BAD_REQUEST).build();
-        }
-        
+        boolean successfullySignin = DatabaseModel.getInstance().signin(user);
         if(!successfullySignin) {
             return Response.status(Status.UNAUTHORIZED).build();
         }
@@ -126,17 +118,11 @@ public class ServiceQueryController {
     public String confirmAccount(@QueryParam("token") String token) {
         String htmlPage = "<html> " + "<title>" + "User Account Conrfirmation" + "</title><body>"
                 + "<h1>" + "Validate Account" + "</h1>";
-        try {
-            boolean isValide = DatabaseModel.getInstance().confirmAccount(token);
-            if(isValide) {
-                htmlPage += "Your account has been validated";
-            } else {
-                htmlPage += "An error has occured";
-            }
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(ServiceQueryController.class.getName()).log(Level.SEVERE, null, ex);
-            htmlPage += "Internal server error";
+        boolean isValide = DatabaseModel.getInstance().confirmAccount(token);
+        if(isValide) {
+            htmlPage += "Your account has been validated";
+        } else {
+            htmlPage += "An error has occured";
         }
         return htmlPage + "</body>" + "</html> ";
     }
@@ -147,10 +133,8 @@ public class ServiceQueryController {
     @Produces(MediaType.APPLICATION_XML)
     public Response userSignup(UserSendableModel user) {
         String token = generateToken();
-        try {
-            DatabaseModel.getInstance().signup(user, token);
-        } catch (SQLException ex) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage());
+        boolean successfulySignup = DatabaseModel.getInstance().signup(user, token);
+        if (!successfulySignup) {
             return Response.status(Status.BAD_REQUEST).build();
         }
         try {

@@ -13,7 +13,7 @@ import org.junit.Before;
  */
 public abstract class AbstractDatabaseTest {
     
-    protected DatabaseModel _database;
+    protected static DatabaseModel _database;
     
     @Before
     public void setUp() {
