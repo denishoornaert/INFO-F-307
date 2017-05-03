@@ -72,6 +72,7 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
             boolean justeCreated = createDatabaseFile(pathToDatabase);
             connectToSqlite(pathToDatabase);
             if(justeCreated) {
+                Logger.getLogger(getClass().getName()).log(Level.INFO, "Create Database");
                 createAllTables(pathToDatabase);
             }
         } catch(IOException | SQLException ex) {
@@ -295,7 +296,8 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
             "FROM Marker M " +
             "JOIN User U ON U.Id=M.UserId " +
             "JOIN Pokemon P ON P.Id=M.PokemonId " +
-            "JOIN MarkerVote V ON V.UserId = U.Id AND V.MarkerId = M.Id;";
+            "LEFT OUTER JOIN MarkerVote V ON V.UserId = U.Id AND V.MarkerId = M.Id " + 
+            "GROUP BY M.Id;";
         
         try {
             ResultSet allMarkersCursor = executeQuery(query);
