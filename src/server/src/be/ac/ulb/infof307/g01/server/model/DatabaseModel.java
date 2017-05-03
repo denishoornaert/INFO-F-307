@@ -1,12 +1,12 @@
 package be.ac.ulb.infof307.g01.server.model;
 
-import be.ac.ulb.infof307.g01.common.model.CoordinateSendableModel;
 import be.ac.ulb.infof307.g01.common.model.MarkerQueryModel;
 import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonQueryModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonTypeQueryModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
+import be.ac.ulb.infof307.g01.common.model.UserSendableModel;
 import be.ac.ulb.infof307.g01.server.ServerConfiguration;
 import java.io.BufferedReader;
 import java.io.File;
@@ -63,7 +63,7 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
     }
     
     /**
-     * Init database
+     * Initializes database
      *
      * @param pathToDatabase path to database
      */
@@ -205,7 +205,7 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
                 }
             }
         } catch (SQLException exception) {
-            System.err.println(exception.getMessage());
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, exception.getMessage());
         }
     }
 
@@ -251,28 +251,26 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
     @Override
     public boolean insertMarker(MarkerSendableModel marker) {
         boolean result = false;
-        String query = "INSERT INTO Marker(PokemonId, Username, Latitude, Longitude, TimeStamp, UpVotes, DownVotes, LifePoint, Attack, Defense) "
+        String query = "INSERT INTO Marker(UserId, PokemonId, Latitude, "
+                + "Longitude, TimeStamp, LifePoints, "
+                + "Attack, Defense) "
                 + "VALUES("
-                    + "(SELECT Id "
-                    + "FROM Pokemon "
-                    + "WHERE Name=?), "
-                + "?, ?, ?, ?, 0, 0, ?, ?, ?);";
+                    + "(SELECT Id FROM User WHERE Username=?), "
+                    + "(SELECT Id FROM Pokemon WHERE Name=?), "
+                + "?, ?, ?, ?, ?, ?);";
         try {
-            CoordinateSendableModel markerCoordinate = marker.getCoordinate();
             PreparedStatement statement = _connection.prepareStatement(query);
-            Timestamp timestamp = new Timestamp(marker.getLongTimestamp());
-            String timestampString = timestamp.toString();
             
-            statement.setString(1, marker.getPokemonName());
-            statement.setString(2, marker.getUsername());
-            statement.setDouble(3, markerCoordinate.getLatitude());
-            statement.setDouble(4, markerCoordinate.getLongitude());
-            statement.setString(5, timestampString);
-            statement.setInt(6, marker.getLifePoint());
-            statement.setInt(7, marker.getAttack());
-            statement.setInt(8, marker.getDefense());
+            int i = 0; // index of statement
+            statement.setString(++i, marker.getUsername());
+            statement.setString(++i, marker.getPokemonName());
+            statement.setDouble(++i, marker.getCoordinate().getLatitude());
+            statement.setDouble(++i, marker.getCoordinate().getLongitude());
+            statement.setString(++i, new Timestamp(marker.getLongTimestamp()).toString());
+            statement.setInt(++i, marker.getLifePoints());
+            statement.setInt(++i, marker.getAttack());
+            statement.setInt(++i, marker.getDefense());
             statement.execute();
-            
 
             final int generatedId = statement.getGeneratedKeys().getInt(1);
             marker.setDatabaseId(generatedId);
@@ -290,14 +288,22 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
     @Override
     public ArrayList<MarkerSendableModel> getAllMarkers() {
         ArrayList<MarkerSendableModel> allMarkers = new ArrayList<>();
-        String query = "SELECT M.Id, M.Username, P.Name, M.Latitude, M.Longitude, M.TimeStamp, M.UpVotes, M.DownVotes, M.LifePoint, M.Attack, M.Defense "
-                + "FROM Marker M "
-                + "JOIN Pokemon P "
-                + "    ON P.Id=M.PokemonId;";
+        String query = "SELECT M.Id, U.Username, P.Name, M.Latitude, M.Longitude, " +
+            "M.TimeStamp, COUNT(V.IsUp = 1) AS UpVotes, " +
+            "COUNT(V.IsUp = 0) AS DownVotes, M.LifePoints, " +
+            "M.Attack, M.Defense " +
+            "FROM Marker M " +
+            "JOIN User U ON U.Id=M.UserId " +
+            "JOIN Pokemon P ON P.Id=M.PokemonId " +
+            "JOIN MarkerVote V ON V.UserId = U.Id AND V.MarkerId = M.Id;";
+        
         try {
             ResultSet allMarkersCursor = executeQuery(query);
             while(allMarkersCursor.next()) {
-                allMarkers.add(createMarker(allMarkersCursor));
+                MarkerSendableModel newMarker = createMarker(allMarkersCursor);
+                if(newMarker != null) {
+                    allMarkers.add(newMarker);
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseModel.class.getName()).log(Level.SEVERE, null, ex);
@@ -313,15 +319,47 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
         final double latitude = cursor.getDouble(++i);
         final double longitude = cursor.getDouble(++i);
         final String timestampString = cursor.getString(++i);
-        final int upVotes = cursor.getInt(++i);
-        final int downVotes = cursor.getInt(++i);
-        final int lifePoint = cursor.getInt(++i);
+        final int upVotes = getMarkerUpVotes(id);
+        final int downVotes = getMarkerDownVotes(id);
+        final int lifePoints = cursor.getInt(++i);
         final int attack = cursor.getInt(++i);
         final int defense = cursor.getInt(++i);
         
+        if(timestampString == null || timestampString.isEmpty()) {
+            return null;
+        }
+        
         return new MarkerSendableModel(id, username, pokemonName, latitude, longitude,
                 Timestamp.valueOf(timestampString).getTime(), upVotes, 
-                downVotes, lifePoint, attack, defense);
+                downVotes, lifePoints, attack, defense);
+    }
+    
+    public int getMarkerUpVotes(int markerId) {
+        return getMarkerVotes(markerId, true);
+    }
+    
+    public int getMarkerDownVotes(int markerId) {
+        return getMarkerVotes(markerId, false);
+    }
+    
+    private int getMarkerVotes(int markerId, boolean isUp) {
+        int votes = 0;
+        String query = "SELECT COUNT(*) FROM MarkerVote V "
+                + "WHERE MarkerId=? AND IsUp=?;";
+        
+        try {
+            PreparedStatement statement = _connection.prepareStatement(query);
+            
+            int i = 0; // index of statement
+            statement.setInt(++i, markerId);
+            statement.setBoolean(++i, isUp);
+            statement.execute();
+            
+            votes = statement.getGeneratedKeys().getInt(1);
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return votes;
     }
 
     @Override
@@ -350,7 +388,9 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
     public boolean updateMarker(MarkerSendableModel marker) {
         boolean res = false;
         
-        String query = "UPDATE Marker SET PokemonId=(SELECT Id FROM Pokemon WHERE Name=?), TimeStamp=?, LifePoint=?, Attack=?, Defense=? WHERE Id=?;";
+        String query = "UPDATE Marker SET PokemonId=(SELECT Id FROM Pokemon "
+                + "WHERE Name=?), TimeStamp=?, LifePoint=?, Attack=?, Defense=? "
+                + "WHERE Id=?;";
         
         try {
             PreparedStatement statement = _connection.prepareStatement(query);
@@ -365,6 +405,72 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
         }
         
         return res;
+    }
+    
+    /**
+     * Sign in (connect) a user
+     * 
+     * @param user all user informations
+     * @return True if user have send the good password
+     * @throws java.sql.SQLException error with sql
+     */
+    public boolean signin(UserSendableModel user) throws SQLException {
+        String query = "SELECT Password FROM User WHERE Username = ? AND Token = '';";
+        
+        PreparedStatement statement = _connection.prepareStatement(query);
+        statement.setString(1, user.getUsername());
+        ResultSet result = statement.executeQuery();
+        
+        if(result.next()) {
+            if(result.getString("Password").equals(user.getPassword())) {
+               return true; 
+            } else {
+                Logger.getLogger(getClass().getName()).log(Level.INFO, 
+                    "User: {0} failded password: {1}", 
+                    new Object[]{user.getUsername(), user.getPassword()});
+            }
+        }
+        
+        return false;
+    }
+    
+    /**
+     * Sign Up (register) a new user
+     * 
+     * @param user all user informations
+     * @param token with must be send to email
+     * @throws java.sql.SQLException error with sql
+     */
+    public void signup(UserSendableModel user, String token) throws SQLException {
+        String query = "INSERT INTO User (Username, Email, Password, Token) "
+                + "VALUES (?, ?, ?, ?);";
+        
+        Logger.getLogger(getClass().getName()).log(Level.INFO, "Create user: "
+                + "{0} - {1} - {2}", new Object[]{user.getUsername(), 
+                    user.getEmail(), user.getPassword()});
+        
+        PreparedStatement statement = _connection.prepareStatement(query);
+        statement.setString(1, user.getUsername());
+        statement.setString(2, user.getEmail());
+        statement.setString(3, user.getPassword());
+        statement.setString(4, token);
+        statement.execute();
+    }
+
+    /**
+     * Confirm a user account
+     * 
+     * @param token the token who confirm account
+     * @return True if the token have been confirm
+     * @throws java.sql.SQLException an sql error
+     */
+    public boolean confirmAccount(String token) throws SQLException {
+        String query = "UPDATE User SET Token = '' WHERE Token = ?";
+        
+        PreparedStatement statement = _connection.prepareStatement(query);
+        statement.setString(1, token);
+        
+        return statement.executeUpdate() == 1;
     }
         
 }

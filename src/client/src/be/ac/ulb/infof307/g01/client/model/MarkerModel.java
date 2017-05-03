@@ -1,5 +1,6 @@
 package be.ac.ulb.infof307.g01.client.model;
 
+import be.ac.ulb.infof307.g01.common.model.ReputationVoteSendableModel;
 import be.ac.ulb.infof307.g01.client.controller.ServerQueryController;
 import be.ac.ulb.infof307.g01.common.model.CoordinateSendableModel;
 import be.ac.ulb.infof307.g01.common.model.MarkerQueryModel;
@@ -93,18 +94,10 @@ public class MarkerModel extends MarkerSendableModel {
     }
     
     /**
-     * Add a positif vote reputation to this marker
+     * Add a vote reputation to this marker
      */
-    public void voteUp() {
-        getReputation().vote(ReputationVoteModel.UP);
-        _serverQuery.updateMarkerReputation(this);
-    }
-    
-    /**
-     * Add a negatif vote reputation to this marker
-     */
-    public void voteDown() {
-        getReputation().vote(ReputationVoteModel.DOWN);
+    public void addVote(String username, boolean isUpVote) {
+        getReputation().vote(new ReputationVoteSendableModel(username, isUpVote));
         _serverQuery.updateMarkerReputation(this);
     }
     

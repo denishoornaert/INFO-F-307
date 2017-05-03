@@ -32,8 +32,9 @@ public class EmailSender {
      * to the user. To insert the password in the mail, use String.format.
      */
     private final String CONFIRMATION_MAIL_CONTENT = "Hello dear user,\n"
-            + "You can now connect to Gotta Map Them All with the following password:\n"
-            + "%s\n";
+            + "You will be able to connect to Gotta Map Them All after having"
+            + " confirmed your account by clicking on this link : "
+            + "http://localhost:8080/server/rest/query/user/confirm?token=%s";
     
     public EmailSender() {
         SMTP_SESSION = createSmtpSession();
@@ -45,10 +46,13 @@ public class EmailSender {
     private Session createSmtpSession() {
         Properties smtpProperties = new Properties();
         smtpProperties.put("mail.smtp.host", SERVER_SMTP_HOST);
-        smtpProperties.put("mail.smtp.socketFactory.port", String.valueOf(SERVER_SMTP_PORT));
-        smtpProperties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         smtpProperties.put("mail.smtp.auth", "true");
         smtpProperties.put("mail.smtp.port", String.valueOf(SERVER_SMTP_PORT));
+        smtpProperties.put("mail.smtp.user", SERVER_MAIL_ADDRESS);
+        smtpProperties.put("mail.smtp.starttls.enable","true");
+        smtpProperties.put("mail.smtp.socketFactory.port", String.valueOf(SERVER_SMTP_PORT));
+        smtpProperties.put("mail.smtp.socketFactory.fallback", "false");
+        smtpProperties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         return Session.getInstance(smtpProperties, null);
     }
     
@@ -56,16 +60,22 @@ public class EmailSender {
      * Sends a mail to the user in order to validate its account.
      * For now, the validation process is just a password sent into the mail.
      * @param userMailAddress The email address to which send the mail
-     * @param userPassword The generated password for the user account
+     * @param token The confirmation token.
      * @throws MessagingException If the mail couldn't be sent.
      */
-    public void sendConfirmationEmail(String userMailAddress, String userPassword) throws MessagingException {
+    public void sendConfirmationEmail(String userMailAddress, String token) throws MessagingException {
+        // Create the message
         Message message = new MimeMessage(SMTP_SESSION);
         message.setFrom(new InternetAddress(SERVER_MAIL_ADDRESS));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(userMailAddress));
         message.setSubject(CONFIRMATION_MAIL_TITLE);
-        message.setText(String.format(CONFIRMATION_MAIL_CONTENT, userPassword));
-        Transport.send(message, SERVER_MAIL_ADDRESS, SERVER_MAIL_PASSWORD);
+        message.setText(String.format(CONFIRMATION_MAIL_CONTENT, token));
+        
+        // Instanciates a connection used to send the message
+        Transport transport = SMTP_SESSION.getTransport("smtps");
+        transport.connect(SERVER_SMTP_HOST, SERVER_SMTP_PORT, SERVER_MAIL_ADDRESS, SERVER_MAIL_PASSWORD);
+        transport.sendMessage(message, message.getAllRecipients());
+        transport.close();
     }
 
     public String getServerAccountMailAddress() {

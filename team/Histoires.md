@@ -14,15 +14,15 @@ points.
 | ------ | ------ | ------ | ------ | ------ | ------ | ------ |
 | 1 | [1](#repérage-p-sur-carte) | Repérage P. sur carte | 7 | 2 | 49 | / |
 |   | [5](#login-et-e-mail) | Login et e-mail | 6 | 1 | 42 |  |
-| 2 | [2](#recherche-et-filtre) | Recherche et filtre | 5 | 1 | 35 |  |
+| 2 | [2](#recherche-et-filtre) | Recherche et filtre | 5 | 1 | 40 |  |
 |   | [3](#géolocalisation-et-proximité) | Géolocalisation et proximité | 5 | 2 | 35 |  |
 |   | [6](#réputation) | Réputation | 4 | 1 | 28 | / |
 |   | 10 | Synchronisation et gestion de conflits | 7 | 3 | 49 |  |
-| 3 | 4 | Intégration avec Maps | 5 | 3 | 35 | / |
-|   | 7 | Tuto | 7 | 1 | 49 |  |
-|   | 8 | Application mobile | 8 | 3 | 56 |  |
+| 3 | 4 | Intégration avec Maps | 5 | 3 | 50 | / |
+|   | 7 | Tuto | 7 | 1 | 30 |  |
+|   | 8 | Application mobile | 8 | 3 | 65 |  |
 |   | 9 | Partage sur réseaux sociaux | 2 | 1 | 14 |  |
-|   | 11 | P-dex | 4 | 1 | 28 |  |
+|   | 11 | P-dex | 4 | 1 | 30 (35) |  |
 
 
 ----------------------

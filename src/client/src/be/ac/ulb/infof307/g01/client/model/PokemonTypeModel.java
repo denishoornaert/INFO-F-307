@@ -7,10 +7,6 @@ import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
  */
 public class PokemonTypeModel extends PokemonTypeSendableModel {
     
-    static {
-        _allPokemonTypes.put("NONE", new PokemonTypeModel("NONE"));
-    }
-    
     public PokemonTypeModel(PokemonTypeSendableModel pokemonType) {
         super(pokemonType);
     }

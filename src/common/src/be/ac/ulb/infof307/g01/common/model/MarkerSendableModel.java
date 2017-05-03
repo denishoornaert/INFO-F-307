@@ -208,7 +208,7 @@ public class MarkerSendableModel {
     /**
      * @return the lifePoint
      */
-    public int getLifePoint() {
+    public int getLifePoints() {
         return _lifePoint;
     }
 

@@ -3,14 +3,22 @@ package be.ac.ulb.infof307.g01.server;
 import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
+import be.ac.ulb.infof307.g01.common.model.UserSendableModel;
+import be.ac.ulb.infof307.g01.server.controller.EmailSender;
 import be.ac.ulb.infof307.g01.server.model.DatabaseModel;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.MessagingException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -28,8 +36,18 @@ public class ServiceQueryController {
     @Consumes(MediaType.APPLICATION_XML)
     @Produces(MediaType.APPLICATION_XML)
     public Response insertMarker(MarkerSendableModel marker) {
-        DatabaseModel.getInstance().insertMarker(marker);
-        return Response.status(Status.OK).entity(marker).build();
+        Response response;
+        Logger.getLogger(getClass().getName()).log(Level.INFO, 
+                "Insert Marker: {0} - {1} - {2}", 
+                new Object[]{marker.getPokemonName(), marker.getUsername(), 
+                    marker.getAttack()});
+        
+        if(DatabaseModel.getInstance().insertMarker(marker)) {
+            response = Response.status(Status.OK).entity(marker).build();
+        } else {
+            response = Response.status(Status.NOT_ACCEPTABLE).build();
+        }
+        return response;
     }
     
     @Path("marker/getall")
@@ -61,7 +79,7 @@ public class ServiceQueryController {
     @GET
     @Produces(MediaType.APPLICATION_XML)
     public List<PokemonSendableModel> loadAllPokemons() {
-        ArrayList<PokemonSendableModel> arrayListPokemon = PokemonSendableModel.getAllPokemon();
+        List<PokemonSendableModel> arrayListPokemon = PokemonSendableModel.getAllPokemon();
         if(arrayListPokemon.isEmpty()) {
             DatabaseModel.getInstance().loadAllPokemonTypes();
         }
@@ -80,6 +98,73 @@ public class ServiceQueryController {
         allPokemonType = PokemonTypeSendableModel.getAllPokemonTypes();
         
         return allPokemonType;
+    }
+    
+    @Path("user/signin")
+    @POST
+    @Consumes(MediaType.APPLICATION_XML)
+    @Produces(MediaType.APPLICATION_XML)
+    public Response userSignin(UserSendableModel user) {
+        boolean successfullySignin;
+        try {
+            successfullySignin = DatabaseModel.getInstance().signin(user);
+        } catch (SQLException ex) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage());
+            return Response.status(Status.BAD_REQUEST).build();
+        }
+        
+        if(!successfullySignin) {
+            return Response.status(Status.UNAUTHORIZED).build();
+        }
+        return Response.status(Status.OK).entity(user).build();
+    }
+    
+    @Path("user/confirm")
+    @GET
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_HTML)
+    public String confirmAccount(@QueryParam("token") String token) {
+        String htmlPage = "<html> " + "<title>" + "User Account Conrfirmation" + "</title><body>"
+                + "<h1>" + "Validate Account" + "</h1>";
+        try {
+            boolean isValide = DatabaseModel.getInstance().confirmAccount(token);
+            if(isValide) {
+                htmlPage += "Your account has been validated";
+            } else {
+                htmlPage += "An error has occured";
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceQueryController.class.getName()).log(Level.SEVERE, null, ex);
+            htmlPage += "Internal server error";
+        }
+        return htmlPage + "</body>" + "</html> ";
+    }
+    
+    @Path("user/signup")
+    @POST
+    @Consumes(MediaType.APPLICATION_XML)
+    @Produces(MediaType.APPLICATION_XML)
+    public Response userSignup(UserSendableModel user) {
+        String token = generateToken();
+        try {
+            DatabaseModel.getInstance().signup(user, token);
+        } catch (SQLException ex) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage());
+            return Response.status(Status.BAD_REQUEST).build();
+        }
+        try {
+            EmailSender sender = new EmailSender();
+            sender.sendConfirmationEmail(user.getEmail(), token);
+        } catch (MessagingException ex) {
+            Logger.getLogger(ServiceQueryController.class.getName()).log(Level.SEVERE, null, ex);
+            return Response.status(Status.NOT_ACCEPTABLE).build();
+        }
+        return Response.status(Status.OK).build();
+    }
+    
+    private String generateToken() {
+        return UUID.randomUUID().toString();
     }
     
 }
