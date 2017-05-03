@@ -153,8 +153,8 @@ public class ServiceQueryController {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage());
             return Response.status(Status.BAD_REQUEST).build();
         }
-        EmailSender sender = new EmailSender();
         try {
+            EmailSender sender = new EmailSender();
             sender.sendConfirmationEmail(user.getEmail(), token);
         } catch (MessagingException ex) {
             Logger.getLogger(ServiceQueryController.class.getName()).log(Level.SEVERE, null, ex);
