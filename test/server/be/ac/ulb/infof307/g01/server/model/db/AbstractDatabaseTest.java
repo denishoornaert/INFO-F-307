@@ -18,6 +18,8 @@ public abstract class AbstractDatabaseTest {
     @Before
     public void setUp() {
         _database = DatabaseModel.getTestInstance();
+        _database.loadAllPokemonTypes();
+        _database.loadAllPokemons();
     }
     
     @After
