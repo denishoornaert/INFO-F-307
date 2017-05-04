@@ -50,7 +50,7 @@ public abstract class AbstractMarkerPopUpController {
     * Method called when the user has selected a pokemon name listed among the combobox.
     */
     public void selectedPokemonName(String selectedString) {
-        PokemonModel pokemon = PokemonModel.getPokemonByName(selectedString);
+        PokemonModel pokemon = PokemonCache.getInstance().getPokemonByName(selectedString);
         String path = pokemon.getImagePath();
         _markerPopUp.setPokemonView(path);
     }

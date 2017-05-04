@@ -1,7 +1,7 @@
 package be.ac.ulb.infof307.g01.client.model;
 
+import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
 import java.io.File;
-import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.Rule;
@@ -13,7 +13,7 @@ import static junit.framework.TestCase.assertTrue;
 
 public class PokemonModelTest {
     
-    private static PokemonModel arceus;
+    private static PokemonSendableModel arceus;
     
     @Rule
     public ExpectedException expected = ExpectedException.none();
@@ -24,13 +24,8 @@ public class PokemonModelTest {
         new PokemonTypeModel("FIRE");
         new PokemonTypeModel("ELECTRIC");
         
-        arceus = new PokemonModel("arceus", "arceus.png",
-                PokemonTypeModel.getPokemonTypeByTypeName("DARK"));
-    }
-    
-    @After
-    public void tearDown() {
-        PokemonModel.clearAllPokemon();
+        arceus = new PokemonModel(new PokemonSendableModel("arceus", "arceus.png",
+                PokemonTypeModel.getPokemonTypeByTypeName("DARK")));
     }
     
     @Test
@@ -54,14 +49,6 @@ public class PokemonModelTest {
     public void test_getPathImage() {
         File file = new File(arceus.getImagePath());
         assertTrue(file.exists());
-    }
-    
-    @Test
-    public void test_pokemonModelAlreadyExistThrowIllegalStateException() {
-        String pokemonName = "testException";
-        new PokemonModel(pokemonName, "");
-        expected.expect(IllegalStateException.class);
-        new PokemonModel(pokemonName, "");
     }
     
 }

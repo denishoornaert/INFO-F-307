@@ -23,29 +23,6 @@ public class MarkerSendableModel {
      * 
      * @param databaseId id of the pokemon in database (0 if not exist)
      * @param username of user who create this marker
-     * @param pokemonName pokemon name
-     * @param latitude x coordinate
-     * @param longitude y coordinate
-     * @param timestamp time when the pokemon has been witnessed
-     * @param upVotes positif votes about this maker
-     * @param downVotes negatif votes about this marker
-     * @param lifePoint pokemon life point
-     * @param attack pokemon attack stat
-     * @param defense pokemon defense stat
-     */
-    public MarkerSendableModel(int databaseId, String username, String pokemonName, double latitude, double longitude, 
-            Long timestamp, int upVotes, int downVotes, int lifePoint, int attack, int defense) {
-        this(databaseId, username, PokemonSendableModel.getPokemonByName(pokemonName), latitude,
-                longitude, timestamp, upVotes, downVotes, lifePoint, attack,
-                defense);
-    }
-    
-    
-    /**
-     * Constructor to create marker in memory (not in database)
-     * 
-     * @param databaseId id of the pokemon in database (0 if not exist)
-     * @param username of user who create this marker
      * @param pokemon pokemon
      * @param latitude x coordinate
      * @param longitude y coordinate

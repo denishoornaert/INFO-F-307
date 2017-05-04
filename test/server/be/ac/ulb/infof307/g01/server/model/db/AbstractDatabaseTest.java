@@ -1,7 +1,5 @@
 package be.ac.ulb.infof307.g01.server.model.db;
 
-import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
-import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
 import be.ac.ulb.infof307.g01.server.model.DatabaseModel;
 import org.junit.After;
 import org.junit.Before;
@@ -23,8 +21,6 @@ public abstract class AbstractDatabaseTest {
     @After
     public void tearDown() {
         DatabaseModel.closeDatabase();
-        PokemonSendableModel.clearAllPokemon();
-        PokemonTypeSendableModel.resetAllPokemonType();
         // TODO: supprimer la db et recréer par le script d'init
     }
     

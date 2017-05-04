@@ -1,20 +1,20 @@
 package be.ac.ulb.infof307.g01.client.model;
 
 import be.ac.ulb.infof307.g01.common.model.CoordinateSendableModel;
+import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
 import java.sql.Timestamp;
 import org.junit.Test;
 
 
 import org.junit.Before;
-import org.junit.After;
 import static junit.framework.TestCase.assertEquals;
 
 
 public class MarkerModelTest {
     
     private static final String TYPE_NAME = "FIRE";
-    private static final PokemonModel TEST_POKEMON = new PokemonModel("arceus","", 
-                PokemonTypeModel.getPokemonTypeByTypeName(TYPE_NAME));
+    private static final PokemonModel TEST_POKEMON = new PokemonModel(new PokemonSendableModel("arceus","", 
+                PokemonTypeModel.getPokemonTypeByTypeName(TYPE_NAME)));
     private static final int LIFE_POINT = 10;
     private static final int DEFENSE = 3;
     private static final int ATTACK = 8;
@@ -30,11 +30,6 @@ public class MarkerModelTest {
     public void setUp() {
         TEST_MARKER = new MarkerModel(TEST_POKEMON, TEST_COORDINATE, USERNAME, 
                 LIFE_POINT, ATTACK, DEFENSE, TIME, VOTE_UP, VOTE_DOWN, false);
-    }
-    
-    @After
-    public void tearDown() {
-        PokemonModel.clearAllPokemon();
     }
     
     @Test

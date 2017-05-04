@@ -1,7 +1,6 @@
 package be.ac.ulb.infof307.g01.client.controller;
 
 import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
-import be.ac.ulb.infof307.g01.client.model.PokemonModel;
 import be.ac.ulb.infof307.g01.client.model.PokemonTypeModel;
 import be.ac.ulb.infof307.g01.common.model.ConnectionQueryModel;
 import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
@@ -15,15 +14,11 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.GenericType;
 import com.sun.jersey.api.client.WebResource;
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ws.rs.core.MediaType;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
 
 /**
  * Connect to server and handles client queries
@@ -51,19 +46,6 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
         _webResource = client.resource(ClientConfiguration.getInstance().getServerURL()).path("query");
     }
     
-    private static<T> T convertXmlToObject(String xml, Class<T> className) {
-        try {
-            JAXBContext context = JAXBContext.newInstance(className);
-            Unmarshaller un = context.createUnmarshaller();
-            StringReader stringXml = new StringReader(xml);
-            T res = (T) un.unmarshal(stringXml);
-            return res;
-        } catch (JAXBException e) {
-            // TODO catch error
-        }
-        return null;
-    }
-    
     /**
      * Executes a POST HTTP request
      * @param url the web resource's url
@@ -81,7 +63,7 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
               
             default:
                 Logger.getLogger(getClass().getName()).log(Level.WARNING, 
-                    "Recive {0}", response.getClientResponseStatus().getReasonPhrase());
+                    "Receive {0}", response.getClientResponseStatus().getReasonPhrase());
                 break;
                 
         }
@@ -93,7 +75,7 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
      */
     private void loadAllTables() {
         loadAllPokemonTypes();
-        loadAllPokemons();
+        PokemonCache.getInstance().loadAllPokemons(getAllPokemons());
     }
     
     @Override
@@ -125,12 +107,9 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
     }
 
     @Override
-    public void loadAllPokemons() {
+    public List<PokemonSendableModel> getAllPokemons() {
         WebResource resource = _webResource.path("pokemon").path("getall");
-        List<PokemonSendableModel> result = resource.get(new GenericType<List<PokemonSendableModel>>(){});
-        for (PokemonSendableModel pokemon: result) {
-            new PokemonModel(pokemon);
-        }
+        return resource.get(new GenericType<List<PokemonSendableModel>>(){});
     }
 
     @Override

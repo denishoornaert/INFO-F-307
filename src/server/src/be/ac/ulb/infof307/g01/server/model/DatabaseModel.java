@@ -21,6 +21,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -90,7 +91,6 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
      */
     private void loadAllTables() {
         loadAllPokemonTypes();
-        loadAllPokemons();
     }
 
     /**
@@ -211,14 +211,14 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
     }
 
     @Override
-    public void loadAllPokemons() {
+    public List<PokemonSendableModel> getAllPokemons() {
         String query = "SELECT Pokemon.Name AS PName, Pokemon.ImagePath, "
                     + "FirstType.Name as T1Name, SecondType.Name as T2Name FROM Pokemon "
                 + "JOIN PokemonType FirstType ON FirstType.Id = Pokemon.TypeFirst "
                 + "LEFT OUTER JOIN PokemonType SecondType ON SecondType.Id = Pokemon.TypeSecond;";
         ResultSet result = executeQuery(query);
 
-        // TODO Duplicated code here ?
+        List<PokemonSendableModel> allPokemons = new ArrayList();
         try {
             while(result.next()) {
                 try {
@@ -226,13 +226,14 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
                     String imagePath = result.getString("ImagePath");
                     String firstType = result.getString("T1Name");
                     String secondType = result.getString("T2Name");
+                    
                     if(secondType == null) {
-                        new PokemonSendableModel(pokemonName,imagePath,
-                                PokemonTypeSendableModel.getPokemonTypeByTypeName(firstType));
+                        allPokemons.add(new PokemonSendableModel(pokemonName,imagePath,
+                                PokemonTypeSendableModel.getPokemonTypeByTypeName(firstType)));
                     } else {
-                        new PokemonSendableModel(pokemonName,imagePath,
+                        allPokemons.add(new PokemonSendableModel(pokemonName,imagePath,
                                 PokemonTypeSendableModel.getPokemonTypeByTypeName(firstType),
-                                PokemonTypeSendableModel.getPokemonTypeByTypeName(secondType));
+                                PokemonTypeSendableModel.getPokemonTypeByTypeName(secondType)));
                     }
                 } catch(IllegalStateException exception) {
                     System.err.println(exception.getMessage());
@@ -242,6 +243,7 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
         } catch (SQLException exception) {
             System.err.println(exception.getMessage());
         }
+        return allPokemons;
     }
 
     /**
@@ -312,6 +314,16 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
         }
         return allMarkers;
     }
+    
+    public PokemonSendableModel getPokemonByName(String name) {
+        final List<PokemonSendableModel> allPokemons = getAllPokemons();
+        for(PokemonSendableModel pokemon : allPokemons) {
+            if(pokemon.getName().equals(name)) {
+                return pokemon;
+            }
+        }
+        throw new IndexOutOfBoundsException("No such pokemon in database : " + name);
+    }
 
     private MarkerSendableModel createMarker(ResultSet cursor) throws SQLException {
     	int i = 0;
@@ -326,12 +338,16 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
         final int lifePoints = cursor.getInt(++i);
         final int attack = cursor.getInt(++i);
         final int defense = cursor.getInt(++i);
+        // This is not optimized (we query all pokemons for one marker), but
+        // this is way cleaner in the code, as you can see, we don't have to
+        // write any other SQL query.
+        final PokemonSendableModel pokemon = getPokemonByName(pokemonName);
         
         if(timestampString == null || timestampString.isEmpty()) {
             return null;
         }
         
-        return new MarkerSendableModel(id, username, pokemonName, latitude, longitude,
+        return new MarkerSendableModel(id, username, pokemon, latitude, longitude,
                 Timestamp.valueOf(timestampString).getTime(), upVotes, 
                 downVotes, lifePoints, attack, defense);
     }

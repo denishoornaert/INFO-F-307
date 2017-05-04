@@ -12,20 +12,19 @@ public class MarkerDatabaseModelTest extends AbstractDatabaseTest {
     @Before
     public void setUp() {
         super.setUp();
-        PokemonSendableModel Abomasnow = PokemonSendableModel.getPokemonByName("Arceus");
+        PokemonSendableModel Abomasnow = _database.getPokemonByName("Arceus");
         
         final int id = 0;
         final String username = "bidon";
         final double latitude = 250;
         final double longitude = 500;
         final Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        final String pokemonName = Abomasnow.getName();
         final int upVotes = 0;
         final int downVotes = 0;
         final int lifePoint = 0;
         final int attack = 0;
         final int defense = 0;
-        _markerToInsert = new MarkerSendableModel(id, username, pokemonName, 
+        _markerToInsert = new MarkerSendableModel(id, username, Abomasnow, 
                 latitude, longitude, timestamp.getTime(), upVotes, 
                 downVotes,lifePoint,attack,defense);
     }

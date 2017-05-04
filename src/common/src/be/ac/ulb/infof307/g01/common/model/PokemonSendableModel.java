@@ -1,15 +1,10 @@
 package be.ac.ulb.infof307.g01.common.model;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class PokemonSendableModel {
-    
-    protected static HashMap<String, PokemonSendableModel> _allPokemon = new HashMap<>();
-    
+public class PokemonSendableModel {    
     protected String _name;
     protected PokemonTypeSendableModel[] _type;
     protected String _imageName;
@@ -29,9 +24,7 @@ public class PokemonSendableModel {
         _imageName = imagePath;
         _type = new PokemonTypeSendableModel[2];
         _type[0] = pokemonTypeOne;
-        _type[1] = pokemonTypeTwo;
-        
-        _allPokemon.put(pokemonName, this);
+        _type[1] = pokemonTypeTwo;        
     }
     
     public PokemonSendableModel(PokemonSendableModel other) {
@@ -93,36 +86,5 @@ public class PokemonSendableModel {
         return otherPokemon._name.equals(_name) && 
                 Arrays.equals(otherPokemon._type, _type);
     }
-    
-    /////////////// STATIC ///////////////
-    
-    /**
-     * @return the _allPokemon
-     */
-    public static ArrayList<PokemonSendableModel> getAllPokemon() {
-        return new ArrayList<>(_allPokemon.values());
-    }
-    
-    public static ArrayList<String> getAllPokemonName() {
-        return new ArrayList<>(_allPokemon.keySet());
-    }
-    
-    public static PokemonSendableModel getPokemonByName(String pokemonName) {
-        return _allPokemon.get(pokemonName);
-    }
-    
-    public static void clearAllPokemon() {
-        _allPokemon.clear();
-    }
-    
-    /**
-     * Get the number of loaded pokemon
-     * 
-     * @return number of pokemon 
-     * TODO renommer avec un nom plus logique, par exemple getNumberLoadedPokemons
-     */
-    public static int getSizePokemonModel(){
-        return _allPokemon.size();
-    }
-    
+        
 }

@@ -18,7 +18,7 @@ public class NewMarkerPopUpController extends AbstractMarkerPopUpController {
     
     public NewMarkerPopUpController(MarkerController markerController, double coordinateX, double coordinateY) {
         super(markerController);
-        _markerPopUp = new NewMarkerPopUp(this, PokemonModel.getAllPokemonName());
+        _markerPopUp = new NewMarkerPopUp(this, PokemonCache.getInstance().getAllPokemonNames());
         _markerPopUp.setPokemonView(_defaultImagePath);
         _newMarkerCoordinate = new CoordinateSendableModel(coordinateX, coordinateY);
     }
@@ -27,7 +27,7 @@ public class NewMarkerPopUpController extends AbstractMarkerPopUpController {
     public void endPopUpMarker(String pokemonName, int lifePoint, int attack, int defense, Timestamp dateView) {
         super.endPopUpMarker(pokemonName, lifePoint, attack, defense, dateView);
         if(isPokemonNameNotEmpty(pokemonName)) { 
-            PokemonModel pokemon = PokemonModel.getPokemonByName(pokemonName);
+            PokemonModel pokemon = PokemonCache.getInstance().getPokemonByName(pokemonName);
             _markerController.createMarker(pokemon, _newMarkerCoordinate, lifePoint, attack, defense, dateView);
         } 
     }
@@ -37,7 +37,7 @@ public class NewMarkerPopUpController extends AbstractMarkerPopUpController {
             // Converts from event coordinate (centered in the upper left corner)
             // to marker coordinate (centered in the middle of the image)
             _newMarkerCoordinate = new CoordinateSendableModel(coordinateX, coordinateY);
-            _markerPopUp = new NewMarkerPopUp(this, PokemonModel.getAllPokemonName());
+            _markerPopUp = new NewMarkerPopUp(this, PokemonCache.getInstance().getAllPokemonNames());
             _markerPopUp.setPokemonView(_defaultImagePath);
         }
     }

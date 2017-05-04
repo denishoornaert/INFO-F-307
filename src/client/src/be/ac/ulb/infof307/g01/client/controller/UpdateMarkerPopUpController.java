@@ -16,7 +16,7 @@ public class UpdateMarkerPopUpController extends AbstractMarkerPopUpController {
     public UpdateMarkerPopUpController(MarkerController markerController, int markerId) {
         super(markerController, markerId);
         _markerId = markerId;
-        _markerPopUp = new UpdateMarkerPopUp(this, PokemonModel.getAllPokemonName(), markerId);
+        _markerPopUp = new UpdateMarkerPopUp(this, PokemonCache.getInstance().getAllPokemonNames(), markerId);
         _markerPopUp.setPokemonView(_marker.getImagePath());
     }
     
@@ -24,7 +24,7 @@ public class UpdateMarkerPopUpController extends AbstractMarkerPopUpController {
     public void endPopUpMarker(String pokemonName, int lifePoint, int attack, int defense, Timestamp dateView) {
         super.endPopUpMarker(pokemonName, lifePoint, attack, defense, dateView);
         if(isPokemonNameNotEmpty(pokemonName)) { 
-            PokemonModel pokemon = PokemonModel.getPokemonByName(pokemonName);
+            PokemonModel pokemon = PokemonCache.getInstance().getPokemonByName(pokemonName);
             _markerController.updateMarker(_markerId, pokemon, lifePoint, attack, defense, dateView);
         } 
     }
