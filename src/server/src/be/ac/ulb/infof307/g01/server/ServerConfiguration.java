@@ -1,6 +1,7 @@
 package be.ac.ulb.infof307.g01.server;
 
 import java.io.File;
+import java.net.URI;
 import java.nio.file.FileSystems;
 
 /**
@@ -18,6 +19,7 @@ public class ServerConfiguration {
     private final String _assetFolder = FileSystems.getDefault().getPath("../../assets/server/").toAbsolutePath().normalize().toString() + "/";
     private final String _dataBasePath = "Database.db";
     private final String _testDataBasePath = "TestDatabase.db";
+    private final String _sqlPath = "Database.sql";
     
     private ServerConfiguration() {}
 
@@ -38,6 +40,10 @@ public class ServerConfiguration {
     
     public String getTestDataBasePath() {
         return _assetFolder + _testDataBasePath;
+    }
+
+    public String getSqlPath() {
+        return _assetFolder + _sqlPath;
     }
     
 }

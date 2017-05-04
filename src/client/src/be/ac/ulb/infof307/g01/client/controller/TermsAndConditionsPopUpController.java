@@ -38,7 +38,7 @@ public class TermsAndConditionsPopUpController {
                     res += sCurrentLine;
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger.getLogger(TermsAndConditionsPopUpController.class.getName()).log(Level.SEVERE, null, e);
         } finally {
             if(fr != null) {
                 try {
