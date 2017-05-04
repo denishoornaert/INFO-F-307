@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import org.junit.Before;
 import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertTrue;
 
 
 public class MarkerModelTest {
@@ -54,20 +55,20 @@ public class MarkerModelTest {
     
     @Test
     public void test_getTime(){
-        assertEquals(TEST_MARKER.getTimestamp(),TIME);
+        assertEquals(TEST_MARKER.getTimestamp(), TIME);
     }
     
     @Test
     public void test_getCoordinate(){
-        assertEquals(TEST_MARKER.getCoordinate(),TEST_COORDINATE);
+        assertEquals(TEST_MARKER.getCoordinate(), TEST_COORDINATE);
     }
     
     @Test
     public void test_Equals(){
-        MarkerModel OtherTestMarker = new MarkerModel(TEST_POKEMON, 
-                TEST_COORDINATE, USERNAME, LIFE_POINT, ATTACK, DEFENSE, TIME, 
+        MarkerModel otherTestMarker = new MarkerModel(TEST_POKEMON,
+                TEST_COORDINATE, USERNAME, LIFE_POINT, ATTACK, DEFENSE, TIME,
                 VOTE_UP, VOTE_DOWN, false);
-        assertEquals(TEST_MARKER.equals(OtherTestMarker),true);
+        assertTrue(TEST_MARKER.equals(otherTestMarker));
     }
     
 }

@@ -33,13 +33,14 @@ public class PokemonModelTest {
     
     @Test
     public void test_getType() {
-        assertEquals(arceus.getType().length, 1);
-        assertEquals(arceus.getType()[0], darkType);
+        assertEquals(1, arceus.getType().length);
+        assertEquals(darkType, arceus.getType()[0]);
     }
     
     @Test
     public void test_equals() {
-        assertEquals(arceus.equals(arceus), true);
+        // ARCEOUUUUUS
+        assertTrue(arceus.equals(arceus));
     }
     
     @Test
