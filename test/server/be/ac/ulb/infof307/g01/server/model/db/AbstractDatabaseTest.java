@@ -28,7 +28,6 @@ public abstract class AbstractDatabaseTest {
         DatabaseModel.closeDatabase();
         PokemonSendableModel.clearAllPokemon();
         PokemonTypeSendableModel.resetAllPokemonType();
-        // TODO: supprimer la db et recréer par le script d'init
     }
     
     
