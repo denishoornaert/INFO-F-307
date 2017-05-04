@@ -16,15 +16,11 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.GenericType;
 import com.sun.jersey.api.client.WebResource;
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ws.rs.core.MediaType;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
 
 /**
  * Connect to server and handles client queries
@@ -50,19 +46,6 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
     private void connectClient() {
         Client client = Client.create();
         _webResource = client.resource(ClientConfiguration.getInstance().getServerURL()).path("query");
-    }
-    
-    private static<T> T convertXmlToObject(String xml, Class<T> className) {
-        try {
-            JAXBContext context = JAXBContext.newInstance(className);
-            Unmarshaller un = context.createUnmarshaller();
-            StringReader stringXml = new StringReader(xml);
-            T res = (T) un.unmarshal(stringXml);
-            return res;
-        } catch (JAXBException e) {
-            // TODO catch error
-        }
-        return null;
     }
     
     /**
@@ -99,9 +82,7 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
     
     @Override
     public boolean insertMarker(MarkerSendableModel marker) {
-        if(marker instanceof MarkerModel) {
-            marker = ((MarkerModel) marker).getSendable();
-        }
+        marker = fixTypeMarkerModelToSendable(marker);
         boolean result = true;
         WebResource resource = _webResource.path("marker").path("insert");
         if (!sendPostQuery(resource, marker)) {
@@ -121,6 +102,7 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
 
     @Override
     public void updateMarkerReputation(MarkerSendableModel marker) {
+        marker = fixTypeMarkerModelToSendable(marker);
         WebResource resource = _webResource.path("marker").path("updateReputation");
         
         if (!sendPostQuery(resource, marker)) {
@@ -150,6 +132,7 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
     @Override
     public boolean updateMarker(MarkerSendableModel marker) {
         boolean result = true;
+        marker = fixTypeMarkerModelToSendable(marker);
         WebResource resource = _webResource.path("marker").path("update");
         
         if (!sendPostQuery(resource, marker)) {
@@ -181,6 +164,20 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
             result = false;
         }
         return result;
+    }
+    
+    /**
+     * MarkerModel could not be send with jersey. This function change Marker
+     * to MarkerSendable
+     * 
+     * @param marker the maker
+     * @return a real MarkerSendableModel
+     */
+    private MarkerSendableModel fixTypeMarkerModelToSendable(MarkerSendableModel marker) {
+        if(marker instanceof MarkerModel) {
+            marker = ((MarkerModel) marker).getSendable();
+        }
+        return marker;
     }
     
 }
