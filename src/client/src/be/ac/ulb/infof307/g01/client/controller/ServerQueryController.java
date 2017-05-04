@@ -1,6 +1,7 @@
 package be.ac.ulb.infof307.g01.client.controller;
 
 import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
+import be.ac.ulb.infof307.g01.client.model.MarkerModel;
 import be.ac.ulb.infof307.g01.client.model.PokemonModel;
 import be.ac.ulb.infof307.g01.client.model.PokemonTypeModel;
 import be.ac.ulb.infof307.g01.common.model.ConnectionQueryModel;
@@ -70,7 +71,7 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
      * @param postObject the object to post
      * @return true if the request was accepted, false otherwise
      */
-    private boolean sendPostQuery(WebResource url, Object postObject) {
+    private <T> boolean sendPostQuery(WebResource url, T postObject) {
         ClientResponse response = url.accept(MediaType.APPLICATION_XML)
                 .post(ClientResponse.class, postObject);
         
@@ -98,6 +99,9 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
     
     @Override
     public boolean insertMarker(MarkerSendableModel marker) {
+        if(marker instanceof MarkerModel) {
+            marker = ((MarkerModel) marker).getSendable();
+        }
         boolean result = true;
         WebResource resource = _webResource.path("marker").path("insert");
         if (!sendPostQuery(resource, marker)) {
