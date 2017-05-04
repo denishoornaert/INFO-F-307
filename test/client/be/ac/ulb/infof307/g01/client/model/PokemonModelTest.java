@@ -5,8 +5,6 @@ import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
 import java.io.File;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.Rule;
-import org.junit.rules.ExpectedException;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
@@ -14,11 +12,8 @@ import static junit.framework.TestCase.assertTrue;
 
 public class PokemonModelTest {
     
-    private static PokemonSendableModel arceus;
-    private static PokemonTypeSendableModel darkType;
-    
-    @Rule
-    public ExpectedException expected = ExpectedException.none();
+    private static PokemonModel arceus;
+    private static PokemonTypeModel darkType;
     
     @BeforeClass
     public static void setUpClass() {
@@ -33,14 +28,16 @@ public class PokemonModelTest {
     
     @Test
     public void test_getType() {
-        assertEquals(1, arceus.getType().length);
-        assertEquals(darkType, arceus.getType()[0]);
+        assertEquals(2, arceus.getType().length);
+        assertEquals(darkType.getTypeName(), arceus.getType()[0].getTypeName());
+        assertEquals(PokemonTypeSendableModel.getNoneType().getTypeName(), arceus.getType()[1].getTypeName());
     }
     
     @Test
     public void test_equals() {
         // ARCEOUUUUUS
-        assertTrue(arceus.equals(arceus));
+        // TODO: Why would we use that equals function ? Why testing it ?
+        // assertTrue(arceus.equals(arceus));
     }
     
     @Test

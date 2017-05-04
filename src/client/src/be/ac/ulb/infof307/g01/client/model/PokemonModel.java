@@ -9,7 +9,7 @@ import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
 
 public class PokemonModel extends PokemonSendableModel {
     
-    private static String _pathPrefix;
+    private static final String PATH_PREFIX = ClientConfiguration.getInstance().getSpritePath();
     
     public PokemonModel(PokemonSendableModel pokemon) {
         super(pokemon);
@@ -17,11 +17,10 @@ public class PokemonModel extends PokemonSendableModel {
         for(int i = 0; i < _type.length; ++i) {
             _type[i] = new PokemonTypeModel(_type[i]);
         }
-        _pathPrefix = ClientConfiguration.getInstance().getSpritePath();
     }
     
     @Override
     public String getImagePath() {
-        return _pathPrefix + super.getImagePath();
+        return PATH_PREFIX + super.getImagePath();
     }
 }
