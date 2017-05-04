@@ -476,6 +476,7 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
      */
     public boolean confirmAccount(String token){
         boolean res = false;
+        //TODO : use Username to check if we're confirming the right account (duplicate tokens)
         String query = "UPDATE User SET Token = '' WHERE Token = ?";
         try {
             PreparedStatement statement = _connection.prepareStatement(query);
