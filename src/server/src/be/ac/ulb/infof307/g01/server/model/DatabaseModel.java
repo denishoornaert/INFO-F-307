@@ -487,5 +487,21 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
         }
         return res;
     }
-        
+    
+    /**
+     * Method used to delete all the information contained in a table.
+     * The name of the latter is given in parameter.
+     * 
+     * @param table : name of the table that will be deleted. 
+     */
+    public void deleteTable(String table) {
+        String query = "DELETE FROM "+table+";";
+        try {
+            PreparedStatement statement = _connection.prepareStatement(query);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 }
