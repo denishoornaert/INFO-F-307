@@ -2,6 +2,7 @@ package be.ac.ulb.infof307.g01.client.model;
 
 import be.ac.ulb.infof307.g01.common.model.CoordinateSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
+import be.ac.ulb.infof307.g01.client.controller.PokemonCache;
 import java.sql.Timestamp;
 import org.junit.Test;
 
@@ -11,10 +12,9 @@ import static junit.framework.TestCase.assertEquals;
 
 
 public class MarkerModelTest {
-    
     private static final String TYPE_NAME = "FIRE";
     private static final PokemonModel TEST_POKEMON = new PokemonModel(new PokemonSendableModel("arceus","", 
-                PokemonTypeModel.getPokemonTypeByTypeName(TYPE_NAME)));
+                PokemonCache.getInstance().getPokemonTypeByTypeName(TYPE_NAME)));
     private static final int LIFE_POINT = 10;
     private static final int DEFENSE = 3;
     private static final int ATTACK = 8;

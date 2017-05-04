@@ -90,7 +90,7 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
      * Load all Data (Pokemon and PokemonType)
      */
     private void loadAllTables() {
-        loadAllPokemonTypes();
+        getAllPokemonTypes();
     }
 
     /**
@@ -187,19 +187,57 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
        }
        return resultat;
     }
+    
+    /**
+     * Retrieves a pokemon from its name in the database.
+     * @param name The name of the pokemon to get
+     * @return The pokemon object
+     * @throws IndexOutOfBoundsException If no pokemon has been found with this name
+     */
+    public PokemonSendableModel getPokemonByName(String name) {
+        final List<PokemonSendableModel> allPokemons = getAllPokemons();
+        for(PokemonSendableModel pokemon : allPokemons) {
+            if(pokemon.getName().equals(name)) {
+                return pokemon;
+            }
+        }
+        throw new IndexOutOfBoundsException("No such pokemon in database : " + name);
+    }
+    
+    /**
+     * Gets a pokemon type from its name in the database.
+     * /TODO This *may* be a serious performance issue when getting all markers:
+     * getAllMarkers loads all markers
+     * -> for each marker, all pokemons are retrieved in order to find the right one
+     *    -> for each pokemons, all types are loaded for the same reason...
+     * @param name The type name
+     * @return An pokemon type object
+     * @throws IndexOutOfBoundsException If no type has been found with this name
+     */
+    public PokemonTypeSendableModel getPokemonTypeByTypeName(String name) {
+        final List<PokemonTypeSendableModel> types = getAllPokemonTypes();
+        for(PokemonTypeSendableModel type : types) {
+            if(type.getTypeName().equals(name)) {
+                return type;
+            }
+        }
+        throw new IndexOutOfBoundsException("No such pokemon type in database : " + name);
+    }
 
     /**
-     * Load all of the pokemon types from the database
+     * Gets all of the pokemon types from the database.
+     * @return The list of all types.
      */
     @Override
-    public void loadAllPokemonTypes() {
+    public List<PokemonTypeSendableModel> getAllPokemonTypes() {
         String query = "SELECT DISTINCT(Name) FROM PokemonType;";
         ResultSet result = executeQuery(query);
 
+        List<PokemonTypeSendableModel> types = new ArrayList();
         try {
             while(result.next()) {
                 try {
-                    new PokemonTypeSendableModel(result.getString("Name"));
+                    types.add(new PokemonTypeSendableModel(result.getString("Name")));
                 } catch(IllegalStateException exception) {
                     System.err.println(exception.getMessage());
                     break;
@@ -208,6 +246,7 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
         } catch (SQLException exception) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, exception.getMessage());
         }
+        return types;
     }
 
     @Override
@@ -229,11 +268,11 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
                     
                     if(secondType == null) {
                         allPokemons.add(new PokemonSendableModel(pokemonName,imagePath,
-                                PokemonTypeSendableModel.getPokemonTypeByTypeName(firstType)));
+                                getPokemonTypeByTypeName(firstType)));
                     } else {
                         allPokemons.add(new PokemonSendableModel(pokemonName,imagePath,
-                                PokemonTypeSendableModel.getPokemonTypeByTypeName(firstType),
-                                PokemonTypeSendableModel.getPokemonTypeByTypeName(secondType)));
+                                getPokemonTypeByTypeName(firstType),
+                                getPokemonTypeByTypeName(secondType)));
                     }
                 } catch(IllegalStateException exception) {
                     System.err.println(exception.getMessage());
@@ -313,16 +352,6 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
             Logger.getLogger(DatabaseModel.class.getName()).log(Level.SEVERE, null, ex);
         }
         return allMarkers;
-    }
-    
-    public PokemonSendableModel getPokemonByName(String name) {
-        final List<PokemonSendableModel> allPokemons = getAllPokemons();
-        for(PokemonSendableModel pokemon : allPokemons) {
-            if(pokemon.getName().equals(name)) {
-                return pokemon;
-            }
-        }
-        throw new IndexOutOfBoundsException("No such pokemon in database : " + name);
     }
 
     private MarkerSendableModel createMarker(ResultSet cursor) throws SQLException {

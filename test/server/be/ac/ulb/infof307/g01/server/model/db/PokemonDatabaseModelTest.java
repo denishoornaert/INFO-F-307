@@ -5,7 +5,6 @@ import static junit.framework.TestCase.assertFalse;
 import org.junit.Test;
 
 public class PokemonDatabaseModelTest extends AbstractDatabaseTest  {
-    
     @Test
     public void test_loadPokemonNotEmpty(){
         assertFalse(_database.getAllPokemons().isEmpty());

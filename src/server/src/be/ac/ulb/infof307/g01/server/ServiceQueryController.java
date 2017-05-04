@@ -77,7 +77,7 @@ public class ServiceQueryController {
     @Path("pokemon/getall")
     @GET
     @Produces(MediaType.APPLICATION_XML)
-    public List<PokemonSendableModel> loadAllPokemons() {
+    public List<PokemonSendableModel> getAllPokemons() {
         return DatabaseModel.getInstance().getAllPokemons();
     }
     
@@ -85,13 +85,7 @@ public class ServiceQueryController {
     @GET
     @Produces(MediaType.APPLICATION_XML)
     public List<PokemonTypeSendableModel> getAllPokemonType() {
-        ArrayList<PokemonTypeSendableModel> allPokemonType = PokemonTypeSendableModel.getAllPokemonTypes();
-        if(allPokemonType.isEmpty()) {
-            DatabaseModel.getInstance().loadAllPokemonTypes();
-        }
-        allPokemonType = PokemonTypeSendableModel.getAllPokemonTypes();
-        
-        return allPokemonType;
+        return DatabaseModel.getInstance().getAllPokemonTypes();
     }
     
     @Path("user/signin")

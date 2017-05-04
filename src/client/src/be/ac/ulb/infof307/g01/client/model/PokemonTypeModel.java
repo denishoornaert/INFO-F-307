@@ -19,22 +19,4 @@ public class PokemonTypeModel extends PokemonTypeSendableModel {
     public PokemonTypeModel(String typeName) {
         super(typeName);
     }
-    
-    
-    /////////////// STATIC ////////////////
-    
-    /**
-     * Return the pokemonTypeModel instance by name
-     * 
-     * @param typeName the desired name
-     * @return the PokemonTypeModel instance or null if not found
-     */
-    public static PokemonTypeModel getPokemonTypeByTypeName(String typeName) {
-        PokemonTypeSendableModel result = _allPokemonTypes.get(typeName.toUpperCase());
-        if(result instanceof PokemonTypeModel) {
-            return (PokemonTypeModel) result;
-        }
-        return null;
-    }
-    
 }

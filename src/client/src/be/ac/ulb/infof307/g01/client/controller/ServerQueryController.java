@@ -1,7 +1,6 @@
 package be.ac.ulb.infof307.g01.client.controller;
 
 import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
-import be.ac.ulb.infof307.g01.client.model.PokemonTypeModel;
 import be.ac.ulb.infof307.g01.common.model.ConnectionQueryModel;
 import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
 import be.ac.ulb.infof307.g01.common.model.MarkerQueryModel;
@@ -74,7 +73,7 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
      * Load all Data (Pokemon and PokemonType)
      */
     private void loadAllTables() {
-        loadAllPokemonTypes();
+        PokemonCache.getInstance().loadAllPokemonTypes(getAllPokemonTypes());
         PokemonCache.getInstance().loadAllPokemons(getAllPokemons());
     }
     
@@ -113,13 +112,9 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
     }
 
     @Override
-    public void loadAllPokemonTypes() {
+    public List<PokemonTypeSendableModel> getAllPokemonTypes() {
         WebResource resource = _webResource.path("pokemontype").path("getall");
-        List<PokemonTypeSendableModel> result = resource.get(
-                new GenericType<List<PokemonTypeSendableModel>>(){});
-        for(PokemonTypeSendableModel pokemonType : result) {
-            new PokemonTypeModel(pokemonType);
-        }
+        return resource.get(new GenericType<List<PokemonTypeSendableModel>>(){});
     }
     
     @Override

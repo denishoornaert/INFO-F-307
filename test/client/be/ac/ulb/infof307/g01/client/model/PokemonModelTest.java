@@ -1,6 +1,7 @@
 package be.ac.ulb.infof307.g01.client.model;
 
 import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
+import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
 import java.io.File;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -14,18 +15,15 @@ import static junit.framework.TestCase.assertTrue;
 public class PokemonModelTest {
     
     private static PokemonSendableModel arceus;
+    private static PokemonTypeSendableModel darkType;
     
     @Rule
     public ExpectedException expected = ExpectedException.none();
     
     @BeforeClass
     public static void setUpClass() {
-        new PokemonTypeModel("DARK");
-        new PokemonTypeModel("FIRE");
-        new PokemonTypeModel("ELECTRIC");
-        
-        arceus = new PokemonModel(new PokemonSendableModel("arceus", "arceus.png",
-                PokemonTypeModel.getPokemonTypeByTypeName("DARK")));
+        darkType = new PokemonTypeModel("DARK");
+        arceus = new PokemonModel(new PokemonSendableModel("arceus", "arceus.png", darkType));
     }
     
     @Test
@@ -36,8 +34,7 @@ public class PokemonModelTest {
     @Test
     public void test_getType() {
         assertEquals(arceus.getType().length, 1);
-        assertEquals(arceus.getType()[0], 
-                PokemonTypeModel.getPokemonTypeByTypeName("DARK"));
+        assertEquals(arceus.getType()[0], darkType);
     }
     
     @Test
