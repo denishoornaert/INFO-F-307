@@ -1,6 +1,7 @@
 package be.ac.ulb.infof307.g01.client.controller;
 
 import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
+import be.ac.ulb.infof307.g01.client.model.MarkerModel;
 import be.ac.ulb.infof307.g01.common.model.ConnectionQueryModel;
 import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
 import be.ac.ulb.infof307.g01.common.model.MarkerQueryModel;
@@ -51,7 +52,7 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
      * @param postObject the object to post
      * @return true if the request was accepted, false otherwise
      */
-    private boolean sendPostQuery(WebResource url, Object postObject) {
+    private <T> boolean sendPostQuery(WebResource url, T postObject) {
         ClientResponse response = url.accept(MediaType.APPLICATION_XML)
                 .post(ClientResponse.class, postObject);
         
@@ -79,6 +80,7 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
     
     @Override
     public boolean insertMarker(MarkerSendableModel marker) {
+        marker = fixTypeMarkerModelToSendable(marker);
         boolean result = true;
         WebResource resource = _webResource.path("marker").path("insert");
         if (!sendPostQuery(resource, marker)) {
@@ -98,6 +100,7 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
 
     @Override
     public void updateMarkerReputation(MarkerSendableModel marker) {
+        marker = fixTypeMarkerModelToSendable(marker);
         WebResource resource = _webResource.path("marker").path("updateReputation");
         
         if (!sendPostQuery(resource, marker)) {
@@ -120,6 +123,7 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
     @Override
     public boolean updateMarker(MarkerSendableModel marker) {
         boolean result = true;
+        marker = fixTypeMarkerModelToSendable(marker);
         WebResource resource = _webResource.path("marker").path("update");
         
         if (!sendPostQuery(resource, marker)) {
@@ -151,6 +155,20 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
             result = false;
         }
         return result;
+    }
+    
+    /**
+     * MarkerModel could not be send with jersey. This function change Marker
+     * to MarkerSendable
+     * 
+     * @param marker the maker
+     * @return a real MarkerSendableModel
+     */
+    private MarkerSendableModel fixTypeMarkerModelToSendable(MarkerSendableModel marker) {
+        if(marker instanceof MarkerModel) {
+            marker = ((MarkerModel) marker).getSendable();
+        }
+        return marker;
     }
     
 }

@@ -8,11 +8,12 @@ import be.ac.ulb.infof307.g01.common.model.PokemonTypeQueryModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
 import be.ac.ulb.infof307.g01.common.model.UserSendableModel;
 import be.ac.ulb.infof307.g01.server.ServerConfiguration;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -70,9 +71,9 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
      */
     protected DatabaseModel(String pathToDatabase) {
         try {
-            boolean justeCreated = createDatabaseFile(pathToDatabase);
+            boolean justCreated = createDatabaseFile(pathToDatabase);
             connectToSqlite(pathToDatabase);
-            if(justeCreated) {
+            if(justCreated) {
                 Logger.getLogger(getClass().getName()).log(Level.INFO, "Create Database");
                 createAllTables(pathToDatabase);
             }
@@ -92,14 +93,14 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
     private void loadAllTables() {
         getAllPokemonTypes();
     }
-
+    
     /**
      * Create the database file (.db from .sql)
      *
      * @param path path to database
      * @return false if file already exist, true if file have been juste created
      */
-    private boolean createDatabaseFile(String path) throws IOException {
+    private boolean createDatabaseFile(String path) throws IOException, SQLException {
         File file = new File(path);
         if(!file.exists()) {
             file.createNewFile();
@@ -124,24 +125,21 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
      * 
      * @return the file content
      */
-    private String[] getContentSqlFile(String pathToSqlFile) throws FileNotFoundException, IOException {
-        StringBuilder sb = new StringBuilder();
-        FileReader fr = new FileReader(new File(pathToSqlFile));
-        BufferedReader br = new BufferedReader(fr);
-        
-        String s;
-        while((s = br.readLine()) != null) {
-            sb.append(s);
+    private String[] getContentSqlFile() throws FileNotFoundException, IOException {
+        Path sqlPath = Paths.get(ServerConfiguration.getInstance().getSqlPath());
+        List<String> lines = Files.readAllLines(sqlPath);
+        String query = "";
+        for(String line : lines) {
+            query += line;
         }
-        br.close();
-        
-        return sb.toString().split(";");
+        query = query.replace("\n", "");
+        return query.split(";");
     }
     
     private void createAllTables(String pathToDatabase) {
         String pathToSqlFile = pathToDatabase.substring(0, pathToDatabase.lastIndexOf('.'));
         try {
-            String[] content = getContentSqlFile(pathToSqlFile + ".sql");
+            String[] content = getContentSqlFile();
             for(String query : content) {
                 executeQuery(query);
             }
@@ -521,6 +519,7 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
      */
     public boolean confirmAccount(String token){
         boolean res = false;
+        //TODO : use Username to check if we're confirming the right account (duplicate tokens)
         String query = "UPDATE User SET Token = '' WHERE Token = ?";
         try {
             PreparedStatement statement = _connection.prepareStatement(query);
@@ -531,5 +530,21 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
         }
         return res;
     }
-        
+    
+    /**
+     * Method used to delete all the information contained in a table.
+     * The name of the latter is given in parameter.
+     * 
+     * @param table : name of the table that will be deleted. 
+     */
+    public void deleteTable(String table) {
+        String query = "DELETE FROM "+table+";";
+        try {
+            PreparedStatement statement = _connection.prepareStatement(query);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 }

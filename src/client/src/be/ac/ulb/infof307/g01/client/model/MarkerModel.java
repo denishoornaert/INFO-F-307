@@ -17,7 +17,7 @@ public class MarkerModel extends MarkerSendableModel {
     
     /**
      * Create a marker pokemon (call from gui)
-     * 
+     *
      * @param pokemon pokemon in link with this marker
      * @param coordinate location of this marker
      * @param username of user who create this marker
@@ -26,16 +26,16 @@ public class MarkerModel extends MarkerSendableModel {
      * @param defense pokemon defense stat
      * @param date the date of the marker
      */
-    public MarkerModel(PokemonSendableModel pokemon, CoordinateSendableModel coordinate, 
+    public MarkerModel(PokemonSendableModel pokemon, CoordinateSendableModel coordinate,
             String username, int lifePoint, int attack, int defense, Timestamp date) {
-        this(pokemon, coordinate, username, lifePoint, attack, defense, date, 
+        this(pokemon, coordinate, username, lifePoint, attack, defense, date,
                 0, 0, true);
         _serverQuery.insertMarker(this);
     }
     
     /**
      * Create a marker pokemon (call from gui)
-     * 
+     *
      * @param pokemon pokemon in link with this marker
      * @param coordinate location of this marker
      * @param username of user who create this marker
@@ -47,16 +47,16 @@ public class MarkerModel extends MarkerSendableModel {
      * @param downVotes number of negatives votes
      * @param loadDatabase True to load database
      */
-    public MarkerModel(PokemonSendableModel pokemon, CoordinateSendableModel coordinate, 
+    public MarkerModel(PokemonSendableModel pokemon, CoordinateSendableModel coordinate,
             String username, int lifePoint, int attack, int defense, Timestamp date,
             int upVotes, int downVotes, boolean loadDatabase) {
-        this(0, username, pokemon, coordinate, date, upVotes, downVotes, lifePoint, 
+        this(0, username, pokemon, coordinate, date, upVotes, downVotes, lifePoint,
                 attack, defense, loadDatabase);
     }
     
     /**
      * Constructor to create marker in memory (not in database)
-     * 
+     *
      * @param databaseId id of the pokemon in database (0 if not exist)
      * @param username of user who create this marker
      * @param pokemon pokemon
@@ -69,10 +69,10 @@ public class MarkerModel extends MarkerSendableModel {
      * @param defense pokemon defense stat
      * @param loadDatabase True to load database
      */
-    public MarkerModel(int databaseId, String username, PokemonSendableModel pokemon, 
-            CoordinateSendableModel coordinate, Timestamp timestamp, int upVotes, 
+    public MarkerModel(int databaseId, String username, PokemonSendableModel pokemon,
+            CoordinateSendableModel coordinate, Timestamp timestamp, int upVotes,
             int downVotes, int lifePoint, int attack, int defense, boolean loadDatabase) {
-        super(databaseId, username, pokemon, coordinate, timestamp.getTime(), 
+        super(databaseId, username, pokemon, coordinate, timestamp.getTime(),
                 new ReputationScoreModel(upVotes, downVotes), lifePoint, attack, defense);
         if(loadDatabase) {
             _serverQuery = (MarkerQueryModel) ServerQueryController.getInstance();
@@ -144,12 +144,12 @@ public class MarkerModel extends MarkerSendableModel {
     public int geMarkerLife() {
         return _lifePoint;
     }
-
+    
     public int getVoteScore() {
         return getReputation().getScore();
     }
-
-    public void update(PokemonModel pokemon, int lifePoint, int attack, int defense, 
+    
+    public void update(PokemonModel pokemon, int lifePoint, int attack, int defense,
             Timestamp timestamp) {
         setPokemon(pokemon);
         setTimestamp(timestamp);
@@ -158,4 +158,13 @@ public class MarkerModel extends MarkerSendableModel {
         setDefense(defense);
         _serverQuery.updateMarker(this);
     }
+    
+    public MarkerSendableModel getSendable() {
+        return new MarkerSendableModel(_databaseId, _username, _pokemon,
+                _coordinate.getLatitude(), _coordinate.getLongitude(),
+                _longTimestamp, _reputation.getUpVotes(),
+                _reputation.getDownVotes(), _lifePoint, _attack, _defense);
+    }
+    
+    
 }

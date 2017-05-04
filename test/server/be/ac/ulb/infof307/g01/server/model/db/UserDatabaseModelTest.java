@@ -10,7 +10,6 @@ import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -23,6 +22,7 @@ public class UserDatabaseModelTest extends AbstractDatabaseTest {
     private final String _token;
     
     public UserDatabaseModelTest() {
+        super();
         _token = "42"; // arbitrary
         _user = new UserSendableModel("name", "mail", "pass");
     }
