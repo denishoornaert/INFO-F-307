@@ -22,10 +22,12 @@ public abstract class AbstractDatabaseTest {
     
     @After
     public void tearDown() {
+        _database.deleteTable("User");
+        _database.deleteTable("Marker");
+        _database.deleteTable("MarkerVote");
         DatabaseModel.closeDatabase();
         PokemonSendableModel.clearAllPokemon();
         PokemonTypeSendableModel.resetAllPokemonType();
-        // TODO: supprimer la db et recréer par le script d'init
     }
     
     
