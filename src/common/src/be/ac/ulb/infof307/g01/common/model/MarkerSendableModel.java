@@ -1,5 +1,6 @@
 package be.ac.ulb.infof307.g01.common.model;
 
+import java.util.Objects;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -223,4 +224,55 @@ public class MarkerSendableModel {
     public void setDefense(int defense) {
         _defense = defense;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        return hash;
+    }
+    
+    public boolean hasDatabaseId() {
+        return _databaseId != 0;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final MarkerSendableModel other = (MarkerSendableModel) obj;
+        if (this._databaseId != other._databaseId && this.hasDatabaseId() && other.hasDatabaseId()) {
+            return false;
+        }
+        if (this._lifePoint != other._lifePoint) {
+            return false;
+        }
+        if (this._attack != other._attack) {
+            return false;
+        }
+        if (this._defense != other._defense) {
+            return false;
+        }
+        if (!Objects.equals(this._username, other._username)) {
+            return false;
+        }
+        if (!Objects.equals(this._pokemon, other._pokemon)) {
+            return false;
+        }
+        if (!Objects.equals(this._coordinate, other._coordinate)) {
+            return false;
+        }
+        if (!Objects.equals(this._longTimestamp, other._longTimestamp)) {
+            return false;
+        }
+        return true;
+    }
+
+    
 }
