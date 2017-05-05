@@ -166,5 +166,25 @@ public class MarkerModel extends MarkerSendableModel {
                 _reputation.getDownVotes(), _lifePoint, _attack, _defense);
     }
     
+    /**
+     * Get a google url in link with the coords
+     * 
+     * @return the url
+     */
+    private String getGoogleLink() {
+        CoordinateSendableModel coordinate = getCoordinate();
+        return "https://www.google.com/maps/place/" + coordinate.getLatitude() + 
+                "," + coordinate.getLongitude();
+    }
+    
+    /**
+     * Get link to tweet about this marker
+     * 
+     * @return the url
+     */
+    public String getTwitterLink() {
+        return "http://twitter.com/home?status=I%20see%20a%20" + 
+                _pokemon.getName() + "%20" + getGoogleLink();
+    }
     
 }
