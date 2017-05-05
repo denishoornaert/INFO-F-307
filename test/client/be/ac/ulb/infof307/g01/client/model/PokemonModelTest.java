@@ -17,6 +17,10 @@ public class PokemonModelTest {
     
     @BeforeClass
     public static void setUpClass() {
+        // We cannot use the PokemonCache, since it is filled by the
+        // ServerQueryController, which in turns need a connection to a server,
+        // which is not affordable in test. Thanks to the removal of static lists,
+        // we can seamlessly instanciates the following objects:
         darkType = new PokemonTypeModel("DARK");
         arceus = new PokemonModel(new PokemonSendableModel("arceus", "arceus.png", darkType));
     }
@@ -28,7 +32,10 @@ public class PokemonModelTest {
     
     @Test
     public void test_getType() {
+        // A pokemon always have two types, the second may be the none type
         assertEquals(2, arceus.getType().length);
+        // We cannot compare directly the types, since PokemonModel may (and
+        // in fact do) copy them. Thus, we compare them by their names.
         assertEquals(darkType.getTypeName(), arceus.getType()[0].getTypeName());
         assertEquals(PokemonTypeSendableModel.getNoneType().getTypeName(), arceus.getType()[1].getTypeName());
     }
