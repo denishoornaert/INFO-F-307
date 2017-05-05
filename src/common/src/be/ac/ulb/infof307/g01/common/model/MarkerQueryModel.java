@@ -1,11 +1,12 @@
 package be.ac.ulb.infof307.g01.common.model;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /** Interface to the data access point related to Marker manipulation. */
 public interface MarkerQueryModel {
     
-    public boolean insertMarker(MarkerSendableModel marker);
+    public void insertMarker(MarkerSendableModel marker) throws SQLException;
     public boolean updateMarker(MarkerSendableModel marker);
     public ArrayList<MarkerSendableModel> getAllMarkers();
     public void updateMarkerReputation(MarkerSendableModel marker);
