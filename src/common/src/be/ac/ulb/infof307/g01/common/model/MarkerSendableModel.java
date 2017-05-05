@@ -15,7 +15,7 @@ public class MarkerSendableModel {
     protected CoordinateSendableModel _coordinate;
     protected Long _longTimestamp;
     protected ReputationScoreSendableModel _reputation;
-    protected int _lifePoint, _attack, _defense;
+    protected int _lifePoints, _attack, _defense;
     
     public MarkerSendableModel() {} // Should not be removed
     
@@ -30,16 +30,16 @@ public class MarkerSendableModel {
      * @param timestamp time when the pokemon has been witnessed
      * @param upVotes positif votes about this maker
      * @param downVotes negatif votes about this marker
-     * @param lifePoint pokemon life point
+     * @param lifePoints pokemon life point
      * @param attack pokemon attack stat
      * @param defense pokemon defense stat
      */
     public MarkerSendableModel(int databaseId, String username, 
             PokemonSendableModel pokemon, double latitude, double longitude, 
-            Long timestamp, int upVotes, int downVotes, int lifePoint, 
+            Long timestamp, int upVotes, int downVotes, int lifePoints, 
             int attack, int defense) {
         this(databaseId, username, pokemon, new CoordinateSendableModel(latitude, longitude), timestamp, 
-                new ReputationScoreSendableModel(upVotes, downVotes), lifePoint, attack, defense);
+                new ReputationScoreSendableModel(upVotes, downVotes), lifePoints, attack, defense);
     }
     
     
@@ -52,13 +52,13 @@ public class MarkerSendableModel {
      * @param coordinate location
      * @param timestamp time when the pokemon has been witnessed
      * @param reputation all votes about this marker
-     * @param lifePoint pokemon life point
+     * @param lifePoints pokemon life point
      * @param attack pokemon attack stat
      * @param defense pokemon defense stat
      */
     protected MarkerSendableModel(int databaseId, String username, 
             PokemonSendableModel pokemon, CoordinateSendableModel coordinate, 
-            Long timestamp, ReputationScoreSendableModel reputation, int lifePoint, 
+            Long timestamp, ReputationScoreSendableModel reputation, int lifePoints, 
             int attack, int defense) {
         
     	_username = username;
@@ -67,7 +67,7 @@ public class MarkerSendableModel {
         _coordinate = coordinate;
         _longTimestamp = timestamp;
         _reputation = reputation;
-        _lifePoint = lifePoint;
+        _lifePoints = lifePoints;
         _attack = attack;
         _defense = defense;
     }
@@ -79,7 +79,7 @@ public class MarkerSendableModel {
         _coordinate = other._coordinate;
         _longTimestamp = other._longTimestamp;
         _reputation = other._reputation;
-        _lifePoint = other._lifePoint;
+        _lifePoints = other._lifePoints;
         _attack = other._attack;
         _defense = other._defense;
     }
@@ -184,17 +184,17 @@ public class MarkerSendableModel {
     }
 
     /**
-     * @return the lifePoint
+     * @return the lifePoints
      */
     public int getLifePoints() {
-        return _lifePoint;
+        return _lifePoints;
     }
 
     /**
-     * @param lifePoint the lifePoint to set
+     * @param lifePoints the lifePoints to set
      */
-    public void setLifePoint(int lifePoint) {
-        this._lifePoint = lifePoint;
+    public void setLifePoints(int lifePoints) {
+        this._lifePoints = lifePoints;
     }
 
     /**
@@ -250,7 +250,7 @@ public class MarkerSendableModel {
         if (this._databaseId != other._databaseId && this.hasDatabaseId() && other.hasDatabaseId()) {
             return false;
         }
-        if (this._lifePoint != other._lifePoint) {
+        if (this._lifePoints != other._lifePoints) {
             return false;
         }
         if (this._attack != other._attack) {

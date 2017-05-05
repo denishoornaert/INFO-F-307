@@ -95,6 +95,9 @@ public class MarkerModel extends MarkerSendableModel {
     
     /**
      * Add a vote reputation to this marker
+     * 
+     * @param username the user who add a vote
+     * @param isUpVote True if it's an up vote
      */
     public void addVote(String username, boolean isUpVote) {
         getReputation().vote(new ReputationVoteSendableModel(username, isUpVote));
@@ -139,18 +142,18 @@ public class MarkerModel extends MarkerSendableModel {
     }
     
     public int geMarkerLife() {
-        return _lifePoint;
+        return _lifePoints;
     }
     
     public int getVoteScore() {
         return getReputation().getScore();
     }
     
-    public void update(PokemonModel pokemon, int lifePoint, int attack, int defense,
+    public void update(PokemonModel pokemon, int lifePoints, int attack, int defense,
             Timestamp timestamp) {
         setPokemon(pokemon);
         setTimestamp(timestamp);
-        setLifePoint(lifePoint);
+        setLifePoints(lifePoints);
         setAttack(attack);
         setDefense(defense);
         _serverQuery.updateMarker(this);
@@ -160,7 +163,7 @@ public class MarkerModel extends MarkerSendableModel {
         return new MarkerSendableModel(_databaseId, _username, _pokemon,
                 _coordinate.getLatitude(), _coordinate.getLongitude(),
                 _longTimestamp, _reputation.getUpVotes(),
-                _reputation.getDownVotes(), _lifePoint, _attack, _defense);
+                _reputation.getDownVotes(), _lifePoints, _attack, _defense);
     }
     
     
