@@ -17,6 +17,5 @@ public class DatabaseModelTest extends AbstractDatabaseTest{
     public void test_connectionIsSuccessful() throws SQLException, FileNotFoundException {
         // no exception should be thrown
         DatabaseModel database = DatabaseModel.getInstance();
-        database.close();
     }
 }
