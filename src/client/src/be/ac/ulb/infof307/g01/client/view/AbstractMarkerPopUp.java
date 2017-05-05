@@ -1,8 +1,6 @@
 package be.ac.ulb.infof307.g01.client.view;
 
 import be.ac.ulb.infof307.g01.client.controller.AbstractMarkerPopUpController;
-import be.ac.ulb.infof307.g01.client.controller.MarkerController;
-import be.ac.ulb.infof307.g01.client.model.MarkerModel;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -54,7 +52,6 @@ public abstract class AbstractMarkerPopUp extends InformationPopUp {
     
     private final ArrayList<String> _pokemonNames;
     protected final AbstractMarkerPopUpController _controller;
-    protected final MarkerModel _markerModel;
     
     public AbstractMarkerPopUp(AbstractMarkerPopUpController controller, 
             ArrayList<String> pokemonsName) {
@@ -63,10 +60,8 @@ public abstract class AbstractMarkerPopUp extends InformationPopUp {
     
     public AbstractMarkerPopUp(AbstractMarkerPopUpController controller, 
             ArrayList<String> pokemonsName, int markerId) {
-        super();
+        super(controller, markerId);
         _pokemonNames = new ArrayList<>(pokemonsName);
-        MarkerController markerController = controller.getMarkerController();
-        _markerModel = markerController.getMarkerModelFromId(markerId);
         Collections.sort(_pokemonNames);
         _controller = controller;
         initWidget();

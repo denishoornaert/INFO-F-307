@@ -11,12 +11,12 @@ import be.ac.ulb.infof307.g01.client.view.PinPopUp;
  * Class that manage and create a PinPopUp.
  * 
  */
-public class PinPopUpController {
-    private final MarkerModel _marker;
+public class PinPopUpController extends InformationPopUpController {
+    
     private final PinPopUp _pinPopUp;
     
     public PinPopUpController(MarkerModel marker) {
-        _marker = marker;
+        super(marker);
         _pinPopUp = new PinPopUp(this);
         _pinPopUp.setPokemonView(_marker.getImagePath());
         updateVoteView();

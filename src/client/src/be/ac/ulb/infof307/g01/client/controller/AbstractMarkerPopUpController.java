@@ -1,30 +1,25 @@
 package be.ac.ulb.infof307.g01.client.controller;
 
 import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
-import be.ac.ulb.infof307.g01.client.model.MarkerModel;
 import java.sql.Timestamp;
-
 import be.ac.ulb.infof307.g01.client.model.PokemonModel;
 import be.ac.ulb.infof307.g01.client.view.AbstractMarkerPopUp;
 
 /**
  * Controller the NewMarkerPopUp that enable the user to create a new Marker.
  */
-public abstract class AbstractMarkerPopUpController {
+public abstract class AbstractMarkerPopUpController extends InformationPopUpController {
     
     protected AbstractMarkerPopUp _markerPopUp;
-    protected static String _defaultImagePath;
-    protected MarkerController _markerController;
-    protected MarkerModel _marker;
-    private static int DEFAULT_MARKER_ID = 0;
+    protected static String _defaultImagePath; // TODO : static ???
+    
  
     public AbstractMarkerPopUpController(MarkerController markerController) {
         this(markerController, DEFAULT_MARKER_ID);
     }
     
     public AbstractMarkerPopUpController(MarkerController markerController, int markerid) {
-        _markerController = markerController;
-        _marker = _markerController.getMarkerModelFromId(markerid);
+        super(markerController, markerid);
         _defaultImagePath = ClientConfiguration.getInstance().getUnknownPokemonSpritePath();
     }
         

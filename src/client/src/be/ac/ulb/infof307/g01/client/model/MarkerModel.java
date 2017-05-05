@@ -171,7 +171,7 @@ public class MarkerModel extends MarkerSendableModel {
      * 
      * @return the url
      */
-    private String getGoogleLink() {
+    private String getGoogleMapsLink() {
         CoordinateSendableModel coordinate = getCoordinate();
         return "https://www.google.com/maps/place/" + coordinate.getLatitude() + 
                 "," + coordinate.getLongitude();
@@ -184,7 +184,7 @@ public class MarkerModel extends MarkerSendableModel {
      */
     public String getTwitterLink() {
         return "http://twitter.com/home?status=I%20see%20a%20" + 
-                _pokemon.getName() + "%20" + getGoogleLink();
+                _pokemon.getName() + "%20" + getGoogleMapsLink();
     }
     
 }
