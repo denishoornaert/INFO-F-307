@@ -72,7 +72,7 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
      */
     private void onUserLogin() {
         for(PostQuery query : _visitorPostQueriesQueue) {
-            sendPostQuery(query);
+            sendPostQuery(query, false);
         }
     }
     
@@ -80,7 +80,7 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
     public void insertMarker(MarkerSendableModel marker) {
         marker = fixTypeMarkerModelToSendable(marker);
         WebResource resource = _webResource.path("marker").path("insert");
-        if (!sendPostQuery(new PostQuery(resource, marker))) {
+        if (!sendPostQuery(new PostQuery(resource, marker), true)) {
             Logger.getLogger(getClass().getName()).log(Level.WARNING, "Could not insert marker");
         }
     }
@@ -98,7 +98,7 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
         marker = fixTypeMarkerModelToSendable(marker);
         WebResource resource = _webResource.path("marker").path("updateReputation");
         
-        if(!sendPostQuery(new PostQuery(resource, marker))) {
+        if(!sendPostQuery(new PostQuery(resource, marker), true)) {
             Logger.getLogger(getClass().getName()).log(Level.WARNING, "Could not update marker");
         }
     }
@@ -121,7 +121,7 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
         marker = fixTypeMarkerModelToSendable(marker);
         WebResource resource = _webResource.path("marker").path("update");
         
-        if(!sendPostQuery(new PostQuery(resource, marker))) {
+        if(!sendPostQuery(new PostQuery(resource, marker), true)) {
             Logger.getLogger(getClass().getName()).log(Level.WARNING, "Could not update marker");
             result = false;
         }
@@ -133,7 +133,7 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
         boolean result = true;
         WebResource resource = _webResource.path("user").path("signin");
         
-        if (!sendPostQuery(new PostQuery(resource, user))) {
+        if (!sendPostQuery(new PostQuery(resource, user), false)) {
             Logger.getLogger(getClass().getName()).log(Level.WARNING, "Could not sign in");
             result = false;
         } else {
@@ -147,7 +147,7 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
         boolean result = true;
         WebResource resource = _webResource.path("user").path("signup");
         
-        if (!sendPostQuery(new PostQuery(resource, user))) {
+        if (!sendPostQuery(new PostQuery(resource, user), false)) {
             Logger.getLogger(getClass().getName()).log(Level.WARNING, "Could not sign up");
             result = false;
         }
@@ -174,13 +174,16 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
     }
     
     /**
-     * Executes a POST HTTP request
-     * @param url the web resource's url
-     * @param postObject the object to post
+     * Executes a POST HTTP request, if the user is connected, and stores it
+     * if it is a visitor (unless the query is also valid for a visitor, such
+     * as a connection query).
+     * @param query A POST query object.
+     * @param bufferIfVisitor True if the query can be buffered if the user is
+     * a visitor, false if we should always send the query.
      * @return true if the request was accepted, false otherwise
      */
-    private boolean sendPostQuery(PostQuery query) {
-        if(UserController.getInstance().isConnected()) {
+    private boolean sendPostQuery(PostQuery query, boolean bufferIfVisitor) {
+        if(UserController.getInstance().isConnected() || !bufferIfVisitor) {
             ClientResponse response = query.getWebResource().accept(MediaType.APPLICATION_XML)
                     .post(ClientResponse.class, query.getPostObject());
             Status status = response.getClientResponseStatus();
