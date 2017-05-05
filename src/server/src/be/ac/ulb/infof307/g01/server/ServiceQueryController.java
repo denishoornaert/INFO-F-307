@@ -124,8 +124,9 @@ public class ServiceQueryController {
     @Produces(MediaType.APPLICATION_XML)
     public Response userSignup(UserSendableModel user) {
         String token = generateToken();
-        boolean successfulySignup = DatabaseModel.getInstance().signup(user, token);
-        if (!successfulySignup) {
+        try {
+            DatabaseModel.getInstance().signup(user, token);
+        } catch (IllegalArgumentException exception){
             return Response.status(Status.BAD_REQUEST).build();
         }
         try {

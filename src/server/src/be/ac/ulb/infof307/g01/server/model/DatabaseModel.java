@@ -470,16 +470,12 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
      * 
      * @param user all user informations
      * @param token with must be send to email
-     * @return 
      */
-    public boolean signup(UserSendableModel user, String token){
-        boolean res = false;
+    public void signup(UserSendableModel user, String token) throws IllegalArgumentException{
         String query = "INSERT INTO User (Username, Email, Password, Token) "
                     + "VALUES (?, ?, ?, ?);";
-            
-        Logger.getLogger(getClass().getName()).log(Level.INFO, "Create user: "
-                    + "{0} - {1} - {2}", new Object[]{user.getUsername(),
-                        user.getEmail(), user.getPassword()});
+        String userInfo = String.join(", ", user.getUsername(), user.getEmail(), user.getPassword());
+        
         try {
             PreparedStatement statement = _connection.prepareStatement(query);
             statement.setString(1, user.getUsername());
@@ -487,11 +483,12 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
             statement.setString(3, user.getPassword());
             statement.setString(4, token);
             statement.execute();
-            res = true;
+            _logger.log(Level.INFO, "Create user: " + userInfo);
+            
         } catch (SQLException ex) {
-            _logger.log(Level.SEVERE, null, ex);
+            // TODO (Loan & Stan) : gérer avec nos propres exceptions (InvalidSignupInformation)
+            throw new IllegalArgumentException("Invalid signup information "+userInfo);
         }
-        return res;
     }
 
     /**
@@ -526,7 +523,7 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
             PreparedStatement statement = _connection.prepareStatement(query);
             statement.executeUpdate();
         } catch (SQLException ex) {
-            _logger.log(Level.SEVERE, null, ex);
+            _logger.log(Level.SEVERE, ex + query);
         }
     }
     

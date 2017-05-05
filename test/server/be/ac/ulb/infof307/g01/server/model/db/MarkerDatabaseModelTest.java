@@ -41,10 +41,8 @@ public class MarkerDatabaseModelTest extends AbstractDatabaseTest {
                 latitude, longitude, timestamp.getTime(), upVotes, 
                 downVotes, lifePoint, attack, defense);
         String token = "109283";
-        boolean test = _database.signup(_markerUser, token);
-        if(test) {
-            test = _database.confirmAccount(token);
-        }
+        _database.signup(_markerUser, token);
+        _database.confirmAccount(token);
     }
     
     /**
