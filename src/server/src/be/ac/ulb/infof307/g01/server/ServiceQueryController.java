@@ -6,6 +6,7 @@ import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
 import be.ac.ulb.infof307.g01.common.model.UserSendableModel;
 import be.ac.ulb.infof307.g01.server.controller.EmailSender;
 import be.ac.ulb.infof307.g01.server.model.DatabaseModel;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -40,10 +41,10 @@ public class ServiceQueryController {
                 "Insert Marker: {0} - {1} - {2}", 
                 new Object[]{marker.getPokemonName(), marker.getUsername(), 
                     marker.getAttack()});
-        
-        if(DatabaseModel.getInstance().insertMarker(marker)) {
+        try {
+            DatabaseModel.getInstance().insertMarker(marker);
             response = Response.status(Status.OK).entity(marker).build();
-        } else {
+        } catch(SQLException ex) {
             response = Response.status(Status.NOT_ACCEPTABLE).build();
         }
         return response;
