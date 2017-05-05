@@ -14,7 +14,7 @@ public class ServerConfiguration {
     private static ServerConfiguration _configuration = null;
     
     /** The absolute path to the server's assets folder.**/
-    private final String _assetFolder = "/home/theo/Groupe01/assets/server/";
+    private final String _assetFolder = "/home/hoornaert/GitHub/Groupe01/assets/server/";
     private final String _dataBasePath = "Database.db";
     private final String _testDataBasePath = "TestDatabase.db";
     private final String _sqlPath = "Database.sql";
