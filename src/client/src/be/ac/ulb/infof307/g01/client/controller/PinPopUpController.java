@@ -39,11 +39,12 @@ public class PinPopUpController {
     }
     
     public String getPokemonLife() {
-        return Integer.toString(_marker.geMarkerLife());
+        return "" + _marker.geMarkerLife();
     }
     
     public String getPokemonAttack() {
-        return Integer.toString(_marker.getMarkerAttack());
+        return "" + _marker.getMarkerAttack();
+        
     }
     
     public String getPokemonDefense() {
@@ -51,7 +52,7 @@ public class PinPopUpController {
     }
     
     public String getVoteScore() {
-        return Integer.toString(_marker.getVoteScore());
+        return Integer.toString(_marker.getReputationScore());
     }
 
     public void addDownVote() {
@@ -67,7 +68,7 @@ public class PinPopUpController {
     }
     
     private void updateVoteView() {
-        int vote = _marker.getVoteScore();
+        int vote = _marker.getReputationScore();
         _pinPopUp.updateVoteView(vote);
     }
     

@@ -1,5 +1,6 @@
 package be.ac.ulb.infof307.g01.common.model;
 
+import java.util.ArrayList;
 import java.util.Objects;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -14,7 +15,7 @@ public class MarkerSendableModel {
     protected PokemonSendableModel _pokemon;
     protected CoordinateSendableModel _coordinate;
     protected Long _longTimestamp;
-    protected ReputationScoreSendableModel _reputation;
+    protected ArrayList<ReputationVoteSendableModel> _reputation;
     protected int _lifePoints, _attack, _defense;
     
     public MarkerSendableModel() {} // Should not be removed
@@ -28,20 +29,18 @@ public class MarkerSendableModel {
      * @param latitude x coordinate
      * @param longitude y coordinate
      * @param timestamp time when the pokemon has been witnessed
-     * @param upVotes positif votes about this maker
-     * @param downVotes negatif votes about this marker
+     * @param reputation
      * @param lifePoints pokemon life point
      * @param attack pokemon attack stat
      * @param defense pokemon defense stat
      */
     public MarkerSendableModel(int databaseId, String username, 
             PokemonSendableModel pokemon, double latitude, double longitude, 
-            Long timestamp, int upVotes, int downVotes, int lifePoints, 
-            int attack, int defense) {
-        this(databaseId, username, pokemon, new CoordinateSendableModel(latitude, longitude), timestamp, 
-                new ReputationScoreSendableModel(upVotes, downVotes), lifePoints, attack, defense);
+            Long timestamp, ArrayList<ReputationVoteSendableModel> reputation, 
+            int lifePoints, int attack, int defense) {
+        this(databaseId, username, pokemon, new CoordinateSendableModel(latitude, longitude), 
+                timestamp, reputation, lifePoints, attack, defense);
     }
-    
     
     /**
      * Constructor (not in database)
@@ -51,15 +50,34 @@ public class MarkerSendableModel {
      * @param pokemon pokemon
      * @param coordinate location
      * @param timestamp time when the pokemon has been witnessed
-     * @param reputation all votes about this marker
      * @param lifePoints pokemon life point
      * @param attack pokemon attack stat
      * @param defense pokemon defense stat
      */
     protected MarkerSendableModel(int databaseId, String username, 
             PokemonSendableModel pokemon, CoordinateSendableModel coordinate, 
-            Long timestamp, ReputationScoreSendableModel reputation, int lifePoints, 
-            int attack, int defense) {
+            Long timestamp, int lifePoints, int attack, int defense) {
+        this(databaseId, username, pokemon, coordinate, timestamp, 
+                new ArrayList<>(), lifePoints, attack, defense);
+    }
+    
+    /**
+     * Constructor (not in database)
+     * 
+     * @param databaseId id of the pokemon in database (0 if not exist)
+     * @param username of user who create this marker
+     * @param pokemon pokemon
+     * @param coordinate location
+     * @param timestamp time when the pokemon has been witnessed
+     * @param reputation all reputation about this marker
+     * @param lifePoints pokemon life point
+     * @param attack pokemon attack stat
+     * @param defense pokemon defense stat
+     */
+    protected MarkerSendableModel(int databaseId, String username, 
+            PokemonSendableModel pokemon, CoordinateSendableModel coordinate, 
+            Long timestamp, ArrayList<ReputationVoteSendableModel> reputation, 
+            int lifePoints, int attack, int defense) {
         
     	_username = username;
         _databaseId = databaseId;
@@ -162,24 +180,39 @@ public class MarkerSendableModel {
     }
     
     /**
+     * All reputation about this marker
+     * 
      * @return the reputation
      */
-    public ReputationScoreSendableModel getReputation() {
+    public ArrayList<ReputationVoteSendableModel> getReputation() {
         return _reputation;
     }
     
     public int getUpVotes() {
-        return getReputation().getUpVotes();
+        int reputation = 0;
+        for(ReputationVoteSendableModel reputationVote : _reputation) {
+            if(reputationVote.isUpVote()) {
+                ++reputation;
+            }
+        }
+        
+        return reputation;
     }
 
     public int getDownVotes() {
-        return getReputation().getDownVotes();
+        int reputation = 0;
+        for(ReputationVoteSendableModel reputationVote : _reputation) {
+            if(!reputationVote.isUpVote()) {
+                ++reputation;
+            }
+        }
+        return reputation;
     }
     
     /**
      * @param reputation the reputation to set
      */
-    public void setReputation(ReputationScoreSendableModel reputation) {
+    public void setReputation(ArrayList<ReputationVoteSendableModel> reputation) {
         this._reputation = reputation;
     }
 

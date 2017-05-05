@@ -7,10 +7,17 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public class ReputationVoteSendableModel {
-    private final String _username;
-    private final boolean _isUpVote;
     
-    /** Constructor */
+    private String _username;
+    private boolean _isUpVote;
+    
+    public ReputationVoteSendableModel() { } // Could not be remove
+    
+    /** Constructor
+     * 
+     * @param username the user
+     * @param isUpVote True if it's a positive vote
+     */
     public ReputationVoteSendableModel(String username, boolean isUpVote) {
         _username = username;
         _isUpVote = isUpVote;
@@ -22,5 +29,19 @@ public class ReputationVoteSendableModel {
     
     public boolean isUpVote() {
         return _isUpVote;
+    }
+
+    /**
+     * @param username the username to set
+     */
+    public void setUsername(String username) {
+        this._username = username;
+    }
+
+    /**
+     * @param isUpVote the isUpVote to set
+     */
+    public void setIsUpVote(boolean isUpVote) {
+        this._isUpVote = isUpVote;
     }
 }

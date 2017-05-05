@@ -28,8 +28,7 @@ public class MarkerModel extends MarkerSendableModel {
      */
     public MarkerModel(PokemonSendableModel pokemon, CoordinateSendableModel coordinate,
             String username, int lifePoint, int attack, int defense, Timestamp date) {
-        this(pokemon, coordinate, username, lifePoint, attack, defense, date,
-                0, 0, true);
+        this(pokemon, coordinate, username, lifePoint, attack, defense, date, true);
         _serverQuery.insertMarker(this);
     }
     
@@ -43,14 +42,12 @@ public class MarkerModel extends MarkerSendableModel {
      * @param attack pokemon attack stat
      * @param defense pokemon defense stat
      * @param date the date of the marker
-     * @param upVotes number of positives votes
-     * @param downVotes number of negatives votes
      * @param loadDatabase True to load database
      */
     public MarkerModel(PokemonSendableModel pokemon, CoordinateSendableModel coordinate,
             String username, int lifePoint, int attack, int defense, Timestamp date,
-            int upVotes, int downVotes, boolean loadDatabase) {
-        this(0, username, pokemon, coordinate, date, upVotes, downVotes, lifePoint,
+            boolean loadDatabase) {
+        this(0, username, pokemon, coordinate, date, lifePoint,
                 attack, defense, loadDatabase);
     }
     
@@ -62,18 +59,16 @@ public class MarkerModel extends MarkerSendableModel {
      * @param pokemon pokemon
      * @param coordinate coordinate of marker
      * @param timestamp time when the pokemon has been witnessed
-     * @param upVotes positif votes about this maker
-     * @param downVotes negatif votes about this marker
      * @param lifePoint pokemon life point
      * @param attack pokemon attack stat
      * @param defense pokemon defense stat
      * @param loadDatabase True to load database
      */
     public MarkerModel(int databaseId, String username, PokemonSendableModel pokemon,
-            CoordinateSendableModel coordinate, Timestamp timestamp, int upVotes,
-            int downVotes, int lifePoint, int attack, int defense, boolean loadDatabase) {
-        super(databaseId, username, pokemon, coordinate, timestamp.getTime(),
-                new ReputationScoreModel(upVotes, downVotes), lifePoint, attack, defense);
+            CoordinateSendableModel coordinate, Timestamp timestamp, 
+            int lifePoint, int attack, int defense, boolean loadDatabase) {
+        super(databaseId, username, pokemon, coordinate, timestamp.getTime(), 
+                lifePoint, attack, defense);
         if(loadDatabase) {
             _serverQuery = (MarkerQueryModel) ServerQueryController.getInstance();
         }
@@ -84,13 +79,19 @@ public class MarkerModel extends MarkerSendableModel {
         _serverQuery = (MarkerQueryModel) ServerQueryController.getInstance();
     }
     
+    /**
+     * Get the ratio of positive and negative votes
+     * 
+     * @return the ration
+     */
     public int getReputationScore() {
-        return getReputation().getScore();
-    }
-    
-    @Override
-    public ReputationScoreModel getReputation() {
-        return (ReputationScoreModel) _reputation;
+        int res = 0;
+        
+        for(ReputationVoteSendableModel reputationVote : _reputation) {
+            res += reputationVote.isUpVote() ? 1 : -1;
+        }
+        
+        return res;
     }
     
     /**
@@ -100,7 +101,7 @@ public class MarkerModel extends MarkerSendableModel {
      * @param isUpVote True if it's an up vote
      */
     public void addVote(String username, boolean isUpVote) {
-        getReputation().vote(new ReputationVoteSendableModel(username, isUpVote));
+        _reputation.add(new ReputationVoteSendableModel(username, isUpVote));
         _serverQuery.updateMarkerReputation(this);
     }
     
@@ -145,10 +146,6 @@ public class MarkerModel extends MarkerSendableModel {
         return _lifePoints;
     }
     
-    public int getVoteScore() {
-        return getReputation().getScore();
-    }
-    
     public void update(PokemonModel pokemon, int lifePoints, int attack, int defense,
             Timestamp timestamp) {
         setPokemon(pokemon);
@@ -162,8 +159,7 @@ public class MarkerModel extends MarkerSendableModel {
     public MarkerSendableModel getSendable() {
         return new MarkerSendableModel(_databaseId, _username, _pokemon,
                 _coordinate.getLatitude(), _coordinate.getLongitude(),
-                _longTimestamp, _reputation.getUpVotes(),
-                _reputation.getDownVotes(), _lifePoints, _attack, _defense);
+                _longTimestamp, _reputation, _lifePoints, _attack, _defense);
     }
     
     
