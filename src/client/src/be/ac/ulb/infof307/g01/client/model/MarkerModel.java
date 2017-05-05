@@ -55,7 +55,7 @@ public class MarkerModel extends MarkerSendableModel {
     }
     
     /**
-     * Constructor to create marker in memory (not in database)
+     * Constructor to create marker in memory, not sending it to the server
      *
      * @param databaseId id of the pokemon in database (0 if not exist)
      * @param username of user who create this marker

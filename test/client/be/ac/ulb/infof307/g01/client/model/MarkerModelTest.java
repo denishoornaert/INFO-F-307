@@ -2,7 +2,6 @@ package be.ac.ulb.infof307.g01.client.model;
 
 import be.ac.ulb.infof307.g01.common.model.CoordinateSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
-import be.ac.ulb.infof307.g01.client.controller.PokemonCache;
 import java.sql.Timestamp;
 import org.junit.Test;
 
@@ -14,7 +13,7 @@ import static junit.framework.TestCase.assertEquals;
 public class MarkerModelTest {
     private static final String TYPE_NAME = "FIRE";
     private static final PokemonModel TEST_POKEMON = new PokemonModel(new PokemonSendableModel("arceus","", 
-                PokemonCache.getInstance().getPokemonTypeByTypeName(TYPE_NAME)));
+                new PokemonTypeModel(TYPE_NAME)));
     private static final int LIFE_POINT = 10;
     private static final int DEFENSE = 3;
     private static final int ATTACK = 8;
@@ -61,15 +60,4 @@ public class MarkerModelTest {
     public void test_getCoordinate(){
         assertEquals(TEST_MARKER.getCoordinate(), TEST_COORDINATE);
     }
-    
-    @Test
-    public void test_equals(){
-        // TODO: Why would we use that equals function ? Why testing it ?
-        /*
-        MarkerModel otherTestMarker = new MarkerModel(TEST_POKEMON,
-                TEST_COORDINATE, USERNAME, LIFE_POINT, ATTACK, DEFENSE, TIME,
-                VOTE_UP, VOTE_DOWN, false);
-        assertTrue(TEST_MARKER.equals(otherTestMarker));*/
-    }
-    
 }

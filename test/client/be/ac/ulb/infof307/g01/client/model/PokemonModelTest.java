@@ -27,6 +27,7 @@ public class PokemonModelTest {
     
     @Test
     public void test_getName() {
+        // ARCEOUUUUUUS
         assertEquals(arceus.getName(), "arceus");
     }
     
@@ -38,13 +39,6 @@ public class PokemonModelTest {
         // in fact do) copy them. Thus, we compare them by their names.
         assertEquals(darkType.getTypeName(), arceus.getType()[0].getTypeName());
         assertEquals(PokemonTypeSendableModel.getNoneType().getTypeName(), arceus.getType()[1].getTypeName());
-    }
-    
-    @Test
-    public void test_equals() {
-        // ARCEOUUUUUS
-        // TODO: Why would we use that equals function ? Why testing it ?
-        // assertTrue(arceus.equals(arceus));
     }
     
     @Test

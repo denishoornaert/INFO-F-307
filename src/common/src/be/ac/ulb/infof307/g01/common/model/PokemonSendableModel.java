@@ -1,6 +1,5 @@
 package be.ac.ulb.infof307.g01.common.model;
 
-import java.util.Arrays;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -75,16 +74,4 @@ public class PokemonSendableModel {
     public void setImagePath(String _imageName) {
         this._imageName = _imageName;
     }
-    
-    /**
-     * Test if two pokemon have same name and type
-     * 
-     * @param otherPokemon the pokemon which must be compared
-     * @return True if it's the same pokemon
-     */
-    public boolean equals(PokemonSendableModel otherPokemon) {
-        return otherPokemon._name.equals(_name) && 
-                Arrays.equals(otherPokemon._type, _type);
-    }
-        
 }
