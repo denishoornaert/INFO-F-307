@@ -12,7 +12,7 @@ public class PokemonTypeDatabaseModelTest extends AbstractDatabaseTest {
         String testString = "FIRE";  // must be an existing one
         PokemonTypeSendableModel pokemonType = new PokemonTypeSendableModel(testString);
         
-        assertEquals(_database.getPokemonTypeByTypeName(testString), pokemonType);
+        assertEquals(_database.getPokemonTypeByTypeName(testString).getTypeName(), pokemonType.getTypeName());
     }
     
     @Test
