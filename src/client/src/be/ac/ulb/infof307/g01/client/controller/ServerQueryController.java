@@ -12,10 +12,10 @@ import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
 import be.ac.ulb.infof307.g01.common.model.UserSendableModel;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.ClientResponse.Status;
 import com.sun.jersey.api.client.GenericType;
 import com.sun.jersey.api.client.WebResource;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -33,12 +33,6 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
      * All post queries a visitor try to send are stored here.
      */
     private final Queue<PostQuery> _visitorPostQueriesQueue;
-    
-    /**
-     * All post queries a user try to send when the application is not
-     * connected to the network are stored here.
-     */
-    private final Queue<PostQuery> _erroredPostQueriesQueue;
     
     /**
      * Stores the web resource and the object used in a POST query.
@@ -76,16 +70,10 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
      * Call this function when the user logs in. It tries to send all
      * bufferised POST queries.
      */
-    public void onUserLogin() {
-        tryToSendPostQueries(_visitorPostQueriesQueue);
-    }
-    
-    /**
-     * Call this function when the network is available back. It tries to send
-     * all bufferised POST queries.
-     */
-    public void onNetworkRecovery() {
-        tryToSendPostQueries(_erroredPostQueriesQueue);
+    private void onUserLogin() {
+        for(PostQuery query : _visitorPostQueriesQueue) {
+            sendPostQuery(query);
+        }
     }
     
     @Override
@@ -148,6 +136,8 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
         if (!sendPostQuery(new PostQuery(resource, user))) {
             Logger.getLogger(getClass().getName()).log(Level.WARNING, "Could not sign in");
             result = false;
+        } else {
+            onUserLogin();
         }
         return result;
     }
@@ -166,24 +156,15 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
     
     private ServerQueryController() {
         _visitorPostQueriesQueue = new LinkedList();
-        _erroredPostQueriesQueue = new LinkedList();
         connectClient();
         loadAllTables();
-    }
-    
-    private void tryToSendPostQueries(Queue<PostQuery> queries) {
-        for(PostQuery query : queries) {
-            sendPostQuery(query);
-        }
     }
     
     /**
      * Loads all Data (Pokemon and PokemonType).
      */
     private void loadAllTables() {
-        List<PokemonTypeSendableModel> types = getAllPokemonTypes();
-        System.out.println("LOADING " + Arrays.toString(types.toArray()));
-        PokemonCache.getInstance().loadAllPokemonTypes(types);
+        PokemonCache.getInstance().loadAllPokemonTypes(getAllPokemonTypes());
         PokemonCache.getInstance().loadAllPokemons(getAllPokemons());
     }
     
@@ -198,22 +179,20 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
      * @param postObject the object to post
      * @return true if the request was accepted, false otherwise
      */
-    private <T> boolean sendPostQuery(PostQuery query) {
-        ClientResponse response = query.getWebResource().accept(MediaType.APPLICATION_XML)
-                .post(ClientResponse.class, query.getPostObject());
-        
-        switch (response.getClientResponseStatus()) {
-            case OK:
-            case ACCEPTED: 
-                return true;
-              
-            default:
+    private boolean sendPostQuery(PostQuery query) {
+        if(UserController.getInstance().isConnected()) {
+            ClientResponse response = query.getWebResource().accept(MediaType.APPLICATION_XML)
+                    .post(ClientResponse.class, query.getPostObject());
+            Status status = response.getClientResponseStatus();
+            if(status != Status.OK && status != Status.ACCEPTED) {
                 Logger.getLogger(getClass().getName()).log(Level.WARNING, 
                     "Receive {0}", response.getClientResponseStatus().getReasonPhrase());
-                break;
-                
+                return false;
+            }
+        } else {
+            _visitorPostQueriesQueue.add(query);
         }
-        return false;
+        return true;
     }
     
     /**
