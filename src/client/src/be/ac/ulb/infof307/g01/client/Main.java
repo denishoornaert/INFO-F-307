@@ -10,12 +10,14 @@ import java.util.ArrayList;
 
 public class Main extends Application {
   
+    private static Main _instance;
     private static Stage _stage;
     private static Scene _scene;
   
     @Override
     public void start(Stage stage) {
         _stage = stage;
+        _instance = this;
         
         new WindowController();
         
@@ -50,6 +52,10 @@ public class Main extends Application {
     
     public static Stage getStage() {
         return _stage;
+    }
+    
+    public static void openInBrowser(String link) {
+        _instance.getHostServices().showDocument(link);
     }
     
     public static void main(String[] args) {

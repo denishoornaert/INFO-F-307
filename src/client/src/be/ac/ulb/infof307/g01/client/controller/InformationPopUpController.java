@@ -5,6 +5,7 @@
  */
 package be.ac.ulb.infof307.g01.client.controller;
 
+import be.ac.ulb.infof307.g01.client.Main;
 import be.ac.ulb.infof307.g01.client.model.MarkerModel;
 
 /**
@@ -28,6 +29,11 @@ public class InformationPopUpController {
 
     public MarkerModel getMarker() {
         return _marker;
+    }
+
+    public void sendTwitterPost() {
+        String link = _marker.getTwitterLink();
+        Main.openInBrowser(link);
     }
        
 }

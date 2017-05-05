@@ -1,8 +1,6 @@
 package be.ac.ulb.infof307.g01.client.view;
 
-import be.ac.ulb.infof307.g01.client.controller.AbstractMarkerPopUpController;
 import be.ac.ulb.infof307.g01.client.controller.InformationPopUpController;
-import be.ac.ulb.infof307.g01.client.controller.MarkerController;
 import be.ac.ulb.infof307.g01.client.model.MarkerModel;
 import java.io.File;
 import javafx.collections.ObservableList;
@@ -30,12 +28,14 @@ public abstract class InformationPopUp extends PopUp {
     private Button _twitterButton;
     private HBox _widgets;
     private StackPane _stackPane;
-        
+    
+    private InformationPopUpController _controller;
     protected final MarkerModel _markerModel;
     
     public InformationPopUp(InformationPopUpController controller, int markerId) {
         super();
-        _markerModel = controller.getMarker();
+        _controller = controller;
+        _markerModel = _controller.getMarker();
         initWidgets();
         placeWidgets();
         initSize();
@@ -70,7 +70,7 @@ public abstract class InformationPopUp extends PopUp {
         _twitterButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent t) {
-                
+                _controller.sendTwitterPost();
             }
         });
     }
