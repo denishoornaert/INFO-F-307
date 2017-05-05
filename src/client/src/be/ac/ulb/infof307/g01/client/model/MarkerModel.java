@@ -103,9 +103,6 @@ public class MarkerModel extends MarkerSendableModel {
     
     // TODO Check to call Super
     public void setTimestamp(Timestamp newTimestamp) {
-        // TODO Set timestamp in DB
-        // So for the moment :
-        newTimestamp = new Timestamp(System.currentTimeMillis());
         super.setLongTimestamp(newTimestamp.getTime());
     }
     

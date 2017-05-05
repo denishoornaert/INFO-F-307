@@ -434,20 +434,25 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
         boolean res = false;
         
         String query = "UPDATE Marker SET PokemonId=(SELECT Id FROM Pokemon "
-                + "WHERE Name=?), TimeStamp=?, LifePoint=?, Attack=?, Defense=? "
+                + "WHERE Name=?), TimeStamp=?, LifePoints=?, Attack=?, Defense=? "
                 + "WHERE Id=?;";
         
         try {
             PreparedStatement statement = _connection.prepareStatement(query);
             statement.setString(1, marker.getPokemon().getName());
-            statement.setTimestamp(2, new Timestamp(marker.getLongTimestamp()));
-            statement.setInt(3, marker.getAttack());
-            statement.setInt(3, marker.getDefense());
-            statement.setInt(3, marker.getDatabaseId());
+            statement.setString(2, new Timestamp(marker.getLongTimestamp()).toString());
+            statement.setInt(3, marker.getLifePoints());
+            statement.setInt(4, marker.getAttack());
+            statement.setInt(5, marker.getDefense());
+            statement.setInt(6, marker.getDatabaseId());
             res = (statement.executeUpdate() == 1);
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseModel.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        Logger.getLogger(getClass().getName()).log(Level.INFO, "Id: {0} - {1} - {2} - {3} - {4}", 
+                new Object[]{marker.getDatabaseId(), marker.getPokemon().getName(), 
+                    new Timestamp(marker.getLongTimestamp()), marker.getAttack(), marker.getDefense()});
         
         return res;
     }

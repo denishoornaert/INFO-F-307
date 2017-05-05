@@ -29,6 +29,10 @@ public class PokemonTypeSendableModel {
     public String getTypeName() {
         return _typeName;
     }
+    
+    public void setTypeName(String typeName) {
+        _typeName = typeName;
+    }
 
     @Override
     public String toString() {
