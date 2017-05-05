@@ -4,7 +4,9 @@ import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
 import be.ac.ulb.infof307.g01.common.model.UserSendableModel;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -54,15 +56,13 @@ public class MarkerDatabaseModelTest extends AbstractDatabaseTest {
     }
 
     /**
-     * Test that when a marker is inserted, it is the last one returned by
-     * getAllMarkers.
+     * Test that when a marker is inserted, it is returned by getAllMarkers.
      */
     @Test
-    public void test_getAllMarkers_returnsLastInserted() {
-       /* _database.insertMarker(_markerToInsert);
+    public void test_getAllMarkers_containsInsertedMarker() {
+        _database.insertMarker(_markerToInsert);
         ArrayList<MarkerSendableModel> markers = _database.getAllMarkers();
-        MarkerSendableModel loadedMarker = markers.get(markers.size()-1);
-        assertTrue(_markerToInsert.equals(loadedMarker));*/
+        assertTrue(markers.contains(_markerToInsert));
     }
     
 }
