@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.InvalidParameterException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -277,7 +278,7 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
      * @throws java.sql.SQLException
      */
     @Override
-    public void insertMarker(MarkerSendableModel marker) throws SQLException {
+    public void insertMarker(MarkerSendableModel marker) throws InvalidParameterException {
         String query = "INSERT INTO Marker(UserId, PokemonId, Latitude, "
                 + "Longitude, TimeStamp, LifePoints, "
                 + "Attack, Defense) "
@@ -285,22 +286,26 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
                     + "(SELECT Id FROM User WHERE Username=?), "
                     + "(SELECT Id FROM Pokemon WHERE Name=?), "
                 + "?, ?, ?, ?, ?, ?);";
-        
-        PreparedStatement statement = _connection.prepareStatement(query);
+        try {
+            PreparedStatement statement = _connection.prepareStatement(query);
 
-        int i = 0; // index of statement
-        statement.setString(++i, marker.getUsername());
-        statement.setString(++i, marker.getPokemonName());
-        statement.setDouble(++i, marker.getCoordinate().getLatitude());
-        statement.setDouble(++i, marker.getCoordinate().getLongitude());
-        statement.setString(++i, new Timestamp(marker.getLongTimestamp()).toString());
-        statement.setInt(++i, marker.getLifePoints());
-        statement.setInt(++i, marker.getAttack());
-        statement.setInt(++i, marker.getDefense());
-        statement.execute();
+            int i = 0; // index of statement
+            statement.setString(++i, marker.getUsername());
+            statement.setString(++i, marker.getPokemonName());
+            statement.setDouble(++i, marker.getCoordinate().getLatitude());
+            statement.setDouble(++i, marker.getCoordinate().getLongitude());
+            statement.setString(++i, new Timestamp(marker.getLongTimestamp()).toString());
+            statement.setInt(++i, marker.getLifePoints());
+            statement.setInt(++i, marker.getAttack());
+            statement.setInt(++i, marker.getDefense());
+            statement.execute();
 
-        final int generatedId = statement.getGeneratedKeys().getInt(1);
-        marker.setDatabaseId(generatedId);
+            final int generatedId = statement.getGeneratedKeys().getInt(1);
+            marker.setDatabaseId(generatedId);
+        } catch(SQLException exception) {
+            // TODO (Loan & Stan) : gérer avec nos propres exceptions (InvalidMarkerException)
+            throw new InvalidParameterException("Cannot insert marker" + marker.toString());
+        }
     }
 
     /**
@@ -438,30 +443,26 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
      * Sign in (connect) a user
      * 
      * @param user all user informations
-     * @return True if user have send the good password
      */
-    public boolean signin(UserSendableModel user){
-        boolean res = false;
+    public void signin(UserSendableModel user) throws IllegalArgumentException, InvalidParameterException {
         String query = "SELECT Password FROM User WHERE Username = ? AND Token = '';";
-        ResultSet result = null;
         try {
             PreparedStatement statement;
             statement = _connection.prepareStatement(query);
             statement.setString(1, user.getUsername());
-            result = statement.executeQuery();
+            ResultSet result = statement.executeQuery();
             if(result.next()) {
-                if(result.getString("Password").equals(user.getPassword())) {
-                    res = true; 
-                } else {
-                    Logger.getLogger(getClass().getName()).log(Level.INFO, 
-                        "User: {0} failded password: {1}", 
-                    new Object[]{user.getUsername(), user.getPassword()});
+                if(!result.getString("Password").equals(user.getPassword())) {
+                    // TODO (Loan & Stan) : gérer avec nos propres exceptions (InvalidCredentialsException)
+                    throw new IllegalArgumentException("Bad Password for user "+user.getUsername());
                 }
+            } else {
+                // TODO (Loan & Stan) : gérer avec nos propres exceptions (UserNotFoundException)
+                throw new InvalidParameterException("User " + user.getUsername() + " not found");
             }
         } catch (SQLException ex) {
             _logger.log(Level.SEVERE, null, ex);
         }
-        return res;
     }
     
     /**

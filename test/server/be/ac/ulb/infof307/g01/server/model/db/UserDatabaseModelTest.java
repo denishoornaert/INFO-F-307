@@ -6,17 +6,23 @@
 package be.ac.ulb.infof307.g01.server.model.db;
 
 import be.ac.ulb.infof307.g01.common.model.UserSendableModel;
+import java.security.InvalidParameterException;
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 /**
  *
  * @author Groupe01
  */
 public class UserDatabaseModelTest extends AbstractDatabaseTest {
+    
+    @Rule
+    public ExpectedException _expected = ExpectedException.none();
     
     private final UserSendableModel _user;
     private final String _token;
@@ -57,21 +63,23 @@ public class UserDatabaseModelTest extends AbstractDatabaseTest {
     @Test
     public void test_signinUserNotInDatabase(){
         UserSendableModel user = newUser("6");
-        assertFalse(_database.signin(user));
+        _expected.expect(InvalidParameterException.class);
+        _database.signin(user);
     }
     
     @Test
     public void test_signinUserInDatabase(){
         UserSendableModel user = newUser("5");
         insertCorrectUser(user);
-        assertTrue(_database.signin(user));
+        _database.signin(user);
     }
     
     @Test
     public void test_signinWithTokenNotConfirmed(){
         UserSendableModel user = newUser("4");
         _database.signup(user, _token);
-        assertFalse(_database.signin(user));
+        _expected.expect(InvalidParameterException.class);
+        _database.signin(user);
     }
     
     @Test

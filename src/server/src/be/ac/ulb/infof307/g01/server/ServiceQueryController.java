@@ -6,7 +6,7 @@ import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
 import be.ac.ulb.infof307.g01.common.model.UserSendableModel;
 import be.ac.ulb.infof307.g01.server.controller.EmailSender;
 import be.ac.ulb.infof307.g01.server.model.DatabaseModel;
-import java.sql.SQLException;
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -44,7 +44,7 @@ public class ServiceQueryController {
         try {
             DatabaseModel.getInstance().insertMarker(marker);
             response = Response.status(Status.OK).entity(marker).build();
-        } catch(SQLException ex) {
+        } catch(InvalidParameterException ex) {
             response = Response.status(Status.NOT_ACCEPTABLE).build();
         }
         return response;
@@ -94,11 +94,12 @@ public class ServiceQueryController {
     @Consumes(MediaType.APPLICATION_XML)
     @Produces(MediaType.APPLICATION_XML)
     public Response userSignin(UserSendableModel user) {
-        boolean successfullySignin = DatabaseModel.getInstance().signin(user);
-        if(!successfullySignin) {
+        try {
+            DatabaseModel.getInstance().signin(user);
+            return Response.status(Status.OK).entity(user).build();
+        } catch (InvalidParameterException exception) {
             return Response.status(Status.UNAUTHORIZED).build();
         }
-        return Response.status(Status.OK).entity(user).build();
     }
     
     @Path("user/confirm")
