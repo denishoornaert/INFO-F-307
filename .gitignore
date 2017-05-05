@@ -29,3 +29,6 @@ assets/server/TestDatabase.db
 /.project
 /.classpath
 /src/server/nbproject/
+
+# Somewhere in the outerspace
+dependency-reduced-pom.xml
