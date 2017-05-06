@@ -14,6 +14,7 @@ public class UserController {
     private static UserController _instance = null;
     private UserSendableModel _user;
     private final ConnectionQueryModel _connection;
+    private boolean _isConnected = false;
     
     private UserController() {
         _connection = (ConnectionQueryModel) ServerQueryController.getInstance();
@@ -30,8 +31,8 @@ public class UserController {
             throw new IllegalArgumentException("All fields are required");
         }
         UserSendableModel temporaryProfil = new UserSendableModel(username, password);
-        boolean successfullySignin = _connection.signin(temporaryProfil);
-        if(!successfullySignin) {
+        _isConnected = _connection.signin(temporaryProfil);
+        if(!_isConnected) {
             throw new IllegalArgumentException("there's something wrong.");
         } else {
             _user = temporaryProfil;
@@ -78,5 +79,9 @@ public class UserController {
 
     public String getPassword() {
         return _user.getPassword();
+    }
+
+    public boolean isConnected() {
+        return _isConnected;
     }
 }

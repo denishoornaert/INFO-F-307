@@ -1,5 +1,6 @@
 package be.ac.ulb.infof307.g01.common.model;
 
+import java.util.Objects;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -73,5 +74,29 @@ public class PokemonSendableModel {
      */
     public void setImagePath(String _imageName) {
         this._imageName = _imageName;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final PokemonSendableModel other = (PokemonSendableModel) obj;
+        if (!Objects.equals(this._name, other._name)) {
+            return false;
+        }
+        return true;
     }
 }

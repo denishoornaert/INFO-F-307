@@ -3,10 +3,12 @@ package be.ac.ulb.infof307.g01.server.model.db;
 import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
 import be.ac.ulb.infof307.g01.common.model.UserSendableModel;
+import java.security.InvalidParameterException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.fail;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -39,10 +41,8 @@ public class MarkerDatabaseModelTest extends AbstractDatabaseTest {
                 latitude, longitude, timestamp.getTime(), upVotes, 
                 downVotes, lifePoint, attack, defense);
         String token = "109283";
-        boolean test = _database.signup(_markerUser, token);
-        if(test) {
-            test = _database.confirmAccount(token);
-        }
+        _database.signup(_markerUser, token);
+        _database.confirmAccount(token);
     }
     
     /**
@@ -51,7 +51,11 @@ public class MarkerDatabaseModelTest extends AbstractDatabaseTest {
     @Test
     public void test_insertMarker_incrementsAmountsOfMarkers() {
         final int initialAmountOfMarkers = _database.getAllMarkers().size();
-        _database.insertMarker(_markerToInsert);
+        try {
+            _database.insertMarker(_markerToInsert);
+        } catch (InvalidParameterException ex) {
+            fail("Could not insert marker in Database");
+        }
         assertEquals(initialAmountOfMarkers + 1, _database.getAllMarkers().size());
     }
 
@@ -60,9 +64,9 @@ public class MarkerDatabaseModelTest extends AbstractDatabaseTest {
      */
     @Test
     public void test_getAllMarkers_containsInsertedMarker() {
-        /*_database.insertMarker(_markerToInsert);
-        ArrayList<MarkerSendableModel> markers = _database.getAllMarkers();
-        assertTrue(markers.contains(_markerToInsert));*/
+        _database.insertMarker(_markerToInsert); // TODO (Loan & Stan) may be refactored with fail up
+        ArrayList<MarkerSendableModel> markers = _database.getAllMarkers();        
+        assertTrue(markers.contains(_markerToInsert));
     }
     
 }

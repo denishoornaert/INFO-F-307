@@ -12,10 +12,13 @@ import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
 import be.ac.ulb.infof307.g01.common.model.UserSendableModel;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.ClientResponse.Status;
 import com.sun.jersey.api.client.GenericType;
 import com.sun.jersey.api.client.WebResource;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ws.rs.core.MediaType;
@@ -26,13 +29,35 @@ import javax.ws.rs.core.MediaType;
 public class ServerQueryController implements MarkerQueryModel, PokemonQueryModel, 
         PokemonTypeQueryModel, ConnectionQueryModel {
     
+    /**
+     * All post queries a visitor try to send are stored here.
+     */
+    private final Queue<PostQuery> _visitorPostQueriesQueue;
+    
+    /**
+     * Stores the web resource and the object used in a POST query.
+     */
+    private class PostQuery {
+        private final WebResource _webResource;
+        private final Object _postObject;
+        
+        public PostQuery(WebResource webResource, Object postObject) {
+            _webResource = webResource;
+            _postObject = postObject;
+        }
+
+        public WebResource getWebResource() {
+            return _webResource;
+        }
+
+        public Object getPostObject() {
+            return _postObject;
+        }
+    }
+    
+    
     private WebResource _webResource;
     private static ServerQueryController _instance;
-    
-    private ServerQueryController() {
-        connectClient();
-        loadAllTables();
-    }
     
     public static ServerQueryController getInstance() {
         if(_instance == null) {
@@ -41,53 +66,23 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
         return _instance;
     }
     
-    private void connectClient() {
-        Client client = Client.create();
-        _webResource = client.resource(ClientConfiguration.getInstance().getServerURL()).path("query");
-    }
-    
     /**
-     * Executes a POST HTTP request
-     * @param url the web resource's url
-     * @param postObject the object to post
-     * @return true if the request was accepted, false otherwise
+     * Call this function when the user logs in. It tries to send all
+     * bufferised POST queries.
      */
-    private <T> boolean sendPostQuery(WebResource url, T postObject) {
-        ClientResponse response = url.accept(MediaType.APPLICATION_XML)
-                .post(ClientResponse.class, postObject);
-        
-        switch (response.getClientResponseStatus()) {
-            case OK:
-            case ACCEPTED: 
-                return true;
-              
-            default:
-                Logger.getLogger(getClass().getName()).log(Level.WARNING, 
-                    "Receive {0}", response.getClientResponseStatus().getReasonPhrase());
-                break;
-                
+    private void onUserLogin() {
+        for(PostQuery query : _visitorPostQueriesQueue) {
+            sendPostQuery(query, false);
         }
-        return false;
-    }
-    
-    /**
-     * Load all Data (Pokemon and PokemonType)
-     */
-    private void loadAllTables() {
-        PokemonCache.getInstance().loadAllPokemonTypes(getAllPokemonTypes());
-        PokemonCache.getInstance().loadAllPokemons(getAllPokemons());
     }
     
     @Override
-    public boolean insertMarker(MarkerSendableModel marker) {
+    public void insertMarker(MarkerSendableModel marker) {
         marker = fixTypeMarkerModelToSendable(marker);
-        boolean result = true;
         WebResource resource = _webResource.path("marker").path("insert");
-        if (!sendPostQuery(resource, marker)) {
+        if (!sendPostQuery(new PostQuery(resource, marker), true)) {
             Logger.getLogger(getClass().getName()).log(Level.WARNING, "Could not insert marker");
-            result = false;
         }
-        return result;
     }
 
     @Override
@@ -103,7 +98,7 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
         marker = fixTypeMarkerModelToSendable(marker);
         WebResource resource = _webResource.path("marker").path("updateReputation");
         
-        if (!sendPostQuery(resource, marker)) {
+        if(!sendPostQuery(new PostQuery(resource, marker), true)) {
             Logger.getLogger(getClass().getName()).log(Level.WARNING, "Could not update marker");
         }
     }
@@ -126,7 +121,7 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
         marker = fixTypeMarkerModelToSendable(marker);
         WebResource resource = _webResource.path("marker").path("update");
         
-        if (!sendPostQuery(resource, marker)) {
+        if(!sendPostQuery(new PostQuery(resource, marker), true)) {
             Logger.getLogger(getClass().getName()).log(Level.WARNING, "Could not update marker");
             result = false;
         }
@@ -138,9 +133,11 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
         boolean result = true;
         WebResource resource = _webResource.path("user").path("signin");
         
-        if (!sendPostQuery(resource, user)) {
+        if (!sendPostQuery(new PostQuery(resource, user), false)) {
             Logger.getLogger(getClass().getName()).log(Level.WARNING, "Could not sign in");
             result = false;
+        } else {
+            onUserLogin();
         }
         return result;
     }
@@ -150,11 +147,55 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
         boolean result = true;
         WebResource resource = _webResource.path("user").path("signup");
         
-        if (!sendPostQuery(resource, user)) {
+        if (!sendPostQuery(new PostQuery(resource, user), false)) {
             Logger.getLogger(getClass().getName()).log(Level.WARNING, "Could not sign up");
             result = false;
         }
         return result;
+    }
+    
+    private ServerQueryController() {
+        _visitorPostQueriesQueue = new LinkedList();
+        connectClient();
+        loadAllTables();
+    }
+    
+    /**
+     * Loads all Data (Pokemon and PokemonType).
+     */
+    private void loadAllTables() {
+        PokemonCache.getInstance().loadAllPokemonTypes(getAllPokemonTypes());
+        PokemonCache.getInstance().loadAllPokemons(getAllPokemons());
+    }
+    
+    private void connectClient() {
+        Client client = Client.create();
+        _webResource = client.resource(ClientConfiguration.getInstance().getServerURL()).path("query");
+    }
+    
+    /**
+     * Executes a POST HTTP request, if the user is connected, and stores it
+     * if it is a visitor (unless the query is also valid for a visitor, such
+     * as a connection query).
+     * @param query A POST query object.
+     * @param bufferIfVisitor True if the query can be buffered if the user is
+     * a visitor, false if we should always send the query.
+     * @return true if the request was accepted, false otherwise
+     */
+    private boolean sendPostQuery(PostQuery query, boolean bufferIfVisitor) {
+        if(UserController.getInstance().isConnected() || !bufferIfVisitor) {
+            ClientResponse response = query.getWebResource().accept(MediaType.APPLICATION_XML)
+                    .post(ClientResponse.class, query.getPostObject());
+            Status status = response.getClientResponseStatus();
+            if(status != Status.OK && status != Status.ACCEPTED) {
+                Logger.getLogger(getClass().getName()).log(Level.WARNING, 
+                    "Receive {0}", response.getClientResponseStatus().getReasonPhrase());
+                return false;
+            }
+        } else {
+            _visitorPostQueriesQueue.add(query);
+        }
+        return true;
     }
     
     /**
@@ -170,5 +211,4 @@ public class ServerQueryController implements MarkerQueryModel, PokemonQueryMode
         }
         return marker;
     }
-    
 }

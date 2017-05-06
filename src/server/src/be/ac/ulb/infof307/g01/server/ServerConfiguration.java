@@ -1,6 +1,7 @@
 package be.ac.ulb.infof307.g01.server;
 
 import java.io.File;
+import java.nio.file.FileSystems;
 
 /**
  * Class used almost everywhere beacause this is the one who contains all the
@@ -14,7 +15,8 @@ public class ServerConfiguration {
     private static ServerConfiguration _configuration = null;
     
     /** The absolute path to the server's assets folder.**/
-    private final String _assetFolder = "/home/hoornaert/GitHub/Groupe01/assets/server/";
+
+    private final String _assetFolder = FileSystems.getDefault().getPath("../../assets/server/").toAbsolutePath().normalize().toString() + "/";
     private final String _dataBasePath = "Database.db";
     private final String _testDataBasePath = "TestDatabase.db";
     private final String _sqlPath = "Database.sql";

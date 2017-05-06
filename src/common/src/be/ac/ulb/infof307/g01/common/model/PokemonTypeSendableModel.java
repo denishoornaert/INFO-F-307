@@ -10,17 +10,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class PokemonTypeSendableModel {
     protected String _typeName;
     
-    public PokemonTypeSendableModel() { } // Must exist
+    /**
+     * Constructor, needed by Jersey.
+     */
+    public PokemonTypeSendableModel() {
+    }
     
     public PokemonTypeSendableModel(PokemonTypeSendableModel other) {
         _typeName = other._typeName;
     }
     
     public PokemonTypeSendableModel(String typeName) {
-        typeName = typeName.toUpperCase();
-        _typeName = typeName;
+        _typeName = typeName.toUpperCase();
     }
-    
     
     /**
      * Return the name of the type
@@ -28,6 +30,15 @@ public class PokemonTypeSendableModel {
      */
     public String getTypeName() {
         return _typeName;
+    }
+    
+    /**
+     * Changes the type name.
+     * \note This is needed by Jersey, do not remove
+     * @param typeName the new name of the type
+     */
+    public void setTypeName(String typeName) {
+        _typeName = typeName;
     }
 
     @Override
