@@ -62,8 +62,10 @@ public class PokemonCache {
      */
     public void loadAllPokemonTypes(List<PokemonTypeSendableModel> allPokemonTypes) {
         _allPokemonTypes.clear();
+        System.out.println("size : "+allPokemonTypes.size());
         for (PokemonTypeSendableModel pokemonType : allPokemonTypes) {
-            _allPokemonTypes.put(pokemonType.getTypeName().toUpperCase(), new PokemonTypeModel(pokemonType));
+            System.out.println("obj : "+pokemonType);
+            //_allPokemonTypes.put(pokemonType.getTypeName().toUpperCase(), new PokemonTypeModel(pokemonType));
         }
     }
         

@@ -23,6 +23,7 @@ public class NewMarkerPopUp extends AbstractMarkerPopUp {
     
     public NewMarkerPopUp(NewMarkerPopUpController controller, ArrayList<String> pokemonsName) {
         super(controller, pokemonsName);
+        hideTwitterButton();
     }
     
     @Override

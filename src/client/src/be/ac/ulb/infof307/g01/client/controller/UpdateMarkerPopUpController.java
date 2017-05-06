@@ -11,7 +11,7 @@ import java.sql.Timestamp;
  */
 public class UpdateMarkerPopUpController extends AbstractMarkerPopUpController {
     
-    int _markerId;
+    private int _markerId;
     
     public UpdateMarkerPopUpController(MarkerController markerController, int markerId) {
         super(markerController, markerId);

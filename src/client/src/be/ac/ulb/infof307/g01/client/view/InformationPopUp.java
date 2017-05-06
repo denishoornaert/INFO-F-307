@@ -1,14 +1,20 @@
 package be.ac.ulb.infof307.g01.client.view;
 
+import be.ac.ulb.infof307.g01.client.controller.InformationPopUpController;
+import be.ac.ulb.infof307.g01.client.model.MarkerModel;
 import java.io.File;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -19,11 +25,17 @@ import javafx.scene.layout.VBox;
 public abstract class InformationPopUp extends PopUp {
     
     private ImageView _selectedPokemonView;
+    private Button _twitterButton;
     private HBox _widgets;
-
+    private StackPane _stackPane;
     
-    public InformationPopUp() {
+    private InformationPopUpController _controller;
+    protected final MarkerModel _markerModel;
+    
+    public InformationPopUp(InformationPopUpController controller, int markerId) {
         super();
+        _controller = controller;
+        _markerModel = _controller.getMarker();
         initWidgets();
         placeWidgets();
         initSize();
@@ -31,10 +43,15 @@ public abstract class InformationPopUp extends PopUp {
 
     private void initWidgets() {
         initImage();
+        initTwitterButton();
+        initStack();
     }
 
     private void placeWidgets() {
-        _widgets = placeInRow(_selectedPokemonView);
+        _stackPane.getChildren().add(_selectedPokemonView);
+        _stackPane.getChildren().add(_twitterButton);
+        StackPane.setAlignment(_twitterButton, Pos.TOP_LEFT);
+        _widgets = placeInRow(_stackPane);
         super.add(_widgets);
     }
     
@@ -42,6 +59,24 @@ public abstract class InformationPopUp extends PopUp {
         _selectedPokemonView = new ImageView();
         _selectedPokemonView.setFitHeight(150);
         _selectedPokemonView.setFitWidth(150);
+    }
+    
+    private void initStack() {
+        _stackPane = new StackPane();
+    }
+    
+    private void initTwitterButton() {
+        _twitterButton = new Button("T");
+        _twitterButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent t) {
+                _controller.sendTwitterPost();
+            }
+        });
+    }
+    
+    protected void hideTwitterButton() {
+        _stackPane.getChildren().remove(_twitterButton);
     }
     
     public void setPokemonView(String imagePath) {
@@ -82,7 +117,7 @@ public abstract class InformationPopUp extends PopUp {
     }
     
     private void initSize() {
-        setSize(500, 150);
+        setSize(550, 150);
     }
     
 }
