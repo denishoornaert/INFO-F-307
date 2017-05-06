@@ -16,7 +16,7 @@ public class ServerConfiguration {
     
     /** The absolute path to the server's assets folder.**/
 
-    private final String _assetFolder = FileSystems.getDefault().getPath("../../assets/server/").toAbsolutePath().normalize().toString() + "/";
+    private final String _assetFolder = "/home/hoornaert/GitHub/Groupe01/assets/server/";
     private final String _dataBasePath = "Database.db";
     private final String _testDataBasePath = "TestDatabase.db";
     private final String _sqlPath = "Database.sql";

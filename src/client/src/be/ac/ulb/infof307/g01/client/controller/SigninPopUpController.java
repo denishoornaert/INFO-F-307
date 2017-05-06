@@ -28,6 +28,7 @@ public class SigninPopUpController {
 	public void authenticate(String username, String password) {
             try {
                 UserController.getInstance().authenticate(username, password);
+                cancel();
             } catch(IllegalArgumentException error) {
                 Logger.getLogger(getClass().getName()).log(Level.INFO, 
                         "Signin message: {0}", error.getMessage());

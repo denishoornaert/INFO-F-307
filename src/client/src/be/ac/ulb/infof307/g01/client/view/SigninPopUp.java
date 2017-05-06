@@ -3,10 +3,12 @@ package be.ac.ulb.infof307.g01.client.view;
 import be.ac.ulb.infof307.g01.client.controller.SigninPopUpController;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
@@ -15,6 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.paint.Color;
 
 /**
  * Login with username and password
@@ -48,7 +51,7 @@ public class SigninPopUp extends PopUp {
         _hbox = new HBox();
         _username = new Label("Username :");
         _password = new Label("Password :");
-        _remarks = new Label();
+        _remarks = new Label("");
         _usernameField = new TextField();
         _passwordField = new PasswordField();
         initLoginButton();
@@ -62,7 +65,7 @@ public class SigninPopUp extends PopUp {
         setXExpandPolicy(_submit);
         _hbox.setAlignment(Pos.CENTER);
         _hbox.setPadding(new Insets(5, 0, 0, 0));
-        _vbox.getChildren().addAll(_hbox);
+        _vbox.getChildren().addAll(_hbox, _remarks);
         super.add(_vbox);
     }
 
@@ -81,16 +84,7 @@ public class SigninPopUp extends PopUp {
             @Override public void handle(ActionEvent t) {
             	final String username = _usernameField.getText();
                 final String password = _passwordField.getText();
-                Logger logger = Logger.getLogger(SigninPopUpController.class.getName());
-                
-                try {
-                    _controller.authenticate(username,password);
-                    _controller.cancel();
-                    logger.log(Level.INFO, "Try to login: {0} - {1}", 
-                            new Object[]{username, password});
-                } catch(IllegalArgumentException ex) {
-                    logger.log(Level.WARNING,ex.getMessage());
-                }
+                _controller.authenticate(username,password);
             }
         });
     }
@@ -106,7 +100,7 @@ public class SigninPopUp extends PopUp {
     
     public void showError(String msg) {
         _remarks.setText(msg);
-        _vbox.getChildren().add(_remarks);
+        _remarks.setTextFill(Color.web("#FF3333"));
     }
     
 }
