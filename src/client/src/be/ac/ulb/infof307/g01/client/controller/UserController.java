@@ -18,7 +18,7 @@ public class UserController {
     
     private UserController() {
         _connection = (ConnectionQueryModel) ServerQueryController.getInstance();
-        // the following line is normale (DO NOT TOUCH ! I'm talking to you @theo :p)
+        // The following line is normal (DO NOT TOUCH ! I'm talking to you @theo :p)
         // This is normale because due to Jersey we can't modify the trivial
         // constructor and therefore we need to write this wierd instruction.
         _user = new UserSendableModel("", "", "");
