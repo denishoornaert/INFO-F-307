@@ -17,6 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 /**
  *
@@ -101,13 +102,11 @@ public class SignupPopUp extends PopUp {
     private void initSubmitButton() {
         _submit.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent t) {
-                try {
-                    _controller.submit(_email.getText(),_username.getText(), _password.getText(), _termsAndConditionBox.isSelected());
-                    _controller.cancel();
-                } catch (IllegalArgumentException ex) {
-                    Logger logger = Logger.getLogger(SignupPopUpController.class.getName());
-                    logger.log(Level.WARNING,ex.getMessage());
-                }
+                final String username = _username.getText();
+                final String password = _password.getText();
+                final String email = _email.getText();
+                final boolean terms = _termsAndConditionBox.isSelected();
+                _controller.submit(email, username, password, terms);
             }
         });
     }
@@ -120,5 +119,6 @@ public class SignupPopUp extends PopUp {
 
     public void showError(String msg) {
         _remarks.setText(msg);
+        _remarks.setTextFill(Color.web("#FF3333"));
     }
 }
