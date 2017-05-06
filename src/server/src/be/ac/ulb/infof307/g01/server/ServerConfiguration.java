@@ -15,6 +15,7 @@ public class ServerConfiguration {
     private static ServerConfiguration _configuration = null;
     
     /** The absolute path to the server's assets folder.**/
+
     private final String _assetFolder = FileSystems.getDefault().getPath("../../assets/server/").toAbsolutePath().normalize().toString() + "/";
     private final String _dataBasePath = "Database.db";
     private final String _testDataBasePath = "TestDatabase.db";
