@@ -57,7 +57,7 @@
         <testSourceDirectory>../../test/server</testSourceDirectory>
         <resources>
             <resource>
-                <directory>../../assets</directory>
+                <directory>../../assets/server</directory>
             </resource>
         </resources>
         <plugins>
