@@ -14,11 +14,11 @@ public abstract class AbstractMarkerPopUpController extends InformationPopUpCont
     protected static String _defaultImagePath; // TODO : static ???
     
  
-    public AbstractMarkerPopUpController(MarkerController markerController) {
+    public AbstractMarkerPopUpController(MarkerController markerController) throws InstantiationException {
         this(markerController, DEFAULT_MARKER_ID);
     }
     
-    public AbstractMarkerPopUpController(MarkerController markerController, int markerid) {
+    public AbstractMarkerPopUpController(MarkerController markerController, int markerid) throws InstantiationException  {
         super(markerController, markerid);
         _defaultImagePath = ClientConfiguration.getInstance().getUnknownPokemonSpritePath();
     }

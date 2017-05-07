@@ -15,7 +15,7 @@ public class PinPopUpController extends InformationPopUpController {
     
     private final PinPopUp _pinPopUp;
     
-    public PinPopUpController(MarkerModel marker) {
+    public PinPopUpController(MarkerModel marker) throws InstantiationException {
         super(marker);
         _pinPopUp = new PinPopUp(this);
         _pinPopUp.setPokemonView(_marker.getImagePath());

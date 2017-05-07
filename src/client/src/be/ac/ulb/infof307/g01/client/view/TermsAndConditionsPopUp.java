@@ -25,6 +25,7 @@ public class TermsAndConditionsPopUp extends PopUp {
     Button _closeButton;
     
     public TermsAndConditionsPopUp(TermsAndConditionsPopUpController controller) {
+        super(controller);
         initWidgets();
         placeWidgets();
         initSyle();

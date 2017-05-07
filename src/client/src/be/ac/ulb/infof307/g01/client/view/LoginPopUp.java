@@ -25,7 +25,7 @@ public class LoginPopUp extends PopUp {
     
 
     public LoginPopUp(SigninPopUpController controller) {
-        super();
+        super(controller);
         _controller = controller;
         initWidgets();
         placeWidgets();
