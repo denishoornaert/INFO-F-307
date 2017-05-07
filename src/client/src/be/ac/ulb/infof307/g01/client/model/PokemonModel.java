@@ -9,8 +9,6 @@ import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
 
 public class PokemonModel extends PokemonSendableModel {
     
-    private static final String PATH_PREFIX = ClientConfiguration.getInstance().getSpritePath();
-    
     public PokemonModel(PokemonSendableModel pokemon) {
         super(pokemon);
         // Convert all types to client model instances
@@ -21,6 +19,23 @@ public class PokemonModel extends PokemonSendableModel {
     
     @Override
     public String getImagePath() {
-        return PATH_PREFIX + super.getImagePath();
+        return getImagePath(false);
+    }
+    
+    /**
+     * During test, all folder doesn't exist, thus path is not the same
+     * 
+     * @param isTest True if it's a test
+     * @return The image Path
+     */
+    public String getImagePath(boolean isTest) {
+        String assetFolder;
+        if(isTest) {
+            assetFolder = ClientConfiguration.getTestInstance().getSpritePath();
+        } else {
+            assetFolder = ClientConfiguration.getInstance().getSpritePath();
+        }
+        
+        return assetFolder + super.getImagePath();
     }
 }
