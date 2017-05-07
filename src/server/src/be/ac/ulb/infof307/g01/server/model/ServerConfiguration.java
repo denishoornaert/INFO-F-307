@@ -14,34 +14,34 @@ public class ServerConfiguration {
     private static ServerConfiguration _configuration = null;
     
     /** The absolute path to the server's assets folder.**/
-    private final String _assetFolder = "/home/hoornaert/GitHub/Groupe01/assets/server/";
     private final String _dataBasePath = "Database.db";
     private final String _testDataBasePath = "TestDatabase.db";
     private final String _sqlPath = "Database.sql";
     
-    private ServerConfiguration() {}
+    private ServerConfiguration() { }
 
     public static ServerConfiguration getInstance() {			
-            if(_configuration == null) {
-                _configuration = new ServerConfiguration();	
-            }
-            return _configuration;
+        if(_configuration == null) {
+            _configuration = new ServerConfiguration();	
+        }
+        return _configuration;
     }
     
-    private String getCompletePath(String relativePath) {
-        return new File(relativePath).toURI().toString();
+    private String getAssetServerPath(String fileName) {
+        File file = new File("../../assets/server/");
+        return file.getAbsolutePath() + File.separatorChar + fileName;
     }
     
     public String getDataBasePath() {
-        return _assetFolder + _dataBasePath;
+        return Thread.currentThread().getContextClassLoader().getResource(_dataBasePath).getPath();
     }
     
     public String getTestDataBasePath() {
-        return _assetFolder + _testDataBasePath;
+        return getAssetServerPath(_testDataBasePath);
     }
 
     public String getSqlPath() {
-        return _assetFolder + _sqlPath;
+        return getAssetServerPath(_sqlPath);
     }
     
 }
