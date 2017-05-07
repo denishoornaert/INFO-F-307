@@ -184,7 +184,7 @@ public class ServerQueryController implements MarkerQueryController, PokemonQuer
     
     private void connectClient() {
         Client client = Client.create();
-        _webResource = client.resource(ClientConfiguration.getInstance().getServerURL()).path("query");
+        _webResource = client.resource(ClientConfiguration.getInstance().getServerURL());
     }
     
     /**

@@ -74,12 +74,14 @@ public class PinPopUpController extends InformationPopUpController {
 
     public void addDownVote() {
         _marker.addVote(UserController.getInstance().getUsername(), false);
+        _pinPopUp.enableUpVoteButton();
         _pinPopUp.disableDownVoteButton();
         updateVoteView();
     }
 
     public void addUpVote() {
         _marker.addVote(UserController.getInstance().getUsername(), true);
+        _pinPopUp.enableDownVoteButton();
         _pinPopUp.disableUpVoteButton();
         updateVoteView();
     }

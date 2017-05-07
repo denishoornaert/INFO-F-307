@@ -5,7 +5,6 @@ import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
 import be.ac.ulb.infof307.g01.common.model.ReputationVoteSendableModel;
 import be.ac.ulb.infof307.g01.common.model.UserSendableModel;
-import be.ac.ulb.infof307.g01.server.ServerConfiguration;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
