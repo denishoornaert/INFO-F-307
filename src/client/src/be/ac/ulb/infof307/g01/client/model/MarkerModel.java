@@ -102,6 +102,12 @@ public class MarkerModel extends MarkerSendableModel {
      */
     public void addVote(String username, boolean isUpVote) {
         ReputationVoteSendableModel reputation = new ReputationVoteSendableModel(username, isUpVote, _databaseId);
+        for(ReputationVoteSendableModel vote : _reputation) {
+            if(vote.getUsername().equals(username)) {
+                _reputation.remove(vote);
+                break;
+            }
+        }
         _reputation.add(reputation);
         _serverQuery.updateMarkerReputation(reputation);
     }

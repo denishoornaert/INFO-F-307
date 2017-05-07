@@ -34,7 +34,7 @@ public class EmailSender {
     private final String CONFIRMATION_MAIL_CONTENT = "Hello dear user,\n"
             + "You will be able to connect to Gotta Map Them All after having"
             + " confirmed your account by clicking on this link : "
-            + "http://localhost:8080/server/rest/query/user/confirm?token=%s";
+            + "http://localhost:8080/server/rest/user/confirm?token=%s";
     
     public EmailSender() {
         SMTP_SESSION = createSmtpSession();
