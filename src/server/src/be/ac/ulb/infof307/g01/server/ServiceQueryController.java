@@ -3,6 +3,7 @@ package be.ac.ulb.infof307.g01.server;
 import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
+import be.ac.ulb.infof307.g01.common.model.ReputationVoteSendableModel;
 import be.ac.ulb.infof307.g01.common.model.UserSendableModel;
 import be.ac.ulb.infof307.g01.server.controller.EmailSender;
 import be.ac.ulb.infof307.g01.server.model.DatabaseModel;
@@ -63,16 +64,22 @@ public class ServiceQueryController {
     @Consumes(MediaType.APPLICATION_XML)
     @Produces(MediaType.APPLICATION_XML)
     public Response updateMarker(MarkerSendableModel marker) {
-        DatabaseModel.getInstance().updateMarker(marker);
+        Logger.getLogger(getClass().getName()).log(Level.INFO, "Update marker: {0} - {1}", 
+                new Object[]{marker.getPokemonName(), marker.getLongTimestamp()});
+        if(DatabaseModel.getInstance().updateMarker(marker)) {
+            Logger.getLogger(getClass().getName()).log(Level.INFO, "Marker update");
+        } else {
+            Logger.getLogger(getClass().getName()).log(Level.INFO, "Marker not update !");
+        }
         return Response.status(Status.OK).entity(marker).build();
     }
     
-    @Path("marker/updateReputation")
+    @Path("marker/updateReputation") // TODO check que ça marche
     @POST
     @Consumes(MediaType.APPLICATION_XML)
-    public Response updateMarkerReputation(MarkerSendableModel marker) {
-        DatabaseModel.getInstance().updateMarkerReputation(marker);
-        return Response.status(Status.OK).entity(marker).build();
+    public Response updateMarkerReputation(ReputationVoteSendableModel reputationVote) {
+        DatabaseModel.getInstance().updateMarkerReputation(reputationVote);
+        return Response.status(Status.OK).entity(reputationVote).build();
     }
     
     @Path("pokemon/getall")

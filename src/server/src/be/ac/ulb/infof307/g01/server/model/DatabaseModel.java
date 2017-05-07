@@ -3,6 +3,7 @@ package be.ac.ulb.infof307.g01.server.model;
 import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
+import be.ac.ulb.infof307.g01.common.model.ReputationVoteSendableModel;
 import be.ac.ulb.infof307.g01.common.model.UserSendableModel;
 import be.ac.ulb.infof307.g01.server.ServerConfiguration;
 import java.io.File;
@@ -316,14 +317,11 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
     public ArrayList<MarkerSendableModel> getAllMarkers() {
         ArrayList<MarkerSendableModel> allMarkers = new ArrayList<>();
         String query = "SELECT M.Id, U.Username, P.Name, M.Latitude, M.Longitude, " +
-            "M.TimeStamp, COUNT(V.IsUp = 1) AS UpVotes, " +
-            "COUNT(V.IsUp = 0) AS DownVotes, M.LifePoints, " +
+            "M.TimeStamp, M.LifePoints, " +
             "M.Attack, M.Defense " +
             "FROM Marker M " +
             "JOIN User U ON U.Id=M.UserId " +
-            "JOIN Pokemon P ON P.Id=M.PokemonId " +
-            "LEFT OUTER JOIN MarkerVote V ON V.UserId = U.Id AND V.MarkerId = M.Id " + 
-            "GROUP BY M.Id;";
+            "JOIN Pokemon P ON P.Id=M.PokemonId;";
         
         try {
             ResultSet allMarkersCursor = executeQuery(query);
@@ -347,8 +345,6 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
         final double latitude = cursor.getDouble(++i);
         final double longitude = cursor.getDouble(++i);
         final String timestampString = cursor.getString(++i);
-        final int upVotes = getMarkerUpVotes(id);
-        final int downVotes = getMarkerDownVotes(id);
         final int lifePoints = cursor.getInt(++i);
         final int attack = cursor.getInt(++i);
         final int defense = cursor.getInt(++i);
@@ -361,80 +357,89 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
             return null;
         }
         
-        return new MarkerSendableModel(id, username, pokemon, latitude, longitude,
-                Timestamp.valueOf(timestampString).getTime(), upVotes, 
-                downVotes, lifePoints, attack, defense);
+        ArrayList<ReputationVoteSendableModel> allReputation = getMarkerVotes(id);
+        MarkerSendableModel newMarker = new MarkerSendableModel(id, username, 
+                pokemon, latitude, longitude, 
+                Timestamp.valueOf(timestampString).getTime(), allReputation, 
+                lifePoints, attack, defense);
+        
+        return newMarker;
     }
     
-    public int getMarkerUpVotes(int markerId) {
-        return getMarkerVotes(markerId, true);
-    }
-    
-    public int getMarkerDownVotes(int markerId) {
-        return getMarkerVotes(markerId, false);
-    }
-    
-    private int getMarkerVotes(int markerId, boolean isUp) {
-        int votes = 0;
-        String query = "SELECT COUNT(*) FROM MarkerVote V "
-                + "WHERE MarkerId=? AND IsUp=?;";
+    private ArrayList<ReputationVoteSendableModel> getMarkerVotes(int markerId) {
+        ArrayList<ReputationVoteSendableModel> res = new ArrayList<ReputationVoteSendableModel>();
+        String query = "SELECT U.Username AS Username, V.IsUp AS IsUp FROM MarkerVote V "
+                + "JOIN User U ON U.Id = V.UserId "
+                + "WHERE V.MarkerId=?;";
         
         try {
             PreparedStatement statement = _connection.prepareStatement(query);
             
             int i = 0; // index of statement
             statement.setInt(++i, markerId);
-            statement.setBoolean(++i, isUp);
-            statement.execute();
-            
-            votes = statement.getGeneratedKeys().getInt(1);
+            ResultSet resultSet = statement.executeQuery();
+            while(resultSet.next()) {
+                String username = resultSet.getString("Username");
+                boolean isUp = resultSet.getBoolean("IsUp");
+                res.add(new ReputationVoteSendableModel(username, isUp, markerId));
+            }
         } catch (SQLException ex) {
             _logger.log(Level.SEVERE, null, ex);
         }
-        return votes;
+        
+        return res;
     }
 
-    @Override
     /**
-     * Update in the database the reputation of the given marker.
-     * This function is usually called after a vote has been done by a user.
-     * This function does not take a vote in parameter, as the marker already
-     * know its new reputation value, it would be dumb to compute it again here.
+     * TODO description
      *
-     * @param marker The marker that need to be updated in the database.
+     * @param reputationVote 
      */
-    public void updateMarkerReputation(MarkerSendableModel marker) {
-        String query = "UPDATE Marker SET UpVotes=?, DownVotes=? WHERE Id=?;";
+    @Override
+    public void updateMarkerReputation(ReputationVoteSendableModel reputationVote) {
+        String query = "REPLACE INTO MarkerVote (UserId, MarkerId, IsUP) "
+                + "VALUES((SELECT User.Id FROM User WHERE User.Username = ?), ?,  ?);";
         try {
             PreparedStatement statement = _connection.prepareStatement(query);
-            statement.setInt(1, marker.getUpVotes());
-            statement.setInt(2, marker.getDownVotes());
-            statement.setInt(3, marker.getDatabaseId());
+            statement.setString(1, reputationVote.getUsername());
+            statement.setInt(2, reputationVote.getMarkerId());
+            statement.setInt(3, reputationVote.getIsUpVote() ? 1 : 0);
             statement.execute();
         } catch (SQLException ex) {
             _logger.log(Level.SEVERE, null, ex);
         }
     }
 
+    /**
+     * Update the information about a Marker.  Don't update the reputation !
+     * 
+     * @param marker the marker wich must be update
+     * @return True if all is ok, False otherwise
+     */
     @Override
     public boolean updateMarker(MarkerSendableModel marker) {
         boolean res = false;
         
         String query = "UPDATE Marker SET PokemonId=(SELECT Id FROM Pokemon "
-                + "WHERE Name=?), TimeStamp=?, LifePoint=?, Attack=?, Defense=? "
+                + "WHERE Name=?), TimeStamp=?, LifePoints=?, Attack=?, Defense=? "
                 + "WHERE Id=?;";
         
         try {
             PreparedStatement statement = _connection.prepareStatement(query);
             statement.setString(1, marker.getPokemon().getName());
-            statement.setTimestamp(2, new Timestamp(marker.getLongTimestamp()));
-            statement.setInt(3, marker.getAttack());
-            statement.setInt(3, marker.getDefense());
-            statement.setInt(3, marker.getDatabaseId());
+            statement.setString(2, new Timestamp(marker.getLongTimestamp()).toString());
+            statement.setInt(3, marker.getLifePoints());
+            statement.setInt(4, marker.getAttack());
+            statement.setInt(5, marker.getDefense());
+            statement.setInt(6, marker.getDatabaseId());
             res = (statement.executeUpdate() == 1);
         } catch (SQLException ex) {
             _logger.log(Level.SEVERE, null, ex);
         }
+        
+        Logger.getLogger(getClass().getName()).log(Level.INFO, "Id: {0} - {1} - {2} - {3} - {4}", 
+                new Object[]{marker.getDatabaseId(), marker.getPokemon().getName(), 
+                    new Timestamp(marker.getLongTimestamp()), marker.getAttack(), marker.getDefense()});
         
         return res;
     }

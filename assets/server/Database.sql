@@ -44,7 +44,8 @@ CREATE TABLE `MarkerVote` (
 	`MarkerId`	INTEGER NOT NULL,
 	`IsUp`		BOOLEAN NOT NULL,
 	FOREIGN KEY (`UserId`) REFERENCES `User`,
-	FOREIGN KEY (`MarkerId`) REFERENCES `Marker`
+	FOREIGN KEY (`MarkerId`) REFERENCES `Marker`,
+	UNIQUE (`UserId`, `MarkerId`) ON CONFLICT REPLACE
 );
 
 INSERT INTO `PokemonType` (`Name`) VALUES

@@ -9,6 +9,7 @@ import be.ac.ulb.infof307.g01.common.controller.PokemonTypeQueryController;
 import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
+import be.ac.ulb.infof307.g01.common.model.ReputationVoteSendableModel;
 import be.ac.ulb.infof307.g01.common.model.UserSendableModel;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
@@ -108,11 +109,10 @@ public class ServerQueryController implements MarkerQueryController, PokemonQuer
     }
 
     @Override
-    public void updateMarkerReputation(MarkerSendableModel marker) {
-        marker = fixTypeMarkerModelToSendable(marker);
+    public void updateMarkerReputation(ReputationVoteSendableModel reputationVote) {
         WebResource resource = _webResource.path("marker").path("updateReputation");
         
-        if(!sendPostQuery(new PostQuery(resource, marker), true)) {
+        if(!sendPostQuery(new PostQuery(resource, reputationVote), true)) {
             Logger.getLogger(getClass().getName()).log(Level.WARNING, "Could not update marker");
         }
     }
