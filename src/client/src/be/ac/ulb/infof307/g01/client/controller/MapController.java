@@ -53,12 +53,11 @@ public class MapController {
         try {
             if (marker.getUsername().equals(UserController.getInstance().getUsername())) {
                 new UpdateMarkerPopUpController(_markerController, markerId);
-            }
-            else {
+            } else {
                 new PinPopUpController(marker);
             }
         } catch (InstantiationException ex) {
-            Logger.getLogger(MapController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MapController.class.getName()).log(Level.WARNING, ex.getMessage());
         }
     }
     

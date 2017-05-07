@@ -16,7 +16,8 @@ public class ClientConfiguration {
     private static ClientConfiguration _configuration = null;
     private static ClientConfiguration _testConfiguration = null;
     
-    private static final String SERVER_URL = "http://localhost:8080/server/rest";
+    private static final String FILE_PREFIX = "file:";
+    private static final String SERVER_URL = "http://localhost:8080/server/rest/";
     private static final String STYLE_PATH = "bootstrap.css";
     private static final String UNKNOWN_POKEMON_SPRITE_PATH = "unknown_pokemon.png";
     private static final String SPRITES_PATH = "sprites/";
@@ -38,12 +39,26 @@ public class ClientConfiguration {
     }
     
     private String getPath(String fileName) {
+        return getPath(fileName, false);
+    }
+    
+    /**
+     * Get the path to a specific file
+     * 
+     * @param fileName the file
+     * @param forceAddFile True if we would like to have FILE_PREFIX before the path
+     * @return The path
+     */
+    private String getPath(String fileName, boolean forceAddFile) {
         String result;
         if(_isTest) {
             File file = new File("../../assets/client/");
             result = file.getAbsolutePath() + File.separatorChar + fileName;
         } else {
             result = Thread.currentThread().getContextClassLoader().getResource(fileName).getPath();
+            if(forceAddFile) {
+                result = addFilePrefix(result);
+            }
         }
         
         return result;
@@ -91,7 +106,7 @@ public class ClientConfiguration {
     public ArrayList<String> getApplicationIconsPaths() {
         ArrayList<String> result = new ArrayList<>();
         for(String icon : _applicationIconsPaths) {
-            result.add(getPath(icon));
+            result.add(getPath(icon, true));
         }
         
         return result;
@@ -103,6 +118,49 @@ public class ClientConfiguration {
     
     public String getTermsAndContionsPath() {
         return getPath(TERMS_AND_CONDITIONS_PATH);
+    }
+    
+    /**
+     * Add FILE_PREFIX prefixe before file path if not exist
+     * 
+     * @param filePath the file path
+     * @return the new file path
+     */
+    public static String addFilePrefix(String filePath) {
+        if(!filePath.startsWith(FILE_PREFIX)) {
+            filePath = FILE_PREFIX + filePath;
+        }
+        return filePath;
+    }
+    
+    
+    /**
+     * Add "jar:" prefix before imagePath if it's begin with FILE_PREFIX
+     * 
+     * @param imagePath the image path
+     * @return the new path
+     */
+    public static String addJarBeforeImagePath(String imagePath) {
+        if(imagePath.startsWith(FILE_PREFIX)) {
+            imagePath = "jar:" + imagePath;
+        }
+        return imagePath;
+    }
+    
+    /**
+     * Add "jar:" prefix before imagePath witch begin with FILE_PREFIX
+     * If not, prefix FILE_PREFIX is add
+     * 
+     * @param imagePath the image path
+     * @return the new path
+     */
+    public static String addJarOrFileBeforeImagePath(String imagePath) {
+        if(imagePath.startsWith(FILE_PREFIX)) {
+            imagePath = addJarBeforeImagePath(imagePath);
+        } else {
+            imagePath = addFilePrefix(imagePath);
+        }
+        return imagePath;
     }
     
 }

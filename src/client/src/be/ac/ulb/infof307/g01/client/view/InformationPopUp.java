@@ -1,8 +1,8 @@
 package be.ac.ulb.infof307.g01.client.view;
 
 import be.ac.ulb.infof307.g01.client.controller.InformationPopUpController;
+import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
 import be.ac.ulb.infof307.g01.client.model.MarkerModel;
-import java.io.File;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -80,8 +80,8 @@ public abstract class InformationPopUp extends PopUp {
     }
     
     public void setPokemonView(String imagePath) {
-        String path = new File(imagePath).toURI().toString();
-        _selectedPokemonView.setImage(new Image(path));
+        imagePath = ClientConfiguration.addJarOrFileBeforeImagePath(imagePath);
+        _selectedPokemonView.setImage(new Image(imagePath));
     }
     
     protected VBox placeInColumn(Node... nodes) {
