@@ -16,7 +16,6 @@ public class ClientConfiguration {
     private static ClientConfiguration _configuration = null;
     private static ClientConfiguration _testConfiguration = null;
     
-//    private static final String PATH_TO_ASSETS = "../../assets/client/";
     private static final String SERVER_URL = "http://localhost:8080/server/rest";
     private static final String STYLE_PATH = "bootstrap.css";
     private static final String UNKNOWN_POKEMON_SPRITE_PATH = "unknown_pokemon.png";
@@ -46,7 +45,6 @@ public class ClientConfiguration {
         } else {
             result = Thread.currentThread().getContextClassLoader().getResource(fileName).getPath();
         }
-        System.out.println("Ressource: " + result);
         
         return result;
     }
@@ -63,6 +61,15 @@ public class ClientConfiguration {
             _testConfiguration = new ClientConfiguration(true);
         }
         return _testConfiguration;
+    }
+    
+    /**
+     * Get only the name of the style file
+     * 
+     * @return the style name file
+     */
+    public String getStyleFileName() {
+        return STYLE_PATH;
     }
     
     public String getStylePath() {
