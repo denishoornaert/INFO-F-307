@@ -81,13 +81,6 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
             System.exit(1);
         }
     }
-
-    /**
-     * Load all Data (Pokemon and PokemonType)
-     */
-    private void loadAllTables() {
-        getAllPokemonTypes();
-    }
     
     /**
      * Create the database file (.db from .sql)
