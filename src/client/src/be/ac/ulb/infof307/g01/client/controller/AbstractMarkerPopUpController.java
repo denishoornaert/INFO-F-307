@@ -24,8 +24,7 @@ public abstract class AbstractMarkerPopUpController extends InformationPopUpCont
     }
         
     public void cancelPopUpCreateMarker() {
-        _markerPopUp.close();
-        _markerPopUp = null;
+        close(_markerPopUp);
     }
     
     protected boolean isPokemonNameNotEmpty(String pokemonName) {

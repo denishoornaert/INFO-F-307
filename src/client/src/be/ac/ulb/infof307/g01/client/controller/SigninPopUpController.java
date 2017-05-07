@@ -13,8 +13,8 @@ public class SigninPopUpController extends AbstractPopUpController {
     private final SigninPopUp _signinPopUp;
 
     /** 
-     *  Make the constructor private, as this class is a singleton.
-    * @throws java.lang.InstantiationException
+     * 
+     * @throws java.lang.InstantiationException
      */
     public SigninPopUpController() throws InstantiationException {
         super();
