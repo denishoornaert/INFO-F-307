@@ -74,12 +74,8 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
      */
     protected DatabaseModel(String pathToDatabase) {
         try {
-            boolean justCreated = createDatabaseFile(pathToDatabase);
+            createDatabase(pathToDatabase);
             connectToSqlite(pathToDatabase);
-            if(justCreated) {
-                _logger.log(Level.INFO, "Created Database");
-                fillDatabase();
-            }
         } catch(IOException | SQLException ex) {
             _logger.log(Level.SEVERE, null, ex);
             System.exit(1);
@@ -103,13 +99,13 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
      * @param path path to database
      * @return false if file already exist, true if file have been juste created
      */
-    private boolean createDatabaseFile(String path) throws IOException, SQLException {
+    private void createDatabase(String path) throws IOException, SQLException {
         File file = new File(path);
         if(!file.exists()) {
             file.createNewFile();
-            return true;
+            _logger.log(Level.INFO, "Created Database");
+            fillDatabase();
         }
-        return false;
     }
 
     /**
