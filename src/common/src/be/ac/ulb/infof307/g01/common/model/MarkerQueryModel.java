@@ -8,5 +8,5 @@ public interface MarkerQueryModel {
     public boolean insertMarker(MarkerSendableModel marker);
     public boolean updateMarker(MarkerSendableModel marker);
     public ArrayList<MarkerSendableModel> getAllMarkers();
-    public void updateMarkerReputation(MarkerSendableModel marker);
+    public void updateMarkerReputation(ReputationVoteSendableModel marker);
 }

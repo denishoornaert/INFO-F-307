@@ -88,7 +88,7 @@ public class MarkerModel extends MarkerSendableModel {
         int res = 0;
         
         for(ReputationVoteSendableModel reputationVote : _reputation) {
-            res += reputationVote.isUpVote() ? 1 : -1;
+            res += reputationVote.getIsUpVote() ? 1 : -1;
         }
         
         return res;
@@ -101,8 +101,9 @@ public class MarkerModel extends MarkerSendableModel {
      * @param isUpVote True if it's an up vote
      */
     public void addVote(String username, boolean isUpVote) {
-        _reputation.add(new ReputationVoteSendableModel(username, isUpVote));
-        _serverQuery.updateMarkerReputation(this);
+        ReputationVoteSendableModel reputation = new ReputationVoteSendableModel(username, isUpVote, _databaseId);
+        _reputation.add(reputation);
+        _serverQuery.updateMarkerReputation(reputation);
     }
     
     // TODO Check to call Super
@@ -144,6 +145,21 @@ public class MarkerModel extends MarkerSendableModel {
     
     public int geMarkerLife() {
         return _lifePoints;
+    }
+    
+    /**
+     * Get the reputation vote that a specific user have set to this marker
+     * 
+     * @param username the specific user
+     * @return the ReputationVote or null if not exist
+     */
+    public ReputationVoteSendableModel getReputationVote(String username) {
+        for(ReputationVoteSendableModel vote : _reputation) {
+            if(vote.getUsername().equals(username)) {
+                return vote;
+            }
+        }
+        return null;
     }
     
     public void update(PokemonModel pokemon, int lifePoints, int attack, int defense,

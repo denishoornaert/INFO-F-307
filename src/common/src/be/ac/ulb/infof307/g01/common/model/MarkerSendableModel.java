@@ -97,6 +97,9 @@ public class MarkerSendableModel {
         _coordinate = other._coordinate;
         _longTimestamp = other._longTimestamp;
         _reputation = other._reputation;
+        if(_reputation == null) {
+            _reputation = new ArrayList<>();
+        }
         _lifePoints = other._lifePoints;
         _attack = other._attack;
         _defense = other._defense;
@@ -191,7 +194,7 @@ public class MarkerSendableModel {
     public int getUpVotes() {
         int reputation = 0;
         for(ReputationVoteSendableModel reputationVote : _reputation) {
-            if(reputationVote.isUpVote()) {
+            if(reputationVote.getIsUpVote()) {
                 ++reputation;
             }
         }
@@ -202,7 +205,7 @@ public class MarkerSendableModel {
     public int getDownVotes() {
         int reputation = 0;
         for(ReputationVoteSendableModel reputationVote : _reputation) {
-            if(!reputationVote.isUpVote()) {
+            if(!reputationVote.getIsUpVote()) {
                 ++reputation;
             }
         }

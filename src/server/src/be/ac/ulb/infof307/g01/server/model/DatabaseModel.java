@@ -382,7 +382,7 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
     private ArrayList<ReputationVoteSendableModel> getMarkerVotes(int markerId) {
         ArrayList<ReputationVoteSendableModel> res = new ArrayList<ReputationVoteSendableModel>();
         String query = "SELECT U.Username AS Username, V.IsUp AS IsUp FROM MarkerVote V "
-                + "JOIN User U ON User.Id = V.UserId "
+                + "JOIN User U ON U.Id = V.UserId "
                 + "WHERE V.MarkerId=?;";
         
         try {
@@ -394,7 +394,7 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
             while(resultSet.next()) {
                 String username = resultSet.getString("Username");
                 boolean isUp = resultSet.getBoolean("IsUp");
-                res.add(new ReputationVoteSendableModel(username, isUp));
+                res.add(new ReputationVoteSendableModel(username, isUp, markerId));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseModel.class.getName()).log(Level.SEVERE, null, ex);
@@ -403,23 +403,20 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
         return res;
     }
 
-    @Override
     /**
-     * Update in the database the reputation of the given marker.
-     * This function is usually called after a vote has been done by a user.
-     * This function does not take a vote in parameter, as the marker already
-     * know its new reputation value, it would be dumb to compute it again here.
+     * TODO description
      *
-     * @param marker The marker that need to be updated in the database.
+     * @param reputationVote 
      */
-    public void updateMarkerReputation(MarkerSendableModel marker) {
-        String query = "REPLACE INTO MarkerVote (UserId, MarkerId, IsUP) VALUES(?, ?,  ?);";
-        // TODO Deto: pas les bonne informations !  Il faut avoir le nom ou id de la personne !
+    @Override
+    public void updateMarkerReputation(ReputationVoteSendableModel reputationVote) {
+        String query = "REPLACE INTO MarkerVote (UserId, MarkerId, IsUP) "
+                + "VALUES((SELECT User.Id FROM User WHERE User.Username = ?), ?,  ?);";
         try {
             PreparedStatement statement = _connection.prepareStatement(query);
-            statement.setInt(1, marker.getUpVotes());
-            statement.setInt(2, marker.getDownVotes());
-            statement.setInt(3, marker.getDatabaseId());
+            statement.setString(1, reputationVote.getUsername());
+            statement.setInt(2, reputationVote.getMarkerId());
+            statement.setInt(3, reputationVote.getIsUpVote() ? 1 : 0);
             statement.execute();
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseModel.class.getName()).log(Level.SEVERE, null, ex);

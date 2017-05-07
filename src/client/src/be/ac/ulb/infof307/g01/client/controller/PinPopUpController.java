@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import be.ac.ulb.infof307.g01.common.model.CoordinateSendableModel;
 import be.ac.ulb.infof307.g01.client.model.MarkerModel;
 import be.ac.ulb.infof307.g01.client.view.PinPopUp;
+import be.ac.ulb.infof307.g01.common.model.ReputationVoteSendableModel;
 
 /**
  * 
@@ -20,6 +21,22 @@ public class PinPopUpController {
         _pinPopUp = new PinPopUp(this);
         _pinPopUp.setPokemonView(_marker.getImagePath());
         updateVoteView();
+        
+        String username = UserController.getInstance().getUsername();
+        if(username.isEmpty()) {
+            _pinPopUp.disableDownVoteButton();
+            
+        } else {
+            ReputationVoteSendableModel reputationVote = _marker.getReputationVote(
+                username);
+            if(reputationVote != null) {
+                if(reputationVote.getIsUpVote()) {
+                    _pinPopUp.disableUpVoteButton();
+                } else {
+                    _pinPopUp.disableDownVoteButton();
+                }
+            }
+        }
     }
     
     public CoordinateSendableModel getCoordinates() {
@@ -57,13 +74,13 @@ public class PinPopUpController {
 
     public void addDownVote() {
         _marker.addVote(UserController.getInstance().getUsername(), false);
-        _pinPopUp.disableVoteButtons();
+        _pinPopUp.disableDownVoteButton();
         updateVoteView();
     }
 
     public void addUpVote() {
         _marker.addVote(UserController.getInstance().getUsername(), true);
-        _pinPopUp.disableVoteButtons();
+        _pinPopUp.disableUpVoteButton();
         updateVoteView();
     }
     
