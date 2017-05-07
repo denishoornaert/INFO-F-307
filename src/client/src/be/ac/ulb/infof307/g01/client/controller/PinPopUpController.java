@@ -24,7 +24,7 @@ public class PinPopUpController extends InformationPopUpController {
         
         String username = UserController.getInstance().getUsername();
         if(username.isEmpty()) {
-            _pinPopUp.disableDownVoteButton();
+            _pinPopUp.disableVoteButtons();
             
         } else {
             ReputationVoteSendableModel reputationVote = _marker.getReputationVote(

@@ -55,6 +55,7 @@ public class Main extends Application {
     }
     
     public static void openInBrowser(String link) {
+        // TODO check if no default browser
         _instance.getHostServices().showDocument(link);
     }
     
