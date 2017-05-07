@@ -32,7 +32,7 @@ public class Main extends Application {
         setApplicationTitle();
         setApplicationIcons();
         _stage.setScene(_scene);
-        _scene.getStylesheets().add(ClientConfiguration.getInstance().getStylePath());
+        _scene.getStylesheets().add(ClientConfiguration.getInstance().getStyleFileName());
     }
 
     /**
@@ -49,7 +49,7 @@ public class Main extends Application {
     private static void setApplicationIcons() {
         ArrayList<String> iconsPaths = ClientConfiguration.getInstance().getApplicationIconsPaths();
         for (String path : iconsPaths) {
-            _stage.getIcons().add(new Image("file:" + path));
+            _stage.getIcons().add(new Image(path));
         }
     }
     

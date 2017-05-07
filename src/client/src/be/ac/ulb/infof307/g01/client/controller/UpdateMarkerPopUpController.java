@@ -17,7 +17,8 @@ public class UpdateMarkerPopUpController extends AbstractMarkerPopUpController {
         super(markerController, markerId);
         _markerId = markerId;
         _markerPopUp = new UpdateMarkerPopUp(this, PokemonCache.getInstance().getAllPokemonNames(), markerId);
-        _markerPopUp.setPokemonView(_marker.getImagePath());
+        String imagePath = _marker.getImagePath();
+        _markerPopUp.setPokemonView(imagePath);
     }
     
     @Override

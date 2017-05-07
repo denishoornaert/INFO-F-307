@@ -77,6 +77,7 @@ public class MarkerModel extends MarkerSendableModel {
     public MarkerModel(MarkerSendableModel marker) {
         super(marker);
         _serverQuery = (MarkerQueryController) ServerQueryController.getInstance();
+        _pokemon = new PokemonModel(_pokemon);
     }
     
     /**
@@ -138,7 +139,7 @@ public class MarkerModel extends MarkerSendableModel {
     }
     
     public String getImagePath() {
-        return _pokemon.getImagePath();
+        return ((PokemonModel) _pokemon).getImagePath();
     }
     
     public int getMarkerAttack() {
