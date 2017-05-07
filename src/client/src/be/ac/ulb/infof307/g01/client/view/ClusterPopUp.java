@@ -23,7 +23,7 @@ public class ClusterPopUp extends PopUp {
     private Button _closeButton;
     
     public ClusterPopUp(ClusterPopUpController controller) {
-        super();
+        super(controller);
         initWidgets();
         placeWidgets();
         setStyle();

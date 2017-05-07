@@ -20,15 +20,11 @@ public class SignupPopUpController extends AbstractPopUpController {
     public void submit(String email, String user, String password, boolean terms) {
         try {
             UserController.getInstance().register(email, user, password, terms);
-            cancel();
+            close(_signup);
         } catch(IllegalArgumentException error) {
             Logger.getLogger(getClass().getName()).log(Level.INFO, error.getMessage());
             _signup.showError(error.getMessage());
         }
-    }
-    
-    public void cancel() {
-        _signup.close();
     }
 
     public void openTermsAndconditionPopUp() {

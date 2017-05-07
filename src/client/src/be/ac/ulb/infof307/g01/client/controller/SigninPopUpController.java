@@ -30,7 +30,7 @@ public class SigninPopUpController extends AbstractPopUpController {
     public void authenticate(String username, String password) {
         try {
             UserController.getInstance().authenticate(username, password);
-            cancel();
+            close(_signinPopUp);
         } catch(IllegalArgumentException error) {
             Logger.getLogger(getClass().getName()).log(Level.INFO, 
                     "Signin message: {0}", error.getMessage());
@@ -38,10 +38,4 @@ public class SigninPopUpController extends AbstractPopUpController {
         }
     }
 
-    /**
-     * Close popup
-     */
-    public void cancel() {
-        _signinPopUp.close();
-    }
 }
