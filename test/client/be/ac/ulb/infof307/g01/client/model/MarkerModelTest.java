@@ -17,8 +17,6 @@ public class MarkerModelTest {
     private static final int LIFE_POINT = 10;
     private static final int DEFENSE = 3;
     private static final int ATTACK = 8;
-    private static final int VOTE_UP = 0;
-    private static final int VOTE_DOWN = 0;
     private static final Timestamp TIME = new Timestamp(System.currentTimeMillis());
     private static final String USERNAME = "bidon";
     private static final CoordinateSendableModel TEST_COORDINATE = new CoordinateSendableModel(69, 42);
@@ -28,7 +26,7 @@ public class MarkerModelTest {
     @Before
     public void setUp() {
         TEST_MARKER = new MarkerModel(TEST_POKEMON, TEST_COORDINATE, USERNAME, 
-                LIFE_POINT, ATTACK, DEFENSE, TIME, VOTE_UP, VOTE_DOWN, false);
+                LIFE_POINT, ATTACK, DEFENSE, TIME, false);
     }
     
     @Test

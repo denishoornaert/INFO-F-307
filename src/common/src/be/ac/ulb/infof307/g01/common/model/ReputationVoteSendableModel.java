@@ -7,20 +7,59 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public class ReputationVoteSendableModel {
-    private final String _username;
-    private final boolean _isUpVote;
     
-    /** Constructor */
-    public ReputationVoteSendableModel(String username, boolean isUpVote) {
+    private String _username;
+    private boolean _isUpVote;
+    private int _markerId;
+    
+    public ReputationVoteSendableModel() { } // Could not be remove
+    
+    /** Constructor
+     * 
+     * @param username the user
+     * @param isUpVote True if it's a positive vote
+     * @param markerId the id of the pokemon
+     */
+    public ReputationVoteSendableModel(String username, boolean isUpVote, int markerId) {
         _username = username;
         _isUpVote = isUpVote;
+        _markerId = markerId;
     }
     
     public String getUsername() {
         return _username;
     }
-    
-    public boolean isUpVote() {
+
+    /**
+     * @param username the username to set
+     */
+    public void setUsername(String username) {
+        this._username = username;
+    }
+
+    public boolean getIsUpVote() {
         return _isUpVote;
     }
+    
+    /**
+     * @param isUpVote the getIsUpVote to set
+     */
+    public void setIsUpVote(boolean isUpVote) {
+        this._isUpVote = isUpVote;
+    }
+
+    /**
+     * @return the _markerId
+     */
+    public int getMarkerId() {
+        return _markerId;
+    }
+
+    /**
+     * @param markerId the markerId to set
+     */
+    public void setMarkerId(int markerId) {
+        this._markerId = markerId;
+    }
+
 }

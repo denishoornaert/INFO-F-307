@@ -125,8 +125,25 @@ public class PinPopUp extends InformationPopUp {
      * Disable vote buttons when user has voted
      */
     public void disableVoteButtons() {
+        disableUpVoteButton();
+        disableDownVoteButton();
+    }
+    
+    public void enableUpVoteButton() {
+        _upVoteButton.setDisable(false);
+    }
+    
+    public void disableUpVoteButton() {
         _upVoteButton.setDisable(true);
+    }
+    
+    public void enableDownVoteButton() {
+        _downVoteButton.setDisable(false);
+    }
+    
+    public void disableDownVoteButton() {
         _downVoteButton.setDisable(true);
     }
+    
     
 }

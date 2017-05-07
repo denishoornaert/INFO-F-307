@@ -18,7 +18,7 @@ public class InformationPopUpController extends AbstractPopUpController {
         _marker = marker;
     }
     
-    public InformationPopUpController(MarkerController controller, int markerid) {
+    public InformationPopUpController(MarkerController controller, int markerid) throws InstantiationException {
         _markerController = controller;
         _marker = controller.getMarkerModelFromId(markerid);
     }
