@@ -80,7 +80,6 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
             _logger.log(Level.SEVERE, "Could not create Database: " + exception);
             System.exit(1);
         }
-        _instance = this;
     }
 
     /**
