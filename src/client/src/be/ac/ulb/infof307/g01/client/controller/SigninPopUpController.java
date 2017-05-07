@@ -11,12 +11,14 @@ import java.util.logging.Logger;
 public class SigninPopUpController {
     
 	private final SigninPopUp _signinPopUp;
+        private final PanelController _panelController;
 	
 	/** 
 	 *  Make the constructor private, as this class is a singleton.
 	 */
-	public SigninPopUpController() {
+	public SigninPopUpController(PanelController panel) {
             _signinPopUp = new SigninPopUp(this);
+            _panelController = panel;
 	}
 	
 	/**
@@ -28,6 +30,7 @@ public class SigninPopUpController {
 	public void authenticate(String username, String password) {
             try {
                 UserController.getInstance().authenticate(username, password);
+                _panelController.setUser();
                 cancel();
             } catch(IllegalArgumentException error) {
                 Logger.getLogger(getClass().getName()).log(Level.INFO, 

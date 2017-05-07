@@ -42,6 +42,7 @@ public class UserController {
             _user = temporaryProfil;
             Logger.getLogger(getClass().getName()).log(Level.INFO, 
                     "User {0} is login !", username);
+            
         }
     }
     

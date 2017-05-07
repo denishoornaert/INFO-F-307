@@ -15,19 +15,16 @@ public class PanelController {
     }
     
     public void setUser() {
-        // TODO : add user to the panel
         String username = UserController.getInstance().getUsername();
         String email = UserController.getInstance().getEmail();
         _panelView.setUser(username,email);
     }
     
     public void openSignin() {
-        // Create Sign In controller
-        new SigninPopUpController();
+        new SigninPopUpController(this);
     }
     
     public void openSignUp() {
-        // Create Sign Up controller
         new SignupPopUpController();
     }
     
