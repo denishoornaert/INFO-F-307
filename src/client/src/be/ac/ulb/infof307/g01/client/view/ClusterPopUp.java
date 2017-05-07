@@ -7,6 +7,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
@@ -22,7 +23,7 @@ public class ClusterPopUp extends PopUp {
     private Button _closeButton;
     
     public ClusterPopUp(ClusterPopUpController controller) {
-        super();
+        super(controller);
         initWidgets();
         placeWidgets();
         setStyle();
@@ -60,6 +61,8 @@ public class ClusterPopUp extends PopUp {
     private void setStyle() {
         _bottomBox.setAlignment(Pos.CENTER);
         _bottomBox.setSpacing(10);
+        VBox.setVgrow(_mainBox, Priority.ALWAYS);
+        _mainBox.setMaxWidth(Double.MAX_VALUE);
         super.setSize(350, 350);
     }
     

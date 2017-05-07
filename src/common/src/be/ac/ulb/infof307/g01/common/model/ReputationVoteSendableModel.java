@@ -61,4 +61,5 @@ public class ReputationVoteSendableModel {
     public void setMarkerId(int markerId) {
         this._markerId = markerId;
     }
+
 }

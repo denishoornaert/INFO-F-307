@@ -33,7 +33,7 @@ public abstract class InformationPopUp extends PopUp {
     protected final MarkerModel _markerModel;
     
     public InformationPopUp(InformationPopUpController controller, int markerId) {
-        super();
+        super(controller);
         _controller = controller;
         _markerModel = _controller.getMarker();
         initWidgets();

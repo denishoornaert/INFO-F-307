@@ -1,8 +1,6 @@
 package be.ac.ulb.infof307.g01.client.view;
 
 import be.ac.ulb.infof307.g01.client.controller.SignupPopUpController;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -42,7 +40,7 @@ public class SignupPopUp extends PopUp {
     private Label _remarks;
     
     public SignupPopUp (SignupPopUpController controller) {
-        super();
+        super(controller);
         _controller = controller;
         initWidgets();
         placeWidgets();
@@ -58,8 +56,6 @@ public class SignupPopUp extends PopUp {
         _emailLabel = new Label("Email :");
         _termsAndConditionLabel = new Hyperlink("I accept the terms and conditions.");
         _passwordLabel = new Label("Password : ");
-        _submit = new Button("Submit");
-        _cancel = new Button("Cancel");
         _termsAndConditionBox = new CheckBox();
         _username = new TextField();
         _email = new TextField();
@@ -92,14 +88,11 @@ public class SignupPopUp extends PopUp {
     }
     
     private void initCancelButton() {
-        _cancel.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent t) {
-                _controller.cancel();
-            }
-        });
+        _cancel = getCloseButton("Cancel", "danger");
     }
     
     private void initSubmitButton() {
+        _submit = new Button("Submit");
         _submit.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent t) {
                 final String username = _username.getText();

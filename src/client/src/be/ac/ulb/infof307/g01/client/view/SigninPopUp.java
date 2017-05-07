@@ -1,14 +1,10 @@
 package be.ac.ulb.infof307.g01.client.view;
 
 import be.ac.ulb.infof307.g01.client.controller.SigninPopUpController;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
@@ -38,7 +34,7 @@ public class SigninPopUp extends PopUp {
     
 
     public SigninPopUp(SigninPopUpController controller) {
-        super();
+        super(controller);
 	_controller = controller;
         initWidgets();
         placeWidgets();
@@ -90,12 +86,7 @@ public class SigninPopUp extends PopUp {
     }
     
     private void initCancelButton() {
-        _cancel = new Button("Cancel");
-        _cancel.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent t) {
-            	_controller.cancel();
-            }
-        });
+        _cancel = getCloseButton("cancel", "danger");
     }
     
     public void showError(String msg) {
