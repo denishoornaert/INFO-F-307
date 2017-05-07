@@ -2,6 +2,10 @@ package be.ac.ulb.infof307.g01.client.controller;
 
 import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
 import be.ac.ulb.infof307.g01.client.model.MarkerModel;
+import be.ac.ulb.infof307.g01.common.controller.ConnectionQueryController;
+import be.ac.ulb.infof307.g01.common.controller.MarkerQueryController;
+import be.ac.ulb.infof307.g01.common.controller.PokemonQueryController;
+import be.ac.ulb.infof307.g01.common.controller.PokemonTypeQueryController;
 import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
@@ -18,10 +22,6 @@ import java.util.Queue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ws.rs.core.MediaType;
-import be.ac.ulb.infof307.g01.common.controller.ConnectionQueryController;
-import be.ac.ulb.infof307.g01.common.controller.MarkerQueryController;
-import be.ac.ulb.infof307.g01.common.controller.PokemonQueryController;
-import be.ac.ulb.infof307.g01.common.controller.PokemonTypeQueryController;
 
 /**
  * Connect to server and handles client queries
@@ -70,8 +70,22 @@ public class ServerQueryController implements MarkerQueryController, PokemonQuer
      * Call this function when the user logs in. It tries to send all
      * bufferised POST queries.
      */
-    private void onUserLogin() {
+    private void onUserLogin(String username) {
         for(PostQuery query : _visitorPostQueriesQueue) {
+            // We have to check if the object to post is a marker added by a
+            // visitor (the username is null in this case). If so, we have to
+            // set the marker's username to the username of the freshly
+            // connected user
+            final Object objectToPost = query.getPostObject();
+            // If we send a marker
+            if(objectToPost instanceof MarkerSendableModel || objectToPost instanceof MarkerModel) {
+                MarkerSendableModel markerToPost = (MarkerSendableModel) objectToPost;
+                // If the marker was added by the visitor
+                if(markerToPost.getUsername().isEmpty()) {
+                    // Set the username of the marker
+                    markerToPost.setUsername(username);
+                }
+            }
             sendPostQuery(query, false);
         }
     }
@@ -137,7 +151,7 @@ public class ServerQueryController implements MarkerQueryController, PokemonQuer
             Logger.getLogger(getClass().getName()).log(Level.WARNING, "Could not sign in");
             result = false;
         } else {
-            onUserLogin();
+            onUserLogin(user.getUsername());
         }
         return result;
     }
