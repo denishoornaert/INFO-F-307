@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package be.ac.ulb.infof307.g01.client.controller;
 
 import be.ac.ulb.infof307.g01.client.Main;
@@ -12,13 +7,14 @@ import be.ac.ulb.infof307.g01.client.model.MarkerModel;
  *
  * @author Groupe01
  */
-public class InformationPopUpController {
+public class InformationPopUpController extends AbstractPopUpController {
     
     protected MarkerController _markerController;
     protected MarkerModel _marker;
     protected static int DEFAULT_MARKER_ID = 0;
     
-    public InformationPopUpController(MarkerModel marker) {
+    public InformationPopUpController(MarkerModel marker) throws InstantiationException {
+        super();
         _marker = marker;
     }
     
@@ -35,5 +31,5 @@ public class InformationPopUpController {
         String link = _marker.getTwitterLink();
         Main.openInBrowser(link);
     }
-       
+
 }

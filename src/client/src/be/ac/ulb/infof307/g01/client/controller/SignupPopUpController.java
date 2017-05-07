@@ -8,11 +8,12 @@ import java.util.logging.Logger;
  * Singleton class managing the authentication of the user,
  * and storing its user name.
  */
-public class SignupPopUpController {
+public class SignupPopUpController extends AbstractPopUpController {
     
     private final SignupPopUp _signup;
 	
-    public SignupPopUpController() {
+    public SignupPopUpController() throws InstantiationException {
+        super();
         _signup = new SignupPopUp(this);
     }
     
@@ -31,6 +32,10 @@ public class SignupPopUpController {
     }
 
     public void openTermsAndconditionPopUp() {
-        new TermsAndConditionsPopUpController();
+        try {
+            new TermsAndConditionsPopUpController();
+        } catch (InstantiationException ex) {
+            Logger.getLogger(SignupPopUpController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

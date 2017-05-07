@@ -16,7 +16,7 @@ public class NewMarkerPopUpController extends AbstractMarkerPopUpController {
     
     protected CoordinateSendableModel _newMarkerCoordinate;
     
-    public NewMarkerPopUpController(MarkerController markerController, double coordinateX, double coordinateY) {
+    public NewMarkerPopUpController(MarkerController markerController, double coordinateX, double coordinateY) throws InstantiationException {
         super(markerController);
         _markerPopUp = new NewMarkerPopUp(this, PokemonCache.getInstance().getAllPokemonNames());
         _markerPopUp.setPokemonView(_defaultImagePath);

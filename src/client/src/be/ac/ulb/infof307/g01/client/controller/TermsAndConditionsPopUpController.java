@@ -17,11 +17,12 @@ import java.util.logging.Logger;
  *
  * @author hoornaert
  */
-public class TermsAndConditionsPopUpController {
+public class TermsAndConditionsPopUpController extends AbstractPopUpController {
 
     TermsAndConditionsPopUp _popUp;
     
-    public TermsAndConditionsPopUpController() {
+    public TermsAndConditionsPopUpController() throws InstantiationException {
+        super();
         _popUp = new TermsAndConditionsPopUp(this);
         _popUp.setText(getText());
     }
@@ -49,5 +50,10 @@ public class TermsAndConditionsPopUpController {
             }
         }
         return res;
+    }
+    
+    @Override
+    protected boolean acceptMultiplePopUps() {
+        return true;
     }
 }

@@ -6,18 +6,19 @@ import be.ac.ulb.infof307.g01.client.view.ClusterPopUp;
 import java.util.ArrayList;
 
 /**
- * Simple popUp that shows the differents pokemon contained in a cluster of pokemons.
+ * Simple popUp that shows the different pokemons contained in a cluster of pokemons.
  * This pop-up is displayed when the user click on a cluster displayed on the MapView.
  * 
  * @author Groupe01
  */
-public class ClusterPopUpController {
+public class ClusterPopUpController extends AbstractPopUpController {
     
     private final ClusterPopUp _view;
     private final MarkerController _markerController;
     private ArrayList<PokemonModel> _pokemonList;
     
-    public ClusterPopUpController(MarkerController controller, ArrayList<Integer> markersIds) {
+    public ClusterPopUpController(MarkerController controller, ArrayList<Integer> markersIds) throws InstantiationException {
+        super();
         _view = new ClusterPopUp(this);
         _markerController = controller;
         initPokemonList(markersIds);
