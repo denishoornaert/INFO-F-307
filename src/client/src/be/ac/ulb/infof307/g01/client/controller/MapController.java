@@ -3,8 +3,8 @@ package be.ac.ulb.infof307.g01.client.controller;
 import be.ac.ulb.infof307.g01.client.model.MarkerModel;
 import be.ac.ulb.infof307.g01.client.view.MapView;
 import java.util.ArrayList;
-import be.ac.ulb.infof307.g01.common.model.MarkerQueryModel;
 import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
+import be.ac.ulb.infof307.g01.common.controller.MarkerQueryController;
 
 /** Controller of the map. This class is responsible of creating markers at
  * startup and when the user adds one. For that, it holds an instance of
@@ -15,14 +15,14 @@ import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
 public class MapController {
     private final MarkerController _markerController;
     private final MapView _mapView;
-    private final MarkerQueryModel _query;
+    private final MarkerQueryController _query;
     
     /** Instance of the current popup. Is equal to null if no popup is open,
      *  and is set to null when the popup is closed.
      */
     
     public MapController() {
-        _query = (MarkerQueryModel) ServerQueryController.getInstance();
+        _query = (MarkerQueryController) ServerQueryController.getInstance();
         _mapView = new MapView(this);
         _markerController = new MarkerController(_mapView);
         initMarkers(); //display the existing markers from the db

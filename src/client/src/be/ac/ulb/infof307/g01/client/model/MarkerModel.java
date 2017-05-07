@@ -3,17 +3,17 @@ package be.ac.ulb.infof307.g01.client.model;
 import be.ac.ulb.infof307.g01.common.model.ReputationVoteSendableModel;
 import be.ac.ulb.infof307.g01.client.controller.ServerQueryController;
 import be.ac.ulb.infof307.g01.common.model.CoordinateSendableModel;
-import be.ac.ulb.infof307.g01.common.model.MarkerQueryModel;
 import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
 import java.sql.Timestamp;
+import be.ac.ulb.infof307.g01.common.controller.MarkerQueryController;
 
 /** Model of a marker. A marker contains the location of a spotted pokemon,
  * the pokemon, the timestamp of the spot, etc...
  */
 public class MarkerModel extends MarkerSendableModel {
     
-    private MarkerQueryModel _serverQuery;
+    private MarkerQueryController _serverQuery;
     
     /**
      * Create a marker pokemon (call from gui)
@@ -75,13 +75,13 @@ public class MarkerModel extends MarkerSendableModel {
         super(databaseId, username, pokemon, coordinate, timestamp.getTime(),
                 new ReputationScoreModel(upVotes, downVotes), lifePoint, attack, defense);
         if(loadDatabase) {
-            _serverQuery = (MarkerQueryModel) ServerQueryController.getInstance();
+            _serverQuery = (MarkerQueryController) ServerQueryController.getInstance();
         }
     }
     
     public MarkerModel(MarkerSendableModel marker) {
         super(marker);
-        _serverQuery = (MarkerQueryModel) ServerQueryController.getInstance();
+        _serverQuery = (MarkerQueryController) ServerQueryController.getInstance();
     }
     
     public int getReputationScore() {

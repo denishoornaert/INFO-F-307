@@ -1,10 +1,7 @@
 package be.ac.ulb.infof307.g01.server.model;
 
-import be.ac.ulb.infof307.g01.common.model.MarkerQueryModel;
 import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
-import be.ac.ulb.infof307.g01.common.model.PokemonQueryModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
-import be.ac.ulb.infof307.g01.common.model.PokemonTypeQueryModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
 import be.ac.ulb.infof307.g01.common.model.UserSendableModel;
 import be.ac.ulb.infof307.g01.server.ServerConfiguration;
@@ -26,6 +23,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import be.ac.ulb.infof307.g01.common.controller.MarkerQueryController;
+import be.ac.ulb.infof307.g01.common.controller.PokemonQueryController;
+import be.ac.ulb.infof307.g01.common.controller.PokemonTypeQueryController;
 
 /** Class that interacts with the database.
  * This class implements all queries needed in the application. It is not
@@ -40,8 +40,8 @@ import java.util.logging.Logger;
  * // Now database allows to call only queries related to pokemon types.
  * }
  */
-public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
-        MarkerQueryModel {
+public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryController,
+        MarkerQueryController {
 
     private static DatabaseModel _instance = null;
     private static final Logger _logger = Logger.getLogger(DatabaseModel.class.getName());

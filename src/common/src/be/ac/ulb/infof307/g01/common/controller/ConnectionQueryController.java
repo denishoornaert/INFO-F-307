@@ -3,13 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package be.ac.ulb.infof307.g01.common.model;
+package be.ac.ulb.infof307.g01.common.controller;
+
+import be.ac.ulb.infof307.g01.common.model.UserSendableModel;
 
 /**
  *
  * @author Groupe01
  */
-public interface ConnectionQueryModel {
+public interface ConnectionQueryController {
 
     public boolean signin(UserSendableModel userSendableModel);
     public boolean signup(UserSendableModel userSendableModel);

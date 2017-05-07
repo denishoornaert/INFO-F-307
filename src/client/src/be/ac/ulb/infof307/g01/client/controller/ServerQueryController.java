@@ -2,12 +2,8 @@ package be.ac.ulb.infof307.g01.client.controller;
 
 import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
 import be.ac.ulb.infof307.g01.client.model.MarkerModel;
-import be.ac.ulb.infof307.g01.common.model.ConnectionQueryModel;
 import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
-import be.ac.ulb.infof307.g01.common.model.MarkerQueryModel;
-import be.ac.ulb.infof307.g01.common.model.PokemonQueryModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
-import be.ac.ulb.infof307.g01.common.model.PokemonTypeQueryModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
 import be.ac.ulb.infof307.g01.common.model.UserSendableModel;
 import com.sun.jersey.api.client.Client;
@@ -22,12 +18,16 @@ import java.util.Queue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ws.rs.core.MediaType;
+import be.ac.ulb.infof307.g01.common.controller.ConnectionQueryController;
+import be.ac.ulb.infof307.g01.common.controller.MarkerQueryController;
+import be.ac.ulb.infof307.g01.common.controller.PokemonQueryController;
+import be.ac.ulb.infof307.g01.common.controller.PokemonTypeQueryController;
 
 /**
  * Connect to server and handles client queries
  */
-public class ServerQueryController implements MarkerQueryModel, PokemonQueryModel, 
-        PokemonTypeQueryModel, ConnectionQueryModel {
+public class ServerQueryController implements MarkerQueryController, PokemonQueryController, 
+        PokemonTypeQueryController, ConnectionQueryController {
     
     /**
      * All post queries a visitor try to send are stored here.

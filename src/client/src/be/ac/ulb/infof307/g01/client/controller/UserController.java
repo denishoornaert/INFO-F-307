@@ -1,9 +1,9 @@
 package be.ac.ulb.infof307.g01.client.controller;
 
-import be.ac.ulb.infof307.g01.common.model.ConnectionQueryModel;
 import be.ac.ulb.infof307.g01.common.model.UserSendableModel;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import be.ac.ulb.infof307.g01.common.controller.ConnectionQueryController;
 
 /**
  *
@@ -13,11 +13,11 @@ public class UserController {
     
     private static UserController _instance = null;
     private UserSendableModel _user;
-    private final ConnectionQueryModel _connection;
+    private final ConnectionQueryController _connection;
     private boolean _isConnected = false;
     
     private UserController() {
-        _connection = (ConnectionQueryModel) ServerQueryController.getInstance();
+        _connection = (ConnectionQueryController) ServerQueryController.getInstance();
         // The following line is normal (DO NOT TOUCH ! I'm talking to you @theo :p)
         // This is normale because due to Jersey we can't modify the trivial
         // constructor and therefore we need to write this wierd instruction.
