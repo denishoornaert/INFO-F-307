@@ -78,7 +78,7 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
             connectToSqlite(pathToDatabase);
             if(justCreated) {
                 _logger.log(Level.INFO, "Created Database");
-                createAllTables(pathToDatabase);
+                fillDatabase();
             }
         } catch(IOException | SQLException ex) {
             _logger.log(Level.SEVERE, null, ex);
@@ -128,8 +128,8 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
      * 
      * @return the file content
      */
-    private String[] getContentSqlFile() throws FileNotFoundException, IOException {
-        Path sqlPath = Paths.get(ServerConfiguration.getInstance().getSqlPath());
+    private String[] getSQLQueriesFromFile(String filePath) throws FileNotFoundException, IOException {
+        Path sqlPath = Paths.get(filePath);
         List<String> lines = Files.readAllLines(sqlPath);
         String query = "";
         for(String line : lines) {
@@ -139,10 +139,10 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
         return query.split(";");
     }
     
-    private void createAllTables(String pathToDatabase) {
-        String pathToSqlFile = pathToDatabase.substring(0, pathToDatabase.lastIndexOf('.'));
+    private void fillDatabase() {
+        String pathToSqlFile = CONFIG.getSqlPath();
         try {
-            String[] content = getContentSqlFile();
+            String[] content = getSQLQueriesFromFile(pathToSqlFile);
             for(String query : content) {
                 try {
                     executeQuery(query);
