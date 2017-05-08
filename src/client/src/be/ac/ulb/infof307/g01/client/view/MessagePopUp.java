@@ -1,6 +1,6 @@
 package be.ac.ulb.infof307.g01.client.view;
 
-import be.ac.ulb.infof307.g01.client.controller.MessagePopupController;
+import be.ac.ulb.infof307.g01.client.controller.MessagePopUpController;
 import java.util.logging.Level;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,7 +12,7 @@ public class MessagePopUp extends PopUp {
     private final Button _closeButton;
     private final VBox _vbox;
 
-    public MessagePopUp(MessagePopupController controller, Level severity, String message) {
+    public MessagePopUp(MessagePopUpController controller, Level severity, String message) {
         super(controller);
         _message = new Label(message);
         _vbox = new VBox();

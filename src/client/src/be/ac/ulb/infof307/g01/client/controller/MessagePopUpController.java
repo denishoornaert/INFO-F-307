@@ -4,10 +4,11 @@ import be.ac.ulb.infof307.g01.client.view.MessagePopUp;
 import java.util.logging.Level;
 
 
-public class MessagePopupController extends AbstractPopUpController {
+public class MessagePopUpController extends AbstractPopUpController {
     
-    public MessagePopupController(Level severity, String message) throws InstantiationException {
+    public MessagePopUpController(Level severity, String message) throws InstantiationException {
         super();
+        // We don't use the view afterwards, just instanciate it.
         new MessagePopUp(this, severity, message);
     }
     
