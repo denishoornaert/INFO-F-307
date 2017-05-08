@@ -2,11 +2,9 @@ package be.ac.ulb.infof307.g01.client.controller;
 
 import be.ac.ulb.infof307.g01.client.model.MarkerModel;
 import be.ac.ulb.infof307.g01.client.view.MapView;
-import java.util.ArrayList;
-import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import be.ac.ulb.infof307.g01.common.controller.MarkerQueryController;
+import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
+import java.util.ArrayList;
 
 /** Controller of the map. This class is responsible of creating markers at
  * startup and when the user adds one. For that, it holds an instance of
@@ -44,7 +42,9 @@ public class MapController {
         try {
             new NewMarkerPopUpController(_markerController, latitude, longitude);
         } catch (InstantiationException ex) {
-            Logger.getLogger(MapController.class.getName()).log(Level.SEVERE, null, ex);
+            // This may occur if the user try to open another popup and if there
+            // is already one openened. We just refuse politely (silently) to
+            // open this one
         }
     }
     
@@ -57,7 +57,9 @@ public class MapController {
                 new PinPopUpController(marker);
             }
         } catch (InstantiationException ex) {
-            Logger.getLogger(MapController.class.getName()).log(Level.WARNING, ex.getMessage());
+            // This may occur if the user try to open another popup and if there
+            // is already one openened. We just refuse politely (silently) to
+            // open this one
         }
     }
     
@@ -65,7 +67,9 @@ public class MapController {
         try {
             new ClusterPopUpController(_markerController, markersIds);
         } catch (InstantiationException ex) {
-            Logger.getLogger(MapController.class.getName()).log(Level.SEVERE, null, ex);
+            // This may occur if the user try to open another popup and if there
+            // is already one openened. We just refuse politely (silently) to
+            // open this one
         }
     }
     
