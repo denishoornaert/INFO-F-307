@@ -33,6 +33,9 @@ public class WindowController {
     private void displayWidgets() {
         _window.placeWidget(_mapController.getView());
         _window.placeButton();
+        // A button click simulation is required as it seems that some css
+        // problems occur when both the google map and the css are
+        // simultaneously loaded
         _window.simulateCLick();
     }
     
