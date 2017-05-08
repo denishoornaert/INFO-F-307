@@ -2,6 +2,7 @@ package be.ac.ulb.infof307.g01.client.controller;
 
 import be.ac.ulb.infof307.g01.client.view.Window;
 import be.ac.ulb.infof307.g01.client.Main;
+import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
 import javafx.scene.layout.BorderPane;
 
 /**
@@ -19,6 +20,7 @@ public class WindowController {
     public WindowController() {
         initControllers();
         _window = new Window(this, new BorderPane());
+        _window.getStylesheets().add(ClientConfiguration.getInstance().getStylePath());
         displayWidgets();
         Main.setScene(_window);
     }

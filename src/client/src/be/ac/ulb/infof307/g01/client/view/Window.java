@@ -1,9 +1,9 @@
 package be.ac.ulb.infof307.g01.client.view;
 
 import be.ac.ulb.infof307.g01.client.controller.WindowController;
+import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

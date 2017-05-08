@@ -32,7 +32,6 @@ public class Main extends Application {
         setApplicationTitle();
         setApplicationIcons();
         _stage.setScene(_scene);
-        _scene.getStylesheets().add(ClientConfiguration.getInstance().getStylePath());
     }
 
     /**
