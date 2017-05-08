@@ -20,7 +20,7 @@ public class WindowController {
     public WindowController() {
         initControllers();
         _window = new Window(this, new BorderPane());
-        _window.getStylesheets().add(ClientConfiguration.getInstance().getStylePath());
+        _window.getStylesheets().add(ClientConfiguration.getInstance().getStyleFileName());
         displayWidgets();
         Main.setScene(_window);
     }
@@ -33,6 +33,7 @@ public class WindowController {
     private void displayWidgets() {
         _window.placeWidget(_mapController.getView());
         _window.placeButton();
+        _window.simulateCLick();
     }
     
     public void buttonPressed() {
