@@ -2,6 +2,7 @@ package be.ac.ulb.infof307.g01.client.controller;
 
 import be.ac.ulb.infof307.g01.client.view.Window;
 import be.ac.ulb.infof307.g01.client.Main;
+import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
 import javafx.scene.layout.BorderPane;
 
 /**
@@ -19,6 +20,7 @@ public class WindowController {
     public WindowController() {
         initControllers();
         _window = new Window(this, new BorderPane());
+        _window.getStylesheets().add(ClientConfiguration.getInstance().getStyleFileName());
         displayWidgets();
         Main.setScene(_window);
     }
@@ -31,6 +33,10 @@ public class WindowController {
     private void displayWidgets() {
         _window.placeWidget(_mapController.getView());
         _window.placeButton();
+        // A button click simulation is required as it seems that some css
+        // problems occur when both the google map and the css are
+        // simultaneously loaded
+        _window.simulateCLick();
     }
     
     public void buttonPressed() {
