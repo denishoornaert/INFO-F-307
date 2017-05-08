@@ -108,7 +108,6 @@ public class PokemonCache {
      * @throws RuntimeException if no type with such name has been found.
      */
     public PokemonTypeModel getPokemonTypeByTypeName(String typeName) {
-        System.out.println("Pokemon attraper les tous " + _allPokemonTypes);
         PokemonTypeModel result = _allPokemonTypes.get(typeName);
         if(result == null) {
             throw new RuntimeException("No pokemon type with such name: \"" + typeName + "\"");
