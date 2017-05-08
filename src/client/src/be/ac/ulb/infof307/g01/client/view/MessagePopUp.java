@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 
 public class MessagePopUp extends PopUp {
     private final String _message;
+    private final Level _severity;
     private Label _messageLabel;
     private Button _closeButton;
     private VBox _vbox;
@@ -17,6 +18,7 @@ public class MessagePopUp extends PopUp {
     public MessagePopUp(MessagePopUpController controller, Level severity, String message) {
         super(controller);
         _message = severity.getLocalizedName() + ": " + message;
+        _severity = severity;
         initWidgets();
         placeWidgets();
         setStyle();
@@ -39,6 +41,23 @@ public class MessagePopUp extends PopUp {
     private void setStyle() {
         _vbox.setSpacing(10);
         setSize(250, 50);
+        
+        _closeButton.getStyleClass().remove("danger");
+        // Change the CSS class of the button, according to the severity of the message
+        String  closeButtonCssClass;
+        switch(_severity.toString()) {
+            case "WARNING":
+                closeButtonCssClass = "warning";
+                break;
+            case "ERROR":
+                closeButtonCssClass = "danger";
+                break;
+            case "INFO":
+            default:
+                closeButtonCssClass = "info";
+                
+        }
+        _closeButton.getStyleClass().add(closeButtonCssClass);
     }
     
 }
