@@ -6,7 +6,6 @@ import be.ac.ulb.infof307.g01.common.model.CoordinateSendableModel;
 import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
 import be.ac.ulb.infof307.g01.common.model.ReputationVoteSendableModel;
-import java.security.InvalidParameterException;
 import java.sql.Timestamp;
 
 /** Model of a marker. A marker contains the location of a spotted pokemon,
@@ -30,11 +29,7 @@ public class MarkerModel extends MarkerSendableModel {
     public MarkerModel(PokemonSendableModel pokemon, CoordinateSendableModel coordinate,
             String username, int lifePoint, int attack, int defense, Timestamp date) {
         this(pokemon, coordinate, username, lifePoint, attack, defense, date, true);
-        try {
-            _serverQuery.insertMarker(this);
-        } catch(InvalidParameterException exception) {
-            // Pass if an error occurred, a popup already show the error
-        }
+        _serverQuery.insertMarker(this);
     }
     
     /**
@@ -115,11 +110,7 @@ public class MarkerModel extends MarkerSendableModel {
             }
         }
         _reputation.add(reputation);
-        try {
-            _serverQuery.updateMarkerReputation(reputation);
-        } catch(InvalidParameterException exception) {
-            // The error is already shown in a popup by the server query controller
-        }
+        _serverQuery.updateMarkerReputation(reputation);
     }
     
     // TODO Check to call Super
@@ -185,11 +176,7 @@ public class MarkerModel extends MarkerSendableModel {
         setLifePoints(lifePoints);
         setAttack(attack);
         setDefense(defense);
-        try {
-            _serverQuery.updateMarker(this);
-        } catch(InvalidParameterException exception) {
-            // The error is already shown in a popup by the server query controller
-        }
+        _serverQuery.updateMarker(this);
     }
     
     public MarkerSendableModel getSendable() {

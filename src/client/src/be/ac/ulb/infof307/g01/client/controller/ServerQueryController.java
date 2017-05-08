@@ -28,10 +28,8 @@ import javax.ws.rs.core.MediaType;
 /**
  * Connect to server and handles client queries.
  * This class implements the various interfaces in common.controller. If an
- * error occurs in a request, this class shows a popup explaining the error, and
- * throws a InvalidParameterException.
- * This allows the classes using these methods to know whether an error occured,
- * whithout having themselve to display the error to the user.
+ * error occurs in a request, this class shows a popup explaining the error, or
+ * throws a InvalidParameterException, depending on the nature of the query.
  */
 public class ServerQueryController implements MarkerQueryController, PokemonQueryController, 
         PokemonTypeQueryController, ConnectionQueryController {
@@ -91,7 +89,7 @@ public class ServerQueryController implements MarkerQueryController, PokemonQuer
      * Call this function when the user logs in. It tries to send all
      * bufferised POST queries.
      */
-    private void onUserLogin(String username) throws InvalidParameterException {
+    private void onUserLogin(String username) {
         for(PostQuery query : _visitorPostQueriesQueue) {
             // We have to check if the object to post is a marker added by a
             // visitor (the username is null in this case). If so, we have to
@@ -107,15 +105,15 @@ public class ServerQueryController implements MarkerQueryController, PokemonQuer
                     markerToPost.setUsername(username);
                 }
             }
-            trySendPostQuery(query, false);
+            sendPostQueryWithErrorPopup(query, true);
         }
     }
     
     @Override
-    public void insertMarker(MarkerSendableModel marker) throws InvalidParameterException {
+    public void insertMarker(MarkerSendableModel marker) {
         marker = fixTypeMarkerModelToSendable(marker);
         WebResource resource = _webResource.path("marker").path("insert");
-        trySendPostQuery(new PostQuery(resource, marker, "Could not insert marker"), true);
+        sendPostQueryWithErrorPopup(new PostQuery(resource, marker, "Could not insert marker"), true);
     }
 
     @Override
@@ -127,9 +125,9 @@ public class ServerQueryController implements MarkerQueryController, PokemonQuer
     }
 
     @Override
-    public void updateMarkerReputation(ReputationVoteSendableModel reputationVote) throws InvalidParameterException {
+    public void updateMarkerReputation(ReputationVoteSendableModel reputationVote) {
         WebResource resource = _webResource.path("marker").path("updateReputation");
-        trySendPostQuery(new PostQuery(resource, reputationVote, "Could not update marker"), true);
+        sendPostQueryWithErrorPopup(new PostQuery(resource, reputationVote, "Could not update marker"), true);
     }
 
     @Override
@@ -145,24 +143,24 @@ public class ServerQueryController implements MarkerQueryController, PokemonQuer
     }
     
     @Override
-    public void updateMarker(MarkerSendableModel marker) throws InvalidParameterException {
+    public void updateMarker(MarkerSendableModel marker) {
         marker = fixTypeMarkerModelToSendable(marker);
         WebResource resource = _webResource.path("marker").path("update");
-        trySendPostQuery(new PostQuery(resource, marker, "Could not update marker"), true);
+        sendPostQueryWithErrorPopup(new PostQuery(resource, marker, "Could not update marker"), true);
     }
 
     @Override
     public void signin(UserSendableModel user) throws InvalidParameterException {
         WebResource resource = _webResource.path("user").path("signin");
         
-        trySendPostQuery(new PostQuery(resource, user, "Could not sign in"), false);
+        sendPostQuery(new PostQuery(resource, user, "Could not sign in"), false);
         onUserLogin(user.getUsername());
     }
 
     @Override
     public void signup(UserSendableModel user) throws InvalidParameterException {
         WebResource resource = _webResource.path("user").path("signup");
-        trySendPostQuery(new PostQuery(resource, user, "Could not sign up"), false);
+        sendPostQuery(new PostQuery(resource, user, "Could not sign up"), false);
     }
     
     private ServerQueryController() {
@@ -184,33 +182,40 @@ public class ServerQueryController implements MarkerQueryController, PokemonQuer
         _webResource = client.resource(ClientConfiguration.getInstance().getServerURL());
     }
     
+    private void sendPostQueryWithErrorPopup(PostQuery query, boolean bufferIfVisitor) {
+        try {
+            sendPostQuery(query, bufferIfVisitor);
+        } catch(InvalidParameterException exception) {
+            // An error occurred, try to open a popup with the error message
+            try {
+                new MessagePopUpController(Level.WARNING, query.getErrorMessage());
+            } catch (InstantiationException ex) {
+                LOG.log(Level.WARNING, "This error couldn't be shown with a popup: {0}",
+                        query.getErrorMessage());
+            }
+        }
+    }
+    
     /**
-     * Executes a POST HTTP request, if the user is connected, and stores it
-     * if it is a visitor (unless the query is also valid for a visitor, such
-     * as a connection query).
+     * Executes a POST HTTP request, if the user is connected, or stores it
+     * if the user is a visitor (unless the query is also valid for a visitor,
+     * such as a login query).
      * @param query A POST query object
      * @param bufferIfVisitor True if the query can be buffered if the user is
-     * a visitor, false if we should always send the query
+     *   a visitor, false if we should always send the query.
      * @throw InvalidParameterException if the request was not successful
-     * (refused by the server, no network connection, ...)
+     *   (refused by the server, no network connection, ...).
      */
-    private void trySendPostQuery(PostQuery query, boolean bufferIfVisitor) throws InvalidParameterException {
+    private void sendPostQuery(PostQuery query, boolean bufferIfVisitor) throws InvalidParameterException {
         // If we are connected, or if this is a query that should always be sent
         if(UserController.getInstance().isConnected() || !bufferIfVisitor) {
             // Send the query
             ClientResponse response = query.getWebResource().accept(MediaType.APPLICATION_XML)
                     .post(ClientResponse.class, query.getPostObject());
-            
+            // Check the return status
             Status status = response.getClientResponseStatus();
             if(status != Status.OK && status != Status.ACCEPTED) {
-                try {
-                    new MessagePopUpController(Level.WARNING, query.getErrorMessage());
-                } catch (InstantiationException ex) {
-                    LOG.log(Level.WARNING, "This error couldn't be shown with a popup: {0}",
-                            query.getErrorMessage());
-                }
-                // Throw an exception to notify caller site that something happened
-                throw new InvalidParameterException(status.getReasonPhrase());
+                throw new InvalidParameterException(query.getErrorMessage());
             }
         } else {
             _visitorPostQueriesQueue.add(query);
