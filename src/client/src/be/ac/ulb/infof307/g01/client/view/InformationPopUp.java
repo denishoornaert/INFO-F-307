@@ -66,7 +66,7 @@ public abstract class InformationPopUp extends PopUp {
     }
     
     private void initTwitterButton() {
-        _twitterButton = new Button("T");
+        _twitterButton = new Button("🌍");
         _twitterButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent t) {

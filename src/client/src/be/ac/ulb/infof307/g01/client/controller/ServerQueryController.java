@@ -149,7 +149,6 @@ public class ServerQueryController implements MarkerQueryController, PokemonQuer
         sendPostQueryWithErrorPopup(new PostQuery(resource, marker, "Could not update marker"), true);
     }
 
-    @Override
     public void signin(UserSendableModel user) throws InvalidParameterException {
         WebResource resource = _webResource.path("user").path("signin");
         
@@ -157,7 +156,6 @@ public class ServerQueryController implements MarkerQueryController, PokemonQuer
         onUserLogin(user.getUsername());
     }
 
-    @Override
     public void signup(UserSendableModel user) throws InvalidParameterException {
         WebResource resource = _webResource.path("user").path("signup");
         sendPostQuery(new PostQuery(resource, user, "Could not sign up"), false);
