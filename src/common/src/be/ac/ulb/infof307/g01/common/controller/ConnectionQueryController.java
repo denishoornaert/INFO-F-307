@@ -13,7 +13,7 @@ import be.ac.ulb.infof307.g01.common.model.UserSendableModel;
  */
 public interface ConnectionQueryController {
 
-    public boolean signin(UserSendableModel userSendableModel);
-    public boolean signup(UserSendableModel userSendableModel);
+    public void signin(UserSendableModel userSendableModel);
+    public void signup(UserSendableModel userSendableModel);
     
 }

@@ -1,12 +1,13 @@
 package be.ac.ulb.infof307.g01.client.model;
 
-import be.ac.ulb.infof307.g01.common.model.ReputationVoteSendableModel;
 import be.ac.ulb.infof307.g01.client.controller.ServerQueryController;
+import be.ac.ulb.infof307.g01.common.controller.MarkerQueryController;
 import be.ac.ulb.infof307.g01.common.model.CoordinateSendableModel;
 import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
+import be.ac.ulb.infof307.g01.common.model.ReputationVoteSendableModel;
+import java.security.InvalidParameterException;
 import java.sql.Timestamp;
-import be.ac.ulb.infof307.g01.common.controller.MarkerQueryController;
 
 /** Model of a marker. A marker contains the location of a spotted pokemon,
  * the pokemon, the timestamp of the spot, etc...
@@ -29,7 +30,11 @@ public class MarkerModel extends MarkerSendableModel {
     public MarkerModel(PokemonSendableModel pokemon, CoordinateSendableModel coordinate,
             String username, int lifePoint, int attack, int defense, Timestamp date) {
         this(pokemon, coordinate, username, lifePoint, attack, defense, date, true);
-        _serverQuery.insertMarker(this);
+        try {
+            _serverQuery.insertMarker(this);
+        } catch(InvalidParameterException exception) {
+            // Pass if an error occurred, a popup already show the error
+        }
     }
     
     /**
@@ -110,7 +115,11 @@ public class MarkerModel extends MarkerSendableModel {
             }
         }
         _reputation.add(reputation);
-        _serverQuery.updateMarkerReputation(reputation);
+        try {
+            _serverQuery.updateMarkerReputation(reputation);
+        } catch(InvalidParameterException exception) {
+            // The error is already shown in a popup by the server query controller
+        }
     }
     
     // TODO Check to call Super
@@ -176,7 +185,11 @@ public class MarkerModel extends MarkerSendableModel {
         setLifePoints(lifePoints);
         setAttack(attack);
         setDefense(defense);
-        _serverQuery.updateMarker(this);
+        try {
+            _serverQuery.updateMarker(this);
+        } catch(InvalidParameterException exception) {
+            // The error is already shown in a popup by the server query controller
+        }
     }
     
     public MarkerSendableModel getSendable() {

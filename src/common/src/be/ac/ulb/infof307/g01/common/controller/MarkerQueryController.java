@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public interface MarkerQueryController {
     
     public void insertMarker(MarkerSendableModel marker);
-    public boolean updateMarker(MarkerSendableModel marker);
+    public void updateMarker(MarkerSendableModel marker);
     public ArrayList<MarkerSendableModel> getAllMarkers();
     public void updateMarkerReputation(ReputationVoteSendableModel marker);
 }

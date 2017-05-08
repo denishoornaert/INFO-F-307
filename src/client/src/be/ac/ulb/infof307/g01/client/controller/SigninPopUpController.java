@@ -1,8 +1,7 @@
 package be.ac.ulb.infof307.g01.client.controller;
 
 import be.ac.ulb.infof307.g01.client.view.SigninPopUp;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.security.InvalidParameterException;
 
 /**
  * Singleton class managing the authentication of the user,
@@ -31,9 +30,7 @@ public class SigninPopUpController extends AbstractPopUpController {
         try {
             UserController.getInstance().authenticate(username, password);
             close(_signinPopUp);
-        } catch(IllegalArgumentException error) {
-            Logger.getLogger(getClass().getName()).log(Level.INFO, 
-                    "Signin message: {0}", error.getMessage());
+        } catch(InvalidParameterException error) {
             _signinPopUp.showError(error.getMessage());
         }
     }

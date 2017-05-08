@@ -38,7 +38,7 @@ public class MarkerServiceQueryController {
             response = Response.status(Response.Status.OK).entity(marker).build();
         } catch(InvalidParameterException ex) {
             Logger.getLogger(getClass().getName()).log(Level.INFO, 
-                    "Insert Marker not valide: {0}", ex.getMessage());
+                    "Exception while inserting Marker: {0}", ex.getMessage());
             response = Response.status(Response.Status.NOT_ACCEPTABLE).build();
         }
         return response;
@@ -57,22 +57,34 @@ public class MarkerServiceQueryController {
     @Consumes(MediaType.APPLICATION_XML)
     @Produces(MediaType.APPLICATION_XML)
     public Response updateMarker(MarkerSendableModel marker) {
+        Response response;
         Logger.getLogger(getClass().getName()).log(Level.INFO, "Update marker: {0} - {1}", 
                 new Object[]{marker.getPokemonName(), marker.getLongTimestamp()});
-        if(DatabaseModel.getInstance().updateMarker(marker)) {
-            Logger.getLogger(getClass().getName()).log(Level.INFO, "Marker update");
-        } else {
-            Logger.getLogger(getClass().getName()).log(Level.INFO, "Marker not update !");
+        try {
+            DatabaseModel.getInstance().updateMarker(marker);
+            response = Response.status(Response.Status.OK).entity(marker).build();
+        } catch(InvalidParameterException exception) {
+            Logger.getLogger(getClass().getName()).log(Level.INFO, 
+                    "Exception while updating Marker: {0}", exception.getMessage());
+            response = Response.status(Response.Status.NOT_ACCEPTABLE).build();
         }
-        return Response.status(Response.Status.OK).entity(marker).build();
+        return response;
     }
     
     @Path("updateReputation") // TODO check que ça marche
     @POST
     @Consumes(MediaType.APPLICATION_XML)
     public Response updateMarkerReputation(ReputationVoteSendableModel reputationVote) {
-        DatabaseModel.getInstance().updateMarkerReputation(reputationVote);
-        return Response.status(Response.Status.OK).entity(reputationVote).build();
+        Response response;
+        try {
+            DatabaseModel.getInstance().updateMarkerReputation(reputationVote);
+            response = Response.status(Response.Status.OK).entity(reputationVote).build();
+        } catch(InvalidParameterException exception) {
+            Logger.getLogger(getClass().getName()).log(Level.INFO, 
+                    "Exception while updating Marker reputation: {0}", exception.getMessage());
+            response = Response.status(Response.Status.NOT_ACCEPTABLE).build();
+        }
+        return response;
     }
     
 }

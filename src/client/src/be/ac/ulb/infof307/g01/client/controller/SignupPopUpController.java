@@ -1,6 +1,7 @@
 package be.ac.ulb.infof307.g01.client.controller;
 
 import be.ac.ulb.infof307.g01.client.view.SignupPopUp;
+import java.security.InvalidParameterException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,7 +22,7 @@ public class SignupPopUpController extends AbstractPopUpController {
         try {
             UserController.getInstance().register(email, user, password, terms);
             close(_signup);
-        } catch(IllegalArgumentException error) {
+        } catch(InvalidParameterException error) {
             Logger.getLogger(getClass().getName()).log(Level.INFO, error.getMessage());
             _signup.showError(error.getMessage());
         }
