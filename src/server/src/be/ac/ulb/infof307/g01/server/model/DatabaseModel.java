@@ -76,7 +76,7 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
             createDatabase(pathToDatabase);
             connectToSqlite(pathToDatabase);
         } catch(IOException | SQLException exception) {
-            _logger.log(Level.SEVERE, "Could not create Database: " + exception);
+            _logger.log(Level.SEVERE, "Could not create Database: {0}", exception);
             System.exit(1);
         }
     }
@@ -91,7 +91,8 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
         File file = new File(path);
         if(!file.exists()) {
             file.createNewFile();
-            _logger.log(Level.INFO, "Created Database to " + path);
+            _logger.log(Level.INFO, "Created Database to {0}", path);
+            connectToSqlite(path);
             fillDatabase();
         }
     }
@@ -129,7 +130,8 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
         try {
             content = getSQLQueriesFromFile(pathToSqlFile);
         } catch (IOException exception) {
-            _logger.log(Level.SEVERE, "Could not read sql file <" + pathToSqlFile + ">: " + exception);
+            _logger.log(Level.SEVERE, "Could not read sql file <{0}>: {1}", 
+                    new Object[]{pathToSqlFile, exception});
             return;
         }
         
@@ -137,7 +139,8 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
             try {
                 executeQuery(query);
             } catch (SQLException exception) {
-                _logger.log(Level.SEVERE, "Could not execute sql query <" + content + ">: " + exception);
+                _logger.log(Level.SEVERE, "Could not execute sql query <{0}>: {1}",
+                        new Object[]{query, exception});
             }
         }
     }
@@ -150,7 +153,7 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
             _connection.close();
             _instance = null;
         } catch (SQLException exception) {
-            _logger.log(Level.WARNING, "Could not close sql connection: " + exception);
+            _logger.log(Level.WARNING, "Could not close sql connection: {0}", exception);
         }
     }
 
@@ -223,7 +226,7 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
                 types.add(new PokemonTypeSendableModel(result.getString("Name")));
             }
         } catch (SQLException exception) {
-            _logger.log(Level.SEVERE, "Could not load PokemonTypes: " + exception);
+            _logger.log(Level.SEVERE, "Could not load PokemonTypes: {0}", exception);
         }
         return types;
     }
@@ -254,7 +257,7 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
                 }
             }
         } catch (SQLException exception) {
-            _logger.log(Level.SEVERE, "Could not load Pokemons: " + exception);
+            _logger.log(Level.SEVERE, "Could not load Pokemons: {0}", exception);
         }
         return allPokemons;
     }
@@ -262,7 +265,7 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
     /**
      * Create a new marker in database
      * @param marker the marker to create in database
-     * @throws java.sql.SQLException
+     * @throws InvalidParameterException
      */
     @Override
     public void insertMarker(MarkerSendableModel marker) throws InvalidParameterException {
@@ -318,7 +321,7 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
                 }
             }
         } catch (SQLException exception) {
-            _logger.log(Level.SEVERE, "Could not load markers: " + exception);
+            _logger.log(Level.SEVERE, "Could not load markers: {0}", exception);
         }
         return allMarkers;
     }
@@ -370,7 +373,7 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
                 res.add(new ReputationVoteSendableModel(username, isUp, markerId));
             }
         } catch (SQLException exception) {
-            _logger.log(Level.SEVERE, "Could not get marker votes: " + exception);
+            _logger.log(Level.SEVERE, "Could not get marker votes: {0}", exception);
         }
         
         return res;
@@ -392,7 +395,8 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
             statement.setInt(3, reputationVote.getIsUpVote() ? 1 : 0);
             statement.execute();
         } catch (SQLException exception) {
-            _logger.log(Level.SEVERE, "Could not update marker reputation: " + exception);
+            _logger.log(Level.SEVERE, "Could not update marker reputation: {0}",
+                    exception);
         }
     }
 
@@ -420,7 +424,7 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
             statement.setInt(6, marker.getDatabaseId());
             res = (statement.executeUpdate() == 1);
         } catch (SQLException exception) {
-            _logger.log(Level.SEVERE, "Could not update marker: " + exception);
+            _logger.log(Level.SEVERE, "Could not update marker: {0}", exception);
         }
         
         Logger.getLogger(getClass().getName()).log(Level.INFO, "Id: {0} - {1} - {2} - {3} - {4}", 
@@ -452,7 +456,7 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
                 throw new InvalidParameterException("User " + user.getUsername() + " not found");
             }
         } catch (SQLException exception) {
-            _logger.log(Level.SEVERE, "Could not sign in: " + exception);
+            _logger.log(Level.SEVERE, "Could not sign in: {0}", exception);
         }
     }
     
@@ -474,7 +478,7 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
             statement.setString(3, user.getPassword());
             statement.setString(4, token);
             statement.execute();
-            _logger.log(Level.INFO, "Create user: " + userInfo);
+            _logger.log(Level.INFO, "Create user: {0}", userInfo);
             
         } catch (SQLException ex) {
             // TODO (Loan & Stan) : gérer avec nos propres exceptions (InvalidSignupInformation)
@@ -497,7 +501,7 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
             statement.setString(1, token);
             res = statement.executeUpdate() == 1;
         } catch (SQLException exception) {
-            _logger.log(Level.SEVERE, "Could not confirm account: " + exception);
+            _logger.log(Level.SEVERE, "Could not confirm account: {0}", exception);
         }
         return res;
     }
@@ -514,7 +518,8 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
             PreparedStatement statement = _connection.prepareStatement(query);
             statement.executeUpdate();
         } catch (SQLException exception) {
-            _logger.log(Level.SEVERE, "Could not execute query <" + query + ">: " + exception);
+            _logger.log(Level.SEVERE, "Could not execute query <{0}>: {1}", 
+                    new Object[]{query, exception});
         }
     }
     
