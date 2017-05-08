@@ -62,11 +62,8 @@ public class PokemonCache {
      */
     public void loadAllPokemonTypes(List<PokemonTypeSendableModel> allPokemonTypes) {
         _allPokemonTypes.clear();
-        // TODO remove ?
-        System.out.println("size : "+allPokemonTypes.size());
         for (PokemonTypeSendableModel pokemonType : allPokemonTypes) {
-            System.out.println("obj : "+pokemonType);
-            //_allPokemonTypes.put(pokemonType.getTypeName().toUpperCase(), new PokemonTypeModel(pokemonType));
+            _allPokemonTypes.put(pokemonType.getTypeName().toUpperCase(), new PokemonTypeModel(pokemonType));
         }
     }
         
@@ -111,6 +108,7 @@ public class PokemonCache {
      * @throws RuntimeException if no type with such name has been found.
      */
     public PokemonTypeModel getPokemonTypeByTypeName(String typeName) {
+        System.out.println("Pokemon attraper les tous " + _allPokemonTypes);
         PokemonTypeModel result = _allPokemonTypes.get(typeName);
         if(result == null) {
             throw new RuntimeException("No pokemon type with such name: \"" + typeName + "\"");
