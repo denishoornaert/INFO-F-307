@@ -23,7 +23,6 @@ import javax.ws.rs.core.Response;
 @Path("user")
 public class UserServiceQueryController {
     
-    
     @Path("signin")
     @POST
     @Consumes(MediaType.APPLICATION_XML)
@@ -44,10 +43,10 @@ public class UserServiceQueryController {
     public String confirmAccount(@QueryParam("token") String token) {
         String htmlPage = "<html> " + "<title>" + "User Account Conrfirmation" + "</title><body>"
                 + "<h1>" + "Validate Account" + "</h1>";
-        boolean isValide = DatabaseModel.getInstance().confirmAccount(token);
-        if(isValide) {
+        try {
+            DatabaseModel.getInstance().confirmAccount(token);
             htmlPage += "Your account has been validated";
-        } else {
+        } catch(InvalidParameterException exception) {
             htmlPage += "An error has occured";
         }
         return htmlPage + "</body>" + "</html> ";
@@ -61,8 +60,8 @@ public class UserServiceQueryController {
         String token = generateToken();
         try {
             DatabaseModel.getInstance().signup(user, token);
-        } catch (IllegalArgumentException exception){
-            return Response.status(Response.Status.BAD_REQUEST).build();
+        } catch (InvalidParameterException exception){
+            return Response.status(Response.Status.NOT_ACCEPTABLE).build();
         }
         try {
             EmailSender sender = new EmailSender();

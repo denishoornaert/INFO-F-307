@@ -1,12 +1,12 @@
 package be.ac.ulb.infof307.g01.client.model;
 
-import be.ac.ulb.infof307.g01.common.model.ReputationVoteSendableModel;
 import be.ac.ulb.infof307.g01.client.controller.ServerQueryController;
+import be.ac.ulb.infof307.g01.common.controller.MarkerQueryController;
 import be.ac.ulb.infof307.g01.common.model.CoordinateSendableModel;
 import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
+import be.ac.ulb.infof307.g01.common.model.ReputationVoteSendableModel;
 import java.sql.Timestamp;
-import be.ac.ulb.infof307.g01.common.controller.MarkerQueryController;
 
 /** Model of a marker. A marker contains the location of a spotted pokemon,
  * the pokemon, the timestamp of the spot, etc...

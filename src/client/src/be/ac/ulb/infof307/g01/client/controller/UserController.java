@@ -1,9 +1,10 @@
 package be.ac.ulb.infof307.g01.client.controller;
 
+import be.ac.ulb.infof307.g01.common.controller.ConnectionQueryController;
 import be.ac.ulb.infof307.g01.common.model.UserSendableModel;
+import java.security.InvalidParameterException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import be.ac.ulb.infof307.g01.common.controller.ConnectionQueryController;
 
 /**
  *
@@ -17,7 +18,7 @@ public class UserController {
     private boolean _isConnected = false;
     
     private UserController() {
-        _connection = (ConnectionQueryController) ServerQueryController.getInstance();
+        _connection = ServerQueryController.getInstance();
         // The following line is normal (DO NOT TOUCH ! I'm talking to you @theo :p)
         // This is normale because due to Jersey we can't modify the trivial
         // constructor and therefore we need to write this wierd instruction.
@@ -30,19 +31,16 @@ public class UserController {
      * @param username The user name.
      * @param password The password.
     */
-    public void authenticate(String username, String password) throws IllegalArgumentException {
+    public void authenticate(String username, String password) throws InvalidParameterException {
         if(username.isEmpty() || password.isEmpty()) {
             throw new IllegalArgumentException("All fields are required");
         }
         UserSendableModel temporaryProfil = new UserSendableModel(username, password);
-        _isConnected = _connection.signin(temporaryProfil);
-        if(!_isConnected) {
-            throw new IllegalArgumentException("there's something wrong.");
-        } else {
-            _user = temporaryProfil;
-            Logger.getLogger(getClass().getName()).log(Level.INFO, 
-                    "User {0} is login !", username);
-        }
+        _connection.signin(temporaryProfil);
+        _user = temporaryProfil;
+        Logger.getLogger(getClass().getName()).log(Level.INFO, 
+                "User {0} is login !", username);
+        _isConnected = true;
     }
     
     /**
@@ -53,17 +51,14 @@ public class UserController {
      * @param terms are accepted
      */
     public void register(String email, String username, String password, 
-            boolean terms) throws IllegalArgumentException {
+            boolean terms) throws InvalidParameterException {
         if(email.isEmpty() || username.isEmpty() || password.isEmpty() || !terms) {
             throw new IllegalArgumentException("All fields are required");
         }
         UserSendableModel temporaryProfil = new UserSendableModel(username, email, password);
-        boolean successfullySignup = _connection.signup(temporaryProfil);
-        if(!successfullySignup) {
-            throw new IllegalArgumentException("User name or email already taken.");
-        } else {
-            throw new IllegalArgumentException("Your can check your mails and then login.");
-        }
+        _connection.signup(temporaryProfil);
+        Logger.getLogger(getClass().getName()).log(Level.INFO, 
+                "Your can check your mails and then login.");
     }
     
     public static UserController getInstance() {

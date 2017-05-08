@@ -26,12 +26,12 @@ public class PokemonCache {
     /**
      * All registered pokemons so far, sorted by name.
      */
-    private Map<String, PokemonModel> _allPokemons = new HashMap();
+    private final Map<String, PokemonModel> _allPokemons = new HashMap<>();
     
     /**
      * All registered pokemon types so far, sorted by name.
      */
-    private Map<String, PokemonTypeModel> _allPokemonTypes = new HashMap();
+    private final Map<String, PokemonTypeModel> _allPokemonTypes = new HashMap<>();
 
     private PokemonCache() {
     }
@@ -73,7 +73,7 @@ public class PokemonCache {
      * ^^^ Look how these lines are syncing up, this is beautiful. ^^^
      */
     public ArrayList<String> getAllPokemonNames() {
-        return new ArrayList(_allPokemons.keySet());
+        return new ArrayList<>(_allPokemons.keySet());
     }
     
     /**
@@ -82,7 +82,7 @@ public class PokemonCache {
      * ^^^ Same remark as for getAllPokemonNames ^^^
      */
     public ArrayList<PokemonTypeModel> getAllPokemonTypes() {
-        return new ArrayList(_allPokemonTypes.values());
+        return new ArrayList<>(_allPokemonTypes.values());
     }
     
     /**
