@@ -43,7 +43,9 @@ public class PokemonModelTest {
     
     @Test
     public void test_getPathImage() {
-        File file = new File(arceus.getImagePath());
+        String path = arceus.getImagePath(true);
+        File file = new File(path);
+        
         assertTrue(file.exists());
     }
     

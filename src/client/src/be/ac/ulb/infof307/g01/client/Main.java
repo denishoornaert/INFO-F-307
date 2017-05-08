@@ -48,7 +48,7 @@ public class Main extends Application {
     private static void setApplicationIcons() {
         ArrayList<String> iconsPaths = ClientConfiguration.getInstance().getApplicationIconsPaths();
         for (String path : iconsPaths) {
-            _stage.getIcons().add(new Image("file:" + path));
+            _stage.getIcons().add(new Image(path));
         }
     }
     

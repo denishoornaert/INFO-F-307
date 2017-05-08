@@ -1,7 +1,7 @@
 package be.ac.ulb.infof307.g01.client.view;
 
+import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
 import be.ac.ulb.infof307.g01.client.model.PokemonModel;
-import java.io.File;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -30,8 +30,9 @@ public class PokemonLabel extends BorderPane {
     }
 
     private void initWidgets(PokemonModel pokemon) {
-        String path = new File(pokemon.getImagePath()).toURI().toString();
-        _image = new ImageView(new Image(path));
+        String imagePath = pokemon.getImagePath();
+        imagePath = ClientConfiguration.addFilePrefix(imagePath);
+        _image = new ImageView(new Image(imagePath));
         _pokemonNameBox = new HBox();
         _pokemonName = new Label(pokemon.getName());
     }

@@ -37,6 +37,8 @@ public class MarkerServiceQueryController {
             DatabaseModel.getInstance().insertMarker(marker);
             response = Response.status(Response.Status.OK).entity(marker).build();
         } catch(InvalidParameterException ex) {
+            Logger.getLogger(getClass().getName()).log(Level.INFO, 
+                    "Insert Marker not valide: {0}", ex.getMessage());
             response = Response.status(Response.Status.NOT_ACCEPTABLE).build();
         }
         return response;

@@ -74,7 +74,9 @@
             // Adds a marker to the map.
             function addMarker(latitude, longitude, name, imageName, id) {
                 //Create a marker icon with fixed size and anchor point at its center
-                var markerIcon = new google.maps.MarkerImage("../sprites/" + imageName, null, null, new google.maps.Point(markerIconCenter, markerIconCenter), new google.maps.Size(markerIconSize, markerIconSize));
+                var markerIcon = new google.maps.MarkerImage(imageName, 
+                    null, null, new google.maps.Point(markerIconCenter, markerIconCenter), 
+                    new google.maps.Size(markerIconSize, markerIconSize));
                 
                 // Add the marker at the clicked location
                 var marker = new google.maps.Marker({
