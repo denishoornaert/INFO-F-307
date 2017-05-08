@@ -1,6 +1,7 @@
 package be.ac.ulb.infof307.g01.server.model;
 
 import java.io.File;
+import java.net.URL;
 
 /**
  * Class used almost everywhere beacause this is the one who contains all the
@@ -32,8 +33,19 @@ public class ServerConfiguration {
         return file.getAbsolutePath() + File.separatorChar + fileName;
     }
     
+    /**
+     * Get the database path
+     * 
+     * @return 
+     */
     public String getDataBasePath() {
-        return Thread.currentThread().getContextClassLoader().getResource(_dataBasePath).getPath();
+        String path = _dataBasePath;
+        URL classLoader = Thread.currentThread().getContextClassLoader()
+                .getResource(_dataBasePath);
+        if(classLoader != null) {
+            path = classLoader.getPath();
+        }
+        return path;
     }
     
     public String getTestDataBasePath() {
@@ -41,7 +53,16 @@ public class ServerConfiguration {
     }
 
     public String getSqlPath() {
-        return getAssetServerPath(_sqlPath);
+        String path;
+        URL ressource = Thread.currentThread().getContextClassLoader()
+                .getResource(_sqlPath);
+        if(ressource != null) {
+            path = ressource.getPath();
+        } else {
+            path = getAssetServerPath(_sqlPath);
+        }
+        
+        return path;
     }
     
 }
