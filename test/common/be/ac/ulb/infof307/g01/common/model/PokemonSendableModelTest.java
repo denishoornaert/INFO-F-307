@@ -17,4 +17,12 @@ public class PokemonSendableModelTest extends TestCase {
             POKEMON_NAME, POKEMON_PATH, POKEMON_TYPE);
         assertEquals(pokemon.getType()[1], PokemonTypeSendableModel.getNoneType());
     }
+    
+    @Test
+    public void test_modelCopyIsEqualToOriginal() {
+        PokemonSendableModel original = new PokemonSendableModel(
+            POKEMON_NAME, POKEMON_PATH, POKEMON_TYPE);
+        PokemonSendableModel copy = new PokemonSendableModel(original);
+        assertEquals(original, copy);
+    }
 }
