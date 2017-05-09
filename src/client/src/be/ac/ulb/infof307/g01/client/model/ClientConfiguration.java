@@ -116,8 +116,8 @@ public class ClientConfiguration {
         return SERVER_URL;
     }
     
-    public String getTermsAndContionsPath() {
-        return getPath(TERMS_AND_CONDITIONS_PATH);
+    public String getTermsAndConditionsPath() {
+        return addJarOrFileBeforeImagePath(getPath(TERMS_AND_CONDITIONS_PATH));
     }
     
     /**
