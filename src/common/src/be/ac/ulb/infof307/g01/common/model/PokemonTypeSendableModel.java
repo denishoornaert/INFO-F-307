@@ -1,5 +1,6 @@
 package be.ac.ulb.infof307.g01.common.model;
 
+import java.util.Objects;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -48,6 +49,24 @@ public class PokemonTypeSendableModel {
     
     public static PokemonTypeSendableModel getNoneType() {
         return new PokemonTypeSendableModel("NONE");
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final PokemonTypeSendableModel other = (PokemonTypeSendableModel) obj;
+        if (!Objects.equals(this._typeName, other._typeName)) {
+            return false;
+        }
+        return true;
     }
     
 }
