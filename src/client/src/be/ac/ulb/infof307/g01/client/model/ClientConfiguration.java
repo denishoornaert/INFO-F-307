@@ -1,8 +1,17 @@
 package be.ac.ulb.infof307.g01.client.model;
 
+import com.sun.org.apache.xerces.internal.impl.io.MalformedByteSequenceException;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Class used almost everywhere because this is the one who contains all the
@@ -15,27 +24,47 @@ public class ClientConfiguration {
     
     private static ClientConfiguration _configuration = null;
     private static ClientConfiguration _testConfiguration = null;
-    
+    private String clientConfigurationFilePath;
+    private final Properties properties = new Properties();
     private static final String FILE_PREFIX = "file:";
-    private static final String SERVER_URL = "http://localhost:8080/server/rest/";
-    private static final String STYLE_PATH = "bootstrap.css";
-    private static final String UNKNOWN_POKEMON_SPRITE_PATH = "unknown_pokemon.png";
-    private static final String SPRITES_PATH = "sprites/";
-    private static final String TERMS_AND_CONDITIONS_PATH = "terms_and_conditions.txt";
-    private static final String APPLICATION_TITLE = "Gotta Map'Em All !";
+    private String SERVER_URL;
+    private String STYLE_PATH;
+    private String UNKNOWN_POKEMON_SPRITE_PATH;
+    private String SPRITES_PATH;
+    private String TERMS_AND_CONDITIONS_PATH;
+    private String APPLICATION_TITLE;
     
     private final boolean _isTest;
-    private static final ArrayList<String> _applicationIconsPaths = new ArrayList<>(Arrays.asList(
-            "icons/application_icon_16.png", "icons/application_icon_32.png",
-            "icons/application_icon_64.png", "icons/application_icon_128.png",
-            "icons/application_icon_256.png", "icons/application_icon_512.png"));
+    private ArrayList<String> _applicationIconsPaths =  new ArrayList<>();
     
     private ClientConfiguration() {
         this(false);
     }
     
+    // TODO See for Refactor David
     private ClientConfiguration(boolean isTest) {
         _isTest = isTest;
+        clientConfigurationFilePath = getPath("config.properties");
+        clientConfigurationFilePath = addJarOrFileBeforeImagePath(clientConfigurationFilePath);
+        try {
+            URL path = new URL(clientConfigurationFilePath);
+            properties.load(path.openStream());
+            SERVER_URL = properties.getProperty("server-url");
+            STYLE_PATH = properties.getProperty("bootstrap");
+            UNKNOWN_POKEMON_SPRITE_PATH = properties.getProperty("unknown-pokemon");
+            SPRITES_PATH = properties.getProperty("sprites");
+            System.out.println("Sprite string : "+SPRITES_PATH +"|path = "+getPath(SPRITES_PATH) );
+            TERMS_AND_CONDITIONS_PATH = properties.getProperty("term-and-condition");
+            APPLICATION_TITLE = properties.getProperty("Title");
+            for (int i=0;i<6;i++) {
+                _applicationIconsPaths.add(properties.getProperty("Icon"+i));
+                System.out.println("Application Icon :" + _applicationIconsPaths);
+            }
+            
+            
+        } catch (IOException exeption) {
+            Logger.getLogger(ClientConfiguration.class.getName()).log(Level.SEVERE, null, exeption);
+        }
     }
     
     private String getPath(String fileName) {
