@@ -31,6 +31,7 @@ public class UserController {
      * @param password The password.
     */
     public void authenticate(String username, String password) throws IllegalArgumentException {
+        // TODO get username from db
         if(username.isEmpty() || password.isEmpty()) {
             throw new IllegalArgumentException("All fields are required");
         }
