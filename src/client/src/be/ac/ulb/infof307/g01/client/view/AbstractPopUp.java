@@ -27,6 +27,10 @@ public abstract class AbstractPopUp extends Stage {
     
     private final PopUpController _controller;
     
+    public AbstractPopUp() throws InstantiationException {
+        this(new PopUpController());
+    }
+    
     public AbstractPopUp(PopUpController controller) {
         super.initStyle(StageStyle.TRANSPARENT);
         _layout = new StackPane();
