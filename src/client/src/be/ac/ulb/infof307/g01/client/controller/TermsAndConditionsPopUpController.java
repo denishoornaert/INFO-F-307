@@ -8,8 +8,10 @@ package be.ac.ulb.infof307.g01.client.controller;
 import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
 import be.ac.ulb.infof307.g01.client.view.TermsAndConditionsPopUp;
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,21 +19,25 @@ import java.util.logging.Logger;
  *
  * @author hoornaert
  */
-public class TermsAndConditionsPopUpController {
+public class TermsAndConditionsPopUpController extends AbstractPopUpController {
 
     TermsAndConditionsPopUp _popUp;
     
-    public TermsAndConditionsPopUpController() {
+    public TermsAndConditionsPopUpController() throws InstantiationException {
+        super();
         _popUp = new TermsAndConditionsPopUp(this);
         _popUp.setText(getText());
     }
 
     private String getText() {
-        FileReader fr = null;
+        InputStreamReader fr = null;
         BufferedReader br = null;
         String res = "";
         try {
-            fr = new FileReader(ClientConfiguration.getInstance().getTermsAndContionsPath());
+            URL path = new URL(ClientConfiguration.getInstance().getTermsAndConditionsPath());
+            System.out.println("Term path: " + path);
+            InputStream stream = path.openStream();
+            fr = new InputStreamReader(path.openStream());
             br = new BufferedReader(fr);
             String sCurrentLine;
             while ((sCurrentLine = br.readLine()) != null) {
@@ -49,5 +55,10 @@ public class TermsAndConditionsPopUpController {
             }
         }
         return res;
+    }
+    
+    @Override
+    protected boolean acceptMultiplePopUps() {
+        return true;
     }
 }

@@ -203,14 +203,7 @@ public abstract class AbstractMarkerPopUp extends InformationPopUp {
     }
     
     private void initCloseButton() {
-        _closeButton = new Button("cancel");
-        _closeButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent t) {
-                // Only when cancel (and not create marker)
-                _controller.cancelPopUpCreateMarker();
-            }
-        });
-        _closeButton.getStyleClass().add("danger");
+        _closeButton = getCloseButton("Cancel", "danger");
         setXExpandPolicy(_closeButton);
     }
     

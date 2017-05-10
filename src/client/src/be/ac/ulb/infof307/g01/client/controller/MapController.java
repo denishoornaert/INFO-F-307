@@ -2,9 +2,9 @@ package be.ac.ulb.infof307.g01.client.controller;
 
 import be.ac.ulb.infof307.g01.client.model.MarkerModel;
 import be.ac.ulb.infof307.g01.client.view.MapView;
-import java.util.ArrayList;
-import be.ac.ulb.infof307.g01.common.model.MarkerQueryModel;
+import be.ac.ulb.infof307.g01.common.controller.MarkerQueryController;
 import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
+import java.util.ArrayList;
 
 /** Controller of the map. This class is responsible of creating markers at
  * startup and when the user adds one. For that, it holds an instance of
@@ -15,14 +15,14 @@ import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
 public class MapController {
     private final MarkerController _markerController;
     private final MapView _mapView;
-    private final MarkerQueryModel _query;
+    private final MarkerQueryController _query;
     
     /** Instance of the current popup. Is equal to null if no popup is open,
      *  and is set to null when the popup is closed.
      */
     
     public MapController() {
-        _query = (MarkerQueryModel) ServerQueryController.getInstance();
+        _query = (MarkerQueryController) ServerQueryController.getInstance();
         _mapView = new MapView(this);
         _markerController = new MarkerController(_mapView);
         initMarkers(); //display the existing markers from the db
@@ -39,21 +39,38 @@ public class MapController {
     }
 
     public void askForCreateMarker(double latitude, double longitude) {
-        new NewMarkerPopUpController(_markerController, latitude, longitude);
+        try {
+            new NewMarkerPopUpController(_markerController, latitude, longitude);
+        } catch (InstantiationException ex) {
+            // This may occur if the user try to open another popup and if there
+            // is already one openened. We just refuse politely (silently) to
+            // open this one
+        }
     }
     
     public void displayPinPopUp(int markerId) {
         MarkerModel marker = _markerController.getMarkerModelFromId(markerId);
-        if (marker.getUsername().equals(UserController.getInstance().getUsername())) {
-            new UpdateMarkerPopUpController(_markerController, markerId);
-        }
-        else {
-            new PinPopUpController(marker);
+        try {
+            if (marker.getUsername().equals(UserController.getInstance().getUsername())) {
+                new UpdateMarkerPopUpController(_markerController, markerId);
+            } else {
+                new PinPopUpController(marker);
+            }
+        } catch (InstantiationException ex) {
+            // This may occur if the user try to open another popup and if there
+            // is already one openened. We just refuse politely (silently) to
+            // open this one
         }
     }
     
     public void clusterClicked(ArrayList<Integer> markersIds) {
-        new ClusterPopUpController(_markerController, markersIds);
+        try {
+            new ClusterPopUpController(_markerController, markersIds);
+        } catch (InstantiationException ex) {
+            // This may occur if the user try to open another popup and if there
+            // is already one openened. We just refuse politely (silently) to
+            // open this one
+        }
     }
     
     public MapView getView() {

@@ -24,8 +24,18 @@ Afin de compiler le code source, exécuter la commande suivante à la racine du 
 ## Démarrage 
 
 ### Serveur
+Le serveur fonctionne avec GlassFish.  Pour démarrer GlassFish vous pouvez utilisez la commande suivante:
+```
+~/GlassFish_Server/bin/asadmin start-domain --verbose <domaine>
+```
+Où `<domaine>` représente le domaine que vous avez configuré (par défaut: `domain1`).          
+          
+Pour ensuite déployez le projet, utilisez la commande suivante:
+```
+~/GlassFish_Server/bin/asadmin deploy ./dist/server.war
+```
 
-Le déploiement du serveur n'est pas encore testé.
+
 
 ### Client
 

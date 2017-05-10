@@ -1,6 +1,7 @@
 package be.ac.ulb.infof307.g01.client.view;
 
 import be.ac.ulb.infof307.g01.client.Main;
+import be.ac.ulb.infof307.g01.client.controller.AbstractPopUpController;
 import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,25 +24,27 @@ public abstract class PopUp extends Stage {
 
     private final StackPane _layout;
     private final Scene _scene;
+    
+    private final AbstractPopUpController _controller;
 
-    public PopUp() {
+    public PopUp(AbstractPopUpController controller) {
         super.initStyle(StageStyle.TRANSPARENT);
         _layout = new StackPane();
         _scene = new Scene(_layout);
         _layout.setPrefSize(250, 150);
-
         _scene.setFill(Color.TRANSPARENT);
         setScene(_scene);
-
+        _controller = controller;
         initOwner(Main.getStage());
         initStyle();
     }
     
     protected Button getCloseButton(String text, String style) {
         Button button = new Button(text);
+        PopUp instance = this;
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent t) {
-                close();
+                _controller.close(instance);
             }
         });
         button.getStyleClass().add(style);
@@ -56,7 +59,7 @@ public abstract class PopUp extends Stage {
     }
 
     private void initStyle() {
-        _scene.getStylesheets().add(ClientConfiguration.getInstance().getStylePath());
+        _scene.getStylesheets().add(ClientConfiguration.getInstance().getStyleFileName());
         _layout.setStyle(""
                 + "-fx-background-color: #d2d7dd;"
                 + "-fx-padding: 10;-fx-spacing: 5;"

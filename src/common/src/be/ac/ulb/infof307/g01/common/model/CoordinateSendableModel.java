@@ -7,8 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public class CoordinateSendableModel {
-
-    // TODO Check if it must be "final"
+    
     private double _latitude;
     private double _longitude;
     
@@ -23,31 +22,31 @@ public class CoordinateSendableModel {
     }
     
     /**
-     * @return the _latitude
+     * @return coordinate latitude
      */
     public double getLatitude() {
         return _latitude;
     }
 
     /**
-     * @param _latitude the _latitude to set
+     * @param latitude the latitude to set
      */
-    public void setLatitude(double _latitude) {
-        this._latitude = _latitude;
+    public void setLatitude(double latitude) {
+        this._latitude = latitude;
     }
 
     /**
-     * @return the _longitude
+     * @return coordinate longitude
      */
     public double getLongitude() {
         return _longitude;
     }
 
     /**
-     * @param _longitude the _longitude to set
+     * @param longitude the longitude to set
      */
-    public void setLongitude(double _longitude) {
-        this._longitude = _longitude;
+    public void setLongitude(double longitude) {
+        this._longitude = longitude;
     }
     
     @Override

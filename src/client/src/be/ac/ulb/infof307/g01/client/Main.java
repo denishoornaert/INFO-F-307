@@ -2,11 +2,14 @@ package be.ac.ulb.infof307.g01.client;
 
 import be.ac.ulb.infof307.g01.client.controller.WindowController;
 import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
+import java.io.IOException;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Main extends Application {
   
@@ -29,7 +32,6 @@ public class Main extends Application {
         setApplicationTitle();
         setApplicationIcons();
         _stage.setScene(_scene);
-        _scene.getStylesheets().add(ClientConfiguration.getInstance().getStylePath());
     }
 
     /**
@@ -46,7 +48,7 @@ public class Main extends Application {
     private static void setApplicationIcons() {
         ArrayList<String> iconsPaths = ClientConfiguration.getInstance().getApplicationIconsPaths();
         for (String path : iconsPaths) {
-            _stage.getIcons().add(new Image("file:" + path));
+            _stage.getIcons().add(new Image(path));
         }
     }
     
@@ -55,7 +57,11 @@ public class Main extends Application {
     }
     
     public static void openInBrowser(String link) {
-        _instance.getHostServices().showDocument(link);
+        try {
+            new ProcessBuilder("x-www-browser", link).start();
+        } catch (IOException e) {
+            Logger.getLogger(Main.class.getName()).log(Level.INFO, e.getMessage());
+        }
     }
     
     public static void main(String[] args) {

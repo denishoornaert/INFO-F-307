@@ -1,9 +1,10 @@
 package be.ac.ulb.infof307.g01.client.view;
 
 import be.ac.ulb.infof307.g01.client.controller.WindowController;
+import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
+import java.awt.Event;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -32,13 +33,14 @@ public class Window extends Scene {
     private void initWidgets(BorderPane pane) {
         _borderPane = pane;
         _stackPane = new StackPane();
-        initShowHidePanelbutton();
+        initShowHidePanelButton();
     }
 
-    private void initShowHidePanelbutton() {
+    private void initShowHidePanelButton() {
         _showHidePanelButton = new Button("⚙");
         _showHidePanelButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
+            @Override
+            public void handle(ActionEvent e) {
                 _controller.buttonPressed();
             }
         });
@@ -64,6 +66,10 @@ public class Window extends Scene {
 
     public void hidePanel() {
         _borderPane.setLeft(null);
+    }
+
+    public void simulateCLick() {
+        _showHidePanelButton.fire();
     }
     
 }

@@ -1,6 +1,8 @@
 package be.ac.ulb.infof307.g01.client.controller;
 
 import be.ac.ulb.infof307.g01.client.view.PanelView;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -21,11 +23,19 @@ public class PanelController {
     }
     
     public void openSignin() {
-        new SigninPopUpController(this);
+        try {
+            new SigninPopUpController(this);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(PanelController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void openSignUp() {
-        new SignupPopUpController();
+        try {
+            new SignupPopUpController(this);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(PanelController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public PanelView getView() {

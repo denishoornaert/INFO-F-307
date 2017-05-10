@@ -1,5 +1,6 @@
 package be.ac.ulb.infof307.g01.common.model;
 
+import java.util.ArrayList;
 import java.util.Objects;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -10,12 +11,12 @@ public class MarkerSendableModel {
      * DatabaseModel can know to which database entry this object corresponds.
      */
     protected int _databaseId;
-    protected String _username; // TODO may be final
+    protected String _username;
     protected PokemonSendableModel _pokemon;
     protected CoordinateSendableModel _coordinate;
     protected Long _longTimestamp;
-    protected ReputationScoreSendableModel _reputation;
-    protected int _lifePoint, _attack, _defense;
+    protected ArrayList<ReputationVoteSendableModel> _reputation;
+    protected int _lifePoints, _attack, _defense;
     
     public MarkerSendableModel() {} // Should not be removed
     
@@ -28,20 +29,18 @@ public class MarkerSendableModel {
      * @param latitude x coordinate
      * @param longitude y coordinate
      * @param timestamp time when the pokemon has been witnessed
-     * @param upVotes positif votes about this maker
-     * @param downVotes negatif votes about this marker
-     * @param lifePoint pokemon life point
+     * @param reputation
+     * @param lifePoints pokemon life point
      * @param attack pokemon attack stat
      * @param defense pokemon defense stat
      */
     public MarkerSendableModel(int databaseId, String username, 
             PokemonSendableModel pokemon, double latitude, double longitude, 
-            Long timestamp, int upVotes, int downVotes, int lifePoint, 
-            int attack, int defense) {
-        this(databaseId, username, pokemon, new CoordinateSendableModel(latitude, longitude), timestamp, 
-                new ReputationScoreSendableModel(upVotes, downVotes), lifePoint, attack, defense);
+            Long timestamp, ArrayList<ReputationVoteSendableModel> reputation, 
+            int lifePoints, int attack, int defense) {
+        this(databaseId, username, pokemon, new CoordinateSendableModel(latitude, longitude), 
+                timestamp, reputation, lifePoints, attack, defense);
     }
-    
     
     /**
      * Constructor (not in database)
@@ -51,15 +50,34 @@ public class MarkerSendableModel {
      * @param pokemon pokemon
      * @param coordinate location
      * @param timestamp time when the pokemon has been witnessed
-     * @param reputation all votes about this marker
-     * @param lifePoint pokemon life point
+     * @param lifePoints pokemon life point
      * @param attack pokemon attack stat
      * @param defense pokemon defense stat
      */
     protected MarkerSendableModel(int databaseId, String username, 
             PokemonSendableModel pokemon, CoordinateSendableModel coordinate, 
-            Long timestamp, ReputationScoreSendableModel reputation, int lifePoint, 
-            int attack, int defense) {
+            Long timestamp, int lifePoints, int attack, int defense) {
+        this(databaseId, username, pokemon, coordinate, timestamp, 
+                new ArrayList<>(), lifePoints, attack, defense);
+    }
+    
+    /**
+     * Constructor (not in database)
+     * 
+     * @param databaseId id of the pokemon in database (0 if not exist)
+     * @param username of user who create this marker
+     * @param pokemon pokemon
+     * @param coordinate location
+     * @param timestamp time when the pokemon has been witnessed
+     * @param reputation all reputation about this marker
+     * @param lifePoints pokemon life point
+     * @param attack pokemon attack stat
+     * @param defense pokemon defense stat
+     */
+    protected MarkerSendableModel(int databaseId, String username, 
+            PokemonSendableModel pokemon, CoordinateSendableModel coordinate, 
+            Long timestamp, ArrayList<ReputationVoteSendableModel> reputation, 
+            int lifePoints, int attack, int defense) {
         
     	_username = username;
         _databaseId = databaseId;
@@ -67,7 +85,7 @@ public class MarkerSendableModel {
         _coordinate = coordinate;
         _longTimestamp = timestamp;
         _reputation = reputation;
-        _lifePoint = lifePoint;
+        _lifePoints = lifePoints;
         _attack = attack;
         _defense = defense;
     }
@@ -79,7 +97,10 @@ public class MarkerSendableModel {
         _coordinate = other._coordinate;
         _longTimestamp = other._longTimestamp;
         _reputation = other._reputation;
-        _lifePoint = other._lifePoint;
+        if(_reputation == null) {
+            _reputation = new ArrayList<>();
+        }
+        _lifePoints = other._lifePoints;
         _attack = other._attack;
         _defense = other._defense;
     }
@@ -162,39 +183,54 @@ public class MarkerSendableModel {
     }
     
     /**
+     * All reputation about this marker
+     * 
      * @return the reputation
      */
-    public ReputationScoreSendableModel getReputation() {
+    public ArrayList<ReputationVoteSendableModel> getReputation() {
         return _reputation;
     }
     
     public int getUpVotes() {
-        return getReputation().getUpVotes();
+        int reputation = 0;
+        for(ReputationVoteSendableModel reputationVote : _reputation) {
+            if(reputationVote.getIsUpVote()) {
+                ++reputation;
+            }
+        }
+        
+        return reputation;
     }
 
     public int getDownVotes() {
-        return getReputation().getDownVotes();
+        int reputation = 0;
+        for(ReputationVoteSendableModel reputationVote : _reputation) {
+            if(!reputationVote.getIsUpVote()) {
+                ++reputation;
+            }
+        }
+        return reputation;
     }
     
     /**
      * @param reputation the reputation to set
      */
-    public void setReputation(ReputationScoreSendableModel reputation) {
+    public void setReputation(ArrayList<ReputationVoteSendableModel> reputation) {
         this._reputation = reputation;
     }
 
     /**
-     * @return the lifePoint
+     * @return the lifePoints
      */
     public int getLifePoints() {
-        return _lifePoint;
+        return _lifePoints;
     }
 
     /**
-     * @param lifePoint the lifePoint to set
+     * @param lifePoints the lifePoints to set
      */
-    public void setLifePoint(int lifePoint) {
-        this._lifePoint = lifePoint;
+    public void setLifePoints(int lifePoints) {
+        this._lifePoints = lifePoints;
     }
 
     /**
@@ -250,7 +286,7 @@ public class MarkerSendableModel {
         if (this._databaseId != other._databaseId && this.hasDatabaseId() && other.hasDatabaseId()) {
             return false;
         }
-        if (this._lifePoint != other._lifePoint) {
+        if (this._lifePoints != other._lifePoints) {
             return false;
         }
         if (this._attack != other._attack) {

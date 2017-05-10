@@ -7,7 +7,9 @@ import be.ac.ulb.infof307.g01.client.model.MarkerModel;
 import be.ac.ulb.infof307.g01.client.model.PokemonModel;
 import be.ac.ulb.infof307.g01.client.view.MapView;
 import be.ac.ulb.infof307.g01.common.model.CoordinateSendableModel;
+import java.security.InvalidParameterException;
 import java.sql.Timestamp;
+import java.util.logging.Level;
 
 
 /** Controller of the markers. This class should be instanciated only once, as
@@ -24,8 +26,12 @@ public class MarkerController {
     
     public void createMarker(PokemonModel pokemon, CoordinateSendableModel newMarkerCoordinates, int lifePoint, int attack, int defense, Timestamp date) {
     	String username = UserController.getInstance().getUsername();
-        MarkerModel marker = new MarkerModel(pokemon, newMarkerCoordinates, username, lifePoint, attack, defense, date);
-        displayMarker(marker);
+        try {
+            MarkerModel marker = new MarkerModel(pokemon, newMarkerCoordinates, username, lifePoint, attack, defense, date);
+            displayMarker(marker);
+        } catch(InvalidParameterException exception){
+            MessagePopUpController.createPopUpOrLog(Level.SEVERE, exception.getMessage());
+        }
     }
     
     public void displayMarker(MarkerModel marker) {
@@ -41,6 +47,13 @@ public class MarkerController {
 
     void updateMarker(int markerId, PokemonModel pokemon, int lifePoint, int attack, int defense, Timestamp dateView) {
         MarkerModel marker = _markerMap.get(markerId);
-        marker.update(pokemon, lifePoint, attack, defense, dateView);
+        try{
+            marker.update(pokemon, lifePoint, attack, defense, dateView);
+        } catch(InvalidParameterException exception){
+            MessagePopUpController.createPopUpOrLog(Level.SEVERE, exception.getMessage());
+        }
+
+        
+       
     }
 }

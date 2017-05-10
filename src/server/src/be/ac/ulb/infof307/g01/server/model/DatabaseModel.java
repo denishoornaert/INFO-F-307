@@ -1,13 +1,16 @@
 package be.ac.ulb.infof307.g01.server.model;
 
-import be.ac.ulb.infof307.g01.common.model.MarkerQueryModel;
+import be.ac.ulb.infof307.g01.common.controller.ConnectionQueryController;
+import be.ac.ulb.infof307.g01.common.controller.FilterQueryController;
+import be.ac.ulb.infof307.g01.common.controller.MarkerQueryController;
+import be.ac.ulb.infof307.g01.common.controller.PokemonQueryController;
+import be.ac.ulb.infof307.g01.common.controller.PokemonTypeQueryController;
+import be.ac.ulb.infof307.g01.common.model.FilterSendableModel;
 import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
-import be.ac.ulb.infof307.g01.common.model.PokemonQueryModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
-import be.ac.ulb.infof307.g01.common.model.PokemonTypeQueryModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
+import be.ac.ulb.infof307.g01.common.model.ReputationVoteSendableModel;
 import be.ac.ulb.infof307.g01.common.model.UserSendableModel;
-import be.ac.ulb.infof307.g01.server.ServerConfiguration;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -39,12 +42,16 @@ import java.util.logging.Logger;
  * PokemonTypeDatabaseModel database = (PokemonTypeDatabaseModel) DatabaseModel.getDatabase();
  * // Now database allows to call only queries related to pokemon types.
  * }
+ * 
+ * Note: This class doesn't implements ConnectionQueryController, since this
+ * interface requires a `signup` method taking a UserSendableModel, but the
+ * database requires a token as well in order to register a user.
  */
-public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
-        MarkerQueryModel {
+public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryController,
+        MarkerQueryController, ConnectionQueryController, FilterQueryController {
 
     private static DatabaseModel _instance = null;
-    private static final Logger _logger = Logger.getLogger(DatabaseModel.class.getName());
+    private static final Logger LOG = Logger.getLogger(DatabaseModel.class.getName());
     private static final ServerConfiguration CONFIG = ServerConfiguration.getInstance();
     
     /**
@@ -54,14 +61,14 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
 
     public static DatabaseModel getInstance() {
         if(_instance == null) {
-            _instance = new DatabaseModel(CONFIG.getDataBasePath());
+            _instance = new DatabaseModel(CONFIG.getDataBasePath(), CONFIG.getSqlPath());
         }
         return _instance;
     }
     
     public static DatabaseModel getTestInstance() {
         if(_instance == null) {
-            _instance = new DatabaseModel(CONFIG.getTestDataBasePath());
+            _instance = new DatabaseModel(CONFIG.getTestDataBasePath(), CONFIG.getTestSqlPath());
         }
         return _instance;
     }
@@ -70,45 +77,33 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
      * Initializes database
      *
      * @param pathToDatabase path to database
+     * @param pathToSql path to SQL file
      */
-    protected DatabaseModel(String pathToDatabase) {
+    protected DatabaseModel(String pathToDatabase, String pathToSql) {
         try {
-            boolean justCreated = createDatabaseFile(pathToDatabase);
+            createDatabase(pathToDatabase, pathToSql);
             connectToSqlite(pathToDatabase);
-            if(justCreated) {
-                _logger.log(Level.INFO, "Created Database");
-                createAllTables(pathToDatabase);
-            }
-        } catch(IOException | SQLException ex) {
-            _logger.log(Level.SEVERE, null, ex);
+        } catch(IOException | SQLException exception) {
+            LOG.log(Level.SEVERE, "Could not create Database: {0}", exception);
             System.exit(1);
         }
-        
-        loadAllTables();
-
-        _instance = this;
-    }
-
-    /**
-     * Load all Data (Pokemon and PokemonType)
-     */
-    private void loadAllTables() {
-        getAllPokemonTypes();
     }
     
     /**
      * Create the database file (.db from .sql)
      *
-     * @param path path to database
+     * @param databasePath path to database
+     * @param sqlPath sql file to create database
      * @return false if file already exist, true if file have been juste created
      */
-    private boolean createDatabaseFile(String path) throws IOException, SQLException {
-        File file = new File(path);
+    private void createDatabase(String databasePath, String sqlPath) throws IOException, SQLException {
+        File file = new File(databasePath);
         if(!file.exists()) {
             file.createNewFile();
-            return true;
+            LOG.log(Level.INFO, "Created Database to {0}", databasePath);
+            connectToSqlite(databasePath);
+            fillDatabase(sqlPath);
         }
-        return false;
     }
 
     /**
@@ -127,8 +122,8 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
      * 
      * @return the file content
      */
-    private String[] getContentSqlFile() throws FileNotFoundException, IOException {
-        Path sqlPath = Paths.get(ServerConfiguration.getInstance().getSqlPath());
+    private String[] getSQLQueriesFromFile(String filePath) throws FileNotFoundException, IOException {
+        Path sqlPath = Paths.get(filePath);
         List<String> lines = Files.readAllLines(sqlPath);
         String query = "";
         for(String line : lines) {
@@ -138,20 +133,23 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
         return query.split(";");
     }
     
-    private void createAllTables(String pathToDatabase) {
-        String pathToSqlFile = pathToDatabase.substring(0, pathToDatabase.lastIndexOf('.'));
+    private void fillDatabase(String pathToSqlFile) {
+        String[] content;
         try {
-            String[] content = getContentSqlFile();
-            for(String query : content) {
-                try {
-                    executeQuery(query);
-                } catch (SQLException ex) {
-                    _logger.log(Level.SEVERE, null, "Could not execute sql query (" + content + ")" + ex);
-                }
+            content = getSQLQueriesFromFile(pathToSqlFile);
+        } catch (IOException exception) {
+            LOG.log(Level.SEVERE, "Could not read sql file <{0}>: {1}",
+                    new Object[]{pathToSqlFile, exception});
+            return;
+        }
+        
+        for(String query : content) {
+            try {
+                executeQuery(query);
+            } catch (SQLException exception) {
+                LOG.log(Level.SEVERE, "Could not execute sql query <{0}>: {1}",
+                        new Object[]{content, exception});
             }
-            
-        } catch (IOException ex) {
-            _logger.log(Level.SEVERE, null, "Could not read sql file (" + pathToSqlFile + ")" + ex);
         }
     }
     
@@ -162,8 +160,8 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
         try {
             _connection.close();
             _instance = null;
-        } catch (SQLException ex) {
-            _logger.log(Level.INFO, null, "Could not close sql connection" + ex);
+        } catch (SQLException exception) {
+            LOG.log(Level.WARNING, "Could not close sql connection: {0}", exception);
         }
     }
 
@@ -228,7 +226,7 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
     @Override
     public List<PokemonTypeSendableModel> getAllPokemonTypes() {
         String query = "SELECT DISTINCT(Name) FROM PokemonType;";
-        List<PokemonTypeSendableModel> types = new ArrayList();
+        List<PokemonTypeSendableModel> types = new ArrayList<>();
         
         try {
             ResultSet result = executeQuery(query);
@@ -236,7 +234,7 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
                 types.add(new PokemonTypeSendableModel(result.getString("Name")));
             }
         } catch (SQLException exception) {
-            _logger.log(Level.SEVERE, null, "Could not load PokemonTypes" + exception);
+            LOG.log(Level.SEVERE, "Could not load PokemonTypes: {0}", exception);
         }
         return types;
     }
@@ -247,7 +245,7 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
                     + "FirstType.Name as T1Name, SecondType.Name as T2Name FROM Pokemon "
                 + "JOIN PokemonType FirstType ON FirstType.Id = Pokemon.TypeFirst "
                 + "LEFT OUTER JOIN PokemonType SecondType ON SecondType.Id = Pokemon.TypeSecond;";
-        List<PokemonSendableModel> allPokemons = new ArrayList();
+        List<PokemonSendableModel> allPokemons = new ArrayList<>();
         
         try {
             ResultSet result = executeQuery(query);
@@ -267,7 +265,7 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
                 }
             }
         } catch (SQLException exception) {
-            _logger.log(Level.SEVERE, null, "Could not load Pokemons" + exception);
+            LOG.log(Level.SEVERE, "Could not load Pokemons: {0}", exception);
         }
         return allPokemons;
     }
@@ -275,7 +273,7 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
     /**
      * Create a new marker in database
      * @param marker the marker to create in database
-     * @throws java.sql.SQLException
+     * @throws InvalidParameterException if an error occurred
      */
     @Override
     public void insertMarker(MarkerSendableModel marker) throws InvalidParameterException {
@@ -303,7 +301,6 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
             final int generatedId = statement.getGeneratedKeys().getInt(1);
             marker.setDatabaseId(generatedId);
         } catch(SQLException exception) {
-            // TODO (Loan & Stan) : gérer avec nos propres exceptions (InvalidMarkerException)
             throw new InvalidParameterException("Cannot insert marker" + marker.toString());
         }
     }
@@ -313,17 +310,14 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
      * @return a list of markers that are in database
      */
     @Override
-    public ArrayList<MarkerSendableModel> getAllMarkers() {
+    public ArrayList<MarkerSendableModel> getAllMarkers() throws InvalidParameterException {
         ArrayList<MarkerSendableModel> allMarkers = new ArrayList<>();
         String query = "SELECT M.Id, U.Username, P.Name, M.Latitude, M.Longitude, " +
-            "M.TimeStamp, COUNT(V.IsUp = 1) AS UpVotes, " +
-            "COUNT(V.IsUp = 0) AS DownVotes, M.LifePoints, " +
+            "M.TimeStamp, M.LifePoints, " +
             "M.Attack, M.Defense " +
             "FROM Marker M " +
             "JOIN User U ON U.Id=M.UserId " +
-            "JOIN Pokemon P ON P.Id=M.PokemonId " +
-            "LEFT OUTER JOIN MarkerVote V ON V.UserId = U.Id AND V.MarkerId = M.Id " + 
-            "GROUP BY M.Id;";
+            "JOIN Pokemon P ON P.Id=M.PokemonId;";
         
         try {
             ResultSet allMarkersCursor = executeQuery(query);
@@ -333,118 +327,125 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
                     allMarkers.add(newMarker);
                 }
             }
-        } catch (SQLException ex) {
-            _logger.log(Level.SEVERE, null, ex);
+        } catch (SQLException exception) {
+            LOG.log(Level.SEVERE, "Could not load markers: {0}", exception);
         }
         return allMarkers;
     }
 
-    private MarkerSendableModel createMarker(ResultSet cursor) throws SQLException {
-    	int i = 0;
-        final int id = cursor.getInt(++i);
-        final String username = cursor.getString(++i);
-        final String pokemonName = cursor.getString(++i);
-        final double latitude = cursor.getDouble(++i);
-        final double longitude = cursor.getDouble(++i);
-        final String timestampString = cursor.getString(++i);
-        final int upVotes = getMarkerUpVotes(id);
-        final int downVotes = getMarkerDownVotes(id);
-        final int lifePoints = cursor.getInt(++i);
-        final int attack = cursor.getInt(++i);
-        final int defense = cursor.getInt(++i);
-        // This is not optimized (we query all pokemons for one marker), but
-        // this is way cleaner in the code, as you can see, we don't have to
-        // write any other SQL query.
-        final PokemonSendableModel pokemon = getPokemonByName(pokemonName);
-        
-        if(timestampString == null || timestampString.isEmpty()) {
-            return null;
+    private MarkerSendableModel createMarker(ResultSet cursor) throws InvalidParameterException {
+    	try {
+            int i = 0;
+            final int id = cursor.getInt(++i);
+            final String username = cursor.getString(++i);
+            final String pokemonName = cursor.getString(++i);
+            final double latitude = cursor.getDouble(++i);
+            final double longitude = cursor.getDouble(++i);
+            final String timestampString = cursor.getString(++i);
+            final int lifePoints = cursor.getInt(++i);
+            final int attack = cursor.getInt(++i);
+            final int defense = cursor.getInt(++i);
+            // This is not optimized (we query all pokemons for one marker), but
+            // this is way cleaner in the code, as you can see, we don't have to
+            // write any other SQL query.
+            final PokemonSendableModel pokemon = getPokemonByName(pokemonName);
+
+            if(timestampString == null || timestampString.isEmpty()) {
+                return null;
+            }
+
+            ArrayList<ReputationVoteSendableModel> allReputation = getMarkerVotes(id);
+            MarkerSendableModel newMarker = new MarkerSendableModel(id, username, 
+                    pokemon, latitude, longitude, 
+                    Timestamp.valueOf(timestampString).getTime(), allReputation, 
+                    lifePoints, attack, defense);
+
+            return newMarker;
+        } catch (SQLException exception) {
+            throw new InvalidParameterException("could not create marker: " + exception);
         }
-        
-        return new MarkerSendableModel(id, username, pokemon, latitude, longitude,
-                Timestamp.valueOf(timestampString).getTime(), upVotes, 
-                downVotes, lifePoints, attack, defense);
     }
     
-    public int getMarkerUpVotes(int markerId) {
-        return getMarkerVotes(markerId, true);
-    }
-    
-    public int getMarkerDownVotes(int markerId) {
-        return getMarkerVotes(markerId, false);
-    }
-    
-    private int getMarkerVotes(int markerId, boolean isUp) {
-        int votes = 0;
-        String query = "SELECT COUNT(*) FROM MarkerVote V "
-                + "WHERE MarkerId=? AND IsUp=?;";
+    private ArrayList<ReputationVoteSendableModel> getMarkerVotes(int markerId) {
+        ArrayList<ReputationVoteSendableModel> res = new ArrayList<>();
+        String query = "SELECT U.Username AS Username, V.IsUp AS IsUp FROM MarkerVote V "
+                + "JOIN User U ON U.Id = V.UserId "
+                + "WHERE V.MarkerId=?;";
         
         try {
             PreparedStatement statement = _connection.prepareStatement(query);
             
             int i = 0; // index of statement
             statement.setInt(++i, markerId);
-            statement.setBoolean(++i, isUp);
-            statement.execute();
-            
-            votes = statement.getGeneratedKeys().getInt(1);
-        } catch (SQLException ex) {
-            _logger.log(Level.SEVERE, null, ex);
+            ResultSet resultSet = statement.executeQuery();
+            while(resultSet.next()) {
+                String username = resultSet.getString("Username");
+                boolean isUp = resultSet.getBoolean("IsUp");
+                res.add(new ReputationVoteSendableModel(username, isUp, markerId));
+            }
+        } catch (SQLException exception) {
+            LOG.log(Level.SEVERE, "Could not get marker votes: {0}", exception);
         }
-        return votes;
+        
+        return res;
     }
 
-    @Override
     /**
-     * Update in the database the reputation of the given marker.
-     * This function is usually called after a vote has been done by a user.
-     * This function does not take a vote in parameter, as the marker already
-     * know its new reputation value, it would be dumb to compute it again here.
+     * TODO description
      *
-     * @param marker The marker that need to be updated in the database.
+     * @param reputationVote 
      */
-    public void updateMarkerReputation(MarkerSendableModel marker) {
-        String query = "UPDATE Marker SET UpVotes=?, DownVotes=? WHERE Id=?;";
+    @Override
+    public void updateMarkerReputation(ReputationVoteSendableModel reputationVote) throws InvalidParameterException {
+        String query = "REPLACE INTO MarkerVote (UserId, MarkerId, IsUP) "
+                + "VALUES((SELECT User.Id FROM User WHERE User.Username = ?), ?,  ?);";
         try {
             PreparedStatement statement = _connection.prepareStatement(query);
-            statement.setInt(1, marker.getUpVotes());
-            statement.setInt(2, marker.getDownVotes());
-            statement.setInt(3, marker.getDatabaseId());
+            statement.setString(1, reputationVote.getUsername());
+            statement.setInt(2, reputationVote.getMarkerId());
+            statement.setInt(3, reputationVote.getIsUpVote() ? 1 : 0);
             statement.execute();
-        } catch (SQLException ex) {
-            _logger.log(Level.SEVERE, null, ex);
+        } catch (SQLException exception) {
+            throw new InvalidParameterException("Could not update marker reputation: " + exception);
         }
     }
 
+    /**
+     * Updates the information about a Marker.  Doesn't update the reputation !
+     * 
+     * @param marker the marker to update
+     */
     @Override
-    public boolean updateMarker(MarkerSendableModel marker) {
-        boolean res = false;
-        
+    public void updateMarker(MarkerSendableModel marker) {
         String query = "UPDATE Marker SET PokemonId=(SELECT Id FROM Pokemon "
-                + "WHERE Name=?), TimeStamp=?, LifePoint=?, Attack=?, Defense=? "
+                + "WHERE Name=?), TimeStamp=?, LifePoints=?, Attack=?, Defense=? "
                 + "WHERE Id=?;";
         
         try {
             PreparedStatement statement = _connection.prepareStatement(query);
             statement.setString(1, marker.getPokemon().getName());
-            statement.setTimestamp(2, new Timestamp(marker.getLongTimestamp()));
-            statement.setInt(3, marker.getAttack());
-            statement.setInt(3, marker.getDefense());
-            statement.setInt(3, marker.getDatabaseId());
-            res = (statement.executeUpdate() == 1);
-        } catch (SQLException ex) {
-            _logger.log(Level.SEVERE, null, ex);
+            statement.setString(2, new Timestamp(marker.getLongTimestamp()).toString());
+            statement.setInt(3, marker.getLifePoints());
+            statement.setInt(4, marker.getAttack());
+            statement.setInt(5, marker.getDefense());
+            statement.setInt(6, marker.getDatabaseId());
+            statement.executeUpdate();
+        } catch (SQLException exception) {
+            throw new InvalidParameterException("Could not update marker: " + exception);
         }
         
-        return res;
+        Logger.getLogger(getClass().getName()).log(Level.INFO, "Id: {0} - {1} - {2} - {3} - {4}", 
+                new Object[]{marker.getDatabaseId(), marker.getPokemon().getName(), 
+                    new Timestamp(marker.getLongTimestamp()), marker.getAttack(), marker.getDefense()});
     }
     
     /**
-     * Sign in (connect) a user
+     * Signs in (connects) a user.
      * 
      * @param user all user informations
      */
-    public void signin(UserSendableModel user) throws IllegalArgumentException, InvalidParameterException {
+    @Override
+    public void signin(UserSendableModel user) throws InvalidParameterException {
         String query = "SELECT Password FROM User WHERE Username = ? AND Token = '';";
         try {
             PreparedStatement statement;
@@ -453,15 +454,13 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
             ResultSet result = statement.executeQuery();
             if(result.next()) {
                 if(!result.getString("Password").equals(user.getPassword())) {
-                    // TODO (Loan & Stan) : gérer avec nos propres exceptions (InvalidCredentialsException)
-                    throw new IllegalArgumentException("Bad Password for user "+user.getUsername());
+                    throw new SQLException("Wrong password: " + user.getPassword());
                 }
             } else {
-                // TODO (Loan & Stan) : gérer avec nos propres exceptions (UserNotFoundException)
-                throw new InvalidParameterException("User " + user.getUsername() + " not found");
+                throw new SQLException("Unknown username: " + user.getUsername());
             }
-        } catch (SQLException ex) {
-            _logger.log(Level.SEVERE, null, ex);
+        } catch (SQLException exception) {
+            throw new InvalidParameterException("Could not sign in: " + exception);
         }
     }
     
@@ -469,11 +468,11 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
      * Sign Up (register) a new user
      * 
      * @param user all user informations
-     * @param token with must be send to email
      */
-    public void signup(UserSendableModel user, String token) throws IllegalArgumentException{
-        String query = "INSERT INTO User (Username, Email, Password, Token) "
-                    + "VALUES (?, ?, ?, ?);";
+    @Override
+    public void signup(UserSendableModel user) throws InvalidParameterException {
+        String query = "INSERT INTO User (Username, Email, Password) "
+                    + "VALUES (?, ?, ?);";
         String userInfo = String.join(", ", user.getUsername(), user.getEmail(), user.getPassword());
         
         try {
@@ -481,13 +480,62 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
             statement.setString(1, user.getUsername());
             statement.setString(2, user.getEmail());
             statement.setString(3, user.getPassword());
-            statement.setString(4, token);
             statement.execute();
-            _logger.log(Level.INFO, "Create user: " + userInfo);
+            LOG.log(Level.INFO, "Create user: {0}", userInfo);
             
         } catch (SQLException ex) {
-            // TODO (Loan & Stan) : gérer avec nos propres exceptions (InvalidSignupInformation)
-            throw new IllegalArgumentException("Invalid signup information "+userInfo);
+            throw new InvalidParameterException("Invalid signup information "+ 
+                userInfo + " (error: " + ex.getMessage() + ")");
+        }
+    }
+    
+    public void addTokenToUser(UserSendableModel user, String token) throws InvalidParameterException {
+        String query = "UPDATE User SET Token = ? "
+                    + "WHERE Username = ?;";
+        
+        try {
+            PreparedStatement statement = _connection.prepareStatement(query);
+            statement.setString(1, token);
+            statement.setString(2, user.getUsername());
+            statement.execute();
+            
+        } catch (SQLException ex) {
+            throw new InvalidParameterException("Invalid add token to user "+ 
+                    user.getUsername());
+        }
+    }
+    
+    @Override
+    public List<FilterSendableModel> getAllFilter() throws InvalidParameterException {
+        ArrayList<FilterSendableModel> allFilter = new ArrayList<>();
+        String query = "SELECT Name, Expression FROM Filter;";
+        
+        try {
+            ResultSet allFilterCursor = executeQuery(query);
+            while(allFilterCursor.next()) {
+                String name = allFilterCursor.getString("Name");
+                String expression = allFilterCursor.getString("Expression");
+                allFilter.add(new FilterSendableModel(name, expression));
+            }
+        } catch (SQLException exception) {
+            LOG.log(Level.SEVERE, "Could not load markers: {0}", exception);
+        }
+        return allFilter;
+    }
+
+    @Override
+    public void insertFilter(FilterSendableModel filter) throws InvalidParameterException {
+        String query = "INSERT INTO Filter(Name, Expression) "
+                + "VALUES(?, ?);";
+        try {
+            PreparedStatement statement = _connection.prepareStatement(query);
+            
+            statement.setString(1, filter.getName());
+            statement.setString(2, filter.getExpression());
+            statement.execute();
+        } catch(SQLException exception) {
+            throw new InvalidParameterException("Cannot insert filter " + 
+                    filter.getName() + " (error: " + exception.getMessage() + ")");
         }
     }
 
@@ -495,20 +543,19 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
      * Confirm a user account
      * 
      * @param token the token who confirm account
-     * @return True if the token have been confirm
      */
-    public boolean confirmAccount(String token){
-        boolean res = false;
+    public void confirmAccount(String token) throws InvalidParameterException {
         //TODO : use Username to check if we're confirming the right account (duplicate tokens)
         String query = "UPDATE User SET Token = '' WHERE Token = ?";
         try {
             PreparedStatement statement = _connection.prepareStatement(query);
             statement.setString(1, token);
-            res = statement.executeUpdate() == 1;
-        } catch (SQLException ex) {
-            _logger.log(Level.SEVERE, null, ex);
+            if(statement.executeUpdate() != 1) {
+                throw new SQLException("No user with such token: " + token);
+            }
+        } catch (SQLException exception) {
+            throw new InvalidParameterException("Could not confirm account: " + exception);
         }
-        return res;
     }
     
     /**
@@ -522,8 +569,9 @@ public class DatabaseModel implements PokemonQueryModel, PokemonTypeQueryModel,
         try {
             PreparedStatement statement = _connection.prepareStatement(query);
             statement.executeUpdate();
-        } catch (SQLException ex) {
-            _logger.log(Level.SEVERE, ex + query);
+        } catch (SQLException exception) {
+            LOG.log(Level.SEVERE, "Could not execute query <{0}>: {1}",
+                    new Object[]{query, exception});
         }
     }
     

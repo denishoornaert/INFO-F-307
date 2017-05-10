@@ -13,11 +13,12 @@ public class UpdateMarkerPopUpController extends AbstractMarkerPopUpController {
     
     private int _markerId;
     
-    public UpdateMarkerPopUpController(MarkerController markerController, int markerId) {
+    public UpdateMarkerPopUpController(MarkerController markerController, int markerId) throws InstantiationException {
         super(markerController, markerId);
         _markerId = markerId;
         _markerPopUp = new UpdateMarkerPopUp(this, PokemonCache.getInstance().getAllPokemonNames(), markerId);
-        _markerPopUp.setPokemonView(_marker.getImagePath());
+        String imagePath = _marker.getImagePath();
+        _markerPopUp.setPokemonView(imagePath);
     }
     
     @Override

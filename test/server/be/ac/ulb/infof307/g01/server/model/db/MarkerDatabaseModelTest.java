@@ -2,15 +2,16 @@ package be.ac.ulb.infof307.g01.server.model.db;
 
 import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
+import be.ac.ulb.infof307.g01.common.model.ReputationVoteSendableModel;
 import be.ac.ulb.infof307.g01.common.model.UserSendableModel;
 import java.security.InvalidParameterException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertTrue;
 import static junit.framework.TestCase.fail;
 import org.junit.Before;
 import org.junit.Test;
+import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertTrue;
 
 public class MarkerDatabaseModelTest extends AbstractDatabaseTest {
     private final String _markerUsername = "bidon";
@@ -32,17 +33,14 @@ public class MarkerDatabaseModelTest extends AbstractDatabaseTest {
         final double latitude = 250;
         final double longitude = 500;
         final Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        final int upVotes = 0;
-        final int downVotes = 0;
         final int lifePoint = 0;
         final int attack = 0;
         final int defense = 0;
+        
         _markerToInsert = new MarkerSendableModel(id, _markerUsername, arceus,
-                latitude, longitude, timestamp.getTime(), upVotes, 
-                downVotes, lifePoint, attack, defense);
-        String token = "109283";
-        _database.signup(_markerUser, token);
-        _database.confirmAccount(token);
+                latitude, longitude, timestamp.getTime(), 
+                new ArrayList<ReputationVoteSendableModel>(), lifePoint, attack, defense);
+        _database.signup(_markerUser);
     }
     
     /**
