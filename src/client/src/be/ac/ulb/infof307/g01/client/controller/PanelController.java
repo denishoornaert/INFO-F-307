@@ -17,7 +17,6 @@ public class PanelController {
     }
     
     public void setUser() {
-        // TODO : add user to the panel
         String username = UserController.getInstance().getUsername();
         String email = UserController.getInstance().getEmail();
         _panelView.setUser(username,email);
@@ -25,7 +24,7 @@ public class PanelController {
     
     public void openSignin() {
         try {
-            new SigninPopUpController();
+            new SigninPopUpController(this);
         } catch (InstantiationException ex) {
             Logger.getLogger(PanelController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -33,7 +32,7 @@ public class PanelController {
     
     public void openSignUp() {
         try {
-            new SignupPopUpController();
+            new SignupPopUpController(this);
         } catch (InstantiationException ex) {
             Logger.getLogger(PanelController.class.getName()).log(Level.SEVERE, null, ex);
         }

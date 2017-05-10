@@ -21,12 +21,14 @@ public class PanelView extends VBox{
     private Label _title1;
     private Label _title2;
     private Label _userLabel;
+    private Label _userInfo;   
     private Label _emailLabel;
-    private Label _location;
+    private Label _emailInfo;
     private Button _signin;
     private Button _signup;
     private Separator _separation1;
     private Separator _separation2;
+    private Separator _separation3;
     private PanelController _controller;
     
     public PanelView(PanelController panel) {
@@ -42,6 +44,7 @@ public class PanelView extends VBox{
         _title2 = new Label("Informations");
         _separation1 = new Separator();
         _separation2 = new Separator();
+        _separation3 = new Separator();
         _signin = new Button("Sign In");
         _signup = new Button("Sign Up");
         initSignInButton();
@@ -59,6 +62,7 @@ public class PanelView extends VBox{
     private void initStyle(){
         _title1.setStyle("-fx-font-size:20px Tahoma");
         _title1.setPadding(new Insets(10,45,0,45));
+        _title2.setStyle("-fx-font-size:18px Tahoma");
         setXExpandPolicy(_signin);
         setXExpandPolicy(_signup);
         setAlignment(Pos.TOP_CENTER);
@@ -95,10 +99,28 @@ public class PanelView extends VBox{
     }
     
     public void setUser(String username, String email) {
-        _userLabel = new Label("User : "+username);
-        _emailLabel = new Label("Email : "+email);
-        _location = new Label("Your location");
-        getChildren().addAll(_title2,_userLabel,_emailLabel,_location);
+        _userLabel = new Label("User : ");
+        _userLabel.setPadding(new Insets(0, 0, 0, 8));
+        _emailLabel = new Label("Email : ");
+        _emailLabel.setPadding(new Insets(0, 0, 0, 8));
+        _userInfo = new Label(username);
+        _emailInfo = new Label(email);
+        _userLabel.setStyle("-fx-font-size:12px Tahoma");
+        _userInfo.setStyle("-fx-font-size:11px Tahoma");
+        _emailLabel.setStyle("-fx-font-size:12px Tahoma");
+        _emailInfo.setStyle("-fx-font-size:11px Tahoma");
+        VBox box1 = new VBox();
+        box1.getChildren().add(_userLabel);
+        box1.setAlignment(Pos.BASELINE_LEFT);
+        VBox box2 = new VBox();
+        box2.getChildren().add(_emailLabel);
+        box2.setAlignment(Pos.BASELINE_LEFT);
+        getChildren().add(_title2);
+        getChildren().add(box1);
+        getChildren().add(_userInfo);
+        getChildren().add(box2);
+        getChildren().add(_emailInfo);
+        getChildren().add(_separation3);
     }
     
 }
