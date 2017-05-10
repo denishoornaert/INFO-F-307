@@ -6,6 +6,8 @@ import be.ac.ulb.infof307.g01.common.model.CoordinateSendableModel;
 import be.ac.ulb.infof307.g01.client.model.MarkerModel;
 import be.ac.ulb.infof307.g01.client.view.PinPopUp;
 import be.ac.ulb.infof307.g01.common.model.ReputationVoteSendableModel;
+import java.security.InvalidParameterException;
+import java.util.logging.Level;
 
 /**
  * 
@@ -71,16 +73,24 @@ public class PinPopUpController extends InformationPopUpController {
     public String getVoteScore() {
         return Integer.toString(_marker.getReputationScore());
     }
-
+    // TODO Refactor addVote
     public void addDownVote() {
-        _marker.addVote(UserController.getInstance().getUsername(), false);
+        try {
+            _marker.addVote(UserController.getInstance().getUsername(), false);
+        } catch(InvalidParameterException exception){
+            MessagePopUpController.createPopUpOrLog(Level.SEVERE, exception.getMessage());
+        }
         _pinPopUp.enableUpVoteButton();
         _pinPopUp.disableDownVoteButton();
         updateVoteView();
     }
 
     public void addUpVote() {
-        _marker.addVote(UserController.getInstance().getUsername(), true);
+        try {
+            _marker.addVote(UserController.getInstance().getUsername(), true);
+        } catch(InvalidParameterException exception){
+            MessagePopUpController.createPopUpOrLog(Level.SEVERE, exception.getMessage());
+        }
         _pinPopUp.enableDownVoteButton();
         _pinPopUp.disableUpVoteButton();
         updateVoteView();

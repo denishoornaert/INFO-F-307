@@ -6,6 +6,7 @@ import be.ac.ulb.infof307.g01.common.model.CoordinateSendableModel;
 import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
 import be.ac.ulb.infof307.g01.common.model.ReputationVoteSendableModel;
+import java.security.InvalidParameterException;
 import java.sql.Timestamp;
 
 /** Model of a marker. A marker contains the location of a spotted pokemon,
@@ -27,7 +28,8 @@ public class MarkerModel extends MarkerSendableModel {
      * @param date the date of the marker
      */
     public MarkerModel(PokemonSendableModel pokemon, CoordinateSendableModel coordinate,
-            String username, int lifePoint, int attack, int defense, Timestamp date) {
+            String username, int lifePoint, int attack, int defense, Timestamp date) 
+            throws InvalidParameterException {
         this(pokemon, coordinate, username, lifePoint, attack, defense, date, true);
         _serverQuery.insertMarker(this);
     }
@@ -101,7 +103,7 @@ public class MarkerModel extends MarkerSendableModel {
      * @param username the user who add a vote
      * @param isUpVote True if it's an up vote
      */
-    public void addVote(String username, boolean isUpVote) {
+    public void addVote(String username, boolean isUpVote) throws InvalidParameterException {
         ReputationVoteSendableModel reputation = new ReputationVoteSendableModel(username, isUpVote, _databaseId);
         for(ReputationVoteSendableModel vote : _reputation) {
             if(vote.getUsername().equals(username)) {
@@ -170,7 +172,7 @@ public class MarkerModel extends MarkerSendableModel {
     }
     
     public void update(PokemonModel pokemon, int lifePoints, int attack, int defense,
-            Timestamp timestamp) {
+            Timestamp timestamp) throws IllegalArgumentException {
         setPokemon(pokemon);
         setTimestamp(timestamp);
         setLifePoints(lifePoints);

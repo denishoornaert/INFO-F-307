@@ -89,7 +89,7 @@ public class ServerQueryController implements MarkerQueryController, PokemonQuer
      * Call this function when the user logs in. It tries to send all
      * bufferised POST queries.
      */
-    private void onUserLogin(String username) {
+    private void onUserLogin(String username) throws InvalidParameterException {
         for(PostQuery query : _visitorPostQueriesQueue) {
             // We have to check if the object to post is a marker added by a
             // visitor (the username is null in this case). If so, we have to
@@ -105,16 +105,16 @@ public class ServerQueryController implements MarkerQueryController, PokemonQuer
                     markerToPost.setUsername(username);
                 }
             }
-            sendPostQueryWithErrorPopup(query, false);
+            sendPostQuery(query, true);
         }
         _visitorPostQueriesQueue.clear();
     }
     
     @Override
-    public void insertMarker(MarkerSendableModel marker) {
+    public void insertMarker(MarkerSendableModel marker) throws InvalidParameterException {
         marker = fixTypeMarkerModelToSendable(marker);
         WebResource resource = _webResource.path("marker").path("insert");
-        sendPostQueryWithErrorPopup(new PostQuery(resource, marker, "Could not insert marker"), true);
+        sendPostQuery(new PostQuery(resource, marker, "Could not insert marker"), true);
     }
 
     @Override
@@ -126,9 +126,10 @@ public class ServerQueryController implements MarkerQueryController, PokemonQuer
     }
 
     @Override
-    public void updateMarkerReputation(ReputationVoteSendableModel reputationVote) {
+    public void updateMarkerReputation(ReputationVoteSendableModel reputationVote)
+            throws InvalidParameterException {
         WebResource resource = _webResource.path("marker").path("updateReputation");
-        sendPostQueryWithErrorPopup(new PostQuery(resource, reputationVote, "Could not update marker"), true);
+        sendPostQuery(new PostQuery(resource, reputationVote, "Could not update marker"), true);
     }
 
     @Override
@@ -144,10 +145,10 @@ public class ServerQueryController implements MarkerQueryController, PokemonQuer
     }
     
     @Override
-    public void updateMarker(MarkerSendableModel marker) {
+    public void updateMarker(MarkerSendableModel marker) throws InvalidParameterException {
         marker = fixTypeMarkerModelToSendable(marker);
         WebResource resource = _webResource.path("marker").path("update");
-        sendPostQueryWithErrorPopup(new PostQuery(resource, marker, "Could not update marker"), true);
+        sendPostQuery(new PostQuery(resource, marker, "Could not update marker"), true);
     }
 
     @Override
@@ -181,20 +182,6 @@ public class ServerQueryController implements MarkerQueryController, PokemonQuer
     private void connectClient() {
         Client client = Client.create();
         _webResource = client.resource(ClientConfiguration.getInstance().getServerURL());
-    }
-    
-    private void sendPostQueryWithErrorPopup(PostQuery query, boolean bufferIfVisitor) {
-        try {
-            sendPostQuery(query, bufferIfVisitor);
-        } catch(InvalidParameterException exception) {
-            // An error occurred, try to open a popup with the error message
-            try {
-                new MessagePopUpController(Level.WARNING, query.getErrorMessage());
-            } catch (InstantiationException ex) {
-                LOG.log(Level.WARNING, "This error couldn't be shown with a popup: {0}",
-                        query.getErrorMessage());
-            }
-        }
     }
     
     /**
