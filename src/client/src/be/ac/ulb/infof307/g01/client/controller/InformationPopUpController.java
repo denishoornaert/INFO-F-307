@@ -7,7 +7,7 @@ import be.ac.ulb.infof307.g01.client.model.MarkerModel;
  *
  * @author Groupe01
  */
-public class InformationPopUpController extends AbstractPopUpController {
+public class InformationPopUpController extends PopUpController {
     
     protected MarkerController _markerController;
     protected MarkerModel _marker;

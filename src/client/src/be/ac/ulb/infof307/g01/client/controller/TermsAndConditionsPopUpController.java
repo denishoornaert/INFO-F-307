@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  *
  * @author hoornaert
  */
-public class TermsAndConditionsPopUpController extends AbstractPopUpController {
+public class TermsAndConditionsPopUpController extends PopUpController {
 
     TermsAndConditionsPopUp _popUp;
     

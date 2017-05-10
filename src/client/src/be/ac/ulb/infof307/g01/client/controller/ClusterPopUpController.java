@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * 
  * @author Groupe01
  */
-public class ClusterPopUpController extends AbstractPopUpController {
+public class ClusterPopUpController extends PopUpController {
     
     private final ClusterPopUp _view;
     private final MarkerController _markerController;

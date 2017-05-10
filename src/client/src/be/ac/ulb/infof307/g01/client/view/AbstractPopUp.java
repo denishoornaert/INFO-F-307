@@ -1,7 +1,7 @@
 package be.ac.ulb.infof307.g01.client.view;
 
 import be.ac.ulb.infof307.g01.client.Main;
-import be.ac.ulb.infof307.g01.client.controller.AbstractPopUpController;
+import be.ac.ulb.infof307.g01.client.controller.PopUpController;
 import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,9 +25,9 @@ public abstract class AbstractPopUp extends Stage {
     private final StackPane _layout;
     private final Scene _scene;
     
-    private final AbstractPopUpController _controller;
-
-    public AbstractPopUp(AbstractPopUpController controller) {
+    private final PopUpController _controller;
+    
+    public AbstractPopUp(PopUpController controller) {
         super.initStyle(StageStyle.TRANSPARENT);
         _layout = new StackPane();
         _scene = new Scene(_layout);

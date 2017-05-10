@@ -5,7 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class MessagePopUpController extends AbstractPopUpController {
+public class MessagePopUpController extends PopUpController {
 
     private static final Logger LOG = Logger.getLogger(MessagePopUpController.class.getName());
     

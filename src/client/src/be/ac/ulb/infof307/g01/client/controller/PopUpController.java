@@ -11,11 +11,11 @@ import be.ac.ulb.infof307.g01.client.view.AbstractPopUp;
  * 
  */
 
-public abstract class AbstractPopUpController {
+public class PopUpController {
     
     private static boolean _aPopUpIsOpen = false;
     
-    public AbstractPopUpController() throws InstantiationException {
+    public PopUpController() throws InstantiationException {
         // if another pop-up is instanciated and if the pop-up can't be
         // insanciated along another pop-up.
         if(_aPopUpIsOpen && !acceptMultiplePopUps()) {

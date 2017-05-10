@@ -9,7 +9,7 @@ import java.util.logging.Logger;
  * Singleton class managing the authentication of the user,
  * and storing its user name.
  */
-public class SignupPopUpController extends AbstractPopUpController {
+public class SignupPopUpController extends PopUpController {
     
     private final SignupPopUp _signup;
 	
