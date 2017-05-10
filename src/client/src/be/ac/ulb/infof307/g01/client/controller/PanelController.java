@@ -32,7 +32,7 @@ public class PanelController {
     
     public void openSignUp() {
         try {
-            new SignupPopUpController(this);
+            new SignupPopUpController();
         } catch (InstantiationException ex) {
             Logger.getLogger(PanelController.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -37,15 +37,11 @@ public class UserController {
             throw new IllegalArgumentException("All fields are required");
         }
         UserSendableModel temporaryProfil = new UserSendableModel(username, password);
-        _isConnected = _connection.signin(temporaryProfil);
-        if(!_isConnected) {
-            throw new IllegalArgumentException("there's something wrong.");
-        } else {
-            _user = temporaryProfil;
-            Logger.getLogger(getClass().getName()).log(Level.INFO, 
+        _connection.signin(temporaryProfil);
+        _user = temporaryProfil;
+        Logger.getLogger(getClass().getName()).log(Level.INFO, 
                     "User {0} is login !", username);
-            
-        }
+        _isConnected = true;
     }
     
     /**
