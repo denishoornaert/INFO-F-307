@@ -8,9 +8,7 @@ package be.ac.ulb.infof307.g01.client.view;
 import be.ac.ulb.infof307.g01.client.controller.TermsAndConditionsPopUpController;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.Control;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
