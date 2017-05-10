@@ -3,9 +3,11 @@ package be.ac.ulb.infof307.g01.client.controller;
 import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
 import be.ac.ulb.infof307.g01.client.model.MarkerModel;
 import be.ac.ulb.infof307.g01.common.controller.ConnectionQueryController;
+import be.ac.ulb.infof307.g01.common.controller.FilterQueryController;
 import be.ac.ulb.infof307.g01.common.controller.MarkerQueryController;
 import be.ac.ulb.infof307.g01.common.controller.PokemonQueryController;
 import be.ac.ulb.infof307.g01.common.controller.PokemonTypeQueryController;
+import be.ac.ulb.infof307.g01.common.model.FilterSendableModel;
 import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
@@ -32,7 +34,7 @@ import javax.ws.rs.core.MediaType;
  * throws a InvalidParameterException, depending on the nature of the query.
  */
 public class ServerQueryController implements MarkerQueryController, PokemonQueryController, 
-        PokemonTypeQueryController, ConnectionQueryController {
+        PokemonTypeQueryController, ConnectionQueryController, FilterQueryController {
     
     /**
      * All post queries a visitor try to send are stored here.
@@ -43,7 +45,7 @@ public class ServerQueryController implements MarkerQueryController, PokemonQuer
      * The class logger.
      */
     private static final Logger LOG = Logger.getLogger(ServerQueryController.class.getName());
-    
+
     /**
      * Stores the web resource and the object used in a POST query.
      * We use a inner class because this class is only used to store a POST
@@ -163,6 +165,19 @@ public class ServerQueryController implements MarkerQueryController, PokemonQuer
     public void signup(UserSendableModel user) throws InvalidParameterException {
         WebResource resource = _webResource.path("user").path("signup");
         sendPostQuery(new PostQuery(resource, user, "Could not sign up"), false);
+    }
+    
+    @Override
+    public List<FilterSendableModel> getAllFilter() {
+        WebResource resource = _webResource.path("filter").path("getall");
+        return resource.get(new GenericType<List<FilterSendableModel>>(){});
+    }
+
+    @Override
+    public void insertFilter(FilterSendableModel filter) {
+        WebResource resource = _webResource.path("filter").path("insert");
+        sendPostQueryWithErrorPopup(new PostQuery(resource, filter, 
+            "Could not insert this filter"), true);
     }
     
     private ServerQueryController() {

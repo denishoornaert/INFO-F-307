@@ -40,9 +40,7 @@ public class MarkerDatabaseModelTest extends AbstractDatabaseTest {
         _markerToInsert = new MarkerSendableModel(id, _markerUsername, arceus,
                 latitude, longitude, timestamp.getTime(), 
                 new ArrayList<ReputationVoteSendableModel>(), lifePoint, attack, defense);
-        String token = "109283";
-        _database.signup(_markerUser, token);
-        _database.confirmAccount(token);
+        _database.signup(_markerUser);
     }
     
     /**

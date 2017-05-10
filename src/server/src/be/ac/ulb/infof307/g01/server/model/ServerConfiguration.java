@@ -65,4 +65,8 @@ public class ServerConfiguration {
         return path;
     }
     
+    public String getTestSqlPath() {
+        return getAssetServerPath(_sqlPath);
+    }
+    
 }
