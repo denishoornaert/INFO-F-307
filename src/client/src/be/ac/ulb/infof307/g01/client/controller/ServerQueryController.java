@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ws.rs.core.MediaType;
 
@@ -174,9 +173,9 @@ public class ServerQueryController implements MarkerQueryController, PokemonQuer
     }
 
     @Override
-    public void insertFilter(FilterSendableModel filter) {
+    public void insertFilter(FilterSendableModel filter) throws InvalidParameterException {
         WebResource resource = _webResource.path("filter").path("insert");
-        sendPostQueryWithErrorPopup(new PostQuery(resource, filter, 
+        sendPostQuery(new PostQuery(resource, filter, 
             "Could not insert this filter"), true);
     }
     
