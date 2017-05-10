@@ -5,7 +5,7 @@
  */
 package be.ac.ulb.infof307.g01.client.model;
 
-import be.ac.ulb.infof307.g01.client.controller.PokemonCache;
+import be.ac.ulb.infof307.g01.client.controller.app.PokemonCache;
 import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
 import java.util.ArrayList;

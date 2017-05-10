@@ -1,6 +1,6 @@
 package be.ac.ulb.infof307.g01.client.model;
 
-import be.ac.ulb.infof307.g01.client.controller.ServerQueryController;
+import be.ac.ulb.infof307.g01.client.controller.app.ServerQueryController;
 import be.ac.ulb.infof307.g01.common.controller.MarkerQueryController;
 import be.ac.ulb.infof307.g01.common.model.CoordinateSendableModel;
 import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
