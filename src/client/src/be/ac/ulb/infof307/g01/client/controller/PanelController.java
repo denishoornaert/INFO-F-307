@@ -11,9 +11,12 @@ import java.util.logging.Logger;
 public class PanelController {
 
     private final PanelView _panelView;
+    private FilterPanelController _filterPanelController;
     
     public PanelController() {
         _panelView = new PanelView(this);
+        _filterPanelController = new FilterPanelController();
+        _panelView.setWidget(_filterPanelController.getView());
     }
     
     public void setUser() {

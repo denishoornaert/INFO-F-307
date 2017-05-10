@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.layout.VBox;
@@ -17,7 +18,8 @@ import javafx.scene.layout.Priority;
  *
  * @author Groupe01
  */
-public class PanelView extends VBox{
+public class PanelView extends VBox {
+    
     private Label _title1;
     private Label _title2;
     private Label _userLabel;
@@ -25,8 +27,6 @@ public class PanelView extends VBox{
     private Label _location;
     private Button _signin;
     private Button _signup;
-    private Separator _separation1;
-    private Separator _separation2;
     private PanelController _controller;
     
     public PanelView(PanelController panel) {
@@ -37,11 +37,14 @@ public class PanelView extends VBox{
         initStyle();
     }
     
+    private void add(Node... nodes) {
+        getChildren().addAll(nodes);
+        getChildren().add(new Separator());
+    }
+    
     private void initWidgets(){
         _title1 = new Label("Connection");
         _title2 = new Label("Informations");
-        _separation1 = new Separator();
-        _separation2 = new Separator();
         _signin = new Button("Sign In");
         _signup = new Button("Sign Up");
         initSignInButton();
@@ -49,11 +52,8 @@ public class PanelView extends VBox{
     }
     
     private void placeWidgets(){
-        getChildren().add(_title1);
-        getChildren().add(_separation1);
-        getChildren().add(_signin);
-        getChildren().add(_signup);
-        getChildren().add(_separation2);
+        add(_title1);
+        add(_signin, _signup);
     }
     
     private void initStyle(){
@@ -99,6 +99,10 @@ public class PanelView extends VBox{
         _emailLabel = new Label("Email : "+email);
         _location = new Label("Your location");
         getChildren().addAll(_title2,_userLabel,_emailLabel,_location);
+    }
+    
+    public void setWidget(FilterPanelView filterView) {
+        add(filterView);
     }
     
 }
