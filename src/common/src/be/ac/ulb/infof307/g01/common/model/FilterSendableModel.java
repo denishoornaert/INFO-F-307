@@ -9,26 +9,42 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class FilterSendableModel {
     
-    private String _filter;
+    private String _name;
+    private String _expression;
     
-    public FilterSendableModel() {}
+    public FilterSendableModel() {} // don't remove (see Jersey)
     
-    public FilterSendableModel(String filter) {
-        _filter = filter;
+    public FilterSendableModel(String filter, String name) {
+        _expression = filter;
+        _name = name;
     }
     
     /**
-     * @return the filter
+     * @return the expression
      */
-    public String getFilter() {
-        return _filter;
+    public String getExpression() {
+        return _expression;
     }
 
     /**
-     * @param filter the filter to set
+     * @param expression the expression to set
      */
-    public void setFilter(String filter) {
-        _filter = filter;
+    public void setExpression(String expression) {
+        _expression = expression;
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return _name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this._name = name;
     }
     
 }

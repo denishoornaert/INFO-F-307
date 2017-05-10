@@ -19,7 +19,7 @@ import javax.ws.rs.core.Response;
  * @author Groupe 1
  */
 @Path("filter")
-public class FilsterServiceQueryController {
+public class FilterServiceQueryController {
     
     
     @Path("insert")
@@ -29,13 +29,13 @@ public class FilsterServiceQueryController {
     public Response insertFilter(FilterSendableModel filter) {
         Response response;
         Logger.getLogger(getClass().getName()).log(Level.INFO, "Insert filter: {0}", 
-                filter.getFilter());
+                filter.getName());
         try {
             DatabaseModel.getInstance().insertFilter(filter);
             response = Response.status(Response.Status.OK).entity(filter).build();
         } catch(InvalidParameterException ex) {
             Logger.getLogger(getClass().getName()).log(Level.INFO, 
-                    "Exception while inserting filster: {0}", ex.getMessage());
+                    "Exception while inserting filter: {0}", ex.getMessage());
             response = Response.status(Response.Status.NOT_ACCEPTABLE).build();
         }
         return response;

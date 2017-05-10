@@ -29,7 +29,8 @@ public class UserDatabaseModelTest extends AbstractDatabaseTest {
     
     private boolean insertCorrectUser(UserSendableModel user){
         try {
-            _database.signup(user, _token);
+            _database.signup(user);
+            _database.addTokenToUser(user, _token);
             _database.confirmAccount(_token);
         } catch (IllegalArgumentException exception) {
             return false;
@@ -75,7 +76,8 @@ public class UserDatabaseModelTest extends AbstractDatabaseTest {
     @Test
     public void test_signinWithTokenNotConfirmed(){
         UserSendableModel user = newUser("4");
-        _database.signup(user, _token);
+        _database.signup(user);
+        _database.addTokenToUser(user, _token);
         _expected.expect(InvalidParameterException.class);
         _database.signin(user);
     }
@@ -83,7 +85,8 @@ public class UserDatabaseModelTest extends AbstractDatabaseTest {
     @Test
     public void test_signupCorrectCreation(){
         UserSendableModel user = newUser("3");
-        _database.signup(user, _token);
+        _database.signup(user);
+        _database.addTokenToUser(user, _token);
     }
     
     @Test
