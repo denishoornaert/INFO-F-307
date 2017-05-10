@@ -11,7 +11,7 @@ public class MarkerSendableModel {
      * DatabaseModel can know to which database entry this object corresponds.
      */
     protected int _databaseId;
-    protected String _username; // TODO may be final
+    protected String _username;
     protected PokemonSendableModel _pokemon;
     protected CoordinateSendableModel _coordinate;
     protected Long _longTimestamp;
