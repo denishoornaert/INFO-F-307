@@ -1,14 +1,9 @@
 package be.ac.ulb.infof307.g01.client.model;
 
-import com.sun.org.apache.xerces.internal.impl.io.MalformedByteSequenceException;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,15 +19,10 @@ public class ClientConfiguration {
     
     private static ClientConfiguration _configuration = null;
     private static ClientConfiguration _testConfiguration = null;
-    private String clientConfigurationFilePath;
-    private final Properties properties = new Properties();
+    
     private static final String FILE_PREFIX = "file:";
-    private String SERVER_URL;
-    private String STYLE_PATH;
-    private String UNKNOWN_POKEMON_SPRITE_PATH;
-    private String SPRITES_PATH;
-    private String TERMS_AND_CONDITIONS_PATH;
-    private String APPLICATION_TITLE;
+    
+    private Properties _propertiesFile;
     
     private final boolean _isTest;
     private ArrayList<String> _applicationIconsPaths =  new ArrayList<>();
@@ -44,31 +34,30 @@ public class ClientConfiguration {
     // TODO See for Refactor David
     private ClientConfiguration(boolean isTest) {
         _isTest = isTest;
-        clientConfigurationFilePath = getPath("config.properties");
-        clientConfigurationFilePath = addJarOrFileBeforeImagePath(clientConfigurationFilePath);
+        
+        String clientConfigFilePath = addJarOrFileBeforePath(getPath("config.properties"));
+        System.out.println("Config path: " + clientConfigFilePath);
         try {
-            URL path = new URL(clientConfigurationFilePath);
-            properties.load(path.openStream());
-            SERVER_URL = properties.getProperty("server-url");
-            STYLE_PATH = properties.getProperty("bootstrap");
-            UNKNOWN_POKEMON_SPRITE_PATH = properties.getProperty("unknown-pokemon");
-            SPRITES_PATH = properties.getProperty("sprites");
-            System.out.println("Sprite string : "+SPRITES_PATH +"|path = "+getPath(SPRITES_PATH) );
-            TERMS_AND_CONDITIONS_PATH = properties.getProperty("term-and-condition");
-            APPLICATION_TITLE = properties.getProperty("Title");
-            for (int i=0;i<6;i++) {
-                _applicationIconsPaths.add(properties.getProperty("Icon"+i));
-                System.out.println("Application Icon :" + _applicationIconsPaths);
-            }
-            
-            
-        } catch (IOException exeption) {
-            Logger.getLogger(ClientConfiguration.class.getName()).log(Level.SEVERE, null, exeption);
+            URL path = new URL(clientConfigFilePath);
+            loadConfigurationFile(path);
+        } catch (IOException ex) {
+            Logger.getLogger(ClientConfiguration.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
     private String getPath(String fileName) {
         return getPath(fileName, false);
+    }
+    
+    private void loadConfigurationFile(URL path) throws IOException {
+        _propertiesFile = new Properties();
+        _propertiesFile.load(path.openStream());
+        
+        // TODO simplifier tout ça ?
+        for (int i=0;i<6;i++) {
+            _applicationIconsPaths.add(_propertiesFile.getProperty("Icon"+i));
+            System.out.println("Application Icon :" + _applicationIconsPaths);
+        }
     }
     
     /**
@@ -113,23 +102,27 @@ public class ClientConfiguration {
      * @return the style name file
      */
     public String getStyleFileName() {
-        return STYLE_PATH;
+        String file = _propertiesFile.getProperty("bootstrap");
+        System.out.println("Get bootstrap: " + file);
+        return file;
     }
     
     public String getStylePath() {
-        return getPath(STYLE_PATH);
+        String file = getPath(getStyleFileName());
+        System.out.println("Get bootstrap path: " + file);
+        return file;
     }
     
     public String getUnknownPokemonSpritePath() {
-        return getPath(UNKNOWN_POKEMON_SPRITE_PATH);
+        return getPath(_propertiesFile.getProperty("unknown-pokemon"));
     }
     
     public String getSpritePath() {
-        return getPath(SPRITES_PATH);
+        return getPath(_propertiesFile.getProperty("sprites"));
     }
     
     public String getApplicationTitle() {
-        return APPLICATION_TITLE;
+        return _propertiesFile.getProperty("Title");
     }
     
     public ArrayList<String> getApplicationIconsPaths() {
@@ -142,11 +135,11 @@ public class ClientConfiguration {
     }
     
     public String getServerURL() {
-        return SERVER_URL;
+        return _propertiesFile.getProperty("server-url");
     }
     
     public String getTermsAndConditionsPath() {
-        return addJarOrFileBeforeImagePath(getPath(TERMS_AND_CONDITIONS_PATH));
+        return addJarOrFileBeforePath(getPath(_propertiesFile.getProperty("term-and-condition")));
     }
     
     /**
@@ -183,7 +176,7 @@ public class ClientConfiguration {
      * @param imagePath the image path
      * @return the new path
      */
-    public static String addJarOrFileBeforeImagePath(String imagePath) {
+    public static String addJarOrFileBeforePath(String imagePath) {
         if(imagePath.startsWith(FILE_PREFIX)) {
             imagePath = addJarBeforeImagePath(imagePath);
         } else {
