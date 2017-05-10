@@ -57,19 +57,27 @@ public class UserServiceQueryController {
     @Consumes(MediaType.APPLICATION_XML)
     @Produces(MediaType.APPLICATION_XML)
     public Response userSignup(UserSendableModel user) {
-        String token = generateToken();
         try {
-            DatabaseModel.getInstance().signup(user, token);
+            DatabaseModel.getInstance().signup(user);
         } catch (InvalidParameterException exception){
             return Response.status(Response.Status.NOT_ACCEPTABLE).build();
         }
+        
+        String token = generateToken();
         try {
             EmailSender sender = new EmailSender();
             sender.sendConfirmationEmail(user.getEmail(), token);
         } catch (MessagingException ex) {
-            Logger.getLogger(UserServiceQueryController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage());
             return Response.status(Response.Status.NOT_ACCEPTABLE).build();
         }
+        try {
+            DatabaseModel.getInstance().addTokenToUser(user, token);
+        } catch(InvalidParameterException ex) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage());
+            return Response.status(Response.Status.NOT_MODIFIED).build();
+        }
+        
         return Response.status(Response.Status.OK).build();
     }
     

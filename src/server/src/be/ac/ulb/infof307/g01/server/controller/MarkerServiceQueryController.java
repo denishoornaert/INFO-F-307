@@ -71,7 +71,7 @@ public class MarkerServiceQueryController {
         return response;
     }
     
-    @Path("updateReputation") // TODO check que ça marche
+    @Path("updateReputation")
     @POST
     @Consumes(MediaType.APPLICATION_XML)
     public Response updateMarkerReputation(ReputationVoteSendableModel reputationVote) {

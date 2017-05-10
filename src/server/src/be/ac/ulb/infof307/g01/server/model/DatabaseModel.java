@@ -1,8 +1,11 @@
 package be.ac.ulb.infof307.g01.server.model;
 
+import be.ac.ulb.infof307.g01.common.controller.ConnectionQueryController;
+import be.ac.ulb.infof307.g01.common.controller.FilterQueryController;
 import be.ac.ulb.infof307.g01.common.controller.MarkerQueryController;
 import be.ac.ulb.infof307.g01.common.controller.PokemonQueryController;
 import be.ac.ulb.infof307.g01.common.controller.PokemonTypeQueryController;
+import be.ac.ulb.infof307.g01.common.model.FilterSendableModel;
 import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
@@ -45,7 +48,7 @@ import java.util.logging.Logger;
  * database requires a token as well in order to register a user.
  */
 public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryController,
-        MarkerQueryController {
+        MarkerQueryController, ConnectionQueryController, FilterQueryController {
 
     private static DatabaseModel _instance = null;
     private static final Logger LOG = Logger.getLogger(DatabaseModel.class.getName());
@@ -463,11 +466,11 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
      * Sign Up (register) a new user
      * 
      * @param user all user informations
-     * @param token with must be send to email
      */
-    public void signup(UserSendableModel user, String token) throws InvalidParameterException {
-        String query = "INSERT INTO User (Username, Email, Password, Token) "
-                    + "VALUES (?, ?, ?, ?);";
+    @Override
+    public void signup(UserSendableModel user) throws InvalidParameterException {
+        String query = "INSERT INTO User (Username, Email, Password) "
+                    + "VALUES (?, ?, ?);";
         String userInfo = String.join(", ", user.getUsername(), user.getEmail(), user.getPassword());
         
         try {
@@ -475,13 +478,39 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
             statement.setString(1, user.getUsername());
             statement.setString(2, user.getEmail());
             statement.setString(3, user.getPassword());
-            statement.setString(4, token);
             statement.execute();
             LOG.log(Level.INFO, "Create user: {0}", userInfo);
             
         } catch (SQLException ex) {
             throw new InvalidParameterException("Invalid signup information "+ userInfo);
         }
+    }
+    
+    public void addTokenToUser(UserSendableModel user, String token) throws InvalidParameterException {
+        String query = "UPDATE User SET Token = ? "
+                    + "WHERE Username = ?;";
+        
+        try {
+            PreparedStatement statement = _connection.prepareStatement(query);
+            statement.setString(1, token);
+            statement.setString(2, user.getUsername());
+            statement.execute();
+            
+        } catch (SQLException ex) {
+            throw new InvalidParameterException("Invalid add token to user "+ 
+                    user.getUsername());
+        }
+    }
+    
+    @Override
+    public List<FilterSendableModel> getAllFilter() throws InvalidParameterException {
+        // TODO
+        return new ArrayList<FilterSendableModel>();
+    }
+
+    @Override
+    public void insertFilter(FilterSendableModel filter) throws InvalidParameterException {
+        // TODO
     }
 
     /**
