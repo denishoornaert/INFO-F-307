@@ -1,6 +1,6 @@
 package be.ac.ulb.infof307.g01.client.controller.map;
 
-import be.ac.ulb.infof307.g01.client.controller.app.PokemonCache;
+import be.ac.ulb.infof307.g01.client.model.PokemonCache;
 import java.sql.Timestamp;
 
 import be.ac.ulb.infof307.g01.common.model.CoordinateSendableModel;

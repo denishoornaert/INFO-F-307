@@ -1,4 +1,4 @@
-package be.ac.ulb.infof307.g01.client.controller.app;
+package be.ac.ulb.infof307.g01.client.model;
 
 import be.ac.ulb.infof307.g01.client.model.PokemonModel;
 import be.ac.ulb.infof307.g01.client.model.PokemonTypeModel;

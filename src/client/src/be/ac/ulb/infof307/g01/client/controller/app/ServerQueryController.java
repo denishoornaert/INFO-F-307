@@ -1,5 +1,6 @@
 package be.ac.ulb.infof307.g01.client.controller.app;
 
+import be.ac.ulb.infof307.g01.client.model.PokemonCache;
 import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
 import be.ac.ulb.infof307.g01.client.model.MarkerModel;
 import be.ac.ulb.infof307.g01.common.controller.ConnectionQueryController;
