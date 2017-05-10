@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.layout.VBox;
@@ -18,6 +19,7 @@ import javafx.scene.layout.Priority;
  * @author Groupe01
  */
 public class PanelView extends VBox{
+    
     private Label _title1;
     private Label _title2;
     private Label _userLabel;
@@ -29,7 +31,7 @@ public class PanelView extends VBox{
     private Separator _separation1;
     private Separator _separation2;
     private Separator _separation3;
-    private PanelController _controller;
+    private final PanelController _controller;
     
     public PanelView(PanelController panel) {
         _controller = panel;
@@ -99,28 +101,29 @@ public class PanelView extends VBox{
     }
     
     public void setUser(String username, String email) {
+        Insets defaultPadding = new Insets(0, 0, 0, 8);
         _userLabel = new Label("User : ");
-        _userLabel.setPadding(new Insets(0, 0, 0, 8));
+        _userLabel.setPadding(defaultPadding);
         _emailLabel = new Label("Email : ");
-        _emailLabel.setPadding(new Insets(0, 0, 0, 8));
+        _emailLabel.setPadding(defaultPadding);
         _userInfo = new Label(username);
         _emailInfo = new Label(email);
-        _userLabel.setStyle("-fx-font-size:12px Tahoma");
-        _userInfo.setStyle("-fx-font-size:11px Tahoma");
-        _emailLabel.setStyle("-fx-font-size:12px Tahoma");
-        _emailInfo.setStyle("-fx-font-size:11px Tahoma");
-        VBox box1 = new VBox();
-        box1.getChildren().add(_userLabel);
-        box1.setAlignment(Pos.BASELINE_LEFT);
-        VBox box2 = new VBox();
-        box2.getChildren().add(_emailLabel);
-        box2.setAlignment(Pos.BASELINE_LEFT);
-        getChildren().add(_title2);
-        getChildren().add(box1);
-        getChildren().add(_userInfo);
-        getChildren().add(box2);
-        getChildren().add(_emailInfo);
-        getChildren().add(_separation3);
+        String titleFont = "-fx-font-size:12px Tahoma";
+        String textFont = "-fx-font-size:11px Tahoma";
+        _userLabel.setStyle(titleFont);
+        _userInfo.setStyle(textFont);
+        _emailLabel.setStyle(titleFont);
+        _emailInfo.setStyle(textFont);
+        VBox box1 = addAndDefinAlignementBaseLeft(_userLabel);
+        VBox box2 = addAndDefinAlignementBaseLeft(_emailLabel);
+        getChildren().addAll(_title2, box1, _userInfo, box2, _emailInfo, _separation3);
+    }
+    
+    private VBox addAndDefinAlignementBaseLeft(Node node) {
+        VBox box = new VBox();
+        box.getChildren().add(node);
+        box.setAlignment(Pos.BASELINE_LEFT);
+        return box;
     }
     
 }
