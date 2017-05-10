@@ -5,8 +5,14 @@ CREATE TABLE `User` (
 	`Username`	TEXT NOT NULL UNIQUE,
 	`Email`	TEXT NOT NULL UNIQUE,
 	`Password`	TEXT NOT NULL,
-	`Token` TEXT NOT NULL,
+	`Token` TEXT,
 	FOREIGN KEY(`Username`) REFERENCES Marker
+);
+
+CREATE TABLE `Filter` (
+	`Id`	INTEGER PRIMARY KEY AUTOINCREMENT,
+	`Name`	TEXT NOT NULL UNIQUE,
+	`Expression`	TEXT NOT NULL
 );
 
 CREATE TABLE `PokemonType` (
