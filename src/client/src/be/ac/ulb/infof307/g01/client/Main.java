@@ -1,6 +1,6 @@
 package be.ac.ulb.infof307.g01.client;
 
-import be.ac.ulb.infof307.g01.client.controller.WindowController;
+import be.ac.ulb.infof307.g01.client.controller.app.WindowController;
 import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
 import java.io.IOException;
 import javafx.application.Application;
