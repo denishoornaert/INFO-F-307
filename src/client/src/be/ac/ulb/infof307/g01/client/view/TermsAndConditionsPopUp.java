@@ -18,7 +18,7 @@ import javafx.scene.layout.VBox;
  *
  * @author hoornaert
  */
-public class TermsAndConditionsPopUp extends PopUp {
+public class TermsAndConditionsPopUp extends AbstractPopUp {
 
     VBox _vbox;
     TextArea _text;

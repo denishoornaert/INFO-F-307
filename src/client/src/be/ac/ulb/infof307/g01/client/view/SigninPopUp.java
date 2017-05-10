@@ -19,7 +19,7 @@ import javafx.scene.paint.Color;
  * Login with username and password
  * @author Groupe01
  */
-public class SigninPopUp extends PopUp {
+public class SigninPopUp extends AbstractPopUp {
     
     private final SigninPopUpController _controller;
     private VBox _vbox;

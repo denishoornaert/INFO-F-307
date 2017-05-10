@@ -14,7 +14,7 @@ import javafx.scene.layout.VBox;
 /**
  * Pop-up showed when the user clicks on a pokemon cluster.
  */
-public class ClusterPopUp extends PopUp {
+public class ClusterPopUp extends AbstractPopUp {
     
     private VBox _mainBox;
     private HBox _bottomBox;

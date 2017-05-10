@@ -20,14 +20,14 @@ import javafx.stage.StageStyle;
  * 
  * @author Groupe01
  */
-public abstract class PopUp extends Stage {
+public abstract class AbstractPopUp extends Stage {
 
     private final StackPane _layout;
     private final Scene _scene;
     
     private final AbstractPopUpController _controller;
 
-    public PopUp(AbstractPopUpController controller) {
+    public AbstractPopUp(AbstractPopUpController controller) {
         super.initStyle(StageStyle.TRANSPARENT);
         _layout = new StackPane();
         _scene = new Scene(_layout);
@@ -41,7 +41,7 @@ public abstract class PopUp extends Stage {
     
     protected Button getCloseButton(String text, String style) {
         Button button = new Button(text);
-        PopUp instance = this;
+        AbstractPopUp instance = this;
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent t) {
                 _controller.close(instance);

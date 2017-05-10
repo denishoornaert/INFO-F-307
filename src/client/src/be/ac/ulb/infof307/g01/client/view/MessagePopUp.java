@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 
-public class MessagePopUp extends PopUp {
+public class MessagePopUp extends AbstractPopUp {
     private final String _message;
     private final Level _severity;
     private Label _messageLabel;

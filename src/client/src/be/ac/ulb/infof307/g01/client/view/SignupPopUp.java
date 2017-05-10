@@ -21,7 +21,7 @@ import javafx.scene.paint.Color;
  *
  * @author Groupe01
  */
-public class SignupPopUp extends PopUp {
+public class SignupPopUp extends AbstractPopUp {
     
     private final SignupPopUpController _controller;
     private VBox _containerV;

@@ -1,6 +1,6 @@
 package be.ac.ulb.infof307.g01.client.controller;
 
-import be.ac.ulb.infof307.g01.client.view.PopUp;
+import be.ac.ulb.infof307.g01.client.view.AbstractPopUp;
 
 /**
  * Abstarct class that amis to manage all the controllers linked to pop-up view.
@@ -28,7 +28,7 @@ public abstract class AbstractPopUpController {
         return false;
     }
     
-    public void close(PopUp widget) {
+    public void close(AbstractPopUp widget) {
         // set to false only if the popUpConroller does not care about being only. 
         if(!acceptMultiplePopUps()) {
             _aPopUpIsOpen = false;

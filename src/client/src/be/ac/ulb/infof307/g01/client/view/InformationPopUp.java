@@ -22,7 +22,7 @@ import javafx.scene.layout.VBox;
  * 
  * @author Groupe01
  */
-public abstract class InformationPopUp extends PopUp {
+public abstract class InformationPopUp extends AbstractPopUp {
     
     private ImageView _selectedPokemonView;
     private Button _twitterButton;
