@@ -41,7 +41,14 @@ public class AdvancedFilterPanelView extends AbstractFilterPanelView{
     
     @Override
     protected void initExpressionToSaveButtonEvent() {
-        //
+        _expressionToSaveButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                String expressionName = _nameOfTheExpressionToSave.getText();
+                String expression = _advancedFilterTextArea.getText();
+                _controller.saveFilter(expressionName, expression);
+            }
+        });
     }
 
     @Override

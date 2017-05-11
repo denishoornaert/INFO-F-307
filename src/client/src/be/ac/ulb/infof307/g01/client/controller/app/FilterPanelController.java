@@ -11,6 +11,8 @@ import java.text.ParseException;
 import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 
 /**
  *
@@ -50,6 +52,14 @@ public class FilterPanelController {
         return (value) ? "ID" : "NOT";
     }
     
+    private String getRequest(boolean notName, String name, boolean notType1, String type1, boolean notType2, String type2, boolean andIsSelected, boolean orIsSelected) {
+        String expression = (andIsSelected) ? "AND" : "OR";
+        expression += "("+booleanToString(notName)+"(NAME("+name+")),";
+        expression += booleanToString(notType1)+"(TYPE("+type1+")),";
+        expression += booleanToString(notType1)+"(TYPE("+type1+"))";
+        return expression;
+    }
+    
     public FilterPanelView getView() {
         return _filterPanelView;
     }
@@ -58,18 +68,30 @@ public class FilterPanelController {
         System.out.println(expression);
 //        try {
 //            IdentityFilterOperationController filterExpression = new IdentityFilterOperationController(expression);
+//            HashSet<MarkerModel> allMarkers = ;
 //            HashSet<MarkerModel> res = filterExpression.evaluateFilter(allMarkers);
 //        } catch (ParseException ex) {
 //            Logger.getLogger(FilterPanelController.class.getName()).log(Level.SEVERE, null, ex);
 //        }
     }
+    
+    public void saveFilter(String expressionName, String expression) {
+        if(expressionName != "") {
+            System.err.println("Save : "+expressionName+" : "+expression);
+        }
+        else {
+            System.err.println("Field Empty!");
+        }
+    }
 
     public void applyFilter(boolean notName, String name, boolean notType1, String type1, boolean notType2, String type2, boolean andIsSelected, boolean orIsSelected) {
-        String expression = (andIsSelected) ? "AND" : "OR";
-        expression += "("+booleanToString(notName)+"(NAME("+name+")),";
-        expression += booleanToString(notType1)+"(TYPE("+type1+")),";
-        expression += booleanToString(notType1)+"(TYPE("+type1+"))";
+        String expression = getRequest(notName, name, notType1, type1, notType2, type2, andIsSelected, orIsSelected);
         applyFilter(expression);
+    }
+
+    public void saveFilter(String expressionName, boolean notName, String name, boolean notType1, String type1, boolean notType2, String type2, boolean andIsSelected, boolean orIsSelected) {
+        String expression = getRequest(notName, name, notType1, type1, notType2, type2, andIsSelected, orIsSelected);
+        saveFilter(expressionName, expression);
     }
     
 }
