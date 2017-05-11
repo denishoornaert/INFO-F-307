@@ -54,6 +54,34 @@ public class AbstractFilterExpressionControllerTest {
     }
     
     @Test
+    public void test_parseNotStatement() throws ParseException {
+        final String notStatement = "NOT(NAME(X))";
+        AbstractFilterExpressionController filterTree = AbstractFilterExpressionController.parse(notStatement);
+        assertTrue(filterTree instanceof NegationFilterOperationController);
+    }
+    
+    @Test
+    public void test_parseIdStatement() throws ParseException {
+        final String idStatement = "ID(NAME(X))";
+        AbstractFilterExpressionController filterTree = AbstractFilterExpressionController.parse(idStatement);
+        assertTrue(filterTree instanceof IdentityFilterOperationController);
+    }
+    
+    @Test
+    public void test_parseNameStatement() throws ParseException {
+        final String nameStatement = "NAME(X)";
+        AbstractFilterExpressionController filterTree = AbstractFilterExpressionController.parse(nameStatement);
+        assertTrue(filterTree instanceof FilterOnName);
+    }
+    
+    @Test
+    public void test_parseTypeStatement() throws ParseException {
+        final String typeStatement = "TYPE(Y)";
+        AbstractFilterExpressionController filterTree = AbstractFilterExpressionController.parse(typeStatement);
+        assertTrue(filterTree instanceof FilterOnType);
+    }
+    
+    @Test
     public void test_parseThrowsParseErrorIfOperationNotRecognized() throws ParseException {
         final String wrongStatement = "IF(A)";
         expected.expect(java.text.ParseException.class);
