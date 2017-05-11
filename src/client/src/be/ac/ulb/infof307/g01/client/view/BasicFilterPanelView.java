@@ -1,6 +1,9 @@
 package be.ac.ulb.infof307.g01.client.view;
 
 import be.ac.ulb.infof307.g01.client.controller.app.FilterPanelController;
+import java.util.ArrayList;
+import java.util.List;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -85,6 +88,12 @@ public class BasicFilterPanelView extends AbstractFilterPanelView {
     @Override
     protected void initFilterStyle() {
         setXExpandPolicy(_pokemonNameFilterEntry, _pokemonTypeCombobox1, _pokemonTypeCombobox2);
+    }
+    
+    public void setComboBoxesContent(ArrayList<String> pokemonTypes) {
+        ObservableList<String> pokemonTypesList = (ObservableList<String>) pokemonTypes;
+        _pokemonTypeCombobox1.setItems(pokemonTypesList);
+        _pokemonTypeCombobox2.setItems(pokemonTypesList);
     }
     
 }

@@ -122,4 +122,13 @@ public class PokemonCache {
     public int getNumberLoadedPokemons(){
         return _allPokemons.size();
     }
+
+    public ArrayList<String> getAllPokemonTypesString() {
+        ArrayList<PokemonTypeModel> tmp = getAllPokemonTypes();
+        ArrayList<String> pokemonTypesString = new ArrayList<>();
+        for(PokemonTypeModel pokemonType : tmp) {
+            pokemonTypesString.add(pokemonType.getTypeName());
+        }
+        return pokemonTypesString;
+    }
 }

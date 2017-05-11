@@ -1,9 +1,16 @@
 package be.ac.ulb.infof307.g01.client.controller.app;
 
+import be.ac.ulb.infof307.g01.client.controller.filter.IdentityFilterOperationController;
+import be.ac.ulb.infof307.g01.client.model.MarkerModel;
+import be.ac.ulb.infof307.g01.client.model.PokemonCache;
 import be.ac.ulb.infof307.g01.client.view.AdvancedFilterPanelView;
 import be.ac.ulb.infof307.g01.client.view.BasicFilterPanelView;
 import be.ac.ulb.infof307.g01.client.view.FilterPanelView;
 import be.ac.ulb.infof307.g01.client.view.SavedFilterPanelView;
+import java.text.ParseException;
+import java.util.HashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -29,6 +36,7 @@ public class FilterPanelController {
     private void initTabs() {
         _savedTab = new SavedFilterPanelView(this);
         _basicFilter = new BasicFilterPanelView(this);
+        _basicFilter.setComboBoxesContent(PokemonCache.getInstance().getAllPokemonTypesString());
         _advancedFilter = new AdvancedFilterPanelView(this);
     }
     
@@ -38,18 +46,30 @@ public class FilterPanelController {
         _filterPanelView.addTab(_advancedFilterLabel, _advancedFilter);
     }
     
+    private String booleanToString(boolean value) {
+        return (value) ? "ID" : "NOT";
+    }
+    
     public FilterPanelView getView() {
         return _filterPanelView;
     }
 
     public void applyFilter(String expression) {
-        // TODO @Denis : construct FilterController with Robin stuff. 
+        System.out.println(expression);
+//        try {
+//            IdentityFilterOperationController filterExpression = new IdentityFilterOperationController(expression);
+//            HashSet<MarkerModel> res = filterExpression.evaluateFilter(allMarkers);
+//        } catch (ParseException ex) {
+//            Logger.getLogger(FilterPanelController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 
     public void applyFilter(boolean notName, String name, boolean notType1, String type1, boolean notType2, String type2, boolean andIsSelected, boolean orIsSelected) {
-        // TODO @Denis : generate expression and then :
-        System.out.println(notName + " " + name + " " + notType1 + " " + type1 + " " + notType2 + " " + type2 + " " + andIsSelected + " " + orIsSelected);
-        applyFilter("");
+        String expression = (andIsSelected) ? "AND" : "OR";
+        expression += "("+booleanToString(notName)+"(NAME("+name+")),";
+        expression += booleanToString(notType1)+"(TYPE("+type1+")),";
+        expression += booleanToString(notType1)+"(TYPE("+type1+"))";
+        applyFilter(expression);
     }
     
 }
