@@ -16,7 +16,11 @@ public class IntersectionFilterOperationController extends AbstractFilterControl
 
     @Override
     public HashSet<MarkerModel> evaluateFilter(HashSet<MarkerModel> allMarkers) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        HashSet<MarkerModel> markersToReturn = new HashSet<>(allMarkers);
+        for(AbstractFilterExpressionController expression : _expressions) {
+            markersToReturn.retainAll(expression.evaluateFilter(allMarkers));
+        }
+        return markersToReturn;
     }
     
 }

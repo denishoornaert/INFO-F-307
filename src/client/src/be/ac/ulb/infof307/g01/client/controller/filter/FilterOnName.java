@@ -9,13 +9,22 @@ import java.util.HashSet;
  */
 public class FilterOnName extends AbstractFilterController {
 
+    private final String _name;
+    
     public FilterOnName(String expression) {
         super(expression);
+        _name = expression;
     }
 
     @Override
     public HashSet<MarkerModel> evaluateFilter(HashSet<MarkerModel> allMarkers) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        HashSet<MarkerModel> markersToReturn = new HashSet<>();
+        for(MarkerModel marker : allMarkers) {
+            if(marker.getPokemonName().equals(_name)) {
+                markersToReturn.add(marker);
+            }
+        }
+        return markersToReturn;
     }
     
 }

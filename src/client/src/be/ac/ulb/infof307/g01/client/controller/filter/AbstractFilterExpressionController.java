@@ -14,6 +14,7 @@ public abstract class AbstractFilterExpressionController {
     protected ArrayList<AbstractFilterExpressionController> _expressions;
     
     public AbstractFilterExpressionController(String expression) {
+        _expressions = new ArrayList<>();
     }
     
     public abstract HashSet<MarkerModel> evaluateFilter(HashSet<MarkerModel> allMarkers);

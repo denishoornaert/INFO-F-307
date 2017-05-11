@@ -16,7 +16,11 @@ public class UnionFilterOperationController extends AbstractFilterController {
 
     @Override
     public HashSet<MarkerModel> evaluateFilter(HashSet<MarkerModel> allMarkers) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        HashSet<MarkerModel> markersToReturn = new HashSet<>();
+        for(AbstractFilterExpressionController expression : _expressions) {
+            markersToReturn.addAll(expression.evaluateFilter(allMarkers));
+        }
+        return markersToReturn;
     }
     
 }

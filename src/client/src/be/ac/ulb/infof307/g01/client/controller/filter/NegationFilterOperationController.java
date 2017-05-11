@@ -22,7 +22,7 @@ class NegationFilterOperationController extends AbstractFilterExpressionControll
     public HashSet<MarkerModel> evaluateFilter(HashSet<MarkerModel> allMarkers) {
         AbstractFilterExpressionController expression = _expressions.get(0);
         
-        HashSet<MarkerModel> markersCopy = allMarkers;
+        HashSet<MarkerModel> markersCopy = new HashSet<>(allMarkers);
         markersCopy.removeAll(expression.evaluateFilter(allMarkers));
         return markersCopy;
     }

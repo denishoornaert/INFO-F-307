@@ -1,21 +1,36 @@
 package be.ac.ulb.infof307.g01.client.controller.filter;
 
 import be.ac.ulb.infof307.g01.client.model.MarkerModel;
+import be.ac.ulb.infof307.g01.client.model.PokemonModel;
+import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 /**
  *
  * Filter on pokemon type
  */
 public class FilterOnType extends AbstractFilterController {
+    
+    private final String _type; 
 
     public FilterOnType(String expression) {
         super(expression);
+        _type = expression;
     }
 
     @Override
     public HashSet<MarkerModel> evaluateFilter(HashSet<MarkerModel> allMarkers) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        HashSet<MarkerModel> markersToReturn = new HashSet<>();
+        for(MarkerModel marker : allMarkers) {
+            PokemonModel pokemon = marker.getPokemon();
+            List<PokemonTypeSendableModel> allTypes = Arrays.asList(pokemon.getType());
+            if(allTypes.contains(_type)) {
+                markersToReturn.add(marker);
+            }
+        }
+        return markersToReturn;
     }
     
 }
