@@ -9,9 +9,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Class used almost everywhere because this is the one who contains all the
- * magic numbers and magic string (relative paths, url, ...).
- * The class must be accessible from almost everywhere therefore we designed it as a singleton.
+ * Singleton class containing the magic numbers and strings required to 
+ * configure the client program.
  *
  * @author Groupe01
  */

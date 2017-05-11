@@ -4,9 +4,8 @@ import java.io.File;
 import java.net.URL;
 
 /**
- * Class used almost everywhere beacause this is the one who contains all the
- * magic numbers and magic string (relative paths, url, ...).
- * The class must be accesible from almst everywhere therefore we design it as a singleton.
+ * Singleton class containing the magic numbers and strings required to 
+ * configure the server program.
  *
  * @author Groupe01
  */
