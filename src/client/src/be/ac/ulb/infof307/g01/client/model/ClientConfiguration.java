@@ -36,7 +36,7 @@ public class ClientConfiguration {
     }
     
     private String getPath(String fileName) {
-        return getPath(fileName, false);
+        return getAssetPath(fileName, false);
     }
     
     private void loadConfigurationFile(String fileName) {
@@ -51,13 +51,12 @@ public class ClientConfiguration {
     }
     
     /**
-     * Get the path to a specific file
-     * 
-     * @param fileName the file
+     * Gets the path to a specific asset file.
+     * @param fileName the asset file's name
      * @param forceAddFile True if we would like to have FILE_PREFIX before the path
-     * @return The path
+     * @return the asset file's absolute path
      */
-    private String getPath(String fileName, boolean forceAddFile) {
+    private String getAssetPath(String fileName, boolean forceAddFile) {
         String result;
         if(_isTest) {
             File file = new File("../../assets/client/");

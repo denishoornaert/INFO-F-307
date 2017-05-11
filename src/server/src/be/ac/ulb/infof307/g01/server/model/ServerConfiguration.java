@@ -27,7 +27,12 @@ public class ServerConfiguration {
         return _configuration;
     }
     
-    private String getAssetServerPath(String fileName) {
+    /**
+     * Gets the path to a specific asset file.
+     * @param fileName the asset file's name
+     * @return the asset file's absolute path
+     */
+    private String getAssetPath(String fileName) {
         File file = new File("../../assets/server/");
         return file.getAbsolutePath() + File.separatorChar + fileName;
     }
@@ -48,7 +53,7 @@ public class ServerConfiguration {
     }
     
     public String getTestDataBasePath() {
-        return getAssetServerPath(_testDataBasePath);
+        return getAssetPath(_testDataBasePath);
     }
 
     public String getSqlPath() {
@@ -58,14 +63,14 @@ public class ServerConfiguration {
         if(ressource != null) {
             path = ressource.getPath();
         } else {
-            path = getAssetServerPath(_sqlPath);
+            path = getAssetPath(_sqlPath);
         }
         
         return path;
     }
     
     public String getTestSqlPath() {
-        return getAssetServerPath(_sqlPath);
+        return getAssetPath(_sqlPath);
     }
     
 }
