@@ -1,7 +1,6 @@
 package be.ac.ulb.infof307.g01.client.model;
 
 import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
 
 public class PokemonTypeModelTest {

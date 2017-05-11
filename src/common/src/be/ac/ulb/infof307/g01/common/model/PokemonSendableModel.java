@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class PokemonSendableModel {    
     protected String _name;
-    protected PokemonTypeSendableModel[] _type;
+    protected PokemonTypeSendableModel[] _types;
     protected String _imageName;
     
     public PokemonSendableModel() { } // Must exist
@@ -22,13 +22,13 @@ public class PokemonSendableModel {
             PokemonTypeSendableModel pokemonTypeTwo) {
         _name = pokemonName;
         _imageName = imagePath;
-        _type = new PokemonTypeSendableModel[2];
-        _type[0] = pokemonTypeOne;
-        _type[1] = pokemonTypeTwo;        
+        _types = new PokemonTypeSendableModel[2];
+        _types[0] = pokemonTypeOne;
+        _types[1] = pokemonTypeTwo;        
     }
     
     public PokemonSendableModel(PokemonSendableModel other) {
-        this(other._name, other._imageName, other._type[0], other._type[1]);
+        this(other._name, other._imageName, other._types[0], other._types[1]);
     }
     
     /**
@@ -51,22 +51,22 @@ public class PokemonSendableModel {
      * @return a list of types assigned to the pokemon
      */
     public PokemonTypeSendableModel[] getTypes() {
-        return _type.clone();
+        return _types.clone();
     }
     
     public String[] getTypeNames() {
-        String[] typeNames = new String[_type.length];
-        for(int i = 0; i < _type.length; ++i) {
-            typeNames[i] = _type[i].getTypeName();
+        String[] typeNames = new String[_types.length];
+        for(int i = 0; i < _types.length; ++i) {
+            typeNames[i] = _types[i].getTypeName();
         }
         return typeNames;
     }
 
     /**
-     * @param _type the _type to set
+     * @param _type the _types to set
      */
-    public void setType(PokemonTypeSendableModel[] _type) {
-        this._type = _type;
+    public void setTypes(PokemonTypeSendableModel[] _type) {
+        this._types = _type;
     }
 
     /**

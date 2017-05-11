@@ -5,7 +5,6 @@ import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
 import java.sql.Timestamp;
 import org.junit.Test;
 
-
 import org.junit.Before;
 import static junit.framework.TestCase.assertEquals;
 
