@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ws.rs.core.MediaType;
 
@@ -105,7 +104,7 @@ public class ServerQueryController implements MarkerQueryController, PokemonQuer
                     markerToPost.setUsername(username);
                 }
             }
-            sendPostQuery(query, true);
+            sendPostQuery(query, false);
         }
         _visitorPostQueriesQueue.clear();
     }
