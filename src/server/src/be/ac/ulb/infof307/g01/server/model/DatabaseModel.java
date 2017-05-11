@@ -446,7 +446,7 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
      */
     @Override
     public void signin(UserSendableModel user) throws InvalidParameterException {
-        String query = "SELECT Password FROM User WHERE Username = ? AND Token = '';";
+        String query = "SELECT Password, Email FROM User WHERE Username = ? AND Token = '';";
         try {
             PreparedStatement statement;
             statement = _connection.prepareStatement(query);
@@ -456,6 +456,7 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
                 if(!result.getString("Password").equals(user.getPassword())) {
                     throw new SQLException("Wrong password: " + user.getPassword());
                 }
+                user.setEmail(result.getString("Email"));
             } else {
                 throw new SQLException("Unknown username: " + user.getUsername());
             }

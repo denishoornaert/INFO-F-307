@@ -15,6 +15,7 @@ import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
 import be.ac.ulb.infof307.g01.common.model.ReputationVoteSendableModel;
 import be.ac.ulb.infof307.g01.common.model.UserSendableModel;
 import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.ClientResponse.Status;
 import com.sun.jersey.api.client.GenericType;
@@ -24,7 +25,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.logging.Logger;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -41,11 +41,6 @@ public class ServerQueryController implements MarkerQueryController, PokemonQuer
      */
     private final Queue<PostQuery> _visitorPostQueriesQueue;
     
-    /**
-     * The class logger.
-     */
-    private static final Logger LOG = Logger.getLogger(ServerQueryController.class.getName());
-
     /**
      * Stores the web resource and the object used in a POST query.
      * We use a inner class because this class is only used to store a POST
@@ -157,7 +152,12 @@ public class ServerQueryController implements MarkerQueryController, PokemonQuer
     public void signin(UserSendableModel user) throws InvalidParameterException {
         WebResource resource = _webResource.path("user").path("signin");
         
-        sendPostQuery(new PostQuery(resource, user, "Could not sign in"), false);
+        UserSendableModel result = sendPostQuery(
+                new PostQuery(resource, user, "Could not sign in"), false,
+                UserSendableModel.class);
+        if(result != null) {
+            user.setEmail(result.getEmail());
+        }
         onUserLogin(user.getUsername());
     }
 
@@ -199,6 +199,10 @@ public class ServerQueryController implements MarkerQueryController, PokemonQuer
         _webResource = client.resource(ClientConfiguration.getInstance().getServerURL());
     }
     
+    private void sendPostQuery(PostQuery query, boolean bufferIfVisitor) throws InvalidParameterException {
+        sendPostQuery(query, bufferIfVisitor, void.class);
+    }
+    
     /**
      * Executes a POST HTTP request, if the user is connected, or stores it
      * if the user is a visitor (unless the query is also valid for a visitor,
@@ -206,15 +210,23 @@ public class ServerQueryController implements MarkerQueryController, PokemonQuer
      * @param query A POST query object
      * @param bufferIfVisitor True if the query can be buffered if the user is
      *   a visitor, false if we should always send the query.
+     * @param classResult the expected result of this methode
      * @throw InvalidParameterException if the request was not successful
      *   (refused by the server, no network connection, ...).
      */
-    private void sendPostQuery(PostQuery query, boolean bufferIfVisitor) throws InvalidParameterException {
+    private <T> T sendPostQuery(PostQuery query, boolean bufferIfVisitor, Class<T> classResult) 
+            throws InvalidParameterException {
+        T result = null;
         // If we are connected, or if this is a query that should always be sent
         if(UserController.getInstance().isConnected() || !bufferIfVisitor) {
             // Send the query
             ClientResponse response = query.getWebResource().accept(MediaType.APPLICATION_XML)
                     .post(ClientResponse.class, query.getPostObject());
+            try {
+                result = response.getEntity(classResult);
+            } catch(ClientHandlerException ex) {
+                // No message
+            }
             // Check the return status
             Status status = response.getClientResponseStatus();
             if(status != Status.OK && status != Status.ACCEPTED) {
@@ -223,6 +235,7 @@ public class ServerQueryController implements MarkerQueryController, PokemonQuer
         } else {
             _visitorPostQueriesQueue.add(query);
         }
+        return result;
     }
     
     /**
