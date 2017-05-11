@@ -26,13 +26,13 @@ public abstract class AbstractFilterExpressionController {
     }
     
     static protected String getParenthesisContent(String expression, int toIgnore) {
-        int leftParenthesisIdx = 0;
-        int rightParenthesisIdx = expression.length() - 1;
+        int leftParenthesisIdx = -1;
+        int rightParenthesisIdx = expression.length();
         for(int i = 0; i <= toIgnore; ++i) {
-            leftParenthesisIdx = expression.indexOf(expression, leftParenthesisIdx);
-            rightParenthesisIdx = expression.lastIndexOf(expression, rightParenthesisIdx);
+            leftParenthesisIdx = expression.indexOf('(', leftParenthesisIdx+1);
+            rightParenthesisIdx = expression.lastIndexOf(')', rightParenthesisIdx-1);
         }
-        return expression.substring(leftParenthesisIdx+1, rightParenthesisIdx-1);
+        return expression.substring(leftParenthesisIdx+1, rightParenthesisIdx);
     }
     
     static public String getOperationName(String expression) {
