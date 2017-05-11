@@ -31,32 +31,33 @@ public class ClientConfiguration {
         this(false);
     }
     
-    // TODO See for Refactor David
     private ClientConfiguration(boolean isTest) {
         _isTest = isTest;
         
-        String clientConfigFilePath = addJarOrFileBeforePath(getPath("config.properties"));
-        System.out.println("Config path: " + clientConfigFilePath);
-        try {
-            URL path = new URL(clientConfigFilePath);
-            loadConfigurationFile(path);
-        } catch (IOException ex) {
-            Logger.getLogger(ClientConfiguration.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        loadConfigurationFile("config.properties");
+        
     }
     
     private String getPath(String fileName) {
         return getPath(fileName, false);
     }
     
-    private void loadConfigurationFile(URL path) throws IOException {
-        _propertiesFile = new Properties();
-        _propertiesFile.load(path.openStream());
-        
+    private void loadConfigurationFile(String fileName) {
+        String clientConfigFilePath = addJarOrFileBeforePath(getPath(fileName));
+        try {
+            URL path = new URL(clientConfigFilePath);
+            _propertiesFile = new Properties();
+            _propertiesFile.load(path.openStream());
+            loadConfigurationInformations();
+        } catch (IOException ex) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage());
+        }
+    }
+    
+    private void loadConfigurationInformations() {
         // TODO simplifier tout ça ?
         for (int i=0;i<6;i++) {
             _applicationIconsPaths.add(_propertiesFile.getProperty("Icon"+i));
-            System.out.println("Application Icon :" + _applicationIconsPaths);
         }
     }
     
@@ -102,15 +103,11 @@ public class ClientConfiguration {
      * @return the style name file
      */
     public String getStyleFileName() {
-        String file = _propertiesFile.getProperty("bootstrap");
-        System.out.println("Get bootstrap: " + file);
-        return file;
+        return _propertiesFile.getProperty("bootstrap");
     }
     
     public String getStylePath() {
-        String file = getPath(getStyleFileName());
-        System.out.println("Get bootstrap path: " + file);
-        return file;
+        return getPath(getStyleFileName());
     }
     
     public String getUnknownPokemonSpritePath() {
