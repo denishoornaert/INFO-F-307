@@ -9,11 +9,15 @@ import java.util.HashSet;
  * Identity operator: equivalent to NOT(NOT(.))
  */
 class IdentityFilterOperationController extends AbstractFilterExpressionController {
-
+    
+    /**
+     * Constructor
+     * @param expression the expression to parse
+     * @throws ParseException if \param expression has wrong syntax
+     */
     public IdentityFilterOperationController(String expression) throws ParseException {
         super(expression);
     }
-
     @Override
     public HashSet<MarkerModel> evaluateFilter(HashSet<MarkerModel> allMarkers) {
         return _expressions.get(0).evaluateFilter(allMarkers);

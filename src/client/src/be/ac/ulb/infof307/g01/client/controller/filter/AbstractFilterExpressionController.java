@@ -11,27 +11,55 @@ import java.util.HashSet;
  */
 public abstract class AbstractFilterExpressionController {
 
+    /**
+     * List containing all of the children expressions
+     */
     protected ArrayList<AbstractFilterExpressionController> _expressions;
     
+    /**
+     * Empty constructor (to use if no child is supposed to be created)
+     */
     public AbstractFilterExpressionController() {
         _expressions = new ArrayList<>();
     }
     
+    /**
+     * Constructor
+     * @param expression The expression to parse
+     * @throws ParseException if given expression has incorrect syntax
+     */
     public AbstractFilterExpressionController(String expression) throws ParseException {
         this();
+        // create all children by their string expression (splitting on commas)
         for(String parameter : splitParameters(expression)) {
             _expressions.add(parse(parameter));
         }
     }
     
+    /**
+     * Apply the filters to the complete set of existing markers
+     * @param allMarkers the set of all markers on map
+     * @return a subset of \param allMarkers fitting the filter
+     */
     public abstract HashSet<MarkerModel> evaluateFilter(HashSet<MarkerModel> allMarkers);
     
     ///// static
     
+    /**
+     * Return the content of the first parenthesis found in \param expression
+     * @param expression The string to parse
+     * @return the content of the first parenthesis
+     */
     static protected String getParenthesisContent(String expression) {
         return AbstractFilterExpressionController.getParenthesisContent(expression, 0);
     }
     
+    /**
+     * Return the content of the (\param toIgnore+1) parenthesis in \param expression
+     * @param expression The string expression to parse
+     * @param toIgnore The number of parenthesis to ignore
+     * @return the content of the (\param toIgnore+1) parenthesis
+     */
     static protected String getParenthesisContent(String expression, int toIgnore) {
         int leftParenthesisIdx = -1;
         int rightParenthesisIdx = expression.length();
@@ -42,10 +70,21 @@ public abstract class AbstractFilterExpressionController {
         return expression.substring(leftParenthesisIdx+1, rightParenthesisIdx);
     }
     
+    /**
+     * Return the name of the the first found operator in \param expression
+     * @param expression The string to parse
+     * @return The name of the first operation found in \param expression
+     */
     static public String getOperationName(String expression) {
         return expression.substring(0, expression.indexOf('(')).toUpperCase();
     }
     
+    /**
+     * Creates a filter tree based on a string representing the filter
+     * @param expression The strign expression to parse
+     * @return A filter object representing the whole filter
+     * @throws ParseException if the string has wrong syntax
+     */
     static public AbstractFilterExpressionController parse(String expression) throws ParseException {
         String operation = AbstractFilterExpressionController.getOperationName(expression);
         AbstractFilterExpressionController ret = null;
@@ -76,6 +115,11 @@ public abstract class AbstractFilterExpressionController {
         return ret;
     }
     
+    /**
+     * Return a list of parameters in \param expression separated by a coma
+     * @param expression The string to parse
+     * @return A list of parameters
+     */
     static protected ArrayList<String> splitParameters(String expression) {
         if(expression.equals("")) {
             return null;
