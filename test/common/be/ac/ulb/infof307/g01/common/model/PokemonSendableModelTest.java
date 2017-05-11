@@ -15,7 +15,7 @@ public class PokemonSendableModelTest extends TestCase {
     public void test_createModelWithOneTypeHasNoneSecondType() {
         PokemonSendableModel pokemon = new PokemonSendableModel(
             POKEMON_NAME, POKEMON_PATH, POKEMON_TYPE);
-        assertEquals(pokemon.getType()[1], PokemonTypeSendableModel.getNoneType());
+        assertEquals(pokemon.getTypes()[1], PokemonTypeSendableModel.getNoneType());
     }
     
     @Test
