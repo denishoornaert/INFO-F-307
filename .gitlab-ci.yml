@@ -1,0 +1,7 @@
+image: kaiwinter/docker-java8-maven
+job1:
+  script:
+    - 'mvn install -B'
+    - 'cat src/client/target/site/jacoco/index.html'
+    - 'cat src/server/target/site/jacoco/index.html'
+    - 'cat src/common/target/site/jacoco/index.html'
