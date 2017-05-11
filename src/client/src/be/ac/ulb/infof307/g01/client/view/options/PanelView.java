@@ -1,6 +1,7 @@
 package be.ac.ulb.infof307.g01.client.view.options;
 
 import be.ac.ulb.infof307.g01.client.controller.options.PanelController;
+import be.ac.ulb.infof307.g01.client.view.FilterPanelView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -18,7 +19,8 @@ import javafx.scene.layout.Priority;
  *
  * @author Groupe01
  */
-public class PanelView extends VBox{
+
+public class PanelView extends VBox {
     
     private Label _title1;
     private Label _title2;
@@ -28,10 +30,8 @@ public class PanelView extends VBox{
     private Label _emailInfo;
     private Button _signin;
     private Button _signup;
-    private Separator _separation1;
-    private Separator _separation2;
-    private Separator _separation3;
-    private final PanelController _controller;
+
+    private PanelController _controller;
     
     public PanelView(PanelController panel) {
         _controller = panel;
@@ -41,12 +41,14 @@ public class PanelView extends VBox{
         initStyle();
     }
     
+    private void add(Node... nodes) {
+        getChildren().addAll(nodes);
+        getChildren().add(new Separator());
+    }
+    
     private void initWidgets(){
         _title1 = new Label("Connection");
         _title2 = new Label("Informations");
-        _separation1 = new Separator();
-        _separation2 = new Separator();
-        _separation3 = new Separator();
         _signin = new Button("Sign In");
         _signup = new Button("Sign Up");
         initSignInButton();
@@ -54,11 +56,8 @@ public class PanelView extends VBox{
     }
     
     private void placeWidgets(){
-        getChildren().add(_title1);
-        getChildren().add(_separation1);
-        getChildren().add(_signin);
-        getChildren().add(_signup);
-        getChildren().add(_separation2);
+        add(_title1);
+        add(_signin, _signup);
     }
     
     private void initStyle(){
@@ -116,7 +115,7 @@ public class PanelView extends VBox{
         _emailInfo.setStyle(textFont);
         VBox box1 = addAndDefinAlignementBaseLeft(_userLabel);
         VBox box2 = addAndDefinAlignementBaseLeft(_emailLabel);
-        getChildren().addAll(_title2, box1, _userInfo, box2, _emailInfo, _separation3);
+        add(_title2, box1, _userInfo, box2, _emailInfo);
     }
     
     private VBox addAndDefinAlignementBaseLeft(Node node) {
@@ -124,6 +123,10 @@ public class PanelView extends VBox{
         box.getChildren().add(node);
         box.setAlignment(Pos.BASELINE_LEFT);
         return box;
+    }
+    
+    public void setWidget(FilterPanelView filterView) {
+        add(filterView);
     }
     
 }
