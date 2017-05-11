@@ -75,13 +75,7 @@ public class PokemonSendableModel {
     public void setImagePath(String _imageName) {
         this._imageName = _imageName;
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        return hash;
-    }
-
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

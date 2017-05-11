@@ -22,7 +22,6 @@ public class MapController {
     /** Instance of the current popup. Is equal to null if no popup is open,
      *  and is set to null when the popup is closed.
      */
-    
     public MapController() {
         _query = (MarkerQueryController) ServerQueryController.getInstance();
         _mapView = new MapView(this);

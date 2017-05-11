@@ -36,8 +36,6 @@ public class TermsAndConditionsPopUpController extends PopUpController {
         String res = "";
         try {
             URL path = new URL(ClientConfiguration.getInstance().getTermsAndConditionsPath());
-            System.out.println("Term path: " + path);
-            InputStream stream = path.openStream();
             fr = new InputStreamReader(path.openStream());
             br = new BufferedReader(fr);
             String sCurrentLine;

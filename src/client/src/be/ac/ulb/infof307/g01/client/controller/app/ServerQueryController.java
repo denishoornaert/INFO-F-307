@@ -107,7 +107,7 @@ public class ServerQueryController implements MarkerQueryController, PokemonQuer
                     markerToPost.setUsername(username);
                 }
             }
-            sendPostQuery(query, true);
+            sendPostQuery(query, false);
         }
         _visitorPostQueriesQueue.clear();
     }

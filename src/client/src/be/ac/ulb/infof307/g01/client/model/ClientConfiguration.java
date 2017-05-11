@@ -1,8 +1,12 @@
 package be.ac.ulb.infof307.g01.client.model;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Class used almost everywhere because this is the one who contains all the
@@ -17,18 +21,11 @@ public class ClientConfiguration {
     private static ClientConfiguration _testConfiguration = null;
     
     private static final String FILE_PREFIX = "file:";
-    private static final String SERVER_URL = "http://localhost:8080/server/rest/";
-    private static final String STYLE_PATH = "bootstrap.css";
-    private static final String UNKNOWN_POKEMON_SPRITE_PATH = "unknown_pokemon.png";
-    private static final String SPRITES_PATH = "sprites/";
-    private static final String TERMS_AND_CONDITIONS_PATH = "terms_and_conditions.txt";
-    private static final String APPLICATION_TITLE = "Gotta Map'Em All !";
+    
+    private Properties _propertiesFile;
     
     private final boolean _isTest;
-    private static final ArrayList<String> _applicationIconsPaths = new ArrayList<>(Arrays.asList(
-            "icons/application_icon_16.png", "icons/application_icon_32.png",
-            "icons/application_icon_64.png", "icons/application_icon_128.png",
-            "icons/application_icon_256.png", "icons/application_icon_512.png"));
+    private ArrayList<String> _applicationIconsPaths =  new ArrayList<>();
     
     private ClientConfiguration() {
         this(false);
@@ -36,10 +33,32 @@ public class ClientConfiguration {
     
     private ClientConfiguration(boolean isTest) {
         _isTest = isTest;
+        
+        loadConfigurationFile("config.properties");
+        
     }
     
     private String getPath(String fileName) {
         return getPath(fileName, false);
+    }
+    
+    private void loadConfigurationFile(String fileName) {
+        String clientConfigFilePath = addJarOrFileBeforePath(getPath(fileName));
+        try {
+            URL path = new URL(clientConfigFilePath);
+            _propertiesFile = new Properties();
+            _propertiesFile.load(path.openStream());
+            loadConfigurationInformations();
+        } catch (IOException ex) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage());
+        }
+    }
+    
+    private void loadConfigurationInformations() {
+        // TODO simplifier tout ça ?
+        for (int i=0;i<6;i++) {
+            _applicationIconsPaths.add(_propertiesFile.getProperty("Icon"+i));
+        }
     }
     
     /**
@@ -84,23 +103,23 @@ public class ClientConfiguration {
      * @return the style name file
      */
     public String getStyleFileName() {
-        return STYLE_PATH;
+        return _propertiesFile.getProperty("bootstrap");
     }
     
     public String getStylePath() {
-        return getPath(STYLE_PATH);
+        return getPath(getStyleFileName());
     }
     
     public String getUnknownPokemonSpritePath() {
-        return getPath(UNKNOWN_POKEMON_SPRITE_PATH);
+        return getPath(_propertiesFile.getProperty("unknown-pokemon"));
     }
     
     public String getSpritePath() {
-        return getPath(SPRITES_PATH);
+        return getPath(_propertiesFile.getProperty("sprites"));
     }
     
     public String getApplicationTitle() {
-        return APPLICATION_TITLE;
+        return _propertiesFile.getProperty("Title");
     }
     
     public ArrayList<String> getApplicationIconsPaths() {
@@ -113,11 +132,11 @@ public class ClientConfiguration {
     }
     
     public String getServerURL() {
-        return SERVER_URL;
+        return _propertiesFile.getProperty("server-url");
     }
     
     public String getTermsAndConditionsPath() {
-        return addJarOrFileBeforeImagePath(getPath(TERMS_AND_CONDITIONS_PATH));
+        return addJarOrFileBeforePath(getPath(_propertiesFile.getProperty("term-and-condition")));
     }
     
     /**
@@ -154,7 +173,7 @@ public class ClientConfiguration {
      * @param imagePath the image path
      * @return the new path
      */
-    public static String addJarOrFileBeforeImagePath(String imagePath) {
+    public static String addJarOrFileBeforePath(String imagePath) {
         if(imagePath.startsWith(FILE_PREFIX)) {
             imagePath = addJarBeforeImagePath(imagePath);
         } else {
