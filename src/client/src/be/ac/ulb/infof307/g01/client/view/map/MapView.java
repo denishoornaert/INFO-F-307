@@ -79,7 +79,7 @@ public class MapView extends StackPane {
             String imagePath = marker.getImagePath();
             
             JSObject window = (JSObject) _webEngine.executeScript("window");
-            imagePath = ClientConfiguration.addJarBeforeImagePath(imagePath);
+            imagePath = ClientConfiguration.addJarPrefix(imagePath);
             window.call("addMarker", latitude, longitude, pokemonName, imagePath, pinId);
         }
     }

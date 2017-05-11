@@ -20,7 +20,9 @@ public class ClientConfiguration {
     private static ClientConfiguration _testConfiguration = null;
     private final boolean _isTest;
     
+    private static final String CONFIG_FILE = "config.properties";
     private static final String FILE_PREFIX = "file:";
+    private static final String JAR_PREFIX = "jar:";
     
     private Properties _propertiesFile;
     
@@ -31,16 +33,12 @@ public class ClientConfiguration {
     private ClientConfiguration(boolean isTest) {
         _isTest = isTest;
         
-        loadConfigurationFile("config.properties");
+        loadConfigurationFile(CONFIG_FILE);
         
     }
     
-    private String getPath(String fileName) {
-        return getAssetPath(fileName, false);
-    }
-    
     private void loadConfigurationFile(String fileName) {
-        String clientConfigFilePath = addJarOrFileBeforePath(getPath(fileName));
+        String clientConfigFilePath = addJarOrFilePrefix(getAssetPath(fileName));
         try {
             URL path = new URL(clientConfigFilePath);
             _propertiesFile = new Properties();
@@ -48,6 +46,10 @@ public class ClientConfiguration {
         } catch (IOException ex) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage());
         }
+    }
+    
+    private String getAssetPath(String fileName) {
+        return getAssetPath(fileName, false);
     }
     
     /**
@@ -95,15 +97,15 @@ public class ClientConfiguration {
     }
     
     public String getStylePath() {
-        return getPath(getStyleFileName());
+        return getAssetPath(getStyleFileName());
     }
     
     public String getUnknownPokemonSpritePath() {
-        return getPath(_propertiesFile.getProperty("unknown-pokemon"));
+        return getAssetPath(_propertiesFile.getProperty("unknown-pokemon"));
     }
     
     public String getSpritePath() {
-        return getPath(_propertiesFile.getProperty("sprites"));
+        return getAssetPath(_propertiesFile.getProperty("sprites"));
     }
     
     public String getApplicationTitle() {
@@ -124,11 +126,11 @@ public class ClientConfiguration {
     }
     
     public String getTermsAndConditionsPath() {
-        return addJarOrFileBeforePath(getPath(_propertiesFile.getProperty("term-and-condition")));
+        return addJarOrFilePrefix(getAssetPath(_propertiesFile.getProperty("term-and-condition")));
     }
     
     /**
-     * Add FILE_PREFIX prefixe before file path if not exist
+     * Add the "file:" prefix before file path if it's not already there.
      * 
      * @param filePath the file path
      * @return the new file path
@@ -140,30 +142,29 @@ public class ClientConfiguration {
         return filePath;
     }
     
-    
     /**
-     * Add "jar:" prefix before imagePath if it's begin with FILE_PREFIX
+     * Add the "jar:" prefix before imagePath if it begins with the "file:" prefix.
      * 
      * @param imagePath the image path
      * @return the new path
      */
-    public static String addJarBeforeImagePath(String imagePath) {
+    public static String addJarPrefix(String imagePath) {
         if(imagePath.startsWith(FILE_PREFIX)) {
-            imagePath = "jar:" + imagePath;
+            imagePath = JAR_PREFIX + imagePath;
         }
         return imagePath;
     }
     
     /**
-     * Add "jar:" prefix before imagePath witch begin with FILE_PREFIX
-     * If not, prefix FILE_PREFIX is add
+     * Add "jar:" prefix before imagePath if it begins with the "file:" prefix,
+     * otherwise add the "file:" prefix.
      * 
      * @param imagePath the image path
      * @return the new path
      */
-    public static String addJarOrFileBeforePath(String imagePath) {
+    public static String addJarOrFilePrefix(String imagePath) {
         if(imagePath.startsWith(FILE_PREFIX)) {
-            imagePath = addJarBeforeImagePath(imagePath);
+            imagePath = addJarPrefix(imagePath);
         } else {
             imagePath = addFilePrefix(imagePath);
         }

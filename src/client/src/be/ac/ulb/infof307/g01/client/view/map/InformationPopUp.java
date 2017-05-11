@@ -81,7 +81,7 @@ public abstract class InformationPopUp extends AbstractPopUp {
     }
     
     public void setPokemonView(String imagePath) {
-        imagePath = ClientConfiguration.addJarOrFileBeforePath(imagePath);
+        imagePath = ClientConfiguration.addJarOrFilePrefix(imagePath);
         _selectedPokemonView.setImage(new Image(imagePath));
     }
     
