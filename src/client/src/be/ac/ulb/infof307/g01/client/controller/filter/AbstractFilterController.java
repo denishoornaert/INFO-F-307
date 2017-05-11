@@ -6,8 +6,8 @@ package be.ac.ulb.infof307.g01.client.controller.filter;
  */
 public abstract class AbstractFilterController extends AbstractFilterExpressionController {
     
-    public AbstractFilterController(String expression) {
-        super(expression);
+    public AbstractFilterController() {
+        super();
     }
     
 }

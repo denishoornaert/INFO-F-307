@@ -8,7 +8,7 @@ import java.util.HashSet;
  *
  * OR operator applied on filters
  */
-public class UnionFilterOperationController extends AbstractFilterController {
+public class UnionFilterOperationController extends AbstractFilterExpressionController {
     
     public UnionFilterOperationController(String expression) throws ParseException {
         super(expression);

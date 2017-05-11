@@ -8,7 +8,7 @@ import java.util.HashSet;
  *
  * AND operator applied on filters
  */
-public class IntersectionFilterOperationController extends AbstractFilterController {
+public class IntersectionFilterOperationController extends AbstractFilterExpressionController {
     
     public IntersectionFilterOperationController(String expression) throws ParseException {
         super(expression);
@@ -18,7 +18,8 @@ public class IntersectionFilterOperationController extends AbstractFilterControl
     public HashSet<MarkerModel> evaluateFilter(HashSet<MarkerModel> allMarkers) {
         HashSet<MarkerModel> markersToReturn = new HashSet<>(allMarkers);
         for(AbstractFilterExpressionController expression : _expressions) {
-            markersToReturn.retainAll(expression.evaluateFilter(allMarkers));
+            HashSet<MarkerModel> tmp = expression.evaluateFilter(allMarkers);
+            markersToReturn.retainAll(tmp);
         }
         return markersToReturn;
     }

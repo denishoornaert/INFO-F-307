@@ -1,6 +1,7 @@
 package be.ac.ulb.infof307.g01.client.controller.filter;
 
 import be.ac.ulb.infof307.g01.client.model.MarkerModel;
+import java.text.ParseException;
 import java.util.HashSet;
 
 /**
@@ -10,7 +11,7 @@ import java.util.HashSet;
  */
 class NegationFilterOperationController extends AbstractFilterExpressionController {
 
-    public NegationFilterOperationController(String expression) {
+    public NegationFilterOperationController(String expression) throws ParseException {
         super(expression);
     }
 

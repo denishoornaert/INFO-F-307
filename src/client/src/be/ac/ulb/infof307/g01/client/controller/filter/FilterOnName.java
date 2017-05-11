@@ -1,6 +1,7 @@
 package be.ac.ulb.infof307.g01.client.controller.filter;
 
 import be.ac.ulb.infof307.g01.client.model.MarkerModel;
+import java.text.ParseException;
 import java.util.HashSet;
 
 /**
@@ -11,8 +12,8 @@ public class FilterOnName extends AbstractFilterController {
 
     private final String _name;
     
-    public FilterOnName(String expression) {
-        super(expression);
+    public FilterOnName(String expression) throws ParseException {
+        super();
         _name = expression;
     }
 

@@ -13,8 +13,15 @@ public abstract class AbstractFilterExpressionController {
 
     protected ArrayList<AbstractFilterExpressionController> _expressions;
     
-    public AbstractFilterExpressionController(String expression) {
+    public AbstractFilterExpressionController() {
         _expressions = new ArrayList<>();
+    }
+    
+    public AbstractFilterExpressionController(String expression) throws ParseException {
+        this();
+        for(String parameter : splitParameters(expression)) {
+            _expressions.add(parse(parameter));
+        }
     }
     
     public abstract HashSet<MarkerModel> evaluateFilter(HashSet<MarkerModel> allMarkers);
@@ -56,12 +63,38 @@ public abstract class AbstractFilterExpressionController {
             case "ID":
                 ret = new IdentityFilterOperationController(parenthesisContent);
                 break;
+            case "NAME":
+                ret = new FilterOnName(parenthesisContent);
+                break;
+            case "TYPE":
+                ret = new FilterOnType(parenthesisContent);
+                break;
         }
         if(ret == null) {
             throw new ParseException(expression, 0);
-        } else {
-            return ret;
         }
+        return ret;
+    }
+    
+    static protected ArrayList<String> splitParameters(String expression) {
+        if(expression.equals("")) {
+            return null;
+        }
+        ArrayList<String> parameters = new ArrayList<>();
+        int substringStart = 0;
+        int parenthesisCounter = 0;
+        for(int idx = 0; idx < expression.length(); ++idx) {
+            if(expression.charAt(idx) == '(') {
+                ++parenthesisCounter;
+            } else if(expression.charAt(idx) == ')') {
+                --parenthesisCounter;
+            } else if(expression.charAt(idx) == ',' && parenthesisCounter == 0) {
+                parameters.add(expression.substring(substringStart, idx));
+                substringStart = idx + 1;
+            }
+        }
+        parameters.add(expression.substring(substringStart, expression.length()));
+        return parameters;
     }
 }
  
