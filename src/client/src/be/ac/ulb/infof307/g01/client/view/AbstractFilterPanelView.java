@@ -1,5 +1,6 @@
 package be.ac.ulb.infof307.g01.client.view;
 
+import be.ac.ulb.infof307.g01.client.controller.FilterPanelController;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.Tab;
@@ -14,13 +15,16 @@ import javafx.scene.layout.VBox;
  */
 public abstract class AbstractFilterPanelView extends Tab {
     
-    protected VBox _vbox;
+    protected FilterPanelController _controller;
     
+    protected VBox _vbox;
     protected Button _expressionToSaveButton;
     protected Button _applyFilterButton;
     protected TextField _nameOfTheExpressionToSave;
 
-    public AbstractFilterPanelView() {
+    public AbstractFilterPanelView(FilterPanelController controller) {
+        super();
+        _controller =controller;
         initWidgets();
         placeWidgets();
         initStyle();

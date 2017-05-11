@@ -1,6 +1,9 @@
 package be.ac.ulb.infof307.g01.client.controller;
 
+import be.ac.ulb.infof307.g01.client.view.AdvancedFilterPanelView;
+import be.ac.ulb.infof307.g01.client.view.BasicFilterPanelView;
 import be.ac.ulb.infof307.g01.client.view.FilterPanelView;
+import be.ac.ulb.infof307.g01.client.view.SavedFilterPanelView;
 
 /**
  *
@@ -9,10 +12,30 @@ import be.ac.ulb.infof307.g01.client.view.FilterPanelView;
  */
 public class FilterPanelController {
     
-    private FilterPanelView _filterPanelView;
+    private final FilterPanelView _filterPanelView;
+    private SavedFilterPanelView _savedTab;
+    private BasicFilterPanelView _basicFilter;
+    private AdvancedFilterPanelView _advancedFilter;
+    private final String _savedExpressionLabel = "Saved filter";
+    private final String _basicFilterLabel = "Basic filter";
+    private final String _advancedFilterLabel = "Advanced filter";
     
     public FilterPanelController() {
         _filterPanelView = new FilterPanelView(this);
+        initTabs();
+        placeTabs();
+    }
+    
+    private void initTabs() {
+        _savedTab = new SavedFilterPanelView(this);
+        _basicFilter = new BasicFilterPanelView(this);
+        _advancedFilter = new AdvancedFilterPanelView(this);
+    }
+    
+    private void placeTabs() {
+        _filterPanelView.addTab(_savedExpressionLabel, _savedTab);
+        _filterPanelView.addTab(_basicFilterLabel, _basicFilter);
+        _filterPanelView.addTab(_advancedFilterLabel, _advancedFilter);
     }
     
     public FilterPanelView getView() {

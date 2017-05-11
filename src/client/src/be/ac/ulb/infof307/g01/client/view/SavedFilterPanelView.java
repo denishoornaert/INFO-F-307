@@ -1,5 +1,6 @@
 package be.ac.ulb.infof307.g01.client.view;
 
+import be.ac.ulb.infof307.g01.client.controller.FilterPanelController;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.Tab;
@@ -14,8 +15,16 @@ import javafx.scene.layout.VBox;
 public class SavedFilterPanelView extends Tab {
     
     private ComboBox _savedExpressionsComboBox;
+    private FilterPanelController _controller;
 
     public SavedFilterPanelView() {
+        initWidgets();
+        placeWidgets();
+        initStyle();
+    }
+
+    public SavedFilterPanelView(FilterPanelController controller) {
+        _controller = controller;
         initWidgets();
         placeWidgets();
         initStyle();

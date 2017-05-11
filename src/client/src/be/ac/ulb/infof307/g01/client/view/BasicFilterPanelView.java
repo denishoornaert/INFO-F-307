@@ -1,5 +1,6 @@
 package be.ac.ulb.infof307.g01.client.view;
 
+import be.ac.ulb.infof307.g01.client.controller.FilterPanelController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -26,8 +27,8 @@ public class BasicFilterPanelView extends AbstractFilterPanelView {
     private ToggleButton _andButton;
     private ToggleButton _orButton;
 
-    public BasicFilterPanelView() {
-        super();
+    public BasicFilterPanelView(FilterPanelController controller) {
+        super(controller);
     }
 
     @Override
