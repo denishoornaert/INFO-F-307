@@ -18,13 +18,11 @@ public class ClientConfiguration {
     
     private static ClientConfiguration _configuration = null;
     private static ClientConfiguration _testConfiguration = null;
+    private final boolean _isTest;
     
     private static final String FILE_PREFIX = "file:";
     
     private Properties _propertiesFile;
-    
-    private final boolean _isTest;
-    private ArrayList<String> _applicationIconsPaths =  new ArrayList<>();
     
     private ClientConfiguration() {
         this(false);
@@ -47,16 +45,8 @@ public class ClientConfiguration {
             URL path = new URL(clientConfigFilePath);
             _propertiesFile = new Properties();
             _propertiesFile.load(path.openStream());
-            loadConfigurationInformations();
         } catch (IOException ex) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage());
-        }
-    }
-    
-    private void loadConfigurationInformations() {
-        // TODO simplifier tout ça ?
-        for (int i=0;i<6;i++) {
-            _applicationIconsPaths.add(_propertiesFile.getProperty("Icon"+i));
         }
     }
     
@@ -123,8 +113,8 @@ public class ClientConfiguration {
     
     public ArrayList<String> getApplicationIconsPaths() {
         ArrayList<String> result = new ArrayList<>();
-        for(String icon : _applicationIconsPaths) {
-            result.add(getPath(icon, true));
+        for (int i=0;i<6;i++) {
+            result.add(_propertiesFile.getProperty("Icon"+i));
         }
         
         return result;
