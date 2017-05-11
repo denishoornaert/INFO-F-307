@@ -61,14 +61,14 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
 
     public static DatabaseModel getInstance() {
         if(_instance == null) {
-            _instance = new DatabaseModel(CONFIG.getDataBasePath(), CONFIG.getSqlPath());
+            _instance = new DatabaseModel(CONFIG.getDatabasePath(), CONFIG.getSqlPath());
         }
         return _instance;
     }
     
     public static DatabaseModel getTestInstance() {
         if(_instance == null) {
-            _instance = new DatabaseModel(CONFIG.getTestDataBasePath(), CONFIG.getTestSqlPath());
+            _instance = new DatabaseModel(CONFIG.getTestDatabasePath(), CONFIG.getTestSqlPath());
         }
         return _instance;
     }
