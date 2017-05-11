@@ -10,6 +10,11 @@ import java.util.HashSet;
  */
 public class UnionFilterOperationController extends AbstractFilterExpressionController {
     
+    /**
+     * Constructor
+     * @param expression The expression to parse
+     * @throws ParseException if \param expression has wrong syntax
+     */
     public UnionFilterOperationController(String expression) throws ParseException {
         super(expression);
     }

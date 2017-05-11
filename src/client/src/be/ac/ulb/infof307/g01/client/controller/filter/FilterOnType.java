@@ -2,7 +2,6 @@ package be.ac.ulb.infof307.g01.client.controller.filter;
 
 import be.ac.ulb.infof307.g01.client.model.MarkerModel;
 import be.ac.ulb.infof307.g01.client.model.PokemonModel;
-import java.text.ParseException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -13,11 +12,18 @@ import java.util.List;
  */
 public class FilterOnType extends AbstractFilterController {
     
-    private final String _type; 
+    /**
+     * Type to have in order to be in the filter result
+     */
+    private final String _type;
 
-    public FilterOnType(String expression) throws ParseException {
+    /**
+     * Constructor
+     * @param type The pokemon type to filter
+     */
+    public FilterOnType(String type) {
         super();
-        _type = expression;
+        _type = type;
     }
 
     @Override

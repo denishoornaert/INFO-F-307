@@ -11,6 +11,11 @@ import java.util.HashSet;
  */
 class NegationFilterOperationController extends AbstractFilterExpressionController {
 
+    /**
+     * Constructor
+     * @param expression The expression to parse
+     * @throws ParseException if \param expression has wrong syntax
+     */
     public NegationFilterOperationController(String expression) throws ParseException {
         super(expression);
     }

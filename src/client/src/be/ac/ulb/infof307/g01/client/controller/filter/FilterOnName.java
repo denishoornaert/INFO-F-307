@@ -1,7 +1,6 @@
 package be.ac.ulb.infof307.g01.client.controller.filter;
 
 import be.ac.ulb.infof307.g01.client.model.MarkerModel;
-import java.text.ParseException;
 import java.util.HashSet;
 
 /**
@@ -10,11 +9,18 @@ import java.util.HashSet;
  */
 public class FilterOnName extends AbstractFilterController {
 
+    /**
+     * Name to be equal in order to be in the filter result
+     */
     private final String _name;
     
-    public FilterOnName(String expression) throws ParseException {
+    /**
+     * Constructor 
+     * @param name The pokemon name to filter
+     */
+    public FilterOnName(String name) {
         super();
-        _name = expression;
+        _name = name;
     }
 
     @Override
