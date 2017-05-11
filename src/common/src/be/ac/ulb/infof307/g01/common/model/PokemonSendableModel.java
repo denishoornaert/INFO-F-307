@@ -50,8 +50,16 @@ public class PokemonSendableModel {
      * Return the list of types assigned to the pokemon
      * @return a list of types assigned to the pokemon
      */
-    public PokemonTypeSendableModel[] getType() {
-        return _type;
+    public PokemonTypeSendableModel[] getTypes() {
+        return _type.clone();
+    }
+    
+    public String[] getTypeNames() {
+        String[] typeNames = new String[_type.length];
+        for(int i = 0; i < _type.length; ++i) {
+            typeNames[i] = _type[i].getTypeName();
+        }
+        return typeNames;
     }
 
     /**

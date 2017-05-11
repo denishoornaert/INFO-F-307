@@ -34,11 +34,11 @@ public class PokemonModelTest {
     @Test
     public void test_getType() {
         // A pokemon always have two types, the second may be the none type
-        assertEquals(2, arceus.getType().length);
+        assertEquals(2, arceus.getTypes().length);
         // We cannot compare directly the types, since PokemonModel may (and
         // in fact do) copy them. Thus, we compare them by their names.
-        assertEquals(darkType.getTypeName(), arceus.getType()[0].getTypeName());
-        assertEquals(PokemonTypeSendableModel.getNoneType().getTypeName(), arceus.getType()[1].getTypeName());
+        assertEquals(darkType.getTypeName(), arceus.getTypes()[0].getTypeName());
+        assertEquals(PokemonTypeSendableModel.getNoneType().getTypeName(), arceus.getTypes()[1].getTypeName());
     }
     
     @Test

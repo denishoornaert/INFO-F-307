@@ -22,5 +22,4 @@ public class UnionFilterOperationController extends AbstractFilterController {
         }
         return markersToReturn;
     }
-    
 }

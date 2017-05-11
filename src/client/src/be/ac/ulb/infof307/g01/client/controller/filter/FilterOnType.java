@@ -2,7 +2,6 @@ package be.ac.ulb.infof307.g01.client.controller.filter;
 
 import be.ac.ulb.infof307.g01.client.model.MarkerModel;
 import be.ac.ulb.infof307.g01.client.model.PokemonModel;
-import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -25,7 +24,8 @@ public class FilterOnType extends AbstractFilterController {
         HashSet<MarkerModel> markersToReturn = new HashSet<>();
         for(MarkerModel marker : allMarkers) {
             PokemonModel pokemon = marker.getPokemon();
-            List<PokemonTypeSendableModel> allTypes = Arrays.asList(pokemon.getType());
+            List<String> allTypes = Arrays.asList(pokemon.getTypeNames());
+            System.out.println(allTypes);
             if(allTypes.contains(_type)) {
                 markersToReturn.add(marker);
             }
