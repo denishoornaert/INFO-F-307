@@ -59,7 +59,7 @@ public class UserServiceQueryController {
     public Response userSignup(UserSendableModel user) {
         try {
             DatabaseModel.getInstance().signup(user);
-        } catch (InvalidParameterException exception){
+        } catch (InvalidParameterException exception) {
             return Response.status(Response.Status.NOT_ACCEPTABLE).build();
         }
         

@@ -40,7 +40,8 @@ public class UserController {
         _connection.signin(temporaryProfil);
         _user = temporaryProfil;
         Logger.getLogger(getClass().getName()).log(Level.INFO, 
-                    "User {0} is login !", username);
+                "User {0} ({1}) is login !", 
+                new Object[]{username, _user.getEmail()});
         _isConnected = true;
     }
     
