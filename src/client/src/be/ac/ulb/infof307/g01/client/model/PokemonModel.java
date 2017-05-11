@@ -12,8 +12,8 @@ public class PokemonModel extends PokemonSendableModel {
     public PokemonModel(PokemonSendableModel pokemon) {
         super(pokemon);
         // Convert all types to client model instances
-        for(int i = 0; i < _type.length; ++i) {
-            _type[i] = new PokemonTypeModel(_type[i]);
+        for(int i = 0; i < _types.length; ++i) {
+            _types[i] = new PokemonTypeModel(_types[i]);
         }
     }
     
