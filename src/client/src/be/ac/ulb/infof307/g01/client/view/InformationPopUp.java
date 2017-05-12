@@ -100,12 +100,11 @@ public abstract class InformationPopUp extends PopUp {
         return hbox;
     }
     
-    /*
     @Override
     protected void add(Node node) {
         ObservableList<Node> children = _widgets.getChildren();
         children.addAll(node);
-    }*/
+    }
     
     /**
      * Set max width to widget

@@ -42,18 +42,12 @@ public class PinPopUp extends InformationPopUp {
     public PinPopUp(PinPopUpController controller) {
         super(controller, 0);
         _controller = controller;
-        initPosition();
         initWidgets();
         placeWidgets();
         _vbox.setSpacing(10);
         _voteBox.setSpacing(10);
         setSize(400, 100);
         show();
-    }
-    
-    private void initPosition() {
-        setX(_controller.getCoordinates().getLatitude());
-        setY(_controller.getCoordinates().getLongitude());
     }
     
     private void initWidgets() {
