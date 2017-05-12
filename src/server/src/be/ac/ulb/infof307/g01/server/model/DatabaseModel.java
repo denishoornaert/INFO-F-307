@@ -204,7 +204,7 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
      * /TODO This *may* be a serious performance issue when getting all markers:
      * getAllMarkers loads all markers
      * -> for each marker, all pokemons are retrieved in order to find the right one
-     *    -> for each pokemons, all types are loaded for the same reason...
+     *    -> for each pokemon, all types are loaded for the same reason...
      * @param name The type name
      * @return An pokemon type object
      * @throws IndexOutOfBoundsException If no type has been found with this name
@@ -391,9 +391,9 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
     }
 
     /**
-     * TODO description
-     *
-     * @param reputationVote 
+     * Changes or inserts a vote in the database. If the user did not yet voted
+     * on the marker, the vote is created. Otherwise, the vote is replaced.
+     * @param reputationVote The vote model to add or update.
      */
     @Override
     public void updateMarkerReputation(ReputationVoteSendableModel reputationVote) throws InvalidParameterException {
