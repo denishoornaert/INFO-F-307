@@ -57,9 +57,7 @@ public abstract class AbstractPopUp extends Stage {
     
     protected void add(Node node) {
         ObservableList<Node> children = _layout.getChildren();
-        children.add(node);
-        
-        centerOnParent();
+        children.add(node);        
     }
 
     private void initStyle() {
@@ -70,13 +68,6 @@ public abstract class AbstractPopUp extends Stage {
                 + "-fx-background-radius: 5 5 5 5;"
                 + "-fx-border-radius: 5 5 5 5;"
         );
-    }
-
-    protected void centerOnParent() {
-        Stage stage = Main.getStage();
-
-        this.setX(stage.getX() + (stage.getWidth() - _layout.getPrefWidth()) / 2);
-        this.setY(stage.getY() + (stage.getHeight() - _layout.getPrefHeight()) / 2);
     }
 
     protected void setSize(int x, int y) {
