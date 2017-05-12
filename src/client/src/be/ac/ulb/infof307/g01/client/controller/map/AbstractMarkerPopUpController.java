@@ -1,10 +1,10 @@
 package be.ac.ulb.infof307.g01.client.controller.map;
 
-import be.ac.ulb.infof307.g01.client.model.PokemonCache;
 import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
-import java.sql.Timestamp;
+import be.ac.ulb.infof307.g01.client.model.PokemonCache;
 import be.ac.ulb.infof307.g01.client.model.PokemonModel;
 import be.ac.ulb.infof307.g01.client.view.map.AbstractMarkerPopUp;
+import java.sql.Timestamp;
 
 /**
  * Controller the NewMarkerPopUp that enable the user to create a new Marker.
@@ -12,7 +12,7 @@ import be.ac.ulb.infof307.g01.client.view.map.AbstractMarkerPopUp;
 public abstract class AbstractMarkerPopUpController extends InformationPopUpController {
     
     protected AbstractMarkerPopUp _markerPopUp;
-    protected static String _defaultImagePath; // TODO : static ???
+    protected String _defaultImagePath;
     
  
     public AbstractMarkerPopUpController(MarkerController markerController) throws InstantiationException {
