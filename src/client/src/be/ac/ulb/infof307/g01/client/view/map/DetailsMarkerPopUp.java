@@ -5,7 +5,6 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -75,26 +74,21 @@ public class DetailsMarkerPopUp extends InformationPopUp {
         initUpVoteButton();
     }
     
-    private void initUpVoteButton() {
-        _upVoteButton = new Button("\uD83D\uDC4D"); //code utf-8 for the thumbs-up
-        _upVoteButton.getStyleClass().add("primary");
-        _upVoteButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                _controller.addVote(true);
-            }
+    private void initVoteButton(Button button, boolean isUpVote) {
+        button.getStyleClass().add("primary");
+        button.setOnAction((ActionEvent event) -> {
+            _controller.addVote(isUpVote);
         });
     }
     
+    private void initUpVoteButton() {
+        _upVoteButton = new Button("\uD83D\uDC4D"); // Unicode char for thumb-up
+        initVoteButton(_upVoteButton, true);
+    }
+    
     private void initDownVoteButton() {
-        _downVoteButton = new Button("\uD83D\uDC4E"); //code utf-8 for the thumbs-down
-        _downVoteButton.getStyleClass().add("primary");
-        _downVoteButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                _controller.addVote(false);
-            }
-        });
+        _downVoteButton = new Button("\uD83D\uDC4E"); // Unicode char for thumb-down
+        initVoteButton(_downVoteButton, false);
     }
     
     private void placeWidgets() {
