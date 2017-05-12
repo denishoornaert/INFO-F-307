@@ -18,6 +18,7 @@
             var markerClusterer;
             var markerIconSize = 60;
             var markerIconCenter = markerIconSize/2;
+            var listeMarker = [];
             
             window.onerror = function(message, source, lineno, colno, error) {
                 bridge.log(message + " " + lineno + " " + colno + " " + error);
@@ -85,7 +86,9 @@
                     icon: markerIcon,
                     map: map
                 });
+                marker.onMap = true;
                 marker.id = id;
+                listeMarker.push(marker);
 
                 var infowindow = new google.maps.InfoWindow({
                     content: name
@@ -105,6 +108,32 @@
 
                 markerClusterer.addMarker(marker);
 
+            }
+            
+            function hideMarker(id) {
+                for(var i = 0; i < listeMarker.length; i++) {
+                    var marker = listeMarker[i];
+                    if(marker.id === id) {
+                        marker.onMap = false;
+                        markerClusterer.removeMarker(marker, true);
+                        marker.setMap(null);
+                        break;
+                    }
+                }
+            }
+            
+            function showMarker(id) {
+                for(var i = 0; i < listeMarker.length; i++) {
+                    var marker = listeMarker[i];
+                    if(marker.id === id) {
+                        if(!marker.onMap) {
+                            marker.setMap(map);
+                            marker.onMap = true;
+                            markerClusterer.addMarker(marker);
+                        }
+                        break;
+                    }
+                }
             }
         </script>
         <script src="markerclusterer.js">

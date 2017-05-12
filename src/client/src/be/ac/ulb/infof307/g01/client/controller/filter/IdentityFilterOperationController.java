@@ -8,7 +8,7 @@ import java.util.HashSet;
  *
  * Identity operator: equivalent to NOT(NOT(.))
  */
-class IdentityFilterOperationController extends AbstractFilterExpressionController {
+public class IdentityFilterOperationController extends AbstractFilterExpressionController {
     
     /**
      * Constructor

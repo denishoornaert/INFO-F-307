@@ -11,6 +11,8 @@ import be.ac.ulb.infof307.g01.client.view.map.MapView;
 import be.ac.ulb.infof307.g01.common.model.CoordinateSendableModel;
 import java.security.InvalidParameterException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.logging.Level;
 
 
@@ -18,11 +20,14 @@ import java.util.logging.Level;
  * it manages all markers.
  */
 public class MarkerController {
-    Map<Integer, MarkerModel> _markerMap = new HashMap<>();
-    MapView _mapView;
-    Integer _newMarkerId = 0;
+    
+    private final Map<Integer, MarkerModel> _markerMap;
+    private final MapView _mapView;
+    private Integer _newMarkerId;
     
     public MarkerController(MapView mapView) {
+        this._markerMap = new HashMap<>();
+        this._newMarkerId = 0;
         _mapView = mapView;
     }
     
@@ -30,15 +35,27 @@ public class MarkerController {
     	String username = UserController.getInstance().getUsername();
         try {
             MarkerModel marker = new MarkerModel(pokemon, newMarkerCoordinates, username, lifePoint, attack, defense, date);
-            displayMarker(marker);
+            displayAndAddMarker(marker);
         } catch(InvalidParameterException exception){
             MessagePopUpController.createPopUpOrLog(Level.SEVERE, exception.getMessage());
         }
     }
     
-    public void displayMarker(MarkerModel marker) {
+    public void showHideMarker(HashSet<MarkerModel> listMarker) {
+        System.out.println(listMarker);
+        for(Integer id : _markerMap.keySet()) {
+            MarkerModel marker = _markerMap.get(id);
+            if(listMarker.contains(marker)) {
+                _mapView.displayMarker(id);
+            } else {
+                _mapView.hideMaker(id);
+            }
+        }
+    }
+    
+    public void displayAndAddMarker(MarkerModel marker) {
         _markerMap.put(_newMarkerId, marker);
-        _mapView.createPin(marker, _newMarkerId);
+        _mapView.createMarker(marker, _newMarkerId);
         
         _newMarkerId++;
     }
@@ -47,15 +64,18 @@ public class MarkerController {
         return _markerMap.get(markerId);
     }
 
-    void updateMarker(int markerId, PokemonModel pokemon, int lifePoint, int attack, int defense, Timestamp dateView) {
+    public void updateMarker(int markerId, PokemonModel pokemon, int lifePoint, int attack, int defense, Timestamp dateView) {
         MarkerModel marker = _markerMap.get(markerId);
         try{
             marker.update(pokemon, lifePoint, attack, defense, dateView);
         } catch(InvalidParameterException exception){
             MessagePopUpController.createPopUpOrLog(Level.SEVERE, exception.getMessage());
         }
+    }
 
-        
-       
+    public HashSet<MarkerModel> getAllMarkers() {
+        HashSet<MarkerModel> result = new HashSet<>();
+        result.addAll(_markerMap.values());
+        return result;
     }
 }

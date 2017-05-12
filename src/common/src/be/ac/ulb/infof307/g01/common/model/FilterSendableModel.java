@@ -44,7 +44,7 @@ public class FilterSendableModel {
      * @param name the name to set
      */
     public void setName(String name) {
-        this._name = name;
+        _name = name;
     }
     
 }

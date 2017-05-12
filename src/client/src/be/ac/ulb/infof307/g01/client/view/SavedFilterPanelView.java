@@ -1,6 +1,8 @@
 package be.ac.ulb.infof307.g01.client.view;
 
 import be.ac.ulb.infof307.g01.client.controller.app.FilterPanelController;
+import java.util.Collection;
+import javafx.beans.value.ChangeListener;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.Tab;
@@ -17,12 +19,6 @@ public class SavedFilterPanelView extends Tab {
     private ComboBox _savedExpressionsComboBox;
     private FilterPanelController _controller;
 
-    public SavedFilterPanelView() {
-        initWidgets();
-        placeWidgets();
-        initStyle();
-    }
-
     public SavedFilterPanelView(FilterPanelController controller) {
         _controller = controller;
         initWidgets();
@@ -32,6 +28,7 @@ public class SavedFilterPanelView extends Tab {
 
     private void initWidgets() {
         _savedExpressionsComboBox = new ComboBox();
+        initSavedExpressionComboBoxEvent();
     }
 
     private void placeWidgets() {
@@ -40,6 +37,15 @@ public class SavedFilterPanelView extends Tab {
         savedExpressions.setSpacing(10);
         setContent(savedExpressions);
         setClosable(false);
+    }
+    
+    private void initSavedExpressionComboBoxEvent() {
+        _savedExpressionsComboBox.setOnAction((event) -> {
+            Object object = _savedExpressionsComboBox.getSelectionModel().getSelectedItem();
+            if (object != null) {
+                _controller.applyFilterByName((String)object);
+            }
+        });
     }
     
     private void initStyle() {
@@ -51,6 +57,10 @@ public class SavedFilterPanelView extends Tab {
             HBox.setHgrow(control, Priority.ALWAYS);
             control.setMaxWidth(208);
         }
+    }
+    
+    public void setSavedFilters(Collection<String> filtersName) {
+        _savedExpressionsComboBox.getItems().addAll(filtersName);
     }
     
 }

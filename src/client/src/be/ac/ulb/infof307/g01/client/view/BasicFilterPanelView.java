@@ -1,6 +1,9 @@
 package be.ac.ulb.infof307.g01.client.view;
 
 import be.ac.ulb.infof307.g01.client.controller.app.FilterPanelController;
+import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -45,8 +48,6 @@ public class BasicFilterPanelView extends AbstractFilterPanelView {
         _orButton = new ToggleButton("OR");
         _orButton.setToggleGroup(_buttonGroup);
     }
-    
-    
 
     @Override
     protected void placeFilterWidgets() {
@@ -79,12 +80,32 @@ public class BasicFilterPanelView extends AbstractFilterPanelView {
     
     @Override
     protected void initExpressionToSaveButtonEvent() {
-        //
+        _expressionToSaveButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                String expressionName = _nameOfTheExpressionToSave.getText();
+                boolean notName = _notPokemonNameFilterEntry.isSelected();
+                String name = _pokemonNameFilterEntry.getText();
+                boolean notType1 = _notPokemonTypeCombobox1.isSelected();
+                String type1 = (String) _pokemonTypeCombobox1.getValue();
+                boolean notType2 = _notPokemonTypeCombobox2.isSelected();
+                String type2 = (String) _pokemonTypeCombobox2.getValue();
+                boolean andIsSelected = _andButton.isSelected();
+                boolean orIsSelected = _orButton.isSelected();
+                _controller.saveFilter(expressionName, notName, name, notType1, type1, notType2, type2, andIsSelected, orIsSelected);
+            }
+        });
     }
 
     @Override
     protected void initFilterStyle() {
         setXExpandPolicy(_pokemonNameFilterEntry, _pokemonTypeCombobox1, _pokemonTypeCombobox2);
+    }
+    
+    public void setComboBoxesContent(ArrayList<String> pokemonTypes) {
+        ObservableList<String> pokemonTypesList = FXCollections.observableArrayList(pokemonTypes);
+        _pokemonTypeCombobox1.setItems(pokemonTypesList);
+        _pokemonTypeCombobox2.setItems(pokemonTypesList);
     }
     
 }
