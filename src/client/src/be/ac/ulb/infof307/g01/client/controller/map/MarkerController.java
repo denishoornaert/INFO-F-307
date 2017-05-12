@@ -11,7 +11,6 @@ import be.ac.ulb.infof307.g01.client.view.map.MapView;
 import be.ac.ulb.infof307.g01.common.model.CoordinateSendableModel;
 import java.security.InvalidParameterException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.logging.Level;
 
@@ -42,7 +41,6 @@ public class MarkerController {
     }
     
     public void showHideMarker(HashSet<MarkerModel> listMarker) {
-        System.out.println(listMarker);
         for(Integer id : _markerMap.keySet()) {
             MarkerModel marker = _markerMap.get(id);
             if(listMarker.contains(marker)) {

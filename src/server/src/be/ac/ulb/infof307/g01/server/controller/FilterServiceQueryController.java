@@ -45,7 +45,6 @@ public class FilterServiceQueryController {
     @GET
     @Produces(MediaType.APPLICATION_XML)
     public List<FilterSendableModel> getAllMarker() {
-        Logger.getLogger(getClass().getName()).log(Level.INFO, "getAllFilter");
         List<FilterSendableModel> arrayListFilter = DatabaseModel.getInstance().getAllFilter();
         return arrayListFilter;
     }
