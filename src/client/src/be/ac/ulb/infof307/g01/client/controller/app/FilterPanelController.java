@@ -50,12 +50,12 @@ public class FilterPanelController {
     }
     
     private void initSavedTab() {
-        _savedFilters = new HashMap<String, String>();
+        _savedFilters = new HashMap<>();
         List<FilterSendableModel> allFilterModels = ServerQueryController.getInstance().getAllFilter();
         for(FilterSendableModel filter : allFilterModels) {
             _savedFilters.put(filter.getName(), filter.getExpression());
         }
-        _savedTab.setSavedFilters(_savedFilters.values());
+        _savedTab.setSavedFilters(_savedFilters.keySet());
     }
     
     private void placeTabs() {
@@ -68,7 +68,9 @@ public class FilterPanelController {
         return (value) ? "ID" : "NOT";
     }
     
-    private String getRequest(boolean notName, String name, boolean notType1, String type1, boolean notType2, String type2, boolean andIsSelected, boolean orIsSelected) {
+    private String getRequest(boolean notName, String name, boolean notType1, 
+            String type1, boolean notType2, String type2, boolean andIsSelected, 
+            boolean orIsSelected) { // TODO denis "or" is not used
         boolean somethingBefore = false;
         String expression = (andIsSelected) ? "AND" : "OR";
         expression += "(";
@@ -94,21 +96,22 @@ public class FilterPanelController {
     }
 
     public void applyFilter(String expression) {
-        System.out.println(expression);
+        HashSet<MarkerModel> allMarkers = _markerController.getAllMarkers();
+        HashSet<MarkerModel> res = allMarkers;
         try {
             IdentityFilterOperationController filterExpression = new IdentityFilterOperationController(expression);
-            HashSet<MarkerModel> allMarkers = _markerController.getAllMarkers();
-            HashSet<MarkerModel> res = filterExpression.evaluateFilter(allMarkers);
-            _markerController.showHideMarker(res);
+            res = filterExpression.evaluateFilter(allMarkers);
         } catch (ParseException ex) {
-            Logger.getLogger(FilterPanelController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FilterPanelController.class.getName()).log(Level.SEVERE, 
+                    ex.getMessage());
         }
+        _markerController.showHideMarker(res);
     }
     
     // TODO manage correctly ! to corretly the error message
     public void saveFilter(String expressionName, String expression) {
         if(!expressionName.isEmpty()) {
-            FilterSendableModel filter = new FilterSendableModel(expression, expressionName);
+            FilterSendableModel filter = new FilterSendableModel(expressionName, expression);
             try {
                 ServerQueryController.getInstance().insertFilter(filter);
             } catch (InvalidParameterException error) {
@@ -120,18 +123,31 @@ public class FilterPanelController {
         }
     }
 
-    public void applyFilter(boolean notName, String name, boolean notType1, String type1, boolean notType2, String type2, boolean andIsSelected, boolean orIsSelected) {
-        String expression = getRequest(notName, name, notType1, type1, notType2, type2, andIsSelected, orIsSelected);
+    public void applyFilter(boolean notName, String name, boolean notType1, 
+            String type1, boolean notType2, String type2, boolean andIsSelected, 
+            boolean orIsSelected) {
+        String expression = getRequest(notName, name, notType1, type1, notType2, 
+                type2, andIsSelected, orIsSelected);
         applyFilter(expression);
     }
 
-    public void saveFilter(String expressionName, boolean notName, String name, boolean notType1, String type1, boolean notType2, String type2, boolean andIsSelected, boolean orIsSelected) {
-        String expression = getRequest(notName, name, notType1, type1, notType2, type2, andIsSelected, orIsSelected);
+    public void saveFilter(String expressionName, boolean notName, String name, 
+            boolean notType1, String type1, boolean notType2, String type2, 
+            boolean andIsSelected, boolean orIsSelected) {
+        String expression = getRequest(notName, name, notType1, type1, notType2, 
+                type2, andIsSelected, orIsSelected);
         saveFilter(expressionName, expression);
     }
 
     public void applyFilterByName(String name) {
-        applyFilter(_savedFilters.get(name));
+        String expression = _savedFilters.get(name);
+        if(expression == null) {
+            Logger.getLogger(getClass().getName()).log(Level.WARNING, 
+                    "Could not get filter with name: {0} (array: {1})", 
+                    new Object[]{name, _savedFilters});
+        } else {
+            applyFilter(expression);
+        }
     }
     
 }

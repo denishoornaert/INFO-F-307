@@ -222,10 +222,12 @@ public class ServerQueryController implements MarkerQueryController, PokemonQuer
             // Send the query
             ClientResponse response = query.getWebResource().accept(MediaType.APPLICATION_XML)
                     .post(ClientResponse.class, query.getPostObject());
-            try {
-                result = response.getEntity(classResult);
-            } catch(ClientHandlerException ex) {
-                // No message
+            if(classResult != void.class) {
+                try {
+                    result = response.getEntity(classResult);
+                } catch(ClientHandlerException ex) {
+                    // No message
+                }
             }
             // Check the return status
             Status status = response.getClientResponseStatus();

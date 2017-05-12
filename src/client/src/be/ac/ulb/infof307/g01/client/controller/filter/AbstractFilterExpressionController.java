@@ -19,7 +19,11 @@ public abstract class AbstractFilterExpressionController {
     
     public AbstractFilterExpressionController(String expression) throws ParseException {
         this();
-        for(String parameter : splitParameters(expression)) {
+        ArrayList<String> splitParam = splitParameters(expression);
+        if(splitParam == null || splitParam.isEmpty()) {
+            throw new ParseException("Could not split null/empty element", 0);
+        }
+        for(String parameter : splitParam) {
             _expressions.add(parse(parameter));
         }
     }
@@ -28,11 +32,11 @@ public abstract class AbstractFilterExpressionController {
     
     ///// static
     
-    static protected String getParenthesisContent(String expression) {
+    protected static String getParenthesisContent(String expression) {
         return AbstractFilterExpressionController.getParenthesisContent(expression, 0);
     }
     
-    static protected String getParenthesisContent(String expression, int toIgnore) {
+    protected static String getParenthesisContent(String expression, int toIgnore) {
         int leftParenthesisIdx = -1;
         int rightParenthesisIdx = expression.length();
         for(int i = 0; i <= toIgnore; ++i) {
@@ -42,11 +46,11 @@ public abstract class AbstractFilterExpressionController {
         return expression.substring(leftParenthesisIdx+1, rightParenthesisIdx);
     }
     
-    static public String getOperationName(String expression) {
+    public static String getOperationName(String expression) {
         return expression.substring(0, expression.indexOf('(')).toUpperCase();
     }
     
-    static public AbstractFilterExpressionController parse(String expression) throws ParseException {
+    public static AbstractFilterExpressionController parse(String expression) throws ParseException {
         String operation = AbstractFilterExpressionController.getOperationName(expression);
         AbstractFilterExpressionController ret = null;
         String parenthesisContent = AbstractFilterExpressionController.getParenthesisContent(expression);
@@ -76,8 +80,8 @@ public abstract class AbstractFilterExpressionController {
         return ret;
     }
     
-    static protected ArrayList<String> splitParameters(String expression) {
-        if(expression.equals("")) {
+    protected static ArrayList<String> splitParameters(String expression) {
+        if(expression == null || expression.isEmpty()) {
             return null;
         }
         ArrayList<String> parameters = new ArrayList<>();
