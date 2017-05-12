@@ -19,6 +19,7 @@ import org.junit.BeforeClass;
  * Instanciate all the required variables
  */
 public class AbstractFilterTest {
+    // TODO (@Loan) : éventuellement renommer la classe étant donné qu'elle ne test strictement rien
     
     protected static final PokemonTypeModel FIRE_TYPE = new PokemonTypeModel("FIRE");
     protected static final PokemonTypeModel WATER_TYPE = new PokemonTypeModel("WATER");

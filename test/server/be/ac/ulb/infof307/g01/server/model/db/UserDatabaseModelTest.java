@@ -60,21 +60,21 @@ public class UserDatabaseModelTest extends AbstractDatabaseTest {
     }
     
     @Test
-    public void test_signinUserNotInDatabase(){
+    public void test_signin_userNotInDatabase(){
         UserSendableModel user = newUser("6");
         _expected.expect(InvalidParameterException.class);
         _database.signin(user);
     }
     
     @Test
-    public void test_signinUserInDatabase(){
+    public void test_signin_userInDatabase(){
         UserSendableModel user = newUser("5");
         insertCorrectUser(user);
         _database.signin(user);
     }
     
     @Test
-    public void test_signinWithTokenNotConfirmed(){
+    public void test_signin_withTokenNotConfirmed(){
         UserSendableModel user = newUser("4");
         _database.signup(user);
         _database.addTokenToUser(user, _token);
@@ -83,14 +83,14 @@ public class UserDatabaseModelTest extends AbstractDatabaseTest {
     }
     
     @Test
-    public void test_signupCorrectCreation(){
+    public void test_signup_correctCreation(){
         UserSendableModel user = newUser("3");
         _database.signup(user);
         _database.addTokenToUser(user, _token);
     }
     
     @Test
-    public void test_signupNotCorrectBecauseSameUsername(){
+    public void test_signup_notCorrectBecauseSameUsername(){
         UserSendableModel user = newUser("");
         insertCorrectUser(user);
         user.setEmail(user.getEmail()+"2");
@@ -99,7 +99,7 @@ public class UserDatabaseModelTest extends AbstractDatabaseTest {
     }
     
     @Test
-    public void test_signupNotCorrectBecauseSameEmail(){
+    public void test_signup_notCorrectBecauseSameEmail(){
         UserSendableModel user = newUser("");
         insertCorrectUser(user);
         user.setUsername(user.getUsername()+"1");
@@ -108,7 +108,7 @@ public class UserDatabaseModelTest extends AbstractDatabaseTest {
     }
     
     @Test
-    public void test_signupNotCorrectBecauseNullValues(){
+    public void test_signup_notCorrectBecauseNullValues(){
         UserSendableModel user = newUser("6");
         user.setUsername(null);
         user.setPassword(null);

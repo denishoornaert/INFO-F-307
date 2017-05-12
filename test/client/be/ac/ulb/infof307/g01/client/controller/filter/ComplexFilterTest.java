@@ -11,7 +11,7 @@ import org.junit.Test;
 public class ComplexFilterTest extends AbstractFilterTest {
     
     @Test
-    public void test_ComplexFilter() throws ParseException {
+    public void test_parse_complexFilter() throws ParseException {
         String complexExpression = "OR(NOT(ID(NOT(AND(NOT(AND(TYPE(WATER),TYPE(FIRE))),NOT(NAME(P1)))))),NAME(P1))";
         AbstractFilterExpressionController complexFilter = AbstractFilterExpressionController.parse(complexExpression);
         assertTrue(complexFilter.evaluateFilter(_allMarkers).equals(_allMarkers));

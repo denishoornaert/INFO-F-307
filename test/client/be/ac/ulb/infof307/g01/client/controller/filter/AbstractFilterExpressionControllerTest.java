@@ -33,56 +33,56 @@ public class AbstractFilterExpressionControllerTest {
     }
     
     @Test
-    public void test_getParenthesisContentWithIgnore() {
+    public void test_getParenthesisContent_withIgnore() {
         final String CONTENT = "T, T";
         final String DOUBLE_PARENTHESIS_EXPRESSION = "((" + CONTENT + "), 5)";
         assertEquals(AbstractFilterExpressionController.getParenthesisContent(DOUBLE_PARENTHESIS_EXPRESSION, 1), CONTENT);
     }
     
     @Test
-    public void test_parseOrStatement() throws ParseException {
+    public void test_parse_orStatement() throws ParseException {
         final String orStatement = "OR(NAME(X),TYPE(Y))";
         AbstractFilterExpressionController filterTree = AbstractFilterExpressionController.parse(orStatement);
         assertTrue(filterTree instanceof UnionFilterOperationController);
     }
     
     @Test
-    public void test_parseAndStatement() throws ParseException {
+    public void test_parse_andStatement() throws ParseException {
         final String andStatement = "AND(NAME(X),TYPE(Y))";
         AbstractFilterExpressionController filterTree = AbstractFilterExpressionController.parse(andStatement);
         assertTrue(filterTree instanceof IntersectionFilterOperationController);
     }
     
     @Test
-    public void test_parseNotStatement() throws ParseException {
+    public void test_parse_notStatement() throws ParseException {
         final String notStatement = "NOT(NAME(X))";
         AbstractFilterExpressionController filterTree = AbstractFilterExpressionController.parse(notStatement);
         assertTrue(filterTree instanceof NegationFilterOperationController);
     }
     
     @Test
-    public void test_parseIdStatement() throws ParseException {
+    public void test_parse_idStatement() throws ParseException {
         final String idStatement = "ID(NAME(X))";
         AbstractFilterExpressionController filterTree = AbstractFilterExpressionController.parse(idStatement);
         assertTrue(filterTree instanceof IdentityFilterOperationController);
     }
     
     @Test
-    public void test_parseNameStatement() throws ParseException {
+    public void test_parse_nameStatement() throws ParseException {
         final String nameStatement = "NAME(X)";
         AbstractFilterExpressionController filterTree = AbstractFilterExpressionController.parse(nameStatement);
         assertTrue(filterTree instanceof FilterOnName);
     }
     
     @Test
-    public void test_parseTypeStatement() throws ParseException {
+    public void test_parse_typeStatement() throws ParseException {
         final String typeStatement = "TYPE(Y)";
         AbstractFilterExpressionController filterTree = AbstractFilterExpressionController.parse(typeStatement);
         assertTrue(filterTree instanceof FilterOnType);
     }
     
     @Test
-    public void test_parseThrowsParseErrorIfOperationNotRecognized() throws ParseException {
+    public void test_parse_throwsParseErrorIfOperationNotRecognized() throws ParseException {
         final String wrongStatement = "IF(A)";
         expected.expect(java.text.ParseException.class);
         AbstractFilterController.parse(wrongStatement);

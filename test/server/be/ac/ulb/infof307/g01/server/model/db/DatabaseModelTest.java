@@ -14,7 +14,7 @@ public class DatabaseModelTest extends AbstractDatabaseTest{
     public ExpectedException expected = ExpectedException.none();
     
     @Test
-    public void test_connectionIsSuccessful() throws SQLException, FileNotFoundException {
+    public void test_getInstance_connectionIsSuccessful() throws SQLException, FileNotFoundException {
         // no exception should be thrown
         DatabaseModel database = DatabaseModel.getInstance();
     }

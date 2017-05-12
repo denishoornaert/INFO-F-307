@@ -6,7 +6,7 @@ import org.junit.Test;
 
 public class PokemonDatabaseModelTest extends AbstractDatabaseTest  {
     @Test
-    public void test_loadPokemonNotEmpty(){
+    public void test_getAllPokemons_loadPokemonNotEmpty(){
         assertFalse(_database.getAllPokemons().isEmpty());
     }
     

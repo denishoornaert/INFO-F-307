@@ -12,7 +12,7 @@ import static junit.framework.TestCase.assertEquals;
 public class IntersectionFilterOperationControllerTest extends AbstractFilterTest {
     
     @Test
-    public void test_evaluateFilterResult() throws ParseException {
+    public void test_evaluateFilter_result() throws ParseException {
         IntersectionFilterOperationController filterTree = new IntersectionFilterOperationController("TYPE(FIRE),TYPE(WATER)");
         assertEquals(filterTree.evaluateFilter(_allMarkers).size(), 0);
     }

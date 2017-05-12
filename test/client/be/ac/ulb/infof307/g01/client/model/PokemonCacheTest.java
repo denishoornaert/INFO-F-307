@@ -31,14 +31,14 @@ public class PokemonCacheTest {
     }
     
     @Test
-    public void loadAllPokemonsTest(){
+    public void test_loadAllPokemons(){
         loadCachePokemonSendableTest();
         assertEquals(POKEMON_CACHE.getNumberLoadedPokemons(),1);// load 1 pokemon in the cache by function loadCachePokemonSendableTest
         assertTrue(POKEMON_CACHE.getAllPokemonNames().contains("Arceus"));
     }
     
     @Test
-    public void getPokemonByNameTest(){
+    public void test_getPokemonByName(){
         loadCachePokemonSendableTest();
         PokemonModel pokemonModelTest = new PokemonModel(POKEMON_SENDABLE_TEST);
         assertEquals(POKEMON_CACHE.getPokemonByName("Arceus"),pokemonModelTest);
@@ -47,7 +47,7 @@ public class PokemonCacheTest {
     }
     
     @Test
-    public void loadAllPokemonTypesTest(){
+    public void test_loadAllPokemonTypes(){
         loadCachePokemonTypeSendableTest();
         PokemonTypeModel pokemonTypeModelTest = new PokemonTypeModel(POKEMON_TYPE_SENDABLE_TEST);
         assertEquals(POKEMON_CACHE.getAllPokemonTypes().size(),1);// load 1 Type with the function loadCachePokemonTypeSendableTest
@@ -55,7 +55,7 @@ public class PokemonCacheTest {
     }
     
     @Test
-    public void getPokemonTypeByTypeNameTest(){
+    public void test_getPokemonTypeByTypeName(){
         loadCachePokemonTypeSendableTest();
         PokemonTypeModel pokemonTypeModelTest = new PokemonTypeModel(POKEMON_TYPE_SENDABLE_TEST);
         assertEquals(POKEMON_CACHE.getPokemonTypeByTypeName("FIRE").getTypeName(),pokemonTypeModelTest.getTypeName());
