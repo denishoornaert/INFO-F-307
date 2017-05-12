@@ -56,10 +56,23 @@ public class FilterPanelController {
     }
     
     private String getRequest(boolean notName, String name, boolean notType1, String type1, boolean notType2, String type2, boolean andIsSelected, boolean orIsSelected) {
+        boolean somethingBefore = false;
         String expression = (andIsSelected) ? "AND" : "OR";
-        expression += "("+booleanToString(notName)+"(NAME("+name+")),";
-        expression += booleanToString(notType1)+"(TYPE("+type1+")),";
-        expression += booleanToString(notType1)+"(TYPE("+type1+"))";
+        expression += "(";
+        if(!name.isEmpty()) {
+            expression += booleanToString(notName)+"(NAME("+name+"))";
+            somethingBefore = true;
+        }
+        if(type1 != null) {
+            expression += (somethingBefore) ? "," : "";
+            expression += booleanToString(notType1)+"(TYPE("+type1+"))";
+            somethingBefore = true;
+        }
+        if(type2 != null) {
+            expression += (somethingBefore) ? "," : "";
+            expression += booleanToString(notType2)+"(TYPE("+type2+")),";
+        }
+        expression += ")";
         return expression;
     }
     
@@ -68,7 +81,6 @@ public class FilterPanelController {
     }
 
     public void applyFilter(String expression) {
-        System.out.println(expression);
         try {
             IdentityFilterOperationController filterExpression = new IdentityFilterOperationController(expression);
             HashSet<MarkerModel> allMarkers = _markerController.getAllMarkers();

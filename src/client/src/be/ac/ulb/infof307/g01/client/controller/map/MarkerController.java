@@ -21,11 +21,13 @@ import java.util.logging.Level;
  */
 public class MarkerController {
     
-    private Map<Integer, MarkerModel> _markerMap = new HashMap<>();
-    private MapView _mapView;
-    private Integer _newMarkerId = 0;
+    private final Map<Integer, MarkerModel> _markerMap;
+    private final MapView _mapView;
+    private Integer _newMarkerId;
     
     public MarkerController(MapView mapView) {
+        this._markerMap = new HashMap<>();
+        this._newMarkerId = 0;
         _mapView = mapView;
     }
     
@@ -40,12 +42,13 @@ public class MarkerController {
     }
     
     public void showHideMarker(HashSet<MarkerModel> listMarker) {
+        System.out.println(listMarker);
         for(Integer id : _markerMap.keySet()) {
             MarkerModel marker = _markerMap.get(id);
             if(listMarker.contains(marker)) {
-                _mapView.displayMarker(marker, id);
+                _mapView.displayMarker(id);
             } else {
-                _mapView.hideMaker(marker, id);
+                _mapView.hideMaker(id);
             }
         }
     }

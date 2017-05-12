@@ -8,6 +8,8 @@ import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
 import be.ac.ulb.infof307.g01.common.model.CoordinateSendableModel;
 import be.ac.ulb.infof307.g01.client.model.MarkerModel;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
@@ -92,12 +94,22 @@ public class MapView extends StackPane {
         _cacheMarkerModel.clear();
     }
 
-    public void displayMarker(MarkerModel marker, Integer id) {
-        // TODO check JS
+    public void displayMarker(Integer id) {
+        if(_bridge.isJavaScriptMapLoad()) { // If JavaScript map is not loaded
+            JSObject window = (JSObject) _webEngine.executeScript("window");
+            window.call("showMarker", id);
+        }
     }
 
-    public void hideMaker(MarkerModel marker, Integer id) {
-        // TODO check JS
+    public void hideMaker(Integer id) {
+        if(!_bridge.isJavaScriptMapLoad()) { // If JavaScript map is not loaded
+            Logger.getLogger(getClass().getName()).log(Level.WARNING, 
+                "Could not hide marker: {0}", id);
+        } else {
+            JSObject window = (JSObject) _webEngine.executeScript("window");
+            window.call("hideMarker", id);
+        }
+        
     }
 
     /** Allows JavaScript code to call Java functions. */
@@ -139,6 +151,10 @@ public class MapView extends StackPane {
         
         public void onMarkerLeftClick(int markerId) {
             _mapController.displayPinPopUp(markerId);
+        }
+        
+        public void log(String message) {
+            System.out.println("Message JS: " + message);
         }
     }
 }
