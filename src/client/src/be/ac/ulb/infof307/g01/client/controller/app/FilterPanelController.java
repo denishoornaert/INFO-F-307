@@ -11,7 +11,9 @@ import be.ac.ulb.infof307.g01.client.view.SavedFilterPanelView;
 import be.ac.ulb.infof307.g01.common.model.FilterSendableModel;
 import java.security.InvalidParameterException;
 import java.text.ParseException;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,6 +32,7 @@ public class FilterPanelController {
     private final String _basicFilterLabel = "Basic filter";
     private final String _advancedFilterLabel = "Advanced filter";
     private final MarkerController _markerController;
+    private HashMap<String, String> _savedFilters;
     
     public FilterPanelController(MarkerController markerController) {
         _filterPanelView = new FilterPanelView(this);
@@ -40,9 +43,19 @@ public class FilterPanelController {
     
     private void initTabs() {
         _savedTab = new SavedFilterPanelView(this);
+        initSavedTab();
         _basicFilter = new BasicFilterPanelView(this);
         _basicFilter.setComboBoxesContent(PokemonCache.getInstance().getAllPokemonTypesString());
         _advancedFilter = new AdvancedFilterPanelView(this);
+    }
+    
+    private void initSavedTab() {
+        _savedFilters = new HashMap<String, String>();
+        List<FilterSendableModel> allFilterModels = ServerQueryController.getInstance().getAllFilter();
+        for(FilterSendableModel filter : allFilterModels) {
+            _savedFilters.put(filter.getName(), filter.getExpression());
+        }
+        _savedTab.setSavedFilters(_savedFilters.values());
     }
     
     private void placeTabs() {
@@ -91,12 +104,12 @@ public class FilterPanelController {
         }
     }
     
-    // TODo manage correctly !
+    // TODO manage correctly ! to corretly the error message
     public void saveFilter(String expressionName, String expression) {
         if(!expressionName.isEmpty()) {
-            FilterSendableModel filter = new FilterSendableModel(expressionName, expression);
+            FilterSendableModel filter = new FilterSendableModel(expression, expressionName);
             try {
-            ServerQueryController.getInstance().insertFilter(filter);
+                ServerQueryController.getInstance().insertFilter(filter);
             } catch (InvalidParameterException error) {
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE, error.getMessage());
             }

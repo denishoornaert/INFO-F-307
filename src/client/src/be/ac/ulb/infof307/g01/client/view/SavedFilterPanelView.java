@@ -1,6 +1,7 @@
 package be.ac.ulb.infof307.g01.client.view;
 
 import be.ac.ulb.infof307.g01.client.controller.app.FilterPanelController;
+import java.util.Collection;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.Tab;
@@ -51,6 +52,10 @@ public class SavedFilterPanelView extends Tab {
             HBox.setHgrow(control, Priority.ALWAYS);
             control.setMaxWidth(208);
         }
+    }
+    
+    public void setSavedFilters(Collection<String> filtersName) {
+        _savedExpressionsComboBox.getItems().addAll(filtersName);
     }
     
 }
