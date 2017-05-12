@@ -1,9 +1,8 @@
 package be.ac.ulb.infof307.g01.client.view.map;
 
+import be.ac.ulb.infof307.g01.client.controller.map.DetailsMarkerPopUpController;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-
-import be.ac.ulb.infof307.g01.client.controller.map.DetailsMarkerPopUpController;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -82,7 +81,7 @@ public class DetailsMarkerPopUp extends InformationPopUp {
         _upVoteButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                _controller.addUpVote();
+                _controller.addVote(true);
             }
         });
     }
@@ -93,7 +92,7 @@ public class DetailsMarkerPopUp extends InformationPopUp {
         _downVoteButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                _controller.addDownVote();
+                _controller.addVote(false);
             }
         });
     }

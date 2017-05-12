@@ -2,13 +2,12 @@ package be.ac.ulb.infof307.g01.client.controller.map;
 
 import be.ac.ulb.infof307.g01.client.controller.app.MessagePopUpController;
 import be.ac.ulb.infof307.g01.client.controller.app.UserController;
-import java.sql.Timestamp;
-
-import be.ac.ulb.infof307.g01.common.model.CoordinateSendableModel;
 import be.ac.ulb.infof307.g01.client.model.MarkerModel;
 import be.ac.ulb.infof307.g01.client.view.map.DetailsMarkerPopUp;
+import be.ac.ulb.infof307.g01.common.model.CoordinateSendableModel;
 import be.ac.ulb.infof307.g01.common.model.ReputationVoteSendableModel;
 import java.security.InvalidParameterException;
+import java.sql.Timestamp;
 import java.util.logging.Level;
 
 /**
@@ -75,10 +74,11 @@ public class DetailsMarkerPopUpController extends InformationPopUpController {
     public String getVoteScore() {
         return Integer.toString(_marker.getReputationScore());
     }
-    // TODO Refactor addVote
-    public void addDownVote() {
+    
+    
+    public void addVote(boolean isUpVote) {
         try {
-            _marker.addVote(UserController.getInstance().getUsername(), false);
+            _marker.addVote(UserController.getInstance().getUsername(), isUpVote);
         } catch(InvalidParameterException exception){
             MessagePopUpController.createPopUpOrLog(Level.SEVERE, exception.getMessage());
         }
@@ -87,17 +87,6 @@ public class DetailsMarkerPopUpController extends InformationPopUpController {
         updateVoteView();
     }
 
-    public void addUpVote() {
-        try {
-            _marker.addVote(UserController.getInstance().getUsername(), true);
-        } catch(InvalidParameterException exception){
-            MessagePopUpController.createPopUpOrLog(Level.SEVERE, exception.getMessage());
-        }
-        _pinPopUp.enableDownVoteButton();
-        _pinPopUp.disableUpVoteButton();
-        updateVoteView();
-    }
-    
     private void updateVoteView() {
         int vote = _marker.getReputationScore();
         _pinPopUp.updateVoteView(vote);
