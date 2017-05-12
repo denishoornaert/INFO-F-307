@@ -6,7 +6,6 @@ import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
  * A pokemon represents the generic pokemon entity, such as "Pikachu". A pokemon
  * spotted on the map is represented by MarkerModel.
  */
-
 public class PokemonModel extends PokemonSendableModel {
     
     public PokemonModel(PokemonSendableModel pokemon) {
