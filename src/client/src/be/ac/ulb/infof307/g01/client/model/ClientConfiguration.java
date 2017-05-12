@@ -22,10 +22,11 @@ public class ClientConfiguration {
     
     private static final String FILE_PREFIX = "file:";
     
+    private static final String PROPERTIES_FILENAME = "config.properties";
     private Properties _propertiesFile;
     
     private final boolean _isTest;
-    private ArrayList<String> _applicationIconsPaths =  new ArrayList<>();
+    private final ArrayList<String> _applicationIconsPaths =  new ArrayList<>();
     
     private ClientConfiguration() {
         this(false);
@@ -34,7 +35,7 @@ public class ClientConfiguration {
     private ClientConfiguration(boolean isTest) {
         _isTest = isTest;
         
-        loadConfigurationFile("config.properties");
+        loadConfigurationFile(PROPERTIES_FILENAME);
         
     }
     
@@ -55,9 +56,9 @@ public class ClientConfiguration {
     }
     
     private void loadConfigurationInformations() {
-        // TODO simplifier tout ça ?
-        for (int i=0;i<6;i++) {
-            _applicationIconsPaths.add(_propertiesFile.getProperty("Icon"+i));
+        final int iconNumber = Integer.parseInt(_propertiesFile.getProperty("IconNumber"));
+        for (int i = 0; i < iconNumber; ++i) {
+            _applicationIconsPaths.add(_propertiesFile.getProperty("Icon" + i));
         }
     }
     
