@@ -46,9 +46,9 @@ public abstract class AbstractMarkerPopUp extends InformationPopUp {
     private static final int DEFAULT_MARKER_ID = 0;
     private static String DATE_HOUR_LABEL_STR = " h ";
     private static String DATE_MINUTE_LABEL_STR = "min";
-    private static String LIFE_LABEL_STR = "life : ";
-    private static String ATTACK_LABEL_STR = "atk : ";
-    private static String DEFENSE_LABEL_STR = "def : ";
+    private static String LIFE_LABEL_STR = "Life";
+    private static String ATTACK_LABEL_STR = "Attack";
+    private static String DEFENSE_LABEL_STR = "Defense";
     
     private final ArrayList<String> _pokemonNames;
     protected final AbstractMarkerPopUpController _controller;
@@ -208,14 +208,16 @@ public abstract class AbstractMarkerPopUp extends InformationPopUp {
     }
     
     private void placeWidgets() {
-        HBox hboxDates = placeInRow(_dateHour, _dateHourLabel, _dateMinute, 
+        HBox boxDates = placeInRow(_dateHour, _dateHourLabel, _dateMinute, 
                 _dateMinuteLabel);
-        HBox hboxSpinner = placeInRow(_lifeLabel, _lifeSpinner, _attackLabel,
-                _attackSpinner, _defenseLabel, _defenseSpinner);
-        HBox hboxButtons = placeInRow(_closeButton, _okButton);
-        VBox vboxDataEntries = placeInColumn(_pokemonName, hboxSpinner, 
-                _dateMonthYear, hboxDates, hboxButtons);
-        super.add(vboxDataEntries);
+        VBox boxLife = placeInColumn(_lifeLabel, _lifeSpinner);
+        VBox boxAttack = placeInColumn(_attackLabel, _attackSpinner);
+        VBox boxDefense = placeInColumn(_defenseLabel, _defenseSpinner);
+        HBox boxStats = placeInRow(boxLife, boxAttack, boxDefense);
+        HBox boxButtons = placeInRow(_closeButton, _okButton);
+        VBox boxDataEntries = placeInColumn(_pokemonName, boxStats,
+               _dateMonthYear, boxDates, boxButtons);
+        super.add(boxDataEntries);
     }
 
     public void errorInPokemonName() {
