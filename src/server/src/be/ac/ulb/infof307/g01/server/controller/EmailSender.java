@@ -28,13 +28,13 @@ public class EmailSender {
     private final String CONFIRMATION_MAIL_TITLE = "Welcome to Gotta Map Them All!";
     
     /**
-     * The content of the confirmation mail. For now, we just send the password
-     * to the user. To insert the password in the mail, use String.format.
+     * The content of the confirmation mail. You can insert the token and the
+     * username into the mail content by using String.format.
      */
     private final String CONFIRMATION_MAIL_CONTENT = "Hello dear user,\n"
             + "You will be able to connect to Gotta Map Them All after having"
             + " confirmed your account by clicking on this link : "
-            + "http://localhost:8080/server/rest/user/confirm?token=%s";
+            + "http://localhost:8080/server/rest/user/confirm?username=%s&token=%s";
     
     public EmailSender() {
         SMTP_SESSION = createSmtpSession();
@@ -60,16 +60,17 @@ public class EmailSender {
      * Sends a mail to the user in order to validate its account.
      * For now, the validation process is just a password sent into the mail.
      * @param userMailAddress The email address to which send the mail
+     * @param username The username.
      * @param token The confirmation token.
      * @throws MessagingException If the mail couldn't be sent.
      */
-    public void sendConfirmationEmail(String userMailAddress, String token) throws MessagingException {
+    public void sendConfirmationEmail(String userMailAddress, String username, String token) throws MessagingException {
         // Create the message
         Message message = new MimeMessage(SMTP_SESSION);
         message.setFrom(new InternetAddress(SERVER_MAIL_ADDRESS));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(userMailAddress));
         message.setSubject(CONFIRMATION_MAIL_TITLE);
-        message.setText(String.format(CONFIRMATION_MAIL_CONTENT, token));
+        message.setText(String.format(CONFIRMATION_MAIL_CONTENT, username, token));
         
         // Instanciates a connection used to send the message
         Transport transport = SMTP_SESSION.getTransport("smtps");

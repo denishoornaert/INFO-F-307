@@ -541,16 +541,17 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
     }
 
     /**
-     * Confirm a user account
+     * Confirms a user account from a token, and its username.
      * 
-     * @param token the token who confirm account
+     * @param username The username
+     * @param token the token who confirms account
      */
-    public void confirmAccount(String token) throws InvalidParameterException {
-        //TODO : use Username to check if we're confirming the right account (duplicate tokens)
-        String query = "UPDATE User SET Token = '' WHERE Token = ?";
+    public void confirmAccount(String username, String token) throws InvalidParameterException {
+        String query = "UPDATE User SET Token = '' WHERE Username = ? AND Token = ?";
         try {
             PreparedStatement statement = _connection.prepareStatement(query);
-            statement.setString(1, token);
+            statement.setString(1, username);
+            statement.setString(2, token);
             if(statement.executeUpdate() != 1) {
                 throw new SQLException("No user with such token: " + token);
             }

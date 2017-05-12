@@ -58,9 +58,11 @@ public class EmailSenderTest {
 
     @Test
     public void test_sendConfirmationEmail_mailIsReceived() throws MessagingException, InterruptedException {
-        // The email sender requires the generated user password, it can be any string
-        final String generatedPassword = "abcdef";
-        _emailSender.sendConfirmationEmail(_testAccountEmailAddress, generatedPassword);
+        // The email sender requires the generated user token and username,
+        // they can be anything
+        final String username = "Coucou";
+        final String token = "abcdef";
+        _emailSender.sendConfirmationEmail(_testAccountEmailAddress, username, token);
         
         // Wait a little bit to let the mail make his way through the internet
         Thread.sleep(MAIL_RECEIPTION_TIMEOUT);

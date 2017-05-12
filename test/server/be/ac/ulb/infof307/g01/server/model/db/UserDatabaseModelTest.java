@@ -31,7 +31,7 @@ public class UserDatabaseModelTest extends AbstractDatabaseTest {
         try {
             _database.signup(user);
             _database.addTokenToUser(user, _token);
-            _database.confirmAccount(_token);
+            _database.confirmAccount(user.getUsername(), _token);
         } catch (IllegalArgumentException exception) {
             return false;
         }
@@ -39,7 +39,8 @@ public class UserDatabaseModelTest extends AbstractDatabaseTest {
     }
     
     private UserSendableModel newUser(String subStr) {
-        return new UserSendableModel(_user.getUsername()+subStr, _user.getEmail()+subStr, _user.getPassword()+subStr);
+        return new UserSendableModel(_user.getUsername() + subStr,
+                _user.getEmail() + subStr, _user.getPassword() + subStr);
     }
     
     /**

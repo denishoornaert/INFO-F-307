@@ -40,11 +40,12 @@ public class UserServiceQueryController {
     @GET
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_HTML)
-    public String confirmAccount(@QueryParam("token") String token) {
+    public String confirmAccount(@QueryParam("username") String username,
+            @QueryParam("token") String token) {
         String htmlPage = "<html> " + "<title>" + "User Account Conrfirmation" + "</title><body>"
                 + "<h1>" + "Validate Account" + "</h1>";
         try {
-            DatabaseModel.getInstance().confirmAccount(token);
+            DatabaseModel.getInstance().confirmAccount(username, token);
             htmlPage += "Your account has been validated";
         } catch(InvalidParameterException exception) {
             htmlPage += "An error has occured";
@@ -66,7 +67,7 @@ public class UserServiceQueryController {
         String token = generateToken();
         try {
             EmailSender sender = new EmailSender();
-            sender.sendConfirmationEmail(user.getEmail(), token);
+            sender.sendConfirmationEmail(user.getEmail(), user.getUsername(), token);
         } catch (MessagingException ex) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage());
             return Response.status(Response.Status.NOT_ACCEPTABLE).build();
