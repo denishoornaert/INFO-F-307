@@ -1,6 +1,5 @@
 package be.ac.ulb.infof307.g01.client.view.map;
 
-import be.ac.ulb.infof307.g01.client.view.map.AbstractMarkerPopUp;
 import be.ac.ulb.infof307.g01.client.controller.map.UpdateMarkerPopUpController;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -58,21 +57,31 @@ public class UpdateMarkerPopUp extends AbstractMarkerPopUp {
         return calendar;
     }
     
+    /**
+     * Factorize the initialization code between initComboBoxHour and
+     * initComboBoxMinutes.
+     * @param timeWidget The comboBox to initialize
+     * @param value The value to put in the comboBox
+     * @param limit The maximum value the comboBox can have, as an enum value
+     * in Calendar.
+     */
+    private void initComboBoxTime(ComboBox timeWidget, int limit, int value) {
+        Calendar calendar = getCalendar(_markerModel.getTimestamp());
+        setComboBox(timeWidget, calendar.get(limit), value);
+        timeWidget.setPromptText(Integer.toString(value));
+    }
+    
     @Override
     protected void initComboBoxHour(int hour) {
         _dateHour = new ComboBox();
-        Calendar calendar = getCalendar(_markerModel.getTimestamp());
-        setComboBox(_dateHour, calendar.get(Calendar.HOUR), hour);
-        _dateHour.setPromptText(Integer.toString(hour));
+        initComboBoxTime(_dateHour, Calendar.HOUR, hour);
         
     }
 
     @Override
     protected void initComboBoxMinutes(int minute) {
         _dateMinute = new ComboBox();
-        Calendar calendar = getCalendar(_markerModel.getTimestamp());
-        setComboBox(_dateMinute, calendar.get(Calendar.MINUTE), minute);
-        _dateMinute.setPromptText(Integer.toString(minute));
+        initComboBoxTime(_dateMinute, Calendar.MINUTE, minute);
     }
     
     @Override

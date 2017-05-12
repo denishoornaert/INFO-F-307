@@ -6,7 +6,6 @@ import be.ac.ulb.infof307.g01.client.model.MarkerModel;
 import be.ac.ulb.infof307.g01.client.view.app.AbstractPopUp;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -68,11 +67,8 @@ public abstract class InformationPopUp extends AbstractPopUp {
     
     private void initTwitterButton() {
         _twitterButton = new Button("🌍");
-        _twitterButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent t) {
-                _controller.sendTwitterPost();
-            }
+        _twitterButton.setOnAction((ActionEvent t) -> {
+            _controller.sendTwitterPost();
         });
     }
     

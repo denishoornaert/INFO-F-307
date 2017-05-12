@@ -1,10 +1,8 @@
 package be.ac.ulb.infof307.g01.client.view.app;
 
-import be.ac.ulb.infof307.g01.client.view.options.PanelView;
-import be.ac.ulb.infof307.g01.client.view.map.MapView;
 import be.ac.ulb.infof307.g01.client.controller.app.WindowController;
-import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
-import java.awt.Event;
+import be.ac.ulb.infof307.g01.client.view.map.MapView;
+import be.ac.ulb.infof307.g01.client.view.options.PanelView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;

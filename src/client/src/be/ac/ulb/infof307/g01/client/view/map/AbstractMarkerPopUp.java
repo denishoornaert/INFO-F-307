@@ -117,7 +117,7 @@ public abstract class AbstractMarkerPopUp extends InformationPopUp {
     
     
     protected void initComboBoxPokemonName() {
-        _pokemonName = new ComboBox();
+        _pokemonName = new ComboBox<>();
         _pokemonName.setPromptText("Pokemon name");
         setComboBoxPokemonNameContent();
         initComboBoxPokemonNameEventItemSelected();
