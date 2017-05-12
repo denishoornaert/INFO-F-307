@@ -94,6 +94,7 @@ public class FilterPanelController {
     }
 
     public void applyFilter(String expression) {
+        System.out.println(expression);
         try {
             IdentityFilterOperationController filterExpression = new IdentityFilterOperationController(expression);
             HashSet<MarkerModel> allMarkers = _markerController.getAllMarkers();
@@ -127,6 +128,10 @@ public class FilterPanelController {
     public void saveFilter(String expressionName, boolean notName, String name, boolean notType1, String type1, boolean notType2, String type2, boolean andIsSelected, boolean orIsSelected) {
         String expression = getRequest(notName, name, notType1, type1, notType2, type2, andIsSelected, orIsSelected);
         saveFilter(expressionName, expression);
+    }
+
+    public void applyFilterByName(String name) {
+        applyFilter(_savedFilters.get(name));
     }
     
 }
