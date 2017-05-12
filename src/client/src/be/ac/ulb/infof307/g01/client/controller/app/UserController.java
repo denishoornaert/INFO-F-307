@@ -26,21 +26,19 @@ public class UserController {
     }
     
     /**
-     * Try to authenticate with the given user name.
-     * For now, there is no check in database, any user is accepted.
+     * Try to authenticate with the given user name and password.
      * @param username The user name.
      * @param password The password.
     */
     public void authenticate(String username, String password) throws InvalidParameterException {
-        // TODO get email from db
         if(username.isEmpty() || password.isEmpty()) {
-            throw new IllegalArgumentException("All fields are required");
+            throw new InvalidParameterException("All fields are required");
         }
         UserSendableModel temporaryProfil = new UserSendableModel(username, password);
         _connection.signin(temporaryProfil);
         _user = temporaryProfil;
         Logger.getLogger(getClass().getName()).log(Level.INFO, 
-                "User {0} ({1}) is login !", 
+                "User {0} ({1}) is logged in !", 
                 new Object[]{username, _user.getEmail()});
         _isConnected = true;
     }
