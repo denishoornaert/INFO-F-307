@@ -25,13 +25,6 @@ public class ServerConfiguration extends ConfigurationModel {
     private ServerConfiguration() { 
         super();
     }
-
-    public static ServerConfiguration getInstance() {			
-        if(_configuration == null) {
-            _configuration = new ServerConfiguration();	
-        }
-        return _configuration;
-    }
     
     /**
      * Gets the path to a specific asset file.
@@ -75,6 +68,16 @@ public class ServerConfiguration extends ConfigurationModel {
     public String getTestSqlPath() {
         String path = _propertiesFile.getProperty(SQL_SCRIPT_NAME_CONFIG, SQL_SCRIPT_NAME_DEFAULT);
         return getAssetPath(path);
+    }
+    
+    
+    /////////////////// STATIC ///////////////////
+    
+    public static ServerConfiguration getInstance() {			
+        if(_configuration == null) {
+            _configuration = new ServerConfiguration();	
+        }
+        return _configuration;
     }
     
 }

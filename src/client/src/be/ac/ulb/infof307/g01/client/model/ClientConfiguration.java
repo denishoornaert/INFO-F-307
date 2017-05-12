@@ -16,6 +16,25 @@ public class ClientConfiguration extends ConfigurationModel {
     private static ClientConfiguration _testConfiguration = null;
     private final boolean _isTest;
     
+    /** Configuration keys and default values.**/
+    private final String BOOTSTRAP_DEFAULT = "bootstrap.css";
+    private final String BOOTSTRAP_CONFIG = "bootstrap";
+    private final String UNKNOWN_POKEMON_SPRITE_DEFAULT = "unknown_pokemon.png";
+    private final String UNKNOWN_POKEMON_SPRITE_CONFIG = "unknown-pokemon";
+    private final String SPRITE_FOLDER_DEFAULT = "sprites/";
+    private final String SPRITE_FOLDER_CONFIG = "sprites";
+    private final String TITLE_DEFAULT = "Gotta Map'Em All !";
+    private final String TITLE_CONFIG = "title";
+    private final String SERVER_URL_DEFAULT = "http://localhost:8080/server/rest/";
+    private final String SERVER_URL_CONFIG = "server-url";
+    private final String TERMS_AND_CONDITIONS_DEFAULT = "terms_and_conditions.txt";
+    private final String TERMS_AND_CONDITIONS_CONFIG = "term-and-condition";
+    private final String ICON_PATH_DEFAULT = "application_icon_";
+    private final String ICON_PATH_DEFAULT_SUFFIX = ".png";
+    private final String ICON_PATH_CONFIG = "icon";
+    
+    private ArrayList<String> _allResolution;
+    
     private ClientConfiguration() {
         this(false);
     }
@@ -23,6 +42,14 @@ public class ClientConfiguration extends ConfigurationModel {
     private ClientConfiguration(boolean isTest) {
         super();
         _isTest = isTest;
+        
+        _allResolution = new ArrayList<>();
+        _allResolution.add("16");
+        _allResolution.add("32");
+        _allResolution.add("64");
+        _allResolution.add("128");
+        _allResolution.add("256");
+        _allResolution.add("512");
     }
     
     @Override
@@ -51,6 +78,57 @@ public class ClientConfiguration extends ConfigurationModel {
         return result;
     }
     
+    /**
+     * Get only the name of the style file
+     * 
+     * @return the style name file
+     */
+    public String getStyleFileName() {
+        return _propertiesFile.getProperty(BOOTSTRAP_CONFIG, BOOTSTRAP_DEFAULT);
+    }
+    
+    public String getStylePath() {
+        return getAssetPath(getStyleFileName());
+    }
+    
+    public String getUnknownPokemonSpritePath() {
+        return getAssetPath(_propertiesFile.getProperty(UNKNOWN_POKEMON_SPRITE_CONFIG, 
+                UNKNOWN_POKEMON_SPRITE_DEFAULT));
+    }
+    
+    public String getSpritePath() {
+        return getAssetPath(_propertiesFile.getProperty(SPRITE_FOLDER_CONFIG,
+                SPRITE_FOLDER_DEFAULT));
+    }
+    
+    public String getApplicationTitle() {
+        return _propertiesFile.getProperty(TITLE_CONFIG, TITLE_DEFAULT);
+    }
+    
+    public ArrayList<String> getApplicationIconsPaths() {
+        ArrayList<String> result = new ArrayList<>();
+        for (int i = 0; i < _allResolution.size(); ++i) {
+            String number = _allResolution.get(i);
+            
+            result.add(getAssetPath(_propertiesFile.getProperty(ICON_PATH_CONFIG + i,
+                ICON_PATH_DEFAULT + number + ICON_PATH_DEFAULT_SUFFIX), true));
+        }
+        
+        return result;
+    }
+    
+    public String getServerURL() {
+        return _propertiesFile.getProperty(SERVER_URL_CONFIG, SERVER_URL_DEFAULT);
+    }
+    
+    public String getTermsAndConditionsPath() {
+        return addJarOrFilePrefix(getAssetPath(_propertiesFile.getProperty(
+                TERMS_AND_CONDITIONS_CONFIG, TERMS_AND_CONDITIONS_DEFAULT)));
+    }
+    
+    
+    /////////////////// STATIC ///////////////////
+    
     public static ClientConfiguration getInstance() {			
         if(_configuration == null) {
             _configuration = new ClientConfiguration();	
@@ -64,47 +142,4 @@ public class ClientConfiguration extends ConfigurationModel {
         }
         return _testConfiguration;
     }
-    
-    /**
-     * Get only the name of the style file
-     * 
-     * @return the style name file
-     */
-    public String getStyleFileName() {
-        return _propertiesFile.getProperty("bootstrap");
-    }
-    
-    public String getStylePath() {
-        return getAssetPath(getStyleFileName());
-    }
-    
-    public String getUnknownPokemonSpritePath() {
-        return getAssetPath(_propertiesFile.getProperty("unknown-pokemon"));
-    }
-    
-    public String getSpritePath() {
-        return getAssetPath(_propertiesFile.getProperty("sprites"));
-    }
-    
-    public String getApplicationTitle() {
-        return _propertiesFile.getProperty("Title");
-    }
-    
-    public ArrayList<String> getApplicationIconsPaths() {
-        ArrayList<String> result = new ArrayList<>();
-        for (int i=0;i<6;i++) {
-            result.add(_propertiesFile.getProperty("Icon"+i));
-        }
-        
-        return result;
-    }
-    
-    public String getServerURL() {
-        return _propertiesFile.getProperty("server-url");
-    }
-    
-    public String getTermsAndConditionsPath() {
-        return addJarOrFilePrefix(getAssetPath(_propertiesFile.getProperty("term-and-condition")));
-    }
-    
 }
