@@ -30,8 +30,11 @@ public abstract class AbstractFilterExpressionController {
      */
     public AbstractFilterExpressionController(String expression) throws ParseException {
         this();
-        // create all children by their string expression (splitting on commas)
-        for(String parameter : splitParameters(expression)) {
+        ArrayList<String> splitParam = splitParameters(expression);
+        if(splitParam == null || splitParam.isEmpty()) {
+            throw new ParseException("Could not split null/empty element", 0);
+        }
+        for(String parameter : splitParam) {
             _expressions.add(parse(parameter));
         }
     }
@@ -60,7 +63,7 @@ public abstract class AbstractFilterExpressionController {
      * @param toIgnore The number of parenthesis to ignore
      * @return the content of the (\param toIgnore+1) parenthesis
      */
-    static protected String getParenthesisContent(String expression, int toIgnore) {
+    protected static String getParenthesisContent(String expression, int toIgnore) {
         int leftParenthesisIdx = -1;
         int rightParenthesisIdx = expression.length();
         for(int i = 0; i <= toIgnore; ++i) {
@@ -120,8 +123,8 @@ public abstract class AbstractFilterExpressionController {
      * @param expression The string to parse
      * @return A list of parameters
      */
-    static protected ArrayList<String> splitParameters(String expression) {
-        if(expression.equals("")) {
+    protected static ArrayList<String> splitParameters(String expression) {
+        if(expression == null || expression.isEmpty()) {
             return null;
         }
         ArrayList<String> parameters = new ArrayList<>();

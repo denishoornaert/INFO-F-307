@@ -14,7 +14,7 @@ public class FilterSendableModel {
     
     public FilterSendableModel() {} // don't remove (see Jersey)
     
-    public FilterSendableModel(String filter, String name) {
+    public FilterSendableModel(String name, String filter) {
         _expression = filter;
         _name = name;
     }
