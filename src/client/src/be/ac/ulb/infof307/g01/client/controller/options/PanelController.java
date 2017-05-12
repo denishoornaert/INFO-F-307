@@ -2,6 +2,7 @@ package be.ac.ulb.infof307.g01.client.controller.options;
 
 import be.ac.ulb.infof307.g01.client.controller.app.FilterPanelController;
 import be.ac.ulb.infof307.g01.client.controller.app.UserController;
+import be.ac.ulb.infof307.g01.client.controller.map.MarkerController;
 import be.ac.ulb.infof307.g01.client.view.options.PanelView;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,9 +16,9 @@ public class PanelController {
     private final PanelView _panelView;
     private FilterPanelController _filterPanelController;
     
-    public PanelController() {
+    public PanelController(MarkerController markerController) {
         _panelView = new PanelView(this);
-        _filterPanelController = new FilterPanelController();
+        _filterPanelController = new FilterPanelController(markerController);
         _panelView.setWidget(_filterPanelController.getView());
     }
     

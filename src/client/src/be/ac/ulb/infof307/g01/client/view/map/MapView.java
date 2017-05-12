@@ -67,7 +67,7 @@ public class MapView extends StackPane {
         });
     }
     
-    public void createPin(MarkerModel marker, int pinId) {
+    public void createMarker(MarkerModel marker, int pinId) {
         if(!_bridge.isJavaScriptMapLoad()) { // If JavaScript map is not loaded
             _cacheMarkerModel.put(pinId, marker);
             
@@ -87,9 +87,17 @@ public class MapView extends StackPane {
     private void loadAllCachedMarkerModel() {
         for(int pinId : _cacheMarkerModel.keySet()) {
             MarkerModel marker = _cacheMarkerModel.get(pinId);
-            createPin(marker, pinId);
+            createMarker(marker, pinId);
         }
         _cacheMarkerModel.clear();
+    }
+
+    public void displayMarker(MarkerModel marker, Integer id) {
+        // TODO check JS
+    }
+
+    public void hideMaker(MarkerModel marker, Integer id) {
+        // TODO check JS
     }
 
     /** Allows JavaScript code to call Java functions. */

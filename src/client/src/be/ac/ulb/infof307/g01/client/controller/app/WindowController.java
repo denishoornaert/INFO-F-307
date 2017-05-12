@@ -29,7 +29,7 @@ public class WindowController {
     
     private void initControllers() {
         _mapController = new MapController();
-        _panelController = new PanelController();
+        _panelController = new PanelController(_mapController.getMarkerController());
     }
 
     private void displayWidgets() {

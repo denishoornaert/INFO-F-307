@@ -1,18 +1,19 @@
 package be.ac.ulb.infof307.g01.client.controller.app;
 
 import be.ac.ulb.infof307.g01.client.controller.filter.IdentityFilterOperationController;
+import be.ac.ulb.infof307.g01.client.controller.map.MarkerController;
 import be.ac.ulb.infof307.g01.client.model.MarkerModel;
 import be.ac.ulb.infof307.g01.client.model.PokemonCache;
 import be.ac.ulb.infof307.g01.client.view.AdvancedFilterPanelView;
 import be.ac.ulb.infof307.g01.client.view.BasicFilterPanelView;
 import be.ac.ulb.infof307.g01.client.view.FilterPanelView;
 import be.ac.ulb.infof307.g01.client.view.SavedFilterPanelView;
+import be.ac.ulb.infof307.g01.common.model.FilterSendableModel;
+import java.security.InvalidParameterException;
 import java.text.ParseException;
 import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 
 /**
  *
@@ -28,9 +29,11 @@ public class FilterPanelController {
     private final String _savedExpressionLabel = "Saved filter";
     private final String _basicFilterLabel = "Basic filter";
     private final String _advancedFilterLabel = "Advanced filter";
+    private final MarkerController _markerController;
     
-    public FilterPanelController() {
+    public FilterPanelController(MarkerController markerController) {
         _filterPanelView = new FilterPanelView(this);
+        _markerController = markerController;
         initTabs();
         placeTabs();
     }
@@ -66,21 +69,28 @@ public class FilterPanelController {
 
     public void applyFilter(String expression) {
         System.out.println(expression);
-//        try {
-//            IdentityFilterOperationController filterExpression = new IdentityFilterOperationController(expression);
-//            HashSet<MarkerModel> allMarkers = ;
-//            HashSet<MarkerModel> res = filterExpression.evaluateFilter(allMarkers);
-//        } catch (ParseException ex) {
-//            Logger.getLogger(FilterPanelController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        try {
+            IdentityFilterOperationController filterExpression = new IdentityFilterOperationController(expression);
+            HashSet<MarkerModel> allMarkers = _markerController.getAllMarkers();
+            HashSet<MarkerModel> res = filterExpression.evaluateFilter(allMarkers);
+            _markerController.showHideMarker(res);
+        } catch (ParseException ex) {
+            Logger.getLogger(FilterPanelController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
+    // TODo manage correctly !
     public void saveFilter(String expressionName, String expression) {
-        if(expressionName != "") {
-            System.err.println("Save : "+expressionName+" : "+expression);
+        if(!expressionName.isEmpty()) {
+            FilterSendableModel filter = new FilterSendableModel(expressionName, expression);
+            try {
+            ServerQueryController.getInstance().insertFilter(filter);
+            } catch (InvalidParameterException error) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE, error.getMessage());
+            }
         }
         else {
-            System.err.println("Field Empty!");
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Field empty!");
         }
     }
 

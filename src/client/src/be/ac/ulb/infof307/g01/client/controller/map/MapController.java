@@ -15,6 +15,7 @@ import java.util.ArrayList;
  * It also holds the map view.
  */
 public class MapController {
+    
     private final MarkerController _markerController;
     private final MapView _mapView;
     private final MarkerQueryController _query;
@@ -31,7 +32,7 @@ public class MapController {
     
     private void initMarkers() {
         for(MarkerSendableModel markerSendableModel : _query.getAllMarkers()) {
-            _markerController.displayMarker(new MarkerModel(markerSendableModel));
+            getMarkerController().displayAndAddMarker(new MarkerModel(markerSendableModel));
         }
     }
     
@@ -41,7 +42,7 @@ public class MapController {
 
     public void askForCreateMarker(double latitude, double longitude) {
         try {
-            new NewMarkerPopUpController(_markerController, latitude, longitude);
+            new NewMarkerPopUpController(getMarkerController(), latitude, longitude);
         } catch (InstantiationException ex) {
             // This may occur if the user try to open another popup and if there
             // is already one openened. We just refuse politely (silently) to
@@ -50,10 +51,10 @@ public class MapController {
     }
     
     public void displayPinPopUp(int markerId) {
-        MarkerModel marker = _markerController.getMarkerModelFromId(markerId);
+        MarkerModel marker = getMarkerController().getMarkerModelFromId(markerId);
         try {
             if (marker.getUsername().equals(UserController.getInstance().getUsername())) {
-                new UpdateMarkerPopUpController(_markerController, markerId);
+                new UpdateMarkerPopUpController(getMarkerController(), markerId);
             } else {
                 new DetailsMarkerPopUpController(marker);
             }
@@ -66,7 +67,7 @@ public class MapController {
     
     public void clusterClicked(ArrayList<Integer> markersIds) {
         try {
-            new ClusterPopUpController(_markerController, markersIds);
+            new ClusterPopUpController(getMarkerController(), markersIds);
         } catch (InstantiationException ex) {
             // This may occur if the user try to open another popup and if there
             // is already one openened. We just refuse politely (silently) to
@@ -76,6 +77,13 @@ public class MapController {
     
     public MapView getView() {
         return _mapView;
+    }
+
+    /**
+     * @return the markerController
+     */
+    public MarkerController getMarkerController() {
+        return _markerController;
     }
     
 }
