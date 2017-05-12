@@ -12,14 +12,14 @@ public class PokemonSendableModelTest extends TestCase {
     static final PokemonTypeSendableModel POKEMON_TYPE = new PokemonTypeSendableModel("FIRE");
     
     @Test
-    public void test_createModelWithOneTypeHasNoneSecondType() {
+    public void test_equals_createModelWithOneTypeHasNoneSecondType() {
         PokemonSendableModel pokemon = new PokemonSendableModel(
             POKEMON_NAME, POKEMON_PATH, POKEMON_TYPE);
         assertEquals(pokemon.getTypes()[1], PokemonTypeSendableModel.getNoneType());
     }
     
     @Test
-    public void test_modelCopyIsEqualToOriginal() {
+    public void test_equals_modelCopyIsEqualToOriginal() {
         PokemonSendableModel original = new PokemonSendableModel(
             POKEMON_NAME, POKEMON_PATH, POKEMON_TYPE);
         PokemonSendableModel copy = new PokemonSendableModel(original);

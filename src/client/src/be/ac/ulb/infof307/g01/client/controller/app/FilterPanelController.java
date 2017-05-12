@@ -16,9 +16,9 @@ public class FilterPanelController {
     private SavedFilterPanelView _savedTab;
     private BasicFilterPanelView _basicFilter;
     private AdvancedFilterPanelView _advancedFilter;
-    private final String _savedExpressionLabel = "Saved filter";
-    private final String _basicFilterLabel = "Basic filter";
-    private final String _advancedFilterLabel = "Advanced filter";
+    private static final String SAVED_EXPRESSION_LABEL = "Saved filter";
+    private static final String BASIC_FILTER_LABEL = "Basic filter";
+    private static final String ADVANCED_FILTER_LABEL = "Advanced filter";
     
     public FilterPanelController() {
         _filterPanelView = new FilterPanelView(this);
@@ -33,9 +33,9 @@ public class FilterPanelController {
     }
     
     private void placeTabs() {
-        _filterPanelView.addTab(_savedExpressionLabel, _savedTab);
-        _filterPanelView.addTab(_basicFilterLabel, _basicFilter);
-        _filterPanelView.addTab(_advancedFilterLabel, _advancedFilter);
+        _filterPanelView.addTab(SAVED_EXPRESSION_LABEL, _savedTab);
+        _filterPanelView.addTab(BASIC_FILTER_LABEL, _basicFilter);
+        _filterPanelView.addTab(ADVANCED_FILTER_LABEL, _advancedFilter);
     }
     
     public FilterPanelView getView() {

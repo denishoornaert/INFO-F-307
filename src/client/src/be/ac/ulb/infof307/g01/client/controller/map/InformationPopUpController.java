@@ -1,6 +1,5 @@
 package be.ac.ulb.infof307.g01.client.controller.map;
 
-import be.ac.ulb.infof307.g01.client.controller.map.MarkerController;
 import be.ac.ulb.infof307.g01.client.Main;
 import be.ac.ulb.infof307.g01.client.controller.app.PopUpController;
 import be.ac.ulb.infof307.g01.client.model.MarkerModel;

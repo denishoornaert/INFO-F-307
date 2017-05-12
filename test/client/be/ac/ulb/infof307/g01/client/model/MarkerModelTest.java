@@ -34,22 +34,22 @@ public class MarkerModelTest {
     }
     
     @Test
-    public void test_getLifePoint(){
+    public void test_geMarkerLife(){
        assertEquals(TEST_MARKER.geMarkerLife(), LIFE_POINT);
     }
     
    @Test
-    public void test_getAttack(){
+    public void test_getMarkerAttack(){
         assertEquals(TEST_MARKER.getMarkerAttack(), ATTACK);
     }  
     
     @Test
-    public void test_getDefense(){
+    public void test_getMarkerDefense(){
         assertEquals(TEST_MARKER.getMarkerDefense(), DEFENSE);
     }
     
     @Test
-    public void test_getTime(){
+    public void test_getTimestamp(){
         assertEquals(TEST_MARKER.getTimestamp(), TIME);
     }
     

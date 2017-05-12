@@ -16,7 +16,7 @@ public class PokemonTypeDatabaseModelTest extends AbstractDatabaseTest {
     }
     
     @Test
-    public void test_typeNameIsUpper() {
+    public void test_getTypeName_typeNameIsUpper() {
         String testString = "bidon"; // arbitrary
         PokemonTypeSendableModel pokemonType = new PokemonTypeSendableModel(testString);
         

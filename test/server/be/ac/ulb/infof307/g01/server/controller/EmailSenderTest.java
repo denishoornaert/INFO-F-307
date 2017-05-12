@@ -57,7 +57,7 @@ public class EmailSenderTest {
     }
 
     @Test
-    public void test_sendConfirmationMailMailIsReceived() throws MessagingException, InterruptedException {
+    public void test_sendConfirmationEmail_mailIsReceived() throws MessagingException, InterruptedException {
         // The email sender requires the generated user password, it can be any string
         final String generatedPassword = "abcdef";
         _emailSender.sendConfirmationEmail(_testAccountEmailAddress, generatedPassword);
