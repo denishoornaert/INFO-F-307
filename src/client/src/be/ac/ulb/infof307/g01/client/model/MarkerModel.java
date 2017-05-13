@@ -9,73 +9,57 @@ import be.ac.ulb.infof307.g01.common.model.ReputationVoteSendableModel;
 import java.security.InvalidParameterException;
 import java.sql.Timestamp;
 
-/** Model of a marker. A marker contains the location of a spotted pokemon,
- * the pokemon, the timestamp of the spot, etc...
+/** 
+ * Models a marker indicating that a pokemon was observed somewhere in space-time. 
+ * A marker contains the time and location of a spotted pokemon, its stats ...
  */
 public class MarkerModel extends MarkerSendableModel {
     
     private MarkerQueryController _serverQuery;
     
     /**
-     * Create a marker pokemon (call from gui)
-     *
-     * @param pokemon pokemon in link with this marker
-     * @param coordinate location of this marker
-     * @param username of user who create this marker
-     * @param lifePoint pokemon life point
-     * @param attack pokemon attack stat
-     * @param defense pokemon defense stat
-     * @param date the date of the marker
+     * Creates a MarkerModel.
+     * By default, will load the database. TODO explain
+     * @param pokemon observed pokemon
+     * @param coordinate pokemon's location
+     * @param username username of the user who created the marker
+     * @param life pokemon life points
+     * @param attack pokemon attack points
+     * @param defense pokemon defense points
+     * @param timestamp date and time of the marker
      */
     public MarkerModel(PokemonSendableModel pokemon, CoordinateSendableModel coordinate,
-            String username, int lifePoint, int attack, int defense, Timestamp date) 
+            String username, int life, int attack, int defense, Timestamp timestamp) 
             throws InvalidParameterException {
-        this(pokemon, coordinate, username, lifePoint, attack, defense, date, true);
+        this(pokemon, coordinate, username, life, attack, defense, timestamp, true);
         _serverQuery.insertMarker(this);
     }
     
     /**
-     * Create a marker pokemon (call from gui)
-     *
-     * @param pokemon pokemon in link with this marker
-     * @param coordinate location of this marker
-     * @param username of user who create this marker
-     * @param lifePoint pokemon life point
-     * @param attack pokemon attack stat
-     * @param defense pokemon defense stat
-     * @param date the date of the marker
-     * @param loadDatabase True to load database
+     * Creates a MarkerModel.
+     * 
+     * @param pokemon observed pokemon
+     * @param coordinate pokemon's location
+     * @param username username of the user who created the marker
+     * @param life pokemon life points
+     * @param attack pokemon attack points
+     * @param defense pokemon defense points
+     * @param timestamp date and time of the marker
+     * @param loadDatabase TODO explain
      */
     public MarkerModel(PokemonSendableModel pokemon, CoordinateSendableModel coordinate,
-            String username, int lifePoint, int attack, int defense, Timestamp date,
+            String username, int life, int attack, int defense, Timestamp timestamp,
             boolean loadDatabase) {
-        this(0, username, pokemon, coordinate, date, lifePoint,
-                attack, defense, loadDatabase);
-    }
-    
-    /**
-     * Constructor to create marker in memory, not sending it to the server
-     *
-     * @param databaseId id of the pokemon in database (0 if not exist)
-     * @param username of user who create this marker
-     * @param pokemon pokemon
-     * @param coordinate coordinate of marker
-     * @param timestamp time when the pokemon has been witnessed
-     * @param lifePoint pokemon life point
-     * @param attack pokemon attack stat
-     * @param defense pokemon defense stat
-     * @param loadDatabase True to load database
-     */
-    public MarkerModel(int databaseId, String username, PokemonSendableModel pokemon,
-            CoordinateSendableModel coordinate, Timestamp timestamp, 
-            int lifePoint, int attack, int defense, boolean loadDatabase) {
-        super(databaseId, username, pokemon, coordinate, timestamp.getTime(), 
-                lifePoint, attack, defense);
-        if(loadDatabase) {
+        super(0, username, pokemon, coordinate, timestamp.getTime(), life, attack, defense);
+        if (loadDatabase) {
             _serverQuery = (MarkerQueryController) ServerQueryController.getInstance();
         }
     }
     
+    /**
+     * Creates a MarkerModel from a MarkerSendableModel.
+     * @param marker the MarkerSendableModel containing the marker's informations.
+     */
     public MarkerModel(MarkerSendableModel marker) {
         super(marker);
         _serverQuery = (MarkerQueryController) ServerQueryController.getInstance();
@@ -83,27 +67,69 @@ public class MarkerModel extends MarkerSendableModel {
     }
     
     /**
-     * Get the ratio of positive and negative votes
-     * 
-     * @return the ration
+     * Creates a copy of this, with type MarkerSendableModel.
+     * @return an equivalent MarkerSendableModel
+     */
+    public MarkerSendableModel getSendable() {
+        return new MarkerSendableModel(_databaseId, _username, _pokemon,
+                _coordinate.getLatitude(), _coordinate.getLongitude(),
+                _longTimestamp, _reputation, _lifePoints, _attack, _defense);
+    }
+    
+    /**
+     * Updates the marker's informations according to parameters.
+     * @param pokemon observed pokemon
+     * @param life pokemon life points
+     * @param attack pokemon attack points
+     * @param defense pokemon defense points
+     * @param timestamp date and time of the marker
+     * @throws IllegalArgumentException if the 
+     */
+    public void update(PokemonModel pokemon, int life, int attack, int defense,
+            Timestamp timestamp) throws IllegalArgumentException {
+        setPokemon(pokemon);
+        setTimestamp(timestamp);
+        setLifePoints(life);
+        setAttack(attack);
+        setDefense(defense);
+        _serverQuery.updateMarker(this);
+    }
+    
+    /**
+     * Gets the difference between positive and negative votes on the marker.
+     * @return (positive votes) - (negative votes)
      */
     public int getReputationScore() {
         int res = 0;
-        
         for(ReputationVoteSendableModel reputationVote : _reputation) {
             res += reputationVote.getIsUpVote() ? 1 : -1;
         }
-        
         return res;
     }
     
     /**
-     * Add a vote reputation to this marker
-     * 
-     * @param username the user who add a vote
-     * @param isUpVote True if it's an up vote
+     * Gets a user's vote on the marker.
+     * @param username the user whose vote we retrieve
+     * @return a ReputationVote matching the user's vote, or null if the user
+     * didn't vote on the marker
      */
-    public void addVote(String username, boolean isUpVote) throws InvalidParameterException {
+    public ReputationVoteSendableModel getUserVote(String username) {
+        for(ReputationVoteSendableModel vote : _reputation) {
+            if(vote.getUsername().equals(username)) {
+                return vote;
+            }
+        }
+        return null;
+    }
+    
+    /**
+     * Adds a user's vote to the marker.
+     * A vote is a user's appreciation of another user's marker, and can be
+     * positive or negative.
+     * @param username the user who adds the vote
+     * @param isUpVote true if the vote is positive, false if negative
+     */
+    public void addUserVote(String username, boolean isUpVote) throws InvalidParameterException {
         ReputationVoteSendableModel reputation = new ReputationVoteSendableModel(username, isUpVote, _databaseId);
         for(ReputationVoteSendableModel vote : _reputation) {
             if(vote.getUsername().equals(username)) {
@@ -115,8 +141,12 @@ public class MarkerModel extends MarkerSendableModel {
         _serverQuery.updateMarkerReputation(reputation);
     }
     
-    // TODO Check to call Super
+    /**
+     * Sets the marker's time and date.
+     * @param newTimestamp timestamp representing the new time and date
+     */
     public void setTimestamp(Timestamp newTimestamp) {
+        // TODO Check to call Super
         super.setLongTimestamp(newTimestamp.getTime());
     }
     
@@ -157,40 +187,8 @@ public class MarkerModel extends MarkerSendableModel {
     }
     
     /**
-     * Get the reputation vote that a specific user have set to this marker
-     * 
-     * @param username the specific user
-     * @return the ReputationVote or null if not exist
-     */
-    public ReputationVoteSendableModel getReputationVote(String username) {
-        for(ReputationVoteSendableModel vote : _reputation) {
-            if(vote.getUsername().equals(username)) {
-                return vote;
-            }
-        }
-        return null;
-    }
-    
-    public void update(PokemonModel pokemon, int lifePoints, int attack, int defense,
-            Timestamp timestamp) throws IllegalArgumentException {
-        setPokemon(pokemon);
-        setTimestamp(timestamp);
-        setLifePoints(lifePoints);
-        setAttack(attack);
-        setDefense(defense);
-        _serverQuery.updateMarker(this);
-    }
-    
-    public MarkerSendableModel getSendable() {
-        return new MarkerSendableModel(_databaseId, _username, _pokemon,
-                _coordinate.getLatitude(), _coordinate.getLongitude(),
-                _longTimestamp, _reputation, _lifePoints, _attack, _defense);
-    }
-    
-    /**
-     * Get a google url in link with the coords
-     * 
-     * @return the url
+     * Generates a Google Maps URL pointing to the marker's coordinates.
+     * @return the URL
      */
     private String getGoogleMapsLink() {
         CoordinateSendableModel coordinate = getCoordinate();
@@ -199,9 +197,8 @@ public class MarkerModel extends MarkerSendableModel {
     }
     
     /**
-     * Get link to tweet about this marker
-     * 
-     * @return the url
+     * Generates a link used to tweet this marker.
+     * @return the URL
      */
     public String getTwitterLink() {
         return "http://twitter.com/home?status=I%20see%20a%20" + 
