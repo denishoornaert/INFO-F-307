@@ -1,8 +1,8 @@
 package be.ac.ulb.infof307.g01.client.controller.app;
 
-import be.ac.ulb.infof307.g01.client.model.PokemonCache;
-import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
-import be.ac.ulb.infof307.g01.client.model.MarkerModel;
+import be.ac.ulb.infof307.g01.client.model.map.PokemonCache;
+import be.ac.ulb.infof307.g01.client.model.app.ClientConfiguration;
+import be.ac.ulb.infof307.g01.client.model.map.MarkerModel;
 import be.ac.ulb.infof307.g01.common.controller.ConnectionQueryController;
 import be.ac.ulb.infof307.g01.common.controller.FilterQueryController;
 import be.ac.ulb.infof307.g01.common.controller.MarkerQueryController;

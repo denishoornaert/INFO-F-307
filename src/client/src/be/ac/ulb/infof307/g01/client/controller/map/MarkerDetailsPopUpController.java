@@ -2,7 +2,7 @@ package be.ac.ulb.infof307.g01.client.controller.map;
 
 import be.ac.ulb.infof307.g01.client.controller.app.MessagePopUpController;
 import be.ac.ulb.infof307.g01.client.controller.app.UserController;
-import be.ac.ulb.infof307.g01.client.model.MarkerModel;
+import be.ac.ulb.infof307.g01.client.model.map.MarkerModel;
 import be.ac.ulb.infof307.g01.client.view.map.MarkerDetailsPopUp;
 import be.ac.ulb.infof307.g01.common.model.CoordinateSendableModel;
 import be.ac.ulb.infof307.g01.common.model.ReputationVoteSendableModel;

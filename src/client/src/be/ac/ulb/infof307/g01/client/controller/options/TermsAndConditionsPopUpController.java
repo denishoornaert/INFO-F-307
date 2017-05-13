@@ -1,7 +1,7 @@
 package be.ac.ulb.infof307.g01.client.controller.options;
 
 import be.ac.ulb.infof307.g01.client.controller.app.PopUpController;
-import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
+import be.ac.ulb.infof307.g01.client.model.app.ClientConfiguration;
 import be.ac.ulb.infof307.g01.client.view.options.TermsAndConditionsPopUp;
 import java.io.BufferedReader;
 import java.io.IOException;

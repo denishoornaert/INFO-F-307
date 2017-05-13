@@ -1,6 +1,6 @@
 package be.ac.ulb.infof307.g01.client.view.map;
 
-import be.ac.ulb.infof307.g01.client.model.PokemonModel;
+import be.ac.ulb.infof307.g01.client.model.map.PokemonModel;
 import java.util.ArrayList;
 import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;

@@ -4,9 +4,9 @@ import java.net.URL;
 import java.util.HashMap;
 
 import be.ac.ulb.infof307.g01.client.controller.map.MapController;
-import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
+import be.ac.ulb.infof307.g01.client.model.app.ClientConfiguration;
 import be.ac.ulb.infof307.g01.common.model.CoordinateSendableModel;
-import be.ac.ulb.infof307.g01.client.model.MarkerModel;
+import be.ac.ulb.infof307.g01.client.model.map.MarkerModel;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
