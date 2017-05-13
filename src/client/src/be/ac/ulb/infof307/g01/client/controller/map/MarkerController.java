@@ -5,8 +5,8 @@ import be.ac.ulb.infof307.g01.client.controller.app.UserController;
 import java.util.HashMap;
 import java.util.Map;
 
-import be.ac.ulb.infof307.g01.client.model.MarkerModel;
-import be.ac.ulb.infof307.g01.client.model.PokemonModel;
+import be.ac.ulb.infof307.g01.client.model.map.MarkerModel;
+import be.ac.ulb.infof307.g01.client.model.map.PokemonModel;
 import be.ac.ulb.infof307.g01.client.view.map.MapView;
 import be.ac.ulb.infof307.g01.common.model.CoordinateSendableModel;
 import java.security.InvalidParameterException;

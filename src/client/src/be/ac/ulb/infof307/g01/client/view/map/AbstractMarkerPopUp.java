@@ -1,8 +1,8 @@
 package be.ac.ulb.infof307.g01.client.view.map;
 
 import be.ac.ulb.infof307.g01.client.controller.map.AbstractMarkerPopUpController;
-import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
-import be.ac.ulb.infof307.g01.client.model.MarkerModel;
+import be.ac.ulb.infof307.g01.client.model.app.ClientConfiguration;
+import be.ac.ulb.infof307.g01.client.model.map.MarkerModel;
 import be.ac.ulb.infof307.g01.client.view.app.AbstractPopUp;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

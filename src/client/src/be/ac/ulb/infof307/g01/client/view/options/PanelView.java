@@ -1,7 +1,6 @@
 package be.ac.ulb.infof307.g01.client.view.options;
 
 import be.ac.ulb.infof307.g01.client.controller.options.PanelController;
-import be.ac.ulb.infof307.g01.client.view.FilterPanelView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;

@@ -2,7 +2,7 @@ package be.ac.ulb.infof307.g01.client.controller.map;
 
 import be.ac.ulb.infof307.g01.client.controller.app.MessagePopUpController;
 import be.ac.ulb.infof307.g01.client.controller.app.UserController;
-import be.ac.ulb.infof307.g01.client.model.MarkerModel;
+import be.ac.ulb.infof307.g01.client.model.map.MarkerModel;
 import be.ac.ulb.infof307.g01.client.view.map.MarkerDetailsPopUp;
 import be.ac.ulb.infof307.g01.common.model.CoordinateSendableModel;
 import be.ac.ulb.infof307.g01.common.model.ReputationVoteSendableModel;
@@ -37,7 +37,7 @@ public class MarkerDetailsPopUpController extends AbstractMarkerPopUpController 
             
         } else {
             String username = UserController.getInstance().getUsername();
-            ReputationVoteSendableModel reputationVote = _marker.getReputationVote(username);
+            ReputationVoteSendableModel reputationVote = _marker.getUserVote(username);
             
             if(reputationVote != null) {
                 if(reputationVote.getIsUpVote()) {
@@ -64,7 +64,7 @@ public class MarkerDetailsPopUpController extends AbstractMarkerPopUpController 
      */
     public void addVote(boolean isUpVote) {
         try {
-            _marker.addVote(UserController.getInstance().getUsername(), isUpVote);
+            _marker.addUserVote(UserController.getInstance().getUsername(), isUpVote);
         } catch(InvalidParameterException exception){
             MessagePopUpController.createPopUpOrLog(Level.SEVERE, exception.getMessage());
         }

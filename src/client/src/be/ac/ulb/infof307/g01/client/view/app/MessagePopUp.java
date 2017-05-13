@@ -8,6 +8,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 
+/**
+ * A MessagePopUp is used to display information messages inside a popup.
+ * These popups can be created with different severity levels and popup 
+ * controllers, allowing for a range of behaviors.
+ */
 public class MessagePopUp extends AbstractPopUp {
     private final String _message;
     private final Level _severity;
@@ -36,14 +41,16 @@ public class MessagePopUp extends AbstractPopUp {
         _vbox.setAlignment(Pos.CENTER);
         _vbox.getChildren().addAll(_messageLabel, _closeButton);
         add(_vbox);
-    }
-
-    private void setStyle() {
         _vbox.setSpacing(10);
         setSize(250, 50);
-        
+    }
+
+    /**
+     * Changes the CSS stule of the button, according to the severity level
+     * of the message.
+     */
+    private void setStyle() {
         _closeButton.getStyleClass().remove("danger");
-        // Change the CSS class of the button, according to the severity of the message
         String  closeButtonCssClass;
         switch(_severity.toString()) {
             case "WARNING":

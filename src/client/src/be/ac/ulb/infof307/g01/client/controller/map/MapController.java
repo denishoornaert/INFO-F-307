@@ -2,7 +2,7 @@ package be.ac.ulb.infof307.g01.client.controller.map;
 
 import be.ac.ulb.infof307.g01.client.controller.app.ServerQueryController;
 import be.ac.ulb.infof307.g01.client.controller.app.UserController;
-import be.ac.ulb.infof307.g01.client.model.MarkerModel;
+import be.ac.ulb.infof307.g01.client.model.map.MarkerModel;
 import be.ac.ulb.infof307.g01.client.view.map.MapView;
 import be.ac.ulb.infof307.g01.common.controller.MarkerQueryController;
 import be.ac.ulb.infof307.g01.common.model.MarkerSendableModel;

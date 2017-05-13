@@ -4,7 +4,7 @@ import be.ac.ulb.infof307.g01.client.controller.options.PanelController;
 import be.ac.ulb.infof307.g01.client.controller.map.MapController;
 import be.ac.ulb.infof307.g01.client.view.app.Window;
 import be.ac.ulb.infof307.g01.client.Main;
-import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
+import be.ac.ulb.infof307.g01.client.model.app.ClientConfiguration;
 import javafx.scene.layout.BorderPane;
 
 /**

@@ -1,8 +1,8 @@
 package be.ac.ulb.infof307.g01.client.controller.map;
 
-import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
-import be.ac.ulb.infof307.g01.client.model.PokemonCache;
-import be.ac.ulb.infof307.g01.client.model.PokemonModel;
+import be.ac.ulb.infof307.g01.client.model.app.ClientConfiguration;
+import be.ac.ulb.infof307.g01.client.model.map.PokemonCache;
+import be.ac.ulb.infof307.g01.client.model.map.PokemonModel;
 import be.ac.ulb.infof307.g01.client.view.map.AbstractMarkerChangePopUp;
 import java.sql.Timestamp;
 
