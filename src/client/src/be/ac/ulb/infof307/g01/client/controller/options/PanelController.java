@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 public class PanelController {
 
     private final PanelView _panelView;
-    private FilterPanelController _filterPanelController;
+    private final FilterPanelController _filterPanelController;
     
     public PanelController(MarkerController markerController) {
         _panelView = new PanelView(this);
@@ -32,7 +32,7 @@ public class PanelController {
         try {
             new SigninPopUpController(this);
         } catch (InstantiationException ex) {
-            Logger.getLogger(PanelController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage());
         }
     }
     
@@ -40,7 +40,7 @@ public class PanelController {
         try {
             new SignupPopUpController();
         } catch (InstantiationException ex) {
-            Logger.getLogger(PanelController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage());
         }
     }
     

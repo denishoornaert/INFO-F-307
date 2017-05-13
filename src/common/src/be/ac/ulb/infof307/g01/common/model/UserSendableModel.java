@@ -48,7 +48,7 @@ public class UserSendableModel {
             MessageDigest algo = MessageDigest.getInstance("MD5");
             res = new String(algo.digest(password.getBytes()));
         } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(UserSendableModel.class.getName()).log(Level.WARNING, 
+            Logger.getLogger(getClass().getName()).log(Level.WARNING, 
                 null, "MD5 algorithm doesn't exist, skip encrypt ! (" + ex + ")");
         }
         return res;
