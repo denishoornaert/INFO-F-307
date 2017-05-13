@@ -7,8 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author Groupe 01
+ * Singleton class that provides user-related information to other classes.
  */
 public class UserController {
     
@@ -17,18 +16,25 @@ public class UserController {
     private final ConnectionQueryController _connection;
     private boolean _isConnected = false;
     
+    public static UserController getInstance() {
+        if(_instance == null) {
+            _instance = new UserController();
+        }
+        return _instance;
+    }
+    
     private UserController() {
         _connection = ServerQueryController.getInstance();
         // The following line is normal (DO NOT TOUCH ! I'm talking to you @theo :p)
         // This is normale because due to Jersey we can't modify the trivial
         // constructor and therefore we need to write this wierd instruction.
-        _user = new UserSendableModel("", "", "");
+        _user = new UserSendableModel("", "", ""); //REQUIRED by Jersey
     }
     
     /**
-     * Try to authenticate with the given user name and password.
-     * @param username The user name.
-     * @param password The password.
+     * Tries to authenticate the user with the given username and password.
+     * @param username the user's username
+     * @param password the user's password
     */
     public void authenticate(String username, String password) throws InvalidParameterException {
         if(username.isEmpty() || password.isEmpty()) {
@@ -44,11 +50,11 @@ public class UserController {
     }
     
     /**
-     * 
-     * @param username the username
-     * @param email the email
-     * @param password of the user
-     * @param terms are accepted
+     * Tries to register a new user with the provided user information.
+     * @param username the user's username
+     * @param email the user's email
+     * @param password the user's password
+     * @param terms indicates if the user has accepted the terms of usage
      */
     public void register(String email, String username, String password, 
             boolean terms) throws InvalidParameterException {
@@ -59,13 +65,6 @@ public class UserController {
         _connection.signup(temporaryProfil);
         Logger.getLogger(getClass().getName()).log(Level.INFO, 
                 "Your can check your mails and then login.");
-    }
-    
-    public static UserController getInstance() {
-        if(_instance == null) {
-            _instance = new UserController();
-        }
-        return _instance;
     }
 
     public String getEmail() {
