@@ -13,7 +13,8 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 /**
- * Pop-up showed when the user clicks on a pokemon cluster.
+ * Popup used to display a cluster's markers.
+ * Used when the user clicks on a marker cluster.
  */
 public class ClusterPopUp extends AbstractPopUp {
     

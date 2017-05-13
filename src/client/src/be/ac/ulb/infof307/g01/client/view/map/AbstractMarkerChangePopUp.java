@@ -20,11 +20,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 /**
- * Abstract class that will serve as a template of Pop-Up over a PokemonMaker for
- * both its creation and update (by the user who created it) as they share the
- * same layout and information
- * 
- * @author Groupe01
+ * Abstract class that serves as a template for both creation and update of 
+ * markers, as they share the same layout and widgets.
  */
 public abstract class AbstractMarkerChangePopUp extends AbstractMarkerPopUp {
     
@@ -89,7 +86,7 @@ public abstract class AbstractMarkerChangePopUp extends AbstractMarkerPopUp {
     private int getSpinnerValue(Spinner spin) {
         return (Integer) spin.getValue();
     }
-        
+    
     protected Spinner createSpinner() {
         Spinner spin = new Spinner<>(0, Integer.MAX_VALUE, 0);
         spin.setPrefWidth(100);
@@ -114,7 +111,6 @@ public abstract class AbstractMarkerChangePopUp extends AbstractMarkerPopUp {
         _attackLabel = new Label(ATTACK_LABEL_STR);
         _defenseLabel = new Label(DEFENSE_LABEL_STR);
     }
-    
     
     protected void initComboBoxPokemonName() {
         _pokemonName = new ComboBox<>();
@@ -176,8 +172,8 @@ public abstract class AbstractMarkerChangePopUp extends AbstractMarkerPopUp {
         Integer hours = getSelection(_dateHour);
         Integer minute = getSelection(_dateMinute);
         Calendar currentDate = Calendar.getInstance();
-        // offset value for month
-        // Calendar class starts at 0
+        
+        // Calendar class starts at 0, LocalDate starts at 1, must offset value
         currentDate.set(localDate.getYear(), localDate.getMonthValue()-1, 
                 localDate.getDayOfMonth(), hours, minute, 0);
         Timestamp resTimestamp = new Timestamp(currentDate.getTimeInMillis());

@@ -13,10 +13,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 /**
- * 
- * Pop that shows the information of a marker to the user. Typically, this pop-up
- * is displayed when the user click on a marker that he has not created.
- * 
+ * Popup used to display a marker's informations. 
+ * This pop-up is used when the user click on a marker that he has not created.
  */
 public class MarkerDetailsPopUp extends AbstractMarkerPopUp {
     

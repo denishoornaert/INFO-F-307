@@ -18,9 +18,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 /**
- * Abstract pop-up which will serve as a minimalist template for a Pokemon view
- * 
- * @author Groupe01
+ * Abstract class that serves as a template for all marker-related popups.
+ * Each of these popups are created and controled by specific classes.
  */
 public abstract class AbstractMarkerPopUp extends AbstractPopUp {
     
@@ -103,11 +102,6 @@ public abstract class AbstractMarkerPopUp extends AbstractPopUp {
         children.addAll(node);
     }
     
-    /**
-     * Set max width to widget
-     * 
-     * @param control the current gui element
-     */
     protected void setXExpandPolicy(Control control) {
         HBox.setHgrow(control, Priority.ALWAYS);
         control.setMaxWidth(Double.MAX_VALUE);
