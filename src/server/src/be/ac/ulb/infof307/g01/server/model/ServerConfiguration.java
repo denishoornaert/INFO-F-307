@@ -13,6 +13,7 @@ import java.net.URL;
 public class ServerConfiguration extends ConfigurationModel {
     
     private static ServerConfiguration _configuration = null;
+    private static ServerConfiguration _testConfiguration = null;
     
     /** Configuration keys and default values.**/
     private final String DATABASE_NAME_DEFAULT = "Database.db";
@@ -23,7 +24,11 @@ public class ServerConfiguration extends ConfigurationModel {
     private final String SQL_SCRIPT_NAME_CONFIG = "SQL-script";
     
     private ServerConfiguration() { 
-        super();
+        this(false);
+    }
+    
+    private ServerConfiguration(boolean isTest) { 
+        super(isTest);
     }
     
     /**
@@ -33,8 +38,14 @@ public class ServerConfiguration extends ConfigurationModel {
      */
     @Override
     protected String getAssetPath(String fileName) {
-        File file = new File("../../assets/server/");
-        return file.getAbsolutePath() + File.separatorChar + fileName;
+        String result;
+        if(_isTest) {
+            File file = new File("../../assets/server/");
+            result = file.getAbsolutePath() + File.separatorChar + fileName;
+        } else {
+            result = Thread.currentThread().getContextClassLoader().getResource(fileName).getPath();
+        }
+        return result;
     }
     
     public String getDatabasePath() {
@@ -78,6 +89,13 @@ public class ServerConfiguration extends ConfigurationModel {
             _configuration = new ServerConfiguration();	
         }
         return _configuration;
+    }
+    
+    public static ServerConfiguration getTestInstance() {
+        if(_testConfiguration == null) {
+            _testConfiguration = new ServerConfiguration(true);
+        }
+        return _testConfiguration;
     }
     
 }

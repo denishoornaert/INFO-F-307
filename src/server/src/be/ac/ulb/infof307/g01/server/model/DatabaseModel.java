@@ -52,7 +52,7 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
 
     private static DatabaseModel _instance = null;
     private static final Logger LOG = Logger.getLogger(DatabaseModel.class.getName());
-    private static final ServerConfiguration CONFIG = ServerConfiguration.getInstance();
+    private static ServerConfiguration CONFIG;
     
     /**
      * The database connection
@@ -61,6 +61,7 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
 
     public static DatabaseModel getInstance() {
         if(_instance == null) {
+            CONFIG = ServerConfiguration.getInstance();
             _instance = new DatabaseModel(CONFIG.getDatabasePath(), CONFIG.getSqlPath());
         }
         return _instance;
@@ -68,6 +69,7 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
     
     public static DatabaseModel getTestInstance() {
         if(_instance == null) {
+            CONFIG = ServerConfiguration.getTestInstance();
             _instance = new DatabaseModel(CONFIG.getTestDatabasePath(), CONFIG.getTestSqlPath());
         }
         return _instance;
