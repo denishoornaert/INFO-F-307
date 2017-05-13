@@ -14,6 +14,7 @@ import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 
 public class MarkerDatabaseModelTest extends AbstractDatabaseTest {
+    
     private final String _markerUsername = "bidon";
     private final String _markerPokemonName = "Arceus";
     private final UserSendableModel _markerUser;
