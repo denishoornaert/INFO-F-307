@@ -3,7 +3,7 @@ package be.ac.ulb.infof307.g01.client.controller.map;
 import be.ac.ulb.infof307.g01.client.controller.app.MessagePopUpController;
 import be.ac.ulb.infof307.g01.client.controller.app.UserController;
 import be.ac.ulb.infof307.g01.client.model.MarkerModel;
-import be.ac.ulb.infof307.g01.client.view.map.DetailsMarkerPopUp;
+import be.ac.ulb.infof307.g01.client.view.map.MarkerDetailsPopUp;
 import be.ac.ulb.infof307.g01.common.model.CoordinateSendableModel;
 import be.ac.ulb.infof307.g01.common.model.ReputationVoteSendableModel;
 import java.security.InvalidParameterException;
@@ -11,16 +11,16 @@ import java.sql.Timestamp;
 import java.util.logging.Level;
 
 /**
- * Controls the popup that displays a marker's details.
+ * Creates and controls a MarkerDetailsPopUp used to display a marker's informations.
  * Used when the user clicks on a marker he did not create (and can not edit).
  */
-public class DetailsMarkerPopUpController extends InformationPopUpController {
+public class MarkerDetailsPopUpController extends AbstractMarkerPopUpController {
     
-    private final DetailsMarkerPopUp _detailsPopUp;
+    private final MarkerDetailsPopUp _detailsPopUp;
     
-    public DetailsMarkerPopUpController(MarkerModel marker) throws InstantiationException {
+    public MarkerDetailsPopUpController(MarkerModel marker) throws InstantiationException {
         super(marker);
-        _detailsPopUp = new DetailsMarkerPopUp(this);
+        _detailsPopUp = new MarkerDetailsPopUp(this);
         _detailsPopUp.setPokemonView(_marker.getImagePath());
         initVoteControls();
         updateVoteView();

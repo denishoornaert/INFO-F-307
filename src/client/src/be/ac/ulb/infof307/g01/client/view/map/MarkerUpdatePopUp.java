@@ -1,6 +1,6 @@
 package be.ac.ulb.infof307.g01.client.view.map;
 
-import be.ac.ulb.infof307.g01.client.controller.map.UpdateMarkerPopUpController;
+import be.ac.ulb.infof307.g01.client.controller.map.MarkerUpdatePopUpController;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -17,9 +17,9 @@ import javafx.scene.control.DatePicker;
  * 
  * @author Groupe01
  */
-public class UpdateMarkerPopUp extends AbstractMarkerPopUp {
+public class MarkerUpdatePopUp extends AbstractMarkerChangePopUp {
     
-    public UpdateMarkerPopUp(UpdateMarkerPopUpController controller, ArrayList<String> pokemonsName, int markerId) {
+    public MarkerUpdatePopUp(MarkerUpdatePopUpController controller, ArrayList<String> pokemonsName, int markerId) {
         super(controller, pokemonsName, markerId);
     }
     

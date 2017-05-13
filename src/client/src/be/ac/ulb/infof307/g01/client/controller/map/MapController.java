@@ -42,7 +42,7 @@ public class MapController {
 
     public void askForCreateMarker(double latitude, double longitude) {
         try {
-            new NewMarkerPopUpController(getMarkerController(), latitude, longitude);
+            new MarkerCreationPopUpController(getMarkerController(), latitude, longitude);
         } catch (InstantiationException ex) {
             // This may occur if the user try to open another popup and if there
             // is already one openened. We just refuse politely (silently) to
@@ -54,9 +54,9 @@ public class MapController {
         MarkerModel marker = getMarkerController().getMarkerModelFromId(markerId);
         try {
             if (marker.getUsername().equals(UserController.getInstance().getUsername())) {
-                new UpdateMarkerPopUpController(getMarkerController(), markerId);
+                new MarkerUpdatePopUpController(getMarkerController(), markerId);
             } else {
-                new DetailsMarkerPopUpController(marker);
+                new MarkerDetailsPopUpController(marker);
             }
         } catch (InstantiationException ex) {
             // This may occur if the user try to open another popup and if there

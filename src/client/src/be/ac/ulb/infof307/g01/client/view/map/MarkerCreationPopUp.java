@@ -1,12 +1,12 @@
 package be.ac.ulb.infof307.g01.client.view.map;
 
-import be.ac.ulb.infof307.g01.client.view.map.AbstractMarkerPopUp;
+import be.ac.ulb.infof307.g01.client.view.map.AbstractMarkerChangePopUp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import be.ac.ulb.infof307.g01.client.controller.map.NewMarkerPopUpController;
+import be.ac.ulb.infof307.g01.client.controller.map.MarkerCreationPopUpController;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Spinner;
@@ -17,12 +17,12 @@ import javafx.scene.control.Spinner;
  * 
  * @author Groupe01
  */
-public class NewMarkerPopUp extends AbstractMarkerPopUp {
+public class MarkerCreationPopUp extends AbstractMarkerChangePopUp {
     
     private static final int MAX_HOURS = 24;
     private static final int MAX_MINUTES = 60;
     
-    public NewMarkerPopUp(NewMarkerPopUpController controller, ArrayList<String> pokemonsName) {
+    public MarkerCreationPopUp(MarkerCreationPopUpController controller, ArrayList<String> pokemonsName) {
         super(controller, pokemonsName);
         hideTwitterButton();
     }
