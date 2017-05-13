@@ -63,7 +63,7 @@ public class Main extends Application {
     
     /**
      * Opens a link in the application's web browser.
-     * @note requires access to Application
+     * Requires access to Application.
      * @param link the web link to open
      */
     public static void openInBrowser(String link) {
@@ -76,8 +76,8 @@ public class Main extends Application {
     
     /**
      * Main function, called on execution, launches the application.
+     * Required by Java.
      * @param args the command-line arguments
-     * @note required by Java
      */
     public static void main(String[] args) {
         launch(args);
