@@ -6,25 +6,22 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
- *
- * Abstract class used for composite design pattern
+ * Abstract composite class used to control filter expressions.
  */
 public abstract class AbstractFilterExpressionController {
 
-    /**
-     * List containing all of the children expressions
-     */
+    /** List containing all of the children expressions */
     protected ArrayList<AbstractFilterExpressionController> _expressions;
     
     /**
-     * Empty constructor (to use if no child is supposed to be created)
+     * Default constructor.
+     * Use if no child is supposed to be created
      */
     public AbstractFilterExpressionController() {
         _expressions = new ArrayList<>();
     }
     
     /**
-     * Constructor
      * @param expression The expression to parse
      * @throws ParseException if given expression has incorrect syntax
      */
@@ -40,17 +37,15 @@ public abstract class AbstractFilterExpressionController {
     }
     
     /**
-     * Apply the filters to the complete set of existing markers
+     * Applies the filters to the complete set of existing markers
      * @param allMarkers the set of all markers on map
-     * @return a subset of \param allMarkers fitting the filter
+     * @return a subset of allMarkers fitting the filter
      */
     public abstract HashSet<MarkerModel> evaluateFilter(HashSet<MarkerModel> allMarkers);
     
-    ///// static
-    
     /**
-     * Return the content of the first parenthesis found in \param expression
-     * @param expression The string to parse
+     * Returns the content of the first parenthesis found in an expression.
+     * @param expression the textual expression to parse
      * @return the content of the first parenthesis
      */
     static protected String getParenthesisContent(String expression) {
@@ -58,15 +53,15 @@ public abstract class AbstractFilterExpressionController {
     }
     
     /**
-     * Return the content of the (\param toIgnore+1) parenthesis in \param expression
-     * @param expression The string expression to parse
-     * @param toIgnore The number of parenthesis to ignore
-     * @return the content of the (\param toIgnore+1) parenthesis
+     * Return the content of a given parenthesis found in an expression
+     * @param expression the textual expression to parse
+     * @param index the index of the parenthesis to get (starts at 0)
+     * @return the content of the requested parenthesis
      */
-    protected static String getParenthesisContent(String expression, int toIgnore) {
+    protected static String getParenthesisContent(String expression, int index) {
         int leftParenthesisIdx = -1;
         int rightParenthesisIdx = expression.length();
-        for(int i = 0; i <= toIgnore; ++i) {
+        for(int i = 0; i <= index; ++i) {
             leftParenthesisIdx = expression.indexOf('(', leftParenthesisIdx+1);
             rightParenthesisIdx = expression.lastIndexOf(')', rightParenthesisIdx-1);
         }
@@ -74,19 +69,19 @@ public abstract class AbstractFilterExpressionController {
     }
     
     /**
-     * Return the name of the the first found operator in \param expression
-     * @param expression The string to parse
-     * @return The name of the first operation found in \param expression
+     * Returns the name of the the first found operator in an expression.
+     * @param expression the textual expression to parse
+     * @return the name of the first operation found in the expression
      */
     static public String getOperationName(String expression) {
         return expression.substring(0, expression.indexOf('(')).toUpperCase();
     }
     
     /**
-     * Creates a filter tree based on a string representing the filter
-     * @param expression The strign expression to parse
-     * @return A filter object representing the whole filter
-     * @throws ParseException if the string has wrong syntax
+     * Creates a filter tree based on a string representing a filter expression.
+     * @param expression the textual expression to parse
+     * @return a filter object representing the whole filter
+     * @throws ParseException if the string has an incorrect syntax
      */
     static public AbstractFilterExpressionController parse(String expression) throws ParseException {
         String operation = AbstractFilterExpressionController.getOperationName(expression);
@@ -119,9 +114,9 @@ public abstract class AbstractFilterExpressionController {
     }
     
     /**
-     * Return a list of parameters in \param expression separated by a coma
-     * @param expression The string to parse
-     * @return A list of parameters
+     * Return a list of parameters in an expression separated by a coma
+     * @param expression the textual expression to parse
+     * @return the list of parameters contained in the expression
      */
     protected static ArrayList<String> splitParameters(String expression) {
         if(expression == null || expression.isEmpty()) {

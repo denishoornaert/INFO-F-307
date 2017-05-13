@@ -5,15 +5,13 @@ import java.text.ParseException;
 import java.util.HashSet;
 
 /**
- *
- * OR operator applied on filters
+ * OR operator applied on filters.
  */
 public class UnionFilterOperationController extends AbstractFilterExpressionController {
     
     /**
-     * Constructor
-     * @param expression The expression to parse
-     * @throws ParseException if \param expression has wrong syntax
+     * @param expression the expression to parse
+     * @throws ParseException if the expression has an incorrect syntax
      */
     public UnionFilterOperationController(String expression) throws ParseException {
         super(expression);

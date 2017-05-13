@@ -5,16 +5,15 @@ import java.text.ParseException;
 import java.util.HashSet;
 
 /**
- *
- * NOT operator applied on filters: returns all markers that are not in children
- * filtering
+ * NOT operator applied on filters.
+ * The negation of a filter includes every marker except for the ones included
+ * in that filter.
  */
 class NegationFilterOperationController extends AbstractFilterExpressionController {
 
     /**
-     * Constructor
-     * @param expression The expression to parse
-     * @throws ParseException if \param expression has wrong syntax
+     * @param expression the expression to parse
+     * @throws ParseException if the expression has an incorrect syntax
      */
     public NegationFilterOperationController(String expression) throws ParseException {
         super(expression);

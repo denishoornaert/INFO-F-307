@@ -5,15 +5,14 @@ import java.text.ParseException;
 import java.util.HashSet;
 
 /**
- *
- * Identity operator: equivalent to NOT(NOT(.))
+ * Identity operator applied on filters.
+ * ID(.) is equivalent to NOT(NOT(.))
  */
 public class IdentityFilterOperationController extends AbstractFilterExpressionController {
     
     /**
-     * Constructor
      * @param expression the expression to parse
-     * @throws ParseException if \param expression has wrong syntax
+     * @throws ParseException if the expression has an incorrect syntax
      */
     public IdentityFilterOperationController(String expression) throws ParseException {
         super(expression);
