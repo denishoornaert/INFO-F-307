@@ -2,8 +2,9 @@ package be.ac.ulb.infof307.g01.client.model;
 
 import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
 
-/** Model of a pokemon.
- * A pokemon represents the generic pokemon entity, such as "Pikachu". A pokemon
+/** 
+ * Represents a Pokemon.
+ * A pokemon is the generic pokemon entity, such as "Pikachu". A pokemon
  * spotted on the map is represented by MarkerModel.
  */
 public class PokemonModel extends PokemonSendableModel {
@@ -22,10 +23,12 @@ public class PokemonModel extends PokemonSendableModel {
     }
     
     /**
-     * During test, all folder doesn't exist, thus path is not the same
+     * Gets the path to the pokemon's image.
+     * During test, all folders don't exist, therefore the
+     * path to some assets is not the same.
      * 
-     * @param isTest True if it's a test
-     * @return The image Path
+     * @param isTest true if the path is requested during a test
+     * @return the image's path
      */
     public String getImagePath(boolean isTest) {
         String assetFolder;

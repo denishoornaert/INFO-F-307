@@ -10,7 +10,7 @@ import java.security.InvalidParameterException;
 import java.sql.Timestamp;
 
 /** 
- * Models a marker indicating that a pokemon was observed somewhere in space-time. 
+ * Represents a marker indicating that a pokemon was observed somewhere in space-time. 
  * A marker contains the time and location of a spotted pokemon, its stats ...
  */
 public class MarkerModel extends MarkerSendableModel {
