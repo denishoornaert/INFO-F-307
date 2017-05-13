@@ -5,11 +5,14 @@ import java.text.ParseException;
 import java.util.HashSet;
 
 /**
- *
- * AND operator applied on filters
+ * AND operator applied on filters.
  */
 public class IntersectionFilterOperationController extends AbstractFilterExpressionController {
     
+    /**
+     * @param expression the expression to parse
+     * @throws ParseException if the expression has an incorrect syntax
+     */
     public IntersectionFilterOperationController(String expression) throws ParseException {
         super(expression);
     }

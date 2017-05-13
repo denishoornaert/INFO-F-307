@@ -5,21 +5,19 @@ import java.sql.Timestamp;
 
 import be.ac.ulb.infof307.g01.common.model.CoordinateSendableModel;
 import be.ac.ulb.infof307.g01.client.model.PokemonModel;
-import be.ac.ulb.infof307.g01.client.view.map.NewMarkerPopUp;
+import be.ac.ulb.infof307.g01.client.view.map.MarkerCreationPopUp;
 
 /**
- * class that manage and create a NewMarkerPopUp to announce a certain Pokemon
- * to a specific location
- * 
- * @author Groupe01
+ * Creates and controls a MarkerCreationPopUp used to create new markers.
+ * Used when the user creates a new marker.
  */
-public class NewMarkerPopUpController extends AbstractMarkerPopUpController {
+public class MarkerCreationPopUpController extends AbstractMarkerChangePopUpController {
     
     protected CoordinateSendableModel _newMarkerCoordinate;
     
-    public NewMarkerPopUpController(MarkerController markerController, double coordinateX, double coordinateY) throws InstantiationException {
+    public MarkerCreationPopUpController(MarkerController markerController, double coordinateX, double coordinateY) throws InstantiationException {
         super(markerController);
-        _markerPopUp = new NewMarkerPopUp(this, PokemonCache.getInstance().getAllPokemonNames());
+        _markerPopUp = new MarkerCreationPopUp(this, PokemonCache.getInstance().getAllPokemonNames());
         _markerPopUp.setPokemonView(_defaultImagePath);
         _newMarkerCoordinate = new CoordinateSendableModel(coordinateX, coordinateY);
     }
@@ -38,7 +36,7 @@ public class NewMarkerPopUpController extends AbstractMarkerPopUpController {
             // Converts from event coordinate (centered in the upper left corner)
             // to marker coordinate (centered in the middle of the image)
             _newMarkerCoordinate = new CoordinateSendableModel(coordinateX, coordinateY);
-            _markerPopUp = new NewMarkerPopUp(this, PokemonCache.getInstance().getAllPokemonNames());
+            _markerPopUp = new MarkerCreationPopUp(this, PokemonCache.getInstance().getAllPokemonNames());
             _markerPopUp.setPokemonView(_defaultImagePath);
         }
     }

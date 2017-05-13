@@ -11,8 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author hoornaert
+ * Creates and controls a popup containing the terms and conditions of the app.
  */
 public class TermsAndConditionsPopUpController extends PopUpController {
 
@@ -24,6 +23,10 @@ public class TermsAndConditionsPopUpController extends PopUpController {
         _popUp.setText(getText());
     }
 
+    /**
+     * Gets the terms and conditions text.
+     * @return a string containing the terms and conditions
+     */
     private String getText() {
         InputStreamReader fr = null;
         BufferedReader br;
@@ -50,6 +53,10 @@ public class TermsAndConditionsPopUpController extends PopUpController {
         return res;
     }
     
+    /**
+     * Indicates that this popup allows other popups to be opened at the same time.
+     * @return true
+     */
     @Override
     protected boolean acceptMultiplePopUps() {
         return true;

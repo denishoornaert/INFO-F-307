@@ -8,14 +8,13 @@ import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
 import javafx.scene.layout.BorderPane;
 
 /**
- * Class that aims to manage the different widgets that will be displayed on the window
- * 
+ * Manages the main window's widgets and appearance.
  */
 public class WindowController {
 
     private MapController _mapController;
     private PanelController _panelController;
-    private boolean _showPanel = false;
+    private boolean _panelIsDisplayed = false;
     
     private final Window _window;
     
@@ -27,11 +26,17 @@ public class WindowController {
         Main.setScene(_window);
     }
     
+    /**
+     * Initializes the map and panel controller.
+     */
     private void initControllers() {
         _mapController = new MapController();
         _panelController = new PanelController(_mapController.getMarkerController());
     }
 
+    /**
+     * Displays the main widgets.
+     */
     private void displayWidgets() {
         _window.placeWidget(_mapController.getView());
         _window.placeButton();
@@ -41,9 +46,12 @@ public class WindowController {
         _window.simulateCLick();
     }
     
-    public void buttonPressed() {
-        _showPanel = !_showPanel;
-        if(_showPanel) {
+    /**
+     * Switches the options panels appearance (hidden or displayed).
+     */
+    public void switchPanel() {
+        _panelIsDisplayed = !_panelIsDisplayed;
+        if(_panelIsDisplayed) {
             _window.showPanel(_panelController.getView());
         }
         else {

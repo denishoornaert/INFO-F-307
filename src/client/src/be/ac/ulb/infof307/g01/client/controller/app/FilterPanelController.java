@@ -18,9 +18,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * Class that manages the filter panel.
- * @author Groupe01
+ * Manages the filter panel, used to filter Markers displayed on the map.
+ * Filters are logical expressions used to determine if a marker should be
+ * displayed or hidden on the map. The filter panel allows users to create
+ * their own filters by selecting basic options or by writing its own
+ * textual expressions.
+ * Filters can be saved to the server's database with a descriptive name.
  */
 public class FilterPanelController {
     
@@ -64,10 +67,28 @@ public class FilterPanelController {
         _filterPanelView.addTab(ADVANCED_FILTER_LABEL, _advancedFilter);
     }
     
+    /**
+     * Helper function, converts a boolean value to a textual logical operator.
+     * @param value the boolean value to convert
+     * @return "ID" if value is true, "NOT" otherwise
+     */
     private String booleanToString(boolean value) {
         return (value) ? "ID" : "NOT";
     }
     
+    /**
+     * Transforms a set of parameters into a textual filter.
+     * //TODO complete JavaDoc
+     * @param notName
+     * @param name
+     * @param notType1
+     * @param type1
+     * @param notType2
+     * @param type2
+     * @param andIsSelected
+     * @param orIsSelected
+     * @return 
+     */
     private String getRequest(boolean notName, String name, boolean notType1, 
             String type1, boolean notType2, String type2, boolean andIsSelected, 
             boolean orIsSelected) { // TODO denis "or" is not used
@@ -91,10 +112,18 @@ public class FilterPanelController {
         return expression;
     }
     
+    /**
+     * @return the associated JavaFX view
+     */
     public FilterPanelView getView() {
         return _filterPanelView;
     }
 
+    /**
+     * Applies a filter to the map's markers, according to the filter expression.
+     * Calls MarkerController.showHideMarkers().
+     * @param expression the textual expression representing the filter rules
+     */
     public void applyFilter(String expression) {
         HashSet<MarkerModel> allMarkers = _markerController.getAllMarkers();
         HashSet<MarkerModel> res = allMarkers;
@@ -104,11 +133,16 @@ public class FilterPanelController {
         } catch (ParseException ex) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage());
         }
-        _markerController.showHideMarker(res);
+        _markerController.displaySelectMarkers(res);
     }
     
-    // TODO manage correctly ! to corretly the error message
+    /**
+     * Saves a filter expression and its name description to the database.
+     * @param expressionName the descriptive name of the expression to save
+     * @param expression the filtering expression to save
+     */
     public void saveFilter(String expressionName, String expression) {
+        // TODO manage correctly ! to corretly the error message
         if(!expressionName.isEmpty()) {
             FilterSendableModel filter = new FilterSendableModel(expressionName, expression);
             try {
@@ -121,7 +155,21 @@ public class FilterPanelController {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Field empty!");
         }
     }
-
+    
+    /**
+     * Applies a filter to the map's markers, according to the parameters.
+     * Calls FilterPanelController.applyFilter() with an expression that 
+     * matches the given parameters.
+     * TODO complete JavaDoc.
+     * @param notName
+     * @param name
+     * @param notType1
+     * @param type1
+     * @param notType2
+     * @param type2
+     * @param andIsSelected
+     * @param orIsSelected 
+     */
     public void applyFilter(boolean notName, String name, boolean notType1, 
             String type1, boolean notType2, String type2, boolean andIsSelected, 
             boolean orIsSelected) {
@@ -130,6 +178,21 @@ public class FilterPanelController {
         applyFilter(expression);
     }
 
+    /**
+     * Saves a filter expression and its name description to the database.
+     * Calls FilterPanelController.saveFilter() with an expression that
+     * matches the given parameters.
+     * TODO complete JavaDoc.
+     * @param expressionName
+     * @param notName
+     * @param name
+     * @param notType1
+     * @param type1
+     * @param notType2
+     * @param type2
+     * @param andIsSelected
+     * @param orIsSelected 
+     */
     public void saveFilter(String expressionName, boolean notName, String name, 
             boolean notType1, String type1, boolean notType2, String type2, 
             boolean andIsSelected, boolean orIsSelected) {
@@ -138,6 +201,10 @@ public class FilterPanelController {
         saveFilter(expressionName, expression);
     }
 
+    /**
+     * Retrieves a named filter from the saved filters and applies it.
+     * @param name the descriptive name of the filter to apply
+     */
     public void applyFilterByName(String name) {
         String expression = _savedFilters.get(name);
         if(expression == null) {

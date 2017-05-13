@@ -1,6 +1,6 @@
 package be.ac.ulb.infof307.g01.client.view.map;
 
-import be.ac.ulb.infof307.g01.client.controller.map.DetailsMarkerPopUpController;
+import be.ac.ulb.infof307.g01.client.controller.map.MarkerDetailsPopUpController;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import javafx.collections.ObservableList;
@@ -18,9 +18,9 @@ import javafx.scene.layout.VBox;
  * is displayed when the user click on a marker that he has not created.
  * 
  */
-public class DetailsMarkerPopUp extends InformationPopUp {
+public class MarkerDetailsPopUp extends AbstractMarkerPopUp {
     
-    private final DetailsMarkerPopUpController _controller;
+    private final MarkerDetailsPopUpController _controller;
     
     private VBox _vbox;
     private Label _pokemonName;
@@ -37,7 +37,7 @@ public class DetailsMarkerPopUp extends InformationPopUp {
     
     private Button _closeButton;
         
-    public DetailsMarkerPopUp(DetailsMarkerPopUpController controller) {
+    public MarkerDetailsPopUp(MarkerDetailsPopUpController controller) {
         super(controller, 0);
         _controller = controller;
         initWidgets();

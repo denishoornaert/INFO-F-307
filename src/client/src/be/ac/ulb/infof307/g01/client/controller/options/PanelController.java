@@ -8,8 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author Groupe01
+ * Creates and controls the panel view that contains the application options.
  */
 public class PanelController {
 
@@ -22,12 +21,20 @@ public class PanelController {
         _panelView.setWidget(_filterPanelController.getView());
     }
     
+    /**
+     * Updates the user information displayed in the panel view according
+     * to ClientConfiguration.
+     */
     public void setUser() {
         String username = UserController.getInstance().getUsername();
         String email = UserController.getInstance().getEmail();
         _panelView.setUser(username,email);
     }
     
+    /**
+     * Opens a signin popup allowing the user to authenticate himself.
+     * If another exclusive popup is open, does nothing.
+     */
     public void openSignin() {
         try {
             new SigninPopUpController(this);
@@ -36,6 +43,10 @@ public class PanelController {
         }
     }
     
+    /**
+     * Opens a signup popup allowing the user to create an account.
+     * If another exclusive popup is open, does nothing.
+     */
     public void openSignUp() {
         try {
             new SignupPopUpController();
@@ -47,5 +58,4 @@ public class PanelController {
     public PanelView getView() {
         return _panelView;
     }
-    
 }

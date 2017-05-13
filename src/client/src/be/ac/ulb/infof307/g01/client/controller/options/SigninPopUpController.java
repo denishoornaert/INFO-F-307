@@ -7,19 +7,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Singleton class managing the authentication of the user,
- * and storing its user name.
+ * Creates and controls a sign-in popup that allows the user to authenticate himself.
+ * Holds a reference to the PanelController, which allows it to update the 
+ * displayed user information.
  */
 public class SigninPopUpController extends PopUpController {
     
     private final SigninPopUp _signinPopUp;
     private final PanelController _panelController;
     
-    /**
-     *  Make the constructor private, as this class is a singleton.
-     * @param panel left panel
-     * @throws InstantiationException popup allready open
-     */
     public SigninPopUpController(PanelController panel) throws InstantiationException {
         super();
         _signinPopUp = new SigninPopUp(this);
@@ -27,10 +23,10 @@ public class SigninPopUpController extends PopUpController {
     }
     
     /**
-     * Try to authenticate with the given user name.
-     * For now, there is no check in database, any user is accepted.
-     * @param username The user name.
-     * @param password The password
+     * Tries to authenticate the user with the provided information.
+     * If the authentication fails, displays an error message in the popup.
+     * @param username the user's username
+     * @param password the user's password
      */
     public void authenticate(String username, String password)  {
         try {

@@ -41,7 +41,7 @@ public class Window extends Scene {
         _showHidePanelButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                _controller.buttonPressed();
+                _controller.switchPanel();
             }
         });
         _showHidePanelButton.getStyleClass().add("primary");

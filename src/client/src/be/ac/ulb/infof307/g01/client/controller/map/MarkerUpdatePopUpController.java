@@ -2,22 +2,21 @@ package be.ac.ulb.infof307.g01.client.controller.map;
 
 import be.ac.ulb.infof307.g01.client.model.PokemonCache;
 import be.ac.ulb.infof307.g01.client.model.PokemonModel;
-import be.ac.ulb.infof307.g01.client.view.map.UpdateMarkerPopUp;
+import be.ac.ulb.infof307.g01.client.view.map.MarkerUpdatePopUp;
 import java.sql.Timestamp;
 
 /**
- * Class that manages and creates an UpadateMarkerPopUp.
- * 
- * @author Groupe01
+ * Creates and controls a MarkerUpdatePopUp used to update existing marker's informations.
+ * Used when the user clicks on a marker he created.
  */
-public class UpdateMarkerPopUpController extends AbstractMarkerPopUpController {
+public class MarkerUpdatePopUpController extends AbstractMarkerChangePopUpController {
     
     private int _markerId;
     
-    public UpdateMarkerPopUpController(MarkerController markerController, int markerId) throws InstantiationException {
+    public MarkerUpdatePopUpController(MarkerController markerController, int markerId) throws InstantiationException {
         super(markerController, markerId);
         _markerId = markerId;
-        _markerPopUp = new UpdateMarkerPopUp(this, PokemonCache.getInstance().getAllPokemonNames(), markerId);
+        _markerPopUp = new MarkerUpdatePopUp(this, PokemonCache.getInstance().getAllPokemonNames(), markerId);
         String imagePath = _marker.getImagePath();
         _markerPopUp.setPokemonView(imagePath);
     }

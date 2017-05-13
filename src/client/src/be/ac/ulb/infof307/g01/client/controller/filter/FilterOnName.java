@@ -4,19 +4,19 @@ import be.ac.ulb.infof307.g01.client.model.MarkerModel;
 import java.util.HashSet;
 
 /**
- *
- * Unique filter on pokemon name
+ * Unique filter on pokemon name.
+ * Its evaluation consists in comparing the pokemon name to the marker's
+ * pokemon name. Identical names will result in the markers being included in 
+ * the filter results.
  */
 public class FilterOnName extends AbstractFilterController {
 
-    /**
-     * Name to be equal in order to be in the filter result
-     */
+    /** Name to compare to the marker's pokemon name */
     private final String _name;
     
     /**
-     * Constructor 
-     * @param name The pokemon name to filter
+     * Creates a FilterOnName instance for the provided pokemon name.
+     * @param name the pokemon name to filter
      */
     public FilterOnName(String name) {
         super();

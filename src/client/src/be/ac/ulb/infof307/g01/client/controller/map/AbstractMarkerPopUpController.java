@@ -1,57 +1,38 @@
 package be.ac.ulb.infof307.g01.client.controller.map;
 
-import be.ac.ulb.infof307.g01.client.model.ClientConfiguration;
-import be.ac.ulb.infof307.g01.client.model.PokemonCache;
-import be.ac.ulb.infof307.g01.client.model.PokemonModel;
-import be.ac.ulb.infof307.g01.client.view.map.AbstractMarkerPopUp;
-import java.sql.Timestamp;
+import be.ac.ulb.infof307.g01.client.Main;
+import be.ac.ulb.infof307.g01.client.controller.app.PopUpController;
+import be.ac.ulb.infof307.g01.client.model.MarkerModel;
 
 /**
- * Controller the NewMarkerPopUp that enable the user to create a new Marker.
+ * Abstract class that controls any marker popup.
  */
-public abstract class AbstractMarkerPopUpController extends InformationPopUpController {
+public abstract class AbstractMarkerPopUpController extends PopUpController {
     
-    protected AbstractMarkerPopUp _markerPopUp;
-    protected String _defaultImagePath;
+    protected MarkerController _markerController;
+    protected MarkerModel _marker;
+    protected static int DEFAULT_MARKER_ID = 0;
     
- 
-    public AbstractMarkerPopUpController(MarkerController markerController) throws InstantiationException {
-        this(markerController, DEFAULT_MARKER_ID);
+    public AbstractMarkerPopUpController(MarkerModel marker) throws InstantiationException {
+        super();
+        _marker = marker;
     }
     
-    public AbstractMarkerPopUpController(MarkerController markerController, int markerid) throws InstantiationException  {
-        super(markerController, markerid);
-        _defaultImagePath = ClientConfiguration.getInstance().getUnknownPokemonSpritePath();
+    public AbstractMarkerPopUpController(MarkerController controller, int markerid) throws InstantiationException {
+        _markerController = controller;
+        _marker = controller.getMarkerModelFromId(markerid);
     }
-        
-    public void cancelPopUpCreateMarker() {
-        close(_markerPopUp);
+
+    public MarkerModel getMarker() {
+        return _marker;
     }
-    
-    protected boolean isPokemonNameNotEmpty(String pokemonName) {
-        return (!"".equals(pokemonName) && pokemonName != null);
+
+    /**
+     * Shares the marker's information and location on twitter.
+     */
+    public void sendTwitterPost() {
+        String link = _marker.getTwitterLink();
+        Main.openInBrowser(link);
     }
-        
-    public void endPopUpMarker(String pokemonName, int lifePoint, int attack, int defense, Timestamp dateView) {
-        if(isPokemonNameNotEmpty(pokemonName)) { 
-            cancelPopUpCreateMarker();
-        }
-        else {
-            _markerPopUp.errorInPokemonName();
-        }
-    }
-    
-    /*
-    * Method called when the user has selected a pokemon name listed among the combobox.
-    */
-    public void selectedPokemonName(String selectedString) {
-        PokemonModel pokemon = PokemonCache.getInstance().getPokemonByName(selectedString);
-        String path = pokemon.getImagePath();
-        _markerPopUp.setPokemonView(path);
-    }
-    
-    public MarkerController getMarkerController() {
-        return _markerController;
-    }
-    
+
 }

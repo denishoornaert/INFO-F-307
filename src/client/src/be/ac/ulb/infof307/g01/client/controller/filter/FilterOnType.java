@@ -7,18 +7,18 @@ import java.util.HashSet;
 import java.util.List;
 
 /**
- *
- * Filter on pokemon type
+ * Unique filter on pokemon type.
+ * Its evaluation consists in comparing the provided pokemon type to the
+ * marker's pokemon type. Identical types will result in the markers being
+ * included in the filter results.
  */
 public class FilterOnType extends AbstractFilterController {
     
-    /**
-     * Type to have in order to be in the filter result
-     */
+    /** Type to compare to the marker's pokemon type */
     private final String _type;
 
     /**
-     * Constructor
+     * Creates a FilterOnType instance for the provided pokemon type.
      * @param type The pokemon type to filter
      */
     public FilterOnType(String type) {

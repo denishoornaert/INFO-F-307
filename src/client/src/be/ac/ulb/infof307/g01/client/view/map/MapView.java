@@ -146,11 +146,11 @@ public class MapView extends StackPane {
         public void onMapRightClick(JSObject coordinates) {
             double latitude = (double) coordinates.call("lat");
             double longitude = (double) coordinates.call("lng");
-            _mapController.askForCreateMarker(latitude, longitude);
+            _mapController.mapClicked(latitude, longitude);
         }
         
         public void onMarkerLeftClick(int markerId) {
-            _mapController.displayPinPopUp(markerId);
+            _mapController.markerClicked(markerId);
         }
         
         public void log(String message) {

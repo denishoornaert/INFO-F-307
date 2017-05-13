@@ -7,8 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Singleton class managing the authentication of the user,
- * and storing its user name.
+ * Creates and controls a sign-up popup that allows the user to create an account.
  */
 public class SignupPopUpController extends PopUpController {
     
@@ -19,9 +18,16 @@ public class SignupPopUpController extends PopUpController {
         _signup = new SignupPopUp(this);
     }
     
-    public void submit(String email, String user, String password, boolean terms) {
+    /**
+     * Submits the provided user information in order to create his account.
+     * @param email the user's email
+     * @param username the user's username
+     * @param password the user's password
+     * @param acceptedTerms indicates if the user accepted the terms of usage
+     */
+    public void submit(String email, String username, String password, boolean acceptedTerms) {
         try {
-            UserController.getInstance().register(email, user, password, terms);
+            UserController.getInstance().register(email, username, password, acceptedTerms);
             close(_signup);
         } catch(IllegalArgumentException error) {
             Logger.getLogger(getClass().getName()).log(Level.INFO, error.getMessage());
@@ -29,6 +35,9 @@ public class SignupPopUpController extends PopUpController {
         }
     }
 
+    /**
+     * Creates a popup displaying the terms and conditions of the application.
+     */
     public void openTermsAndconditionPopUp() {
         try {
             new TermsAndConditionsPopUpController();
