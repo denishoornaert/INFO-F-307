@@ -1,9 +1,10 @@
 package be.ac.ulb.infof307.g01.server.model.db;
 
 import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
+import static org.junit.Assert.assertEquals;
 
-import static junit.framework.TestCase.assertEquals;
 import org.junit.Test;
+
 
 public class PokemonTypeDatabaseModelTest extends AbstractDatabaseTest {
     

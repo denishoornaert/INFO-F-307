@@ -23,6 +23,7 @@ public abstract class AbstractDatabaseTest {
         _database.deleteTable("User");
         _database.deleteTable("Marker");
         _database.deleteTable("MarkerVote");
+        _database.deleteTable("Filter");
         DatabaseModel.closeDatabase();
     }
     
