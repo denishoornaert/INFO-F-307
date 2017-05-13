@@ -133,7 +133,7 @@ public abstract class AbstractMarkerPopUp extends InformationPopUp {
         _pokemonName.setOnAction((event) -> {
             Object object = _pokemonName.getSelectionModel().getSelectedItem();
             if (object != null) {
-                _controller.selectedPokemonName(object.toString());
+                _controller.selectPokemon(object.toString());
             }
         });
     }
