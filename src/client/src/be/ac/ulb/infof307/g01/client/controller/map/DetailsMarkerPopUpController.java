@@ -11,35 +11,66 @@ import java.sql.Timestamp;
 import java.util.logging.Level;
 
 /**
- * 
- * Class that manage and create a DetailsMarkerPopUp.
- * 
+ * Controls the popup that displays a marker's details.
+ * Used when the user clicks on a marker he did not create (and can not edit).
  */
 public class DetailsMarkerPopUpController extends InformationPopUpController {
     
-    private final DetailsMarkerPopUp _pinPopUp;
+    private final DetailsMarkerPopUp _detailsPopUp;
     
     public DetailsMarkerPopUpController(MarkerModel marker) throws InstantiationException {
         super(marker);
-        _pinPopUp = new DetailsMarkerPopUp(this);
-        _pinPopUp.setPokemonView(_marker.getImagePath());
+        _detailsPopUp = new DetailsMarkerPopUp(this);
+        _detailsPopUp.setPokemonView(_marker.getImagePath());
+        initVoteControls();
         updateVoteView();
+    }
         
-        String username = UserController.getInstance().getUsername();
-        if(username.isEmpty()) {
-            _pinPopUp.disableVoteButtons();
+    /**
+     * Initializes the vote controls for the marker.
+     * Disables both vote buttons for visitors, and either vote button
+     * if the user already made the matching vote on this marker.
+     */
+    private void initVoteControls() {
+        if(! UserController.getInstance().isConnected()) {
+            _detailsPopUp.disableVoteButtons();
             
         } else {
-            ReputationVoteSendableModel reputationVote = _marker.getReputationVote(
-                username);
+            String username = UserController.getInstance().getUsername();
+            ReputationVoteSendableModel reputationVote = _marker.getReputationVote(username);
+            
             if(reputationVote != null) {
                 if(reputationVote.getIsUpVote()) {
-                    _pinPopUp.disableUpVoteButton();
+                    _detailsPopUp.disableUpVoteButton();
                 } else {
-                    _pinPopUp.disableDownVoteButton();
+                    _detailsPopUp.disableDownVoteButton();
                 }
             }
         }
+    }
+    
+    /**
+     * Updates the marker reputation in the view.
+     */
+    private void updateVoteView() {
+        int vote = _marker.getReputationScore();
+        _detailsPopUp.updateVoteView(vote);
+    }
+    
+    /**
+     * Adds the user's vote to the marker.
+     * Calls updateVoteView to and update the view accordingly
+     * @param isUpVote true if the vote is positive, false if negative.
+     */
+    public void addVote(boolean isUpVote) {
+        try {
+            _marker.addVote(UserController.getInstance().getUsername(), isUpVote);
+        } catch(InvalidParameterException exception){
+            MessagePopUpController.createPopUpOrLog(Level.SEVERE, exception.getMessage());
+        }
+        _detailsPopUp.enableUpVoteButton();
+        _detailsPopUp.disableDownVoteButton();
+        updateVoteView();
     }
     
     public CoordinateSendableModel getCoordinates() {
@@ -64,7 +95,6 @@ public class DetailsMarkerPopUpController extends InformationPopUpController {
     
     public String getPokemonAttack() {
         return "" + _marker.getMarkerAttack();
-        
     }
     
     public String getPokemonDefense() {
@@ -74,22 +104,4 @@ public class DetailsMarkerPopUpController extends InformationPopUpController {
     public String getVoteScore() {
         return Integer.toString(_marker.getReputationScore());
     }
-    
-    
-    public void addVote(boolean isUpVote) {
-        try {
-            _marker.addVote(UserController.getInstance().getUsername(), isUpVote);
-        } catch(InvalidParameterException exception){
-            MessagePopUpController.createPopUpOrLog(Level.SEVERE, exception.getMessage());
-        }
-        _pinPopUp.enableUpVoteButton();
-        _pinPopUp.disableDownVoteButton();
-        updateVoteView();
-    }
-
-    private void updateVoteView() {
-        int vote = _marker.getReputationScore();
-        _pinPopUp.updateVoteView(vote);
-    }
-    
 }
