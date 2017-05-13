@@ -134,7 +134,7 @@ public class FilterPanelController {
             Logger.getLogger(FilterPanelController.class.getName()).log(Level.SEVERE, 
                     ex.getMessage());
         }
-        _markerController.showHideMarker(res);
+        _markerController.displaySelectMarkers(res);
     }
     
     /**
