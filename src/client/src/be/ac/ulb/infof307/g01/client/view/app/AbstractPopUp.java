@@ -15,10 +15,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 /**
- * A very minimalist abstract pop-up class defining the defaut pop-up 
- * layout and scene 
- * 
- * @author Groupe01
+ * Minimal abstract class defining the default popup layout and scene.
  */
 public abstract class AbstractPopUp extends Stage {
 
@@ -43,6 +40,12 @@ public abstract class AbstractPopUp extends Stage {
         initStyle();
     }
     
+    /**
+     * Creates and returns the JavaFX Button used to close the popup.
+     * @param text the text displayed in the button widget
+     * @param style the style of the button widget
+     * @return the created button
+     */
     protected Button getCloseButton(String text, String style) {
         Button button = new Button(text);
         AbstractPopUp instance = this;
@@ -55,6 +58,10 @@ public abstract class AbstractPopUp extends Stage {
         return button;
     }
     
+    /**
+     * Adds a JavaFX node to the popup layout.
+     * @param node the Node to add
+     */
     protected void add(Node node) {
         ObservableList<Node> children = _layout.getChildren();
         children.add(node);        
