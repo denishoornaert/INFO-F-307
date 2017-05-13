@@ -12,8 +12,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 
 /**
- * Main window
- * 
+ * Main window of the application.
+ * Created and controlled by WindowController.
  */
 public class Window extends Scene {
     
