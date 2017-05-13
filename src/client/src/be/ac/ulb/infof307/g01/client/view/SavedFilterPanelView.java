@@ -2,7 +2,6 @@ package be.ac.ulb.infof307.g01.client.view;
 
 import be.ac.ulb.infof307.g01.client.controller.app.FilterPanelController;
 import java.util.Collection;
-import javafx.beans.value.ChangeListener;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.Tab;
@@ -11,8 +10,9 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 /**
- *
- * @author hoornaert
+ * Saved view of the filter panel.
+ * This view allows the user to select filters that were previously saved
+ * by him or other users.
  */
 public class SavedFilterPanelView extends Tab {
     

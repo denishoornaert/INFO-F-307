@@ -6,8 +6,9 @@ import javafx.event.EventHandler;
 import javafx.scene.control.TextArea;
 
 /**
- *
- * @author hoornaert
+ * Advanced view of the filter panel.
+ * This view allows the user to manually input filters with a specific
+ * syntax in prefixed notation.
  */
 public class AdvancedFilterPanelView extends AbstractFilterPanelView{
     

@@ -10,8 +10,11 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 /**
- *
- * @author hoornaert
+ * Abstract view of the filter panel.
+ * The filter panel allows the user to use filters in order to select
+ * which markers are displayed on the map.
+ * This class is mainly a placeholder for all filter-specific widgets and
+ * methods.
  */
 public abstract class AbstractFilterPanelView extends Tab {
     

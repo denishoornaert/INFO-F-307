@@ -15,8 +15,9 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 
 /**
- *
- * @author hoornaert
+ * Basic view of the filter panel.
+ * This view allows the user to select graphical options that represent
+ * simple yet useful filters.
  */
 public class BasicFilterPanelView extends AbstractFilterPanelView {
     
