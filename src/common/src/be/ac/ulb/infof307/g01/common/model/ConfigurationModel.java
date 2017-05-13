@@ -16,16 +16,21 @@ public abstract class ConfigurationModel {
     private static final String JAR_PREFIX = "jar:";
     
     private static final String CONFIG_FILE = "config.properties";
-    protected Properties _propertiesFile; 
     
-    protected ConfigurationModel() {
+    protected Properties _propertiesFile; 
+    protected final boolean _isTest;
+    
+    
+    protected ConfigurationModel(boolean isTest) {
         loadConfigurationFile(CONFIG_FILE);
+        
+        _isTest = isTest;
     }
     
     private void loadConfigurationFile(String fileName) {
-        String clientConfigFilePath = addJarOrFilePrefix(getAssetPath(fileName));
+        String configFilePath = addJarOrFilePrefix(getAssetPath(fileName));
         try {
-            URL path = new URL(clientConfigFilePath);
+            URL path = new URL(configFilePath);
             _propertiesFile = new Properties();
             _propertiesFile.load(path.openStream());
         } catch (IOException ex) {

@@ -14,7 +14,6 @@ public class ClientConfiguration extends ConfigurationModel {
     
     private static ClientConfiguration _configuration = null;
     private static ClientConfiguration _testConfiguration = null;
-    private final boolean _isTest;
     
     /** Configuration keys and default values.**/
     private final String BOOTSTRAP_DEFAULT = "bootstrap.css";
@@ -40,8 +39,7 @@ public class ClientConfiguration extends ConfigurationModel {
     }
     
     private ClientConfiguration(boolean isTest) {
-        super();
-        _isTest = isTest;
+        super(isTest);
         
         _allResolution = new ArrayList<>();
         _allResolution.add("16");
