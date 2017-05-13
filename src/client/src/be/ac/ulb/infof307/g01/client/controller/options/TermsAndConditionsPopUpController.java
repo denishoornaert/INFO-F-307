@@ -29,7 +29,7 @@ public class TermsAndConditionsPopUpController extends PopUpController {
      */
     private String getText() {
         InputStreamReader fr = null;
-        BufferedReader br = null;
+        BufferedReader br;
         String res = "";
         try {
             URL path = new URL(ClientConfiguration.getInstance().getTermsAndConditionsPath());
@@ -39,14 +39,14 @@ public class TermsAndConditionsPopUpController extends PopUpController {
             while ((sCurrentLine = br.readLine()) != null) {
                     res += sCurrentLine;
             }
-        } catch (IOException e) {
-            Logger.getLogger(TermsAndConditionsPopUpController.class.getName()).log(Level.SEVERE, null, e);
+        } catch (IOException error) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, error.getMessage());
         } finally {
             if(fr != null) {
                 try {
                     fr.close();
                 } catch (IOException ex) {
-                    Logger.getLogger(TermsAndConditionsPopUpController.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage());
                 }
             }
         }

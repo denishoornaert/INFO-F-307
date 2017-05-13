@@ -2,8 +2,8 @@ package be.ac.ulb.infof307.g01.server.model.db;
 
 import be.ac.ulb.infof307.g01.common.model.UserSendableModel;
 import java.security.InvalidParameterException;
-import static junit.framework.TestCase.assertFalse;
 import org.junit.After;
+import static org.junit.Assert.assertFalse;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

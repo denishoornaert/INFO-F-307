@@ -42,7 +42,7 @@ public class SignupPopUpController extends PopUpController {
         try {
             new TermsAndConditionsPopUpController();
         } catch (InstantiationException ex) {
-            Logger.getLogger(SignupPopUpController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage());
         }
     }
 }

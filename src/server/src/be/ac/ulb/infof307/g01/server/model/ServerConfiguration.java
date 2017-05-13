@@ -1,26 +1,89 @@
 package be.ac.ulb.infof307.g01.server.model;
 
+import be.ac.ulb.infof307.g01.common.model.ConfigurationModel;
 import java.io.File;
 import java.net.URL;
 
 /**
- * Class used almost everywhere beacause this is the one who contains all the
- * magic numbers and magic string (relative paths, url, ...).
- * The class must be accesible from almst everywhere therefore we design it as a singleton.
+ * Singleton class containing the magic numbers and strings required to 
+ * configure the server program.
  *
  * @author Groupe01
  */
-public class ServerConfiguration {
+public class ServerConfiguration extends ConfigurationModel {
     
     private static ServerConfiguration _configuration = null;
+    private static ServerConfiguration _testConfiguration = null;
     
-    /** The absolute path to the server's assets folder.**/
-    private final String _dataBasePath = "Database.db";
-    private final String _testDataBasePath = "TestDatabase.db";
-    private final String _sqlPath = "Database.sql";
+    /** Configuration keys and default values.**/
+    private final String DATABASE_NAME_DEFAULT = "Database.db";
+    private final String DATABASE_NAME_CONFIG = "database-name";
+    private final String TEST_DATABASE_NAME_DEFAULT = "TestDatabase.db";
+    private final String TEST_DATABASE_NAME_CONFIG = "test-database-name";
+    private final String SQL_SCRIPT_NAME_DEFAULT = "Database.sql";
+    private final String SQL_SCRIPT_NAME_CONFIG = "SQL-script";
     
-    private ServerConfiguration() { }
+    private ServerConfiguration() { 
+        this(false);
+    }
+    
+    private ServerConfiguration(boolean isTest) { 
+        super(isTest);
+    }
+    
+    /**
+     * Gets the path to a specific asset file.
+     * @param fileName the asset file's name
+     * @return the asset file's absolute path
+     */
+    @Override
+    protected String getAssetPath(String fileName) {
+        String result;
+        if(_isTest) {
+            File file = new File("../../assets/server/");
+            result = file.getAbsolutePath() + File.separatorChar + fileName;
+        } else {
+            result = Thread.currentThread().getContextClassLoader().getResource(fileName).getPath();
+        }
+        return result;
+    }
+    
+    public String getDatabasePath() {
+        String path = _propertiesFile.getProperty(DATABASE_NAME_CONFIG, DATABASE_NAME_DEFAULT);
+        URL classLoader = Thread.currentThread().getContextClassLoader()
+                .getResource(path);
+        if(classLoader != null) {
+            path = classLoader.getPath();
+        }
+        return path;
+    }
+    
+    public String getTestDatabasePath() {
+        String path = _propertiesFile.getProperty(TEST_DATABASE_NAME_CONFIG, TEST_DATABASE_NAME_DEFAULT);
+        return getAssetPath(path);
+    }
 
+    public String getSqlPath() {
+        String path = _propertiesFile.getProperty(SQL_SCRIPT_NAME_CONFIG, SQL_SCRIPT_NAME_DEFAULT);
+        URL ressource = Thread.currentThread().getContextClassLoader()
+                .getResource(path);
+        if(ressource != null) {
+            path = ressource.getPath();
+        } else {
+            path = getAssetPath(path);
+        }
+        
+        return path;
+    }
+    
+    public String getTestSqlPath() {
+        String path = _propertiesFile.getProperty(SQL_SCRIPT_NAME_CONFIG, SQL_SCRIPT_NAME_DEFAULT);
+        return getAssetPath(path);
+    }
+    
+    
+    /////////////////// STATIC ///////////////////
+    
     public static ServerConfiguration getInstance() {			
         if(_configuration == null) {
             _configuration = new ServerConfiguration();	
@@ -28,45 +91,11 @@ public class ServerConfiguration {
         return _configuration;
     }
     
-    private String getAssetServerPath(String fileName) {
-        File file = new File("../../assets/server/");
-        return file.getAbsolutePath() + File.separatorChar + fileName;
-    }
-    
-    /**
-     * Get the database path
-     * 
-     * @return 
-     */
-    public String getDataBasePath() {
-        String path = _dataBasePath;
-        URL classLoader = Thread.currentThread().getContextClassLoader()
-                .getResource(_dataBasePath);
-        if(classLoader != null) {
-            path = classLoader.getPath();
+    public static ServerConfiguration getTestInstance() {
+        if(_testConfiguration == null) {
+            _testConfiguration = new ServerConfiguration(true);
         }
-        return path;
-    }
-    
-    public String getTestDataBasePath() {
-        return getAssetServerPath(_testDataBasePath);
-    }
-
-    public String getSqlPath() {
-        String path;
-        URL ressource = Thread.currentThread().getContextClassLoader()
-                .getResource(_sqlPath);
-        if(ressource != null) {
-            path = ressource.getPath();
-        } else {
-            path = getAssetServerPath(_sqlPath);
-        }
-        
-        return path;
-    }
-    
-    public String getTestSqlPath() {
-        return getAssetServerPath(_sqlPath);
+        return _testConfiguration;
     }
     
 }

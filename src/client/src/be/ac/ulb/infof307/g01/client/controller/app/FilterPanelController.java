@@ -131,8 +131,7 @@ public class FilterPanelController {
             IdentityFilterOperationController filterExpression = new IdentityFilterOperationController(expression);
             res = filterExpression.evaluateFilter(allMarkers);
         } catch (ParseException ex) {
-            Logger.getLogger(FilterPanelController.class.getName()).log(Level.SEVERE, 
-                    ex.getMessage());
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage());
         }
         _markerController.displaySelectMarkers(res);
     }

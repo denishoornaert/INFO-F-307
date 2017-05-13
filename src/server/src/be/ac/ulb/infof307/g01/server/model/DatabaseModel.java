@@ -52,23 +52,25 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
 
     private static DatabaseModel _instance = null;
     private static final Logger LOG = Logger.getLogger(DatabaseModel.class.getName());
-    private static final ServerConfiguration CONFIG = ServerConfiguration.getInstance();
+    private static ServerConfiguration CONFIG;
     
     /**
      * The database connection
      */
     private Connection _connection;
 
-    public static DatabaseModel getInstance() {
+    public static DatabaseModel getInstance() throws IllegalAccessError {
         if(_instance == null) {
-            _instance = new DatabaseModel(CONFIG.getDataBasePath(), CONFIG.getSqlPath());
+            CONFIG = ServerConfiguration.getInstance();
+            _instance = new DatabaseModel(CONFIG.getDatabasePath(), CONFIG.getSqlPath());
         }
         return _instance;
     }
     
-    public static DatabaseModel getTestInstance() {
+    public static DatabaseModel getTestInstance() throws IllegalAccessError {
         if(_instance == null) {
-            _instance = new DatabaseModel(CONFIG.getTestDataBasePath(), CONFIG.getTestSqlPath());
+            CONFIG = ServerConfiguration.getTestInstance();
+            _instance = new DatabaseModel(CONFIG.getTestDatabasePath(), CONFIG.getTestSqlPath());
         }
         return _instance;
     }
@@ -78,14 +80,17 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
      *
      * @param pathToDatabase path to database
      * @param pathToSql path to SQL file
+     * @throws IllegalAccessError if database haven't be load
      */
-    protected DatabaseModel(String pathToDatabase, String pathToSql) {
+    protected DatabaseModel(String pathToDatabase, String pathToSql) throws IllegalAccessError {
         try {
             createDatabase(pathToDatabase, pathToSql);
             connectToSqlite(pathToDatabase);
         } catch(IOException | SQLException exception) {
-            LOG.log(Level.SEVERE, "Could not create Database: {0}", exception);
+            String errorMessage = "Could not create Database: " + exception.getMessage();
+            LOG.log(Level.SEVERE, errorMessage);
             System.exit(1);
+            throw new IllegalAccessError(errorMessage);
         }
     }
     
