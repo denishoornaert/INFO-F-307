@@ -7,7 +7,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 /**
  *
@@ -15,7 +17,11 @@ import org.junit.Test;
  */
 public class FilterDatabaseModelTest extends AbstractDatabaseTest {
     
+    @Rule
+    public ExpectedException _expected = ExpectedException.none();
+    
     private FilterSendableModel _filterToInsert;
+    private final String FILTER_NAME = "testFilter";
     
     public FilterDatabaseModelTest() {
         super();
@@ -25,7 +31,7 @@ public class FilterDatabaseModelTest extends AbstractDatabaseTest {
     @Override
     public void setUp() {
         super.setUp();
-        _filterToInsert = new FilterSendableModel("testFilter", "ID(TYPE(TEST))");
+        _filterToInsert = new FilterSendableModel(FILTER_NAME, "ID(TYPE(TEST))");
     }
     
     /**
@@ -48,7 +54,26 @@ public class FilterDatabaseModelTest extends AbstractDatabaseTest {
     @Test
     public void test_getAllFilter_containsInsertedFilter() {
         _database.insertFilter(_filterToInsert);
-        List<FilterSendableModel> filter = _database.getAllFilter();
-        assertTrue(filter.contains(_filterToInsert));
+        List<FilterSendableModel> listAllFilter = _database.getAllFilter();
+        
+        boolean find = false;
+        for(FilterSendableModel filter : listAllFilter) {
+            if(filter.getName().equals(_filterToInsert.getName())) {
+                find = filter.getExpression().equals(_filterToInsert.getExpression());
+            }
+        }
+        assertTrue(find);
     }
+    
+    /**
+     * Test that when a filter is inserted with the same name that an existing 
+     * filter throw an exception.
+     */
+    @Test
+    public void test_insertFilter_insertFilterWithSameNameNotWorking() {
+        _database.insertFilter(_filterToInsert);
+        _expected.expect(InvalidParameterException.class);
+        _database.insertFilter(new FilterSendableModel(FILTER_NAME, ""));
+    }
+    
 }
