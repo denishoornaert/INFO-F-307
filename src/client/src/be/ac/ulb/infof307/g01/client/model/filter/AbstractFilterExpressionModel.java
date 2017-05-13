@@ -8,16 +8,16 @@ import java.util.HashSet;
 /**
  * Abstract composite class used to control filter expressions.
  */
-public abstract class AbstractFilterExpressionController {
+public abstract class AbstractFilterExpressionModel {
 
     /** List containing all of the children expressions */
-    protected ArrayList<AbstractFilterExpressionController> _expressions;
+    protected ArrayList<AbstractFilterExpressionModel> _expressions;
     
     /**
      * Default constructor.
      * Use if no child is supposed to be created
      */
-    public AbstractFilterExpressionController() {
+    public AbstractFilterExpressionModel() {
         _expressions = new ArrayList<>();
     }
     
@@ -25,7 +25,7 @@ public abstract class AbstractFilterExpressionController {
      * @param expression The expression to parse
      * @throws ParseException if given expression has incorrect syntax
      */
-    public AbstractFilterExpressionController(String expression) throws ParseException {
+    public AbstractFilterExpressionModel(String expression) throws ParseException {
         this();
         ArrayList<String> splitParam = splitParameters(expression);
         if(splitParam == null || splitParam.isEmpty()) {
@@ -49,7 +49,7 @@ public abstract class AbstractFilterExpressionController {
      * @return the content of the first parenthesis
      */
     static protected String getParenthesisContent(String expression) {
-        return AbstractFilterExpressionController.getParenthesisContent(expression, 0);
+        return AbstractFilterExpressionModel.getParenthesisContent(expression, 0);
     }
     
     /**
@@ -83,22 +83,22 @@ public abstract class AbstractFilterExpressionController {
      * @return a filter object representing the whole filter
      * @throws ParseException if the string has an incorrect syntax
      */
-    static public AbstractFilterExpressionController parse(String expression) throws ParseException {
-        String operation = AbstractFilterExpressionController.getOperationName(expression);
-        AbstractFilterExpressionController ret = null;
-        String parenthesisContent = AbstractFilterExpressionController.getParenthesisContent(expression);
+    static public AbstractFilterExpressionModel parse(String expression) throws ParseException {
+        String operation = AbstractFilterExpressionModel.getOperationName(expression);
+        AbstractFilterExpressionModel ret = null;
+        String parenthesisContent = AbstractFilterExpressionModel.getParenthesisContent(expression);
         switch(operation) {
             case "AND":
-                ret = new IntersectionFilterOperationController(parenthesisContent);
+                ret = new IntersectionFilterOperationModel(parenthesisContent);
                 break;
             case "OR":
-                ret = new UnionFilterOperationController(parenthesisContent);
+                ret = new UnionFilterOperationModel(parenthesisContent);
                 break;
             case "NOT":
-                ret = new NegationFilterOperationController(parenthesisContent);
+                ret = new NegationFilterOperationModel(parenthesisContent);
                 break;
             case "ID":
-                ret = new IdentityFilterOperationController(parenthesisContent);
+                ret = new IdentityFilterOperationModel(parenthesisContent);
                 break;
             case "NAME":
                 ret = new FilterOnName(parenthesisContent);

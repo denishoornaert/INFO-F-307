@@ -13,7 +13,7 @@ public class IntersectionFilterOperationControllerTest extends AbstractFilterTes
     
     @Test
     public void test_evaluateFilter_result() throws ParseException {
-        IntersectionFilterOperationController filterTree = new IntersectionFilterOperationController("TYPE(FIRE),TYPE(WATER)");
+        IntersectionFilterOperationModel filterTree = new IntersectionFilterOperationModel("TYPE(FIRE),TYPE(WATER)");
         assertEquals(filterTree.evaluateFilter(_allMarkers).size(), 0);
     }
 }

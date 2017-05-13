@@ -12,7 +12,7 @@ import java.util.List;
  * marker's pokemon type. Identical types will result in the markers being
  * included in the filter results.
  */
-public class FilterOnType extends AbstractFilterController {
+public class FilterOnType extends AbstractFilterModel {
     
     /** Type to compare to the marker's pokemon type */
     private final String _type;

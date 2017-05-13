@@ -9,7 +9,7 @@ import java.util.HashSet;
  * pokemon name. Identical names will result in the markers being included in 
  * the filter results.
  */
-public class FilterOnName extends AbstractFilterController {
+public class FilterOnName extends AbstractFilterModel {
 
     /** Name to compare to the marker's pokemon name */
     private final String _name;

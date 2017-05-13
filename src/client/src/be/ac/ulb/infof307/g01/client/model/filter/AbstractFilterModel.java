@@ -3,9 +3,9 @@ package be.ac.ulb.infof307.g01.client.model.filter;
 /**
  * Interface representing a unique filter on a given piece of data
  */
-public abstract class AbstractFilterController extends AbstractFilterExpressionController {
+public abstract class AbstractFilterModel extends AbstractFilterExpressionModel {
     
-    public AbstractFilterController() {
+    public AbstractFilterModel() {
         super();
     }
     

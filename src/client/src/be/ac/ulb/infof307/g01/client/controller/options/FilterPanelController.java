@@ -1,7 +1,7 @@
 package be.ac.ulb.infof307.g01.client.controller.options;
 
 import be.ac.ulb.infof307.g01.client.controller.app.ServerQueryController;
-import be.ac.ulb.infof307.g01.client.model.filter.IdentityFilterOperationController;
+import be.ac.ulb.infof307.g01.client.model.filter.IdentityFilterOperationModel;
 import be.ac.ulb.infof307.g01.client.controller.map.MarkerController;
 import be.ac.ulb.infof307.g01.client.model.map.MarkerModel;
 import be.ac.ulb.infof307.g01.client.model.map.PokemonCache;
@@ -129,7 +129,7 @@ public class FilterPanelController {
         HashSet<MarkerModel> allMarkers = _markerController.getAllMarkers();
         HashSet<MarkerModel> res = allMarkers;
         try {
-            IdentityFilterOperationController filterExpression = new IdentityFilterOperationController(expression);
+            IdentityFilterOperationModel filterExpression = new IdentityFilterOperationModel(expression);
             res = filterExpression.evaluateFilter(allMarkers);
         } catch (ParseException ex) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage());
