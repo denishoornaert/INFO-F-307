@@ -7,13 +7,14 @@ import be.ac.ulb.infof307.g01.common.model.UserSendableModel;
 import java.security.InvalidParameterException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import static junit.framework.TestCase.fail;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertTrue;
 
 public class MarkerDatabaseModelTest extends AbstractDatabaseTest {
+    
     private final String _markerUsername = "bidon";
     private final String _markerPokemonName = "Arceus";
     private final UserSendableModel _markerUser;

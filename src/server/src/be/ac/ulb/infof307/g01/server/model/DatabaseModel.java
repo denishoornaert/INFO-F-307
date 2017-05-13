@@ -59,7 +59,7 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
      */
     private Connection _connection;
 
-    public static DatabaseModel getInstance() {
+    public static DatabaseModel getInstance() throws IllegalAccessError {
         if(_instance == null) {
             CONFIG = ServerConfiguration.getInstance();
             _instance = new DatabaseModel(CONFIG.getDatabasePath(), CONFIG.getSqlPath());
@@ -67,7 +67,7 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
         return _instance;
     }
     
-    public static DatabaseModel getTestInstance() {
+    public static DatabaseModel getTestInstance() throws IllegalAccessError {
         if(_instance == null) {
             CONFIG = ServerConfiguration.getTestInstance();
             _instance = new DatabaseModel(CONFIG.getTestDatabasePath(), CONFIG.getTestSqlPath());
@@ -80,14 +80,17 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
      *
      * @param pathToDatabase path to database
      * @param pathToSql path to SQL file
+     * @throws IllegalAccessError if database haven't be load
      */
-    protected DatabaseModel(String pathToDatabase, String pathToSql) {
+    protected DatabaseModel(String pathToDatabase, String pathToSql) throws IllegalAccessError {
         try {
             createDatabase(pathToDatabase, pathToSql);
             connectToSqlite(pathToDatabase);
         } catch(IOException | SQLException exception) {
-            LOG.log(Level.SEVERE, "Could not create Database: {0}", exception);
+            String errorMessage = "Could not create Database: " + exception.getMessage();
+            LOG.log(Level.SEVERE, errorMessage);
             System.exit(1);
+            throw new IllegalAccessError(errorMessage);
         }
     }
     
