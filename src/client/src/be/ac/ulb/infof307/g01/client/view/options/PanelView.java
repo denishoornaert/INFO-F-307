@@ -1,6 +1,8 @@
 package be.ac.ulb.infof307.g01.client.view.options;
 
+import be.ac.ulb.infof307.g01.client.controller.app.UserController;
 import be.ac.ulb.infof307.g01.client.controller.options.PanelController;
+import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -29,6 +31,9 @@ public class PanelView extends VBox {
     private Label _emailInfo;
     private Button _signin;
     private Button _signup;
+    private VBox _userBox;
+    private VBox _emailBox;
+    private ArrayList<Separator> separations;
 
     private PanelController _controller;
     
@@ -42,7 +47,8 @@ public class PanelView extends VBox {
     
     private void add(Node... nodes) {
         getChildren().addAll(nodes);
-        getChildren().add(new Separator());
+        separations.add(new Separator());
+        getChildren().add(separations.get(separations.size()-1));
     }
     
     private void initWidgets(){
@@ -50,6 +56,9 @@ public class PanelView extends VBox {
         _title2 = new Label("Informations");
         _signin = new Button("Sign In");
         _signup = new Button("Sign Up");
+        _userBox = new VBox();
+        _emailBox = new VBox();
+        separations = new ArrayList<>();
         initSignInButton();
         initSignUpButton();
     }
@@ -87,6 +96,19 @@ public class PanelView extends VBox {
         _signup.getStyleClass().add("primary");
     }
     
+    private void initSignOutButton() {
+        _signin.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent t) {
+            	   UserController.getInstance().logout();
+                   _signup.setDisable(false);
+                   _signin.setText("Sign In");
+                   removeUser();
+                   initSignInButton();
+            }
+        });
+        _signin.getStyleClass().add("primary");
+    }
+    
     /**
      * Set max width to widget
      * 
@@ -112,9 +134,16 @@ public class PanelView extends VBox {
         _userInfo.setStyle(textFont);
         _emailLabel.setStyle(titleFont);
         _emailInfo.setStyle(textFont);
-        VBox box1 = addAndDefinAlignementBaseLeft(_userLabel);
-        VBox box2 = addAndDefinAlignementBaseLeft(_emailLabel);
-        add(_title2, box1, _userInfo, box2, _emailInfo);
+        _userBox = addAndDefinAlignementBaseLeft(_userLabel);
+        _emailBox = addAndDefinAlignementBaseLeft(_emailLabel);
+        _signup.setDisable(true);
+        _signin.setText("Sign Out");
+        initSignOutButton();
+        add(_title2, _userBox, _userInfo, _emailBox, _emailInfo);
+    }
+    
+    public void removeUser() {
+        getChildren().removeAll(_title2,_userBox,_userInfo,_emailBox,_emailInfo,separations.get(separations.size()-1));
     }
     
     private VBox addAndDefinAlignementBaseLeft(Node node) {

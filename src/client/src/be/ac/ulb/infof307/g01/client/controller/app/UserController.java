@@ -67,6 +67,11 @@ public class UserController {
                 "Your can check your mails and then login.");
     }
 
+    public void logout() {
+        _user = new UserSendableModel("","","");
+        _isConnected = false;
+    }
+    
     public String getEmail() {
         return _user.getEmail();
     }
@@ -82,4 +87,5 @@ public class UserController {
     public boolean isConnected() {
         return _isConnected;
     }
+    
 }
