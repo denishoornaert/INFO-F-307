@@ -273,42 +273,22 @@ public class MarkerSendableModel {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
+        if(this == obj) {
             return true;
         }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
+        if(obj == null || getClass() != obj.getClass()) {
             return false;
         }
         final MarkerSendableModel other = (MarkerSendableModel) obj;
-        if (this._databaseId != other._databaseId && this.hasDatabaseId() && other.hasDatabaseId()) {
-            return false;
-        }
-        if (this._lifePoints != other._lifePoints) {
-            return false;
-        }
-        if (this._attack != other._attack) {
-            return false;
-        }
-        if (this._defense != other._defense) {
-            return false;
-        }
-        if (!Objects.equals(this._username, other._username)) {
-            return false;
-        }
-        if (!Objects.equals(this._pokemon, other._pokemon)) {
-            return false;
-        }
-        if (!Objects.equals(this._coordinate, other._coordinate)) {
-            return false;
-        }
-        if (!Objects.equals(this._longTimestamp, other._longTimestamp)) {
-            return false;
-        }
-        return true;
+        return ((this._databaseId == other._databaseId
+                    || !this.hasDatabaseId()
+                    || !other.hasDatabaseId())
+                && this._lifePoints == other._lifePoints
+                && this._attack == other._attack
+                && this._defense == other._defense
+                && Objects.equals(this._username, other._username)
+                && Objects.equals(this._pokemon, other._pokemon)
+                && Objects.equals(this._coordinate, other._coordinate)
+                && Objects.equals(this._longTimestamp, other._longTimestamp));
     }
-
-    
 }
