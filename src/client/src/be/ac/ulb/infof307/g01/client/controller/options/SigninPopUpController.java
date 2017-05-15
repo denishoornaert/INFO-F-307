@@ -16,7 +16,7 @@ public class SigninPopUpController extends PopUpController {
     private final SigninPopUp _signinPopUp;
     private final PanelController _panelController;
     
-    public SigninPopUpController(PanelController panel) throws InstantiationException {
+    public SigninPopUpController(final PanelController panel) throws InstantiationException {
         super();
         _signinPopUp = new SigninPopUp(this);
         _panelController = panel;
@@ -28,7 +28,7 @@ public class SigninPopUpController extends PopUpController {
      * @param username the user's username
      * @param password the user's password
      */
-    public void authenticate(String username, String password)  {
+    public void authenticate(final String username, final String password)  {
         try {
             UserController.getInstance().authenticate(username, password);
             _panelController.setUser();

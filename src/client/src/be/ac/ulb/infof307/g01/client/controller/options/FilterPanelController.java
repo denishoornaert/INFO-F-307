@@ -41,7 +41,7 @@ public class FilterPanelController {
     private AdvancedFilterPanelView _advancedFilter;
     private HashMap<String, String> _savedFilters;
     
-    public FilterPanelController(MarkerController markerController) {
+    public FilterPanelController(final MarkerController markerController) {
         _filterPanelView = new FilterPanelView();
         _markerController = markerController;
         initTabs();
@@ -52,7 +52,7 @@ public class FilterPanelController {
         _savedTab = new SavedFilterPanelView(this);
         initSavedTab();
         _basicFilter = new BasicFilterPanelView(this);
-        ArrayList<String> allPokemonTypeSelectable = PokemonCache.getInstance().getAllPokemonTypesString();
+        final ArrayList<String> allPokemonTypeSelectable = PokemonCache.getInstance().getAllPokemonTypesString();
         allPokemonTypeSelectable.add(" ");
         _basicFilter.setComboBoxesContent(allPokemonTypeSelectable);
         _advancedFilter = new AdvancedFilterPanelView(this);
@@ -60,8 +60,8 @@ public class FilterPanelController {
     
     private void initSavedTab() {
         _savedFilters = new HashMap<>();
-        List<FilterSendableModel> allFilterModels = ServerQueryController.getInstance().getAllFilter();
-        for(FilterSendableModel filter : allFilterModels) {
+        final List<FilterSendableModel> allFilterModels = ServerQueryController.getInstance().getAllFilter();
+        for(final FilterSendableModel filter : allFilterModels) {
             _savedFilters.put(filter.getName(), filter.getExpression());
         }
         _savedTab.addSavedFilters(_savedFilters.keySet());
@@ -78,7 +78,7 @@ public class FilterPanelController {
      * @param value the boolean value to convert
      * @return "ID" if value is true, "NOT" otherwise
      */
-    private String booleanToString(boolean value) {
+    private String booleanToString(final boolean value) {
         return (value) ? "ID" : "NOT";
     }
     
@@ -94,8 +94,8 @@ public class FilterPanelController {
      * @param andIsSelected True if we must make an AND, OR otherwhise
      * @return the expression
      */
-    private String getRequest(boolean notName, String name, boolean notType1, 
-            String type1, boolean notType2, String type2, boolean andIsSelected) {
+    private String getRequest(final boolean notName, final String name, final boolean notType1, 
+            final String type1, final boolean notType2, final String type2, final boolean andIsSelected) {
         boolean somethingBefore = false;
         String expression = (andIsSelected) ? "AND" : "OR";
         expression += "(";
@@ -116,7 +116,7 @@ public class FilterPanelController {
         return expression;
     }
     
-    private void addNewlySavedFilter(FilterSendableModel filter) {
+    private void addNewlySavedFilter(final FilterSendableModel filter) {
         _savedFilters.put(filter.getName(), filter.getExpression());
         _savedTab.addSavedFilters(_savedFilters.keySet());
     }
@@ -135,15 +135,15 @@ public class FilterPanelController {
      * @param expression the textual expression representing the filter rules
      * @param originFilterPanel the origin panel filter
      */
-    public void applyFilter(String expression, AbstractFilterPanelView originFilterPanel) {
-        HashSet<MarkerModel> allMarkers = _markerController.getAllMarkers();
+    public void applyFilter(final String expression, final AbstractFilterPanelView originFilterPanel) {
+        final HashSet<MarkerModel> allMarkers = _markerController.getAllMarkers();
         HashSet<MarkerModel> res = allMarkers;
         if(originFilterPanel != null) {
             originFilterPanel.showError("");
         }
         
         try {
-            AbstractFilterExpressionModel filter = AbstractFilterExpressionModel.parse(expression);
+            final AbstractFilterExpressionModel filter = AbstractFilterExpressionModel.parse(expression);
             res = filter.evaluateFilter(allMarkers);
         } catch (ParseException ex) {
             if(originFilterPanel != null) {
@@ -160,10 +160,10 @@ public class FilterPanelController {
      * @param expressionName the descriptive name of the expression to save
      * @param expression the filtering expression to save
      */
-    public void saveFilter(String expressionName, String expression) {
+    public void saveFilter(final String expressionName, final String expression) {
         // TODO manage correctly ! to corretly the error message
         if(!expressionName.isEmpty()) {
-            FilterSendableModel filter = new FilterSendableModel(expressionName, expression);
+            final FilterSendableModel filter = new FilterSendableModel(expressionName, expression);
             try {
                 ServerQueryController.getInstance().insertFilter(filter);
                 addNewlySavedFilter(filter);
@@ -190,10 +190,10 @@ public class FilterPanelController {
      * @param andIsSelected
      * @param originFilterPanel
      */
-    public void applyFilter(boolean notName, String name, boolean notType1, 
-            String type1, boolean notType2, String type2, boolean andIsSelected,
-            AbstractFilterPanelView originFilterPanel) {
-        String expression = getRequest(notName, name, notType1, type1, notType2, 
+    public void applyFilter(final boolean notName, final String name, final boolean notType1, 
+            final String type1, final boolean notType2, final String type2, final boolean andIsSelected,
+            final AbstractFilterPanelView originFilterPanel) {
+        final String expression = getRequest(notName, name, notType1, type1, notType2, 
                 type2, andIsSelected);
         applyFilter(expression, originFilterPanel);
     }
@@ -213,10 +213,10 @@ public class FilterPanelController {
      * @param andIsSelected
      * @param orIsSelected 
      */
-    public void saveFilter(String expressionName, boolean notName, String name, 
-            boolean notType1, String type1, boolean notType2, String type2, 
-            boolean andIsSelected, boolean orIsSelected) {
-        String expression = getRequest(notName, name, notType1, type1, notType2, 
+    public void saveFilter(final String expressionName, final boolean notName, final String name, 
+            final boolean notType1, final String type1, final boolean notType2, final String type2, 
+            final boolean andIsSelected, final boolean orIsSelected) {
+        final String expression = getRequest(notName, name, notType1, type1, notType2, 
                 type2, andIsSelected);
         saveFilter(expressionName, expression);
     }
@@ -227,8 +227,8 @@ public class FilterPanelController {
      * @param name the descriptive name of the filter to apply
      * @param originFilterPanel filter panel who this method is call
      */
-    public void applyFilterByName(String name, AbstractFilterPanelView originFilterPanel) {
-        String expression = _savedFilters.get(name);
+    public void applyFilterByName(final String name, final AbstractFilterPanelView originFilterPanel) {
+        final String expression = _savedFilters.get(name);
         if(expression == null) {
             Logger.getLogger(getClass().getName()).log(Level.WARNING, 
                     "Could not get filter with name: {0} (array: {1})", 

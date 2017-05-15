@@ -15,7 +15,8 @@ public class MarkerCreationPopUpController extends AbstractMarkerChangePopUpCont
     
     protected CoordinateSendableModel _newMarkerCoordinate;
     
-    public MarkerCreationPopUpController(MarkerController markerController, double coordinateX, double coordinateY) throws InstantiationException {
+    public MarkerCreationPopUpController(final MarkerController markerController,
+            final double coordinateX, final double coordinateY) throws InstantiationException {
         super(markerController);
         _markerPopUp = new MarkerCreationPopUp(this, PokemonCache.getInstance().getAllPokemonNames());
         _markerPopUp.setPokemonView(_defaultImagePath);
@@ -23,15 +24,16 @@ public class MarkerCreationPopUpController extends AbstractMarkerChangePopUpCont
     }
     
     @Override
-    public void endPopUpMarker(String pokemonName, int lifePoint, int attack, int defense, Timestamp dateView) {
+    public void endPopUpMarker(final String pokemonName, final int lifePoint,
+            final int attack, final int defense, final Timestamp dateView) {
         super.endPopUpMarker(pokemonName, lifePoint, attack, defense, dateView);
         if(isPokemonNameNotEmpty(pokemonName)) { 
-            PokemonModel pokemon = PokemonCache.getInstance().getPokemonByName(pokemonName);
+            final PokemonModel pokemon = PokemonCache.getInstance().getPokemonByName(pokemonName);
             _markerController.createMarker(pokemon, _newMarkerCoordinate, lifePoint, attack, defense, dateView);
         } 
     }
     
-    public void askForCreateMarker(double coordinateX, double coordinateY) {
+    public void askForCreateMarker(final double coordinateX, final double coordinateY) {
         if(_markerPopUp == null) {
             // Converts from event coordinate (centered in the upper left corner)
             // to marker coordinate (centered in the middle of the image)

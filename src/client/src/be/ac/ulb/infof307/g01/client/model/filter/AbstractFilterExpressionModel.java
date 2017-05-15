@@ -25,13 +25,13 @@ public abstract class AbstractFilterExpressionModel {
      * @param expression The expression to parse
      * @throws ParseException if given expression has incorrect syntax
      */
-    public AbstractFilterExpressionModel(String expression) throws ParseException {
+    public AbstractFilterExpressionModel(final String expression) throws ParseException {
         this();
-        ArrayList<String> splitParam = splitParameters(expression);
+        final ArrayList<String> splitParam = splitParameters(expression);
         if(splitParam == null || splitParam.isEmpty()) {
             throw new ParseException("Could not split null/empty element", 0);
         }
-        for(String parameter : splitParam) {
+        for(final String parameter : splitParam) {
             _expressions.add(parse(parameter));
         }
     }
@@ -48,7 +48,7 @@ public abstract class AbstractFilterExpressionModel {
      * @param expression the textual expression to parse
      * @return the content of the first parenthesis
      */
-    static protected String getParenthesisContent(String expression) {
+    static protected String getParenthesisContent(final String expression) {
         return AbstractFilterExpressionModel.getParenthesisContent(expression, 0);
     }
     

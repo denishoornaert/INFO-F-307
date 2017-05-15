@@ -27,7 +27,7 @@ public class MarkerController {
     private final MapView _mapView;
     private Integer _newMarkerId;
     
-    public MarkerController(MapView mapView) {
+    public MarkerController(final MapView mapView) {
         this._markerMap = new HashMap<>();
         this._newMarkerId = 0;
         _mapView = mapView;
@@ -42,11 +42,11 @@ public class MarkerController {
      * @param defense the defense of the spotted pokemon
      * @param date the date at which the pokemon was spotted
      */
-    public void createMarker(PokemonModel pokemon, CoordinateSendableModel newMarkerCoordinates, 
-            int lifePoint, int attack, int defense, Timestamp date) {
-    	String username = UserController.getInstance().getUsername();
+    public void createMarker(final PokemonModel pokemon, final CoordinateSendableModel newMarkerCoordinates, 
+            final int lifePoint, final int attack, final int defense, final Timestamp date) {
+    	final String username = UserController.getInstance().getUsername();
         try {
-            MarkerModel marker = new MarkerModel(pokemon, newMarkerCoordinates, username, 
+            final MarkerModel marker = new MarkerModel(pokemon, newMarkerCoordinates, username, 
                     lifePoint, attack, defense, date);
             displayAndAddMarker(marker);
         } catch(InvalidParameterException exception){
@@ -58,9 +58,9 @@ public class MarkerController {
      * Displays a list of markers and hides the remaining ones.
      * @param listMarker the list of markers to display.
      */
-    public void displaySelectMarkers(HashSet<MarkerModel> listMarker) {
-        for(Integer id : _markerMap.keySet()) {
-            MarkerModel marker = _markerMap.get(id);
+    public void displaySelectMarkers(final HashSet<MarkerModel> listMarker) {
+        for(final Integer id : _markerMap.keySet()) {
+            final MarkerModel marker = _markerMap.get(id);
             if(listMarker.contains(marker)) {
                 _mapView.displayMarker(id);
             } else {
@@ -73,7 +73,7 @@ public class MarkerController {
      * Adds a marker to the list of controlled markers and displays it.
      * @param marker the marker to add
      */
-    public void displayAndAddMarker(MarkerModel marker) {
+    public void displayAndAddMarker(final MarkerModel marker) {
         _markerMap.put(_newMarkerId, marker);
         _mapView.createMarker(marker, _newMarkerId);
         
@@ -85,7 +85,7 @@ public class MarkerController {
      * @param markerId the marker Id
      * @return the marker whose id corresponds to the provided id
      */
-    public MarkerModel getMarkerModelFromId(int markerId) {
+    public MarkerModel getMarkerModelFromId(final int markerId) {
         return _markerMap.get(markerId);
     }
 
@@ -99,9 +99,9 @@ public class MarkerController {
      * @param defense the defense of the spotted pokemon
      * @param dateView the timestamp at which the pokemon was spotted
      */
-    public void updateMarker(int markerId, PokemonModel pokemon, int lifePoint, 
-            int attack, int defense, Timestamp dateView) {
-        MarkerModel marker = _markerMap.get(markerId);
+    public void updateMarker(final int markerId, final PokemonModel pokemon,
+            final int lifePoint,  final int attack, final int defense, final Timestamp dateView) {
+        final MarkerModel marker = _markerMap.get(markerId);
         try{
             marker.update(pokemon, lifePoint, attack, defense, dateView);
         } catch(InvalidParameterException exception){
@@ -114,7 +114,7 @@ public class MarkerController {
      * @return a HashSet containing every MarkerModel on the map
      */
     public HashSet<MarkerModel> getAllMarkers() {
-        HashSet<MarkerModel> result = new HashSet<>();
+        final HashSet<MarkerModel> result = new HashSet<>();
         result.addAll(_markerMap.values());
         return result;
     }
