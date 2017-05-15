@@ -68,8 +68,13 @@ public class MarkerDetailsPopUpController extends AbstractMarkerPopUpController 
         } catch(InvalidParameterException exception){
             MessagePopUpController.createPopUpOrLog(Level.SEVERE, exception.getMessage());
         }
-        _detailsPopUp.enableUpVoteButton();
-        _detailsPopUp.disableDownVoteButton();
+        if(isUpVote) {
+            _detailsPopUp.disableUpVoteButton();
+            _detailsPopUp.enableDownVoteButton();
+        } else {
+            _detailsPopUp.enableUpVoteButton();
+            _detailsPopUp.disableDownVoteButton();
+        }
         updateVoteView();
     }
     
