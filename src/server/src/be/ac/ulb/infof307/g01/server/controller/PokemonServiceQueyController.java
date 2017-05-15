@@ -9,8 +9,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 /**
- *
- * @author Groupe 1
+ * Handles pokemon-related client queries.
+ * Network communications follow the RESTFul protocol, using the Jersey library.
  */
 @Path("pokemon")
 public class PokemonServiceQueyController {

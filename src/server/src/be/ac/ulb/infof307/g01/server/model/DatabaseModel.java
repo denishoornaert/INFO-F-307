@@ -34,9 +34,9 @@ import java.util.logging.Logger;
  * Class that interacts with the database.
  * 
  * This class implements all queries needed in the application. It is not
- * inteded to be used directly, but rather through one of the implemented
+ * intended to be used directly, but rather through one of the implemented
  * interfaces. This way, a class needing a database access is only allowed
- * to call a subset of all the database methods, according to the responsability
+ * to call a subset of all the database methods, according to the responsibility
  * of this class.
  * 
  * For example, if a class need to access only pokemon types in the database:
@@ -45,8 +45,8 @@ import java.util.logging.Logger;
  * // Now database allows to call only queries related to pokemon types.
  * }
  * 
- * Note: This class doesn't implements ConnectionQueryController, since this
- * interface requires a `signup` method taking a UserSendableModel, but the
+ * Note: This class doesn't implement ConnectionQueryController, since this
+ * interface requires a "signup" method taking a UserSendableModel, but the
  * database requires a token as well in order to register a user.
  */
 public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryController,
