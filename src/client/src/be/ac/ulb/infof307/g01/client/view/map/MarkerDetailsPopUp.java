@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -34,7 +35,7 @@ public class MarkerDetailsPopUp extends AbstractMarkerPopUp {
     private Button _downVoteButton;
     
     private Button _closeButton;
-        
+    
     public MarkerDetailsPopUp(final MarkerDetailsPopUpController controller) {
         super(controller, 0);
         _controller = controller;
@@ -74,8 +75,11 @@ public class MarkerDetailsPopUp extends AbstractMarkerPopUp {
     
     private void initVoteButton(final Button button, final boolean isUpVote) {
         button.getStyleClass().add("primary");
-        button.setOnAction((ActionEvent event) -> {
-            _controller.addVote(isUpVote);
+        button.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(final ActionEvent event) {
+                _controller.addVote(isUpVote);
+            }
         });
     }
     
@@ -93,7 +97,8 @@ public class MarkerDetailsPopUp extends AbstractMarkerPopUp {
         ObservableList<Node> children = _voteBox.getChildren();
         children.addAll(_downVoteButton, _voteScoreLabel, _upVoteButton);
         children = _vbox.getChildren();
-        children.addAll(_pokemonName, _date, _username, _lifeLabel, _attackLabel, _defenseLabel, _voteBox, _closeButton);
+        children.addAll(_pokemonName, _date, _username, _lifeLabel, _attackLabel, 
+                _defenseLabel, _voteBox, _closeButton);
         add(_vbox);
     }
     
