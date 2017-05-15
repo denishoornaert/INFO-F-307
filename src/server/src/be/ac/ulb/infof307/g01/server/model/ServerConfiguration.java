@@ -5,11 +5,8 @@ import java.io.File;
 import java.net.URL;
 
 /**
- * Singleton class containing the magic numbers and strings required to 
- * configure the server program.
- *
- * @author Groupe01
- */
+ * Singleton required to configure server.
+*/
 public class ServerConfiguration extends ConfigurationModel {
     
     private static ServerConfiguration _configuration = null;
