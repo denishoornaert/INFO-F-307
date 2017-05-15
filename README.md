@@ -96,9 +96,15 @@ Les tests fonctionnent avec Junit.
 ## Screenshot
 
 ![Interface Général](./team/images/demo0.png)                      
+
 ![Information](./team/images/demo1.png)                      
+
 ![Start Server](./team/images/demo2.png)                      
+
 ![Sign In](./team/images/demo3.png)                      
+
 ![Sign Up](./team/images/demo4.png)                      
+
 ![Terms and conditions](./team/images/demo5.png)                      
+
 ![Create](./team/images/demo6.png)                      
