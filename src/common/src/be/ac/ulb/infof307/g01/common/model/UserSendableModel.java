@@ -6,11 +6,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- *
- * @author Groupe01
+/** 
+ * Represents a user.
+ * A user has a username, password and e-mail.
+ * The sendable keyword indicates the object can be serialized and sent 
+ * over the network.
  */
-
 @XmlRootElement
 public class UserSendableModel {
     
@@ -18,7 +19,11 @@ public class UserSendableModel {
     private String _password;
     private String _email;
     
-    public UserSendableModel() { } // Do not remove !
+    /**
+     * Default constructor.
+     * Required by Jersey.
+     */
+    public UserSendableModel() { }
 
     public UserSendableModel(String username, String password) {
         this(username, "", password);
@@ -54,25 +59,16 @@ public class UserSendableModel {
         return res;
     }
 
-    /**
-     * @param _username the _username to set
-     */
-    public void setUsername(String _username) {
-        this._username = _username;
+    public void setUsername(String username) {
+        this._username = username;
     }
 
-    /**
-     * @param _password the _password to set
-     */
-    public void setPassword(String _password) {
-        this._password = _password;
+    public void setPassword(String password) {
+        this._password = password;
     }
 
-    /**
-     * @param _email the _email to set
-     */
-    public void setEmail(String _email) {
-        this._email = _email;
+    public void setEmail(String email) {
+        this._email = email;
     }
     
 }
