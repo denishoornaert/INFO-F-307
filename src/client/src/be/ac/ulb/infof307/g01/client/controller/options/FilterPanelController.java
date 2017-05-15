@@ -108,7 +108,7 @@ public class FilterPanelController {
             expression += booleanToString(notType1)+"(TYPE("+type1+"))";
             somethingBefore = true;
         }
-        if(type2 != null || !" ".equals(type1)) {
+        if(type2 != null || !" ".equals(type2)) {
             expression += (somethingBefore) ? "," : "";
             expression += booleanToString(notType2)+"(TYPE("+type2+"))";
         }
