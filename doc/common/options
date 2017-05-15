@@ -1,0 +1,24 @@
+-classpath
+'/home/remy/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/home/remy/.m2/repository/org/xerial/sqlite-jdbc/3.16.1/sqlite-jdbc-3.16.1.jar:/home/remy/.m2/repository/junit/junit/4.12/junit-4.12.jar'
+-encoding
+'UTF-8'
+-protected
+-sourcepath
+'/home/remy/Documents/BA3/GénieLogiciel/Groupe01/src/common/src'
+-author
+-bottom
+'Copyright &#169; 2017. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'/home/remy/Documents/BA3/GénieLogiciel/Groupe01/src/common/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'common 1.0 API'
+-linkoffline
+'http://docs.oracle.com/javase/8/docs/api' '/home/remy/Documents/BA3/GénieLogiciel/Groupe01/src/common/target/javadoc-bundle-options'
+-use
+-version
+-windowtitle
+'common 1.0 API'
