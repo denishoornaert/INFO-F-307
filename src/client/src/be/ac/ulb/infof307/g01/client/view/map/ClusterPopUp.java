@@ -23,7 +23,7 @@ public class ClusterPopUp extends AbstractPopUp {
     private Label _message;
     private Button _closeButton;
     
-    public ClusterPopUp(ClusterPopUpController controller) {
+    public ClusterPopUp(final ClusterPopUpController controller) {
         super(controller);
         initWidgets();
         placeWidgets();
@@ -67,7 +67,7 @@ public class ClusterPopUp extends AbstractPopUp {
         super.setSize(350, 350);
     }
     
-    public void setPokemons(ArrayList<PokemonModel> pokemons) {
+    public void setPokemons(final ArrayList<PokemonModel> pokemons) {
         _pokemonPanel.setPokemons(pokemons);
     }
     

@@ -37,7 +37,7 @@ public class PanelView extends VBox {
 
     private final PanelController _controller;
     
-    public PanelView(PanelController panel) {
+    public PanelView(final PanelController panel) {
         _controller = panel;
         
         initWidgets();
@@ -45,7 +45,7 @@ public class PanelView extends VBox {
         initStyle();
     }
     
-    private void add(Node... nodes) {
+    private void add(final Node... nodes) {
         getChildren().addAll(nodes);
         separations.add(new Separator());
         getChildren().add(separations.get(separations.size()-1));
@@ -80,7 +80,8 @@ public class PanelView extends VBox {
     
     private void initSignInButton() {
         _signin.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent t) {
+            @Override
+            public void handle(final ActionEvent t) {
             	_controller.openSignin();
             }
         });
@@ -89,7 +90,8 @@ public class PanelView extends VBox {
     
     private void initSignUpButton() {
         _signup.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent t) {
+            @Override
+            public void handle(final ActionEvent t) {
             	_controller.openSignUp();
             }
         });
@@ -98,7 +100,8 @@ public class PanelView extends VBox {
     
     private void initSignOutButton() {
         _signin.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent t) {
+            @Override
+            public void handle(final ActionEvent t) {
             	   UserController.getInstance().logout();
                    _signup.setDisable(false);
                    _signin.setText("Sign In");
@@ -114,22 +117,22 @@ public class PanelView extends VBox {
      * 
      * @param control the current gui element
      */
-    private void setXExpandPolicy(Control control) {
+    private void setXExpandPolicy(final Control control) {
         HBox.setHgrow(control, Priority.ALWAYS);
         control.setMaxWidth(185);
         control.setMaxHeight(5);
     }
     
-    public void setUser(String username, String email) {
-        Insets defaultPadding = new Insets(0, 0, 0, 8);
+    public void setUser(final String username, final String email) {
+        final Insets defaultPadding = new Insets(0, 0, 0, 8);
         _userLabel = new Label("User : ");
         _userLabel.setPadding(defaultPadding);
         _emailLabel = new Label("Email : ");
         _emailLabel.setPadding(defaultPadding);
         _userInfo = new Label(username);
         _emailInfo = new Label(email);
-        String titleFont = "-fx-font-size:12px Tahoma";
-        String textFont = "-fx-font-size:11px Tahoma";
+        final String titleFont = "-fx-font-size:12px Tahoma";
+        final String textFont = "-fx-font-size:11px Tahoma";
         _userLabel.setStyle(titleFont);
         _userInfo.setStyle(textFont);
         _emailLabel.setStyle(titleFont);
@@ -147,18 +150,19 @@ public class PanelView extends VBox {
                 separations.get(separations.size()-1));
     }
     
-    private VBox addAndDefinAlignementBaseLeft(Node node) {
-        VBox box = new VBox();
+    private VBox addAndDefinAlignementBaseLeft(final Node node) {
+        final VBox box = new VBox();
         box.getChildren().add(node);
         box.setAlignment(Pos.BASELINE_LEFT);
         return box;
     }
     
-    public void setWidget(FilterPanelView filterView) {
+    public void setWidget(final FilterPanelView filterView) {
         add(filterView);
-        Button reset = new Button("Reset");
+        final Button reset = new Button("Reset");
         reset.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent t) {
+            @Override
+            public void handle(final ActionEvent t) {
             	_controller.resetResearch();
             }
         });

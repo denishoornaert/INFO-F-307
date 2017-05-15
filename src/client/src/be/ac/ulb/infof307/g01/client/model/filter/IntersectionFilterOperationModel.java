@@ -13,15 +13,15 @@ public class IntersectionFilterOperationModel extends AbstractFilterExpressionMo
      * @param expression the expression to parse
      * @throws ParseException if the expression has an incorrect syntax
      */
-    public IntersectionFilterOperationModel(String expression) throws ParseException {
+    public IntersectionFilterOperationModel(final String expression) throws ParseException {
         super(expression);
     }
 
     @Override
-    public HashSet<MarkerModel> evaluateFilter(HashSet<MarkerModel> allMarkers) {
-        HashSet<MarkerModel> markersToReturn = new HashSet<>(allMarkers);
-        for(AbstractFilterExpressionModel expression : _expressions) {
-            HashSet<MarkerModel> tmp = expression.evaluateFilter(allMarkers);
+    public HashSet<MarkerModel> evaluateFilter(final HashSet<MarkerModel> allMarkers) {
+        final HashSet<MarkerModel> markersToReturn = new HashSet<>(allMarkers);
+        for(final AbstractFilterExpressionModel expression : _expressions) {
+            final HashSet<MarkerModel> tmp = expression.evaluateFilter(allMarkers);
             markersToReturn.retainAll(tmp);
         }
         return markersToReturn;

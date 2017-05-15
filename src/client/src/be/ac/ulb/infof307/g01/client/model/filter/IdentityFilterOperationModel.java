@@ -14,11 +14,11 @@ public class IdentityFilterOperationModel extends AbstractFilterExpressionModel 
      * @param expression the expression to parse
      * @throws ParseException if the expression has an incorrect syntax
      */
-    public IdentityFilterOperationModel(String expression) throws ParseException {
+    public IdentityFilterOperationModel(final String expression) throws ParseException {
         super(expression);
     }
     @Override
-    public HashSet<MarkerModel> evaluateFilter(HashSet<MarkerModel> allMarkers) {
+    public HashSet<MarkerModel> evaluateFilter(final HashSet<MarkerModel> allMarkers) {
         return _expressions.get(0).evaluateFilter(allMarkers);
     }
     

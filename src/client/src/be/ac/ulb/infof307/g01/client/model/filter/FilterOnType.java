@@ -21,17 +21,17 @@ public class FilterOnType extends AbstractFilterModel {
      * Creates a FilterOnType instance for the provided pokemon type.
      * @param type The pokemon type to filter
      */
-    public FilterOnType(String type) {
+    public FilterOnType(final String type) {
         super();
         _type = type;
     }
 
     @Override
-    public HashSet<MarkerModel> evaluateFilter(HashSet<MarkerModel> allMarkers) {
-        HashSet<MarkerModel> markersToReturn = new HashSet<>();
-        for(MarkerModel marker : allMarkers) {
-            PokemonModel pokemon = marker.getPokemon();
-            List<String> allTypes = Arrays.asList(pokemon.getTypeNames());
+    public HashSet<MarkerModel> evaluateFilter(final HashSet<MarkerModel> allMarkers) {
+        final HashSet<MarkerModel> markersToReturn = new HashSet<>();
+        for(final MarkerModel marker : allMarkers) {
+            final PokemonModel pokemon = marker.getPokemon();
+            final List<String> allTypes = Arrays.asList(pokemon.getTypeNames());
             if(allTypes.contains(_type)) {
                 markersToReturn.add(marker);
             }

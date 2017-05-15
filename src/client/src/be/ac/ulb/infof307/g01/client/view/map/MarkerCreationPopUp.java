@@ -21,7 +21,8 @@ public class MarkerCreationPopUp extends AbstractMarkerChangePopUp {
     private static final int MAX_HOURS = 24;
     private static final int MAX_MINUTES = 60;
     
-    public MarkerCreationPopUp(MarkerCreationPopUpController controller, ArrayList<String> pokemonsName) {
+    public MarkerCreationPopUp(final MarkerCreationPopUpController controller,
+            final ArrayList<String> pokemonsName) {
         super(controller, pokemonsName);
         hideTwitterButton();
     }
@@ -35,7 +36,7 @@ public class MarkerCreationPopUp extends AbstractMarkerChangePopUp {
     
     @Override
     protected Spinner createSpinner() {
-        Spinner spin = new Spinner<>(0, Integer.MAX_VALUE, 0);
+        final Spinner spin = new Spinner<>(0, Integer.MAX_VALUE, 0);
         spin.setPrefWidth(100);
         return spin;
     }
@@ -51,14 +52,14 @@ public class MarkerCreationPopUp extends AbstractMarkerChangePopUp {
     
     @Override
     protected Calendar initCalendar() {
-        Date date = new Date();
-        Calendar calendar = GregorianCalendar.getInstance();
+        final Date date = new Date();
+        final Calendar calendar = GregorianCalendar.getInstance();
         calendar.setTime(date);
         return calendar;
     }
     
     @Override
-    protected void initComboBoxHour(int hour) {
+    protected void initComboBoxHour(final int hour) {
         _dateHour = new ComboBox();
         setComboBox(_dateHour, MAX_HOURS, hour);
         _dateHour.setPromptText(Integer.toString(hour));
@@ -66,14 +67,14 @@ public class MarkerCreationPopUp extends AbstractMarkerChangePopUp {
     }
 
     @Override
-    protected void initComboBoxMinutes(int minute) {
+    protected void initComboBoxMinutes(final int minute) {
         _dateMinute = new ComboBox();
         setComboBox(_dateMinute, MAX_MINUTES, minute);
         _dateMinute.setPromptText(Integer.toString(minute));
     }
     
     @Override
-    protected void setDatePicker(DatePicker picker) {
+    protected void setDatePicker(final DatePicker picker) {
         picker.setValue(LocalDate.now());
     }
     

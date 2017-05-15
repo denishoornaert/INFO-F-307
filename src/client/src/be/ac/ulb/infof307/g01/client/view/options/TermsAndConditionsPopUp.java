@@ -18,7 +18,7 @@ public class TermsAndConditionsPopUp extends AbstractPopUp {
     TextArea _text;
     Button _closeButton;
     
-    public TermsAndConditionsPopUp(TermsAndConditionsPopUpController controller) {
+    public TermsAndConditionsPopUp(final TermsAndConditionsPopUpController controller) {
         super(controller);
         initWidgets();
         placeWidgets();
@@ -47,7 +47,7 @@ public class TermsAndConditionsPopUp extends AbstractPopUp {
         _text.setMaxWidth(Double.MAX_VALUE);
     }
     
-    public void setText(String text) {
+    public void setText(final String text) {
         _text.setText(text);
     }
     

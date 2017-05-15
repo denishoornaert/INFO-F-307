@@ -42,42 +42,42 @@ public class AbstractFilterExpressionControllerTest {
     @Test
     public void test_parse_orStatement() throws ParseException {
         final String orStatement = "OR(NAME(X),TYPE(Y))";
-        AbstractFilterExpressionModel filterTree = AbstractFilterExpressionModel.parse(orStatement);
+        final AbstractFilterExpressionModel filterTree = AbstractFilterExpressionModel.parse(orStatement);
         assertTrue(filterTree instanceof UnionFilterOperationModel);
     }
     
     @Test
     public void test_parse_andStatement() throws ParseException {
         final String andStatement = "AND(NAME(X),TYPE(Y))";
-        AbstractFilterExpressionModel filterTree = AbstractFilterExpressionModel.parse(andStatement);
+        final AbstractFilterExpressionModel filterTree = AbstractFilterExpressionModel.parse(andStatement);
         assertTrue(filterTree instanceof IntersectionFilterOperationModel);
     }
     
     @Test
     public void test_parse_notStatement() throws ParseException {
         final String notStatement = "NOT(NAME(X))";
-        AbstractFilterExpressionModel filterTree = AbstractFilterExpressionModel.parse(notStatement);
+        final AbstractFilterExpressionModel filterTree = AbstractFilterExpressionModel.parse(notStatement);
         assertTrue(filterTree instanceof NegationFilterOperationModel);
     }
     
     @Test
     public void test_parse_idStatement() throws ParseException {
         final String idStatement = "ID(NAME(X))";
-        AbstractFilterExpressionModel filterTree = AbstractFilterExpressionModel.parse(idStatement);
+        final AbstractFilterExpressionModel filterTree = AbstractFilterExpressionModel.parse(idStatement);
         assertTrue(filterTree instanceof IdentityFilterOperationModel);
     }
     
     @Test
     public void test_parse_nameStatement() throws ParseException {
         final String nameStatement = "NAME(X)";
-        AbstractFilterExpressionModel filterTree = AbstractFilterExpressionModel.parse(nameStatement);
+        final AbstractFilterExpressionModel filterTree = AbstractFilterExpressionModel.parse(nameStatement);
         assertTrue(filterTree instanceof FilterOnName);
     }
     
     @Test
     public void test_parse_typeStatement() throws ParseException {
         final String typeStatement = "TYPE(Y)";
-        AbstractFilterExpressionModel filterTree = AbstractFilterExpressionModel.parse(typeStatement);
+        final AbstractFilterExpressionModel filterTree = AbstractFilterExpressionModel.parse(typeStatement);
         assertTrue(filterTree instanceof FilterOnType);
     }
     
@@ -106,7 +106,7 @@ public class AbstractFilterExpressionControllerTest {
     public void test_splitParameters() {
         final String[] initialParameters = {"A", "B", "CD", "E"};
         final String expression = String.join(",", initialParameters);
-        ArrayList<String> parameters = AbstractFilterExpressionModel.splitParameters(expression);
+        final ArrayList<String> parameters = AbstractFilterExpressionModel.splitParameters(expression);
         assertEquals(Arrays.asList(initialParameters), parameters);
     }
     
@@ -114,7 +114,7 @@ public class AbstractFilterExpressionControllerTest {
     public void test_splitParametersWithConfusingParenthesis() throws Exception {
         final String[] initialParameters = {"(A,B)", "C", "(D,(E))", "((F,G),H)"};
         final String expression = String.join(",", initialParameters);
-        ArrayList<String> parameters = AbstractFilterExpressionModel.splitParameters(expression);
+        final ArrayList<String> parameters = AbstractFilterExpressionModel.splitParameters(expression);
         assertEquals(Arrays.asList(initialParameters), parameters);
     }
 }

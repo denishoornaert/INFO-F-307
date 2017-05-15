@@ -12,8 +12,8 @@ public class ComplexFilterTest extends AbstractFilterTest {
     
     @Test
     public void test_parse_complexFilter() throws ParseException {
-        String complexExpression = "OR(NOT(ID(NOT(AND(NOT(AND(TYPE(WATER),TYPE(FIRE))),NOT(NAME(P1)))))),NAME(P1))";
-        AbstractFilterExpressionModel complexFilter = AbstractFilterExpressionModel.parse(complexExpression);
+        final String complexExpression = "OR(NOT(ID(NOT(AND(NOT(AND(TYPE(WATER),TYPE(FIRE))),NOT(NAME(P1)))))),NAME(P1))";
+        final AbstractFilterExpressionModel complexFilter = AbstractFilterExpressionModel.parse(complexExpression);
         assertTrue(complexFilter.evaluateFilter(_allMarkers).equals(_allMarkers));
     }
 }

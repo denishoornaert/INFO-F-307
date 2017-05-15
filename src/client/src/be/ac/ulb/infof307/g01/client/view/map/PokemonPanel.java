@@ -43,8 +43,8 @@ public class PokemonPanel extends StackPane {
         this.getChildren().add(_scroll);
     }
     
-    public void setPokemons(ArrayList<PokemonModel> pokemons) {
-        for (PokemonModel pokemon : pokemons) {
+    public void setPokemons(final ArrayList<PokemonModel> pokemons) {
+        for (final PokemonModel pokemon : pokemons) {
             _flow.getChildren().add(new PokemonLabel(pokemon));
         }
     }

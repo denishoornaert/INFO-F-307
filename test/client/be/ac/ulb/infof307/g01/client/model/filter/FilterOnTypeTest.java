@@ -12,19 +12,19 @@ public class FilterOnTypeTest extends AbstractFilterTest {
     
     @Test
     public void test_evaluateFilter_FIRE() throws ParseException {
-        FilterOnType filter = new FilterOnType("FIRE");
+        final FilterOnType filter = new FilterOnType("FIRE");
         assertEquals(filter.evaluateFilter(_allMarkers).size(), 2);
     }
     
     @Test
     public void test_evaluateFilter_WATER() throws ParseException {
-        FilterOnType filter = new FilterOnType("WATER");
+        final FilterOnType filter = new FilterOnType("WATER");
         assertEquals(filter.evaluateFilter(_allMarkers).size(), 5);
     }
     
     @Test
     public void test_evaluateFilter_BUG() throws ParseException {
-        FilterOnType filter = new FilterOnType("BUG");
+        final FilterOnType filter = new FilterOnType("BUG");
         assertEquals(filter.evaluateFilter(_allMarkers).size(), 6);
     }
 }

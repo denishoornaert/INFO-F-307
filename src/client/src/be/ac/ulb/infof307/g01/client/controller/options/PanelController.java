@@ -14,7 +14,7 @@ public class PanelController {
     private final PanelView _panelView;
     private final FilterPanelController _filterPanelController;
     
-    public PanelController(MarkerController markerController) {
+    public PanelController(final MarkerController markerController) {
         _panelView = new PanelView(this);
         _filterPanelController = new FilterPanelController(markerController);
         _panelView.setWidget(_filterPanelController.getView());
@@ -25,8 +25,8 @@ public class PanelController {
      * to ClientConfiguration.
      */
     public void setUser() {
-        String username = UserController.getInstance().getUsername();
-        String email = UserController.getInstance().getEmail();
+        final String username = UserController.getInstance().getUsername();
+        final String email = UserController.getInstance().getEmail();
         _panelView.setUser(username,email);
     }
     

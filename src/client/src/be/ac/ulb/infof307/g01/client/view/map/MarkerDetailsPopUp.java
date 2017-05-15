@@ -37,7 +37,7 @@ public class MarkerDetailsPopUp extends AbstractMarkerPopUp {
     
     private Button _closeButton;
         
-    public MarkerDetailsPopUp(MarkerDetailsPopUpController controller) {
+    public MarkerDetailsPopUp(final MarkerDetailsPopUpController controller) {
         super(controller, 0);
         _controller = controller;
         initWidgets();
@@ -52,8 +52,8 @@ public class MarkerDetailsPopUp extends AbstractMarkerPopUp {
         _vbox = new VBox();
         _vbox.setAlignment(Pos.CENTER);
         _pokemonName = new Label("Name : "+ _controller.getPokemonName());
-        Timestamp date = _controller.getTimestamp();
-        String formatingDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(date);
+        final Timestamp date = _controller.getTimestamp();
+        final String formatingDate = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(date);
         _date = new Label("Date : "+formatingDate);
         _username = new Label("User : " + _controller.getUsername());
         _closeButton = getCloseButton("Close", "danger");
@@ -74,7 +74,7 @@ public class MarkerDetailsPopUp extends AbstractMarkerPopUp {
         initUpVoteButton();
     }
     
-    private void initVoteButton(Button button, boolean isUpVote) {
+    private void initVoteButton(final Button button, final boolean isUpVote) {
         button.getStyleClass().add("primary");
         button.setOnAction((ActionEvent event) -> {
             _controller.addVote(isUpVote);
@@ -104,7 +104,7 @@ public class MarkerDetailsPopUp extends AbstractMarkerPopUp {
      * 
      * @param score the new score
      */
-    public void updateVoteView(int score) {
+    public void updateVoteView(final int score) {
         _voteScoreLabel.setText("Votes : " + score);
     }
     

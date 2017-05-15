@@ -32,7 +32,7 @@ public class MapController {
      * Requests the list of markers from the marker controller and displays them.
      */
     private void initMarkers() {
-        for(MarkerSendableModel markerSendableModel : _query.getAllMarkers()) {
+        for(final MarkerSendableModel markerSendableModel : _query.getAllMarkers()) {
             getMarkerController().displayAndAddMarker(new MarkerModel(markerSendableModel));
         }
     }

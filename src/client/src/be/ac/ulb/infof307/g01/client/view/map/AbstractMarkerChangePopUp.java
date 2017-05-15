@@ -53,13 +53,13 @@ public abstract class AbstractMarkerChangePopUp extends AbstractMarkerPopUp {
     private final ArrayList<String> _pokemonNames;
     protected final AbstractMarkerChangePopUpController _controller;
     
-    public AbstractMarkerChangePopUp(AbstractMarkerChangePopUpController controller, 
-            ArrayList<String> pokemonsName) {
+    public AbstractMarkerChangePopUp(final AbstractMarkerChangePopUpController controller, 
+            final ArrayList<String> pokemonsName) {
         this(controller, pokemonsName, DEFAULT_MARKER_ID); 
     }
     
-    public AbstractMarkerChangePopUp(AbstractMarkerChangePopUpController controller, 
-            ArrayList<String> pokemonsName, int markerId) {
+    public AbstractMarkerChangePopUp(final AbstractMarkerChangePopUpController controller, 
+            final ArrayList<String> pokemonsName, final int markerId) {
         super(controller, markerId);
         _pokemonNames = new ArrayList<>(pokemonsName);
         Collections.sort(_pokemonNames);
@@ -86,19 +86,19 @@ public abstract class AbstractMarkerChangePopUp extends AbstractMarkerPopUp {
     
     protected abstract void initSpinners();
     
-    private int getSpinnerValue(Spinner spin) {
+    private int getSpinnerValue(final Spinner spin) {
         return (Integer) spin.getValue();
     }
         
     protected Spinner createSpinner() {
-        Spinner spin = new Spinner<>(0, Integer.MAX_VALUE, 0);
+        final Spinner spin = new Spinner<>(0, Integer.MAX_VALUE, 0);
         spin.setPrefWidth(100);
         return spin;
     }
     
     private void initComboBoxes() {
         initComboBoxPokemonName();
-        Calendar calendar = initCalendar();
+        final Calendar calendar = initCalendar();
         initComboBoxHour(calendar.get(Calendar.HOUR_OF_DAY));
         initComboBoxMinutes(calendar.get(Calendar.MINUTE));
     }
@@ -131,7 +131,7 @@ public abstract class AbstractMarkerChangePopUp extends AbstractMarkerPopUp {
     
     protected void initComboBoxPokemonNameEventItemSelected() {
         _pokemonName.setOnAction((event) -> {
-            Object object = _pokemonName.getSelectionModel().getSelectedItem();
+            final Object object = _pokemonName.getSelectionModel().getSelectedItem();
             if (object != null) {
                 _controller.selectPokemon(object.toString());
             }
@@ -139,14 +139,15 @@ public abstract class AbstractMarkerChangePopUp extends AbstractMarkerPopUp {
     }
     
     protected Calendar initCalendar() {
-        Date date = new Date();
-        Calendar calendar = GregorianCalendar.getInstance();
+        final Date date = new Date();
+        final Calendar calendar = GregorianCalendar.getInstance();
         calendar.setTime(date);
         return calendar;
     }
     
-    protected void setComboBox(ComboBox combo, int limit, int value) {
-        ObservableList items = combo.getItems();
+    protected void setComboBox(final ComboBox combo, final int limit,
+            final int value) {
+        final ObservableList items = combo.getItems();
         for (int i = 1; i < limit+1; i++) {
             items.add(""+i);
         }
@@ -156,14 +157,14 @@ public abstract class AbstractMarkerChangePopUp extends AbstractMarkerPopUp {
     
     protected abstract void setDatePicker(DatePicker picker);
     
-    private Integer getSelection(ComboBox combobox) {
-        Object object = combobox.getValue();
-        String value = object.toString();
+    private Integer getSelection(final ComboBox combobox) {
+        final Object object = combobox.getValue();
+        final String value = object.toString();
         return Integer.parseInt(value);
     }
     
-    private String getSelectedString(ComboBox combobox) {
-        Object object = combobox.getValue();
+    private String getSelectedString(final ComboBox combobox) {
+        final Object object = combobox.getValue();
         String res = "";
         if(object != null) {
             res = object.toString();
@@ -172,27 +173,28 @@ public abstract class AbstractMarkerChangePopUp extends AbstractMarkerPopUp {
     }
     
     private Timestamp getSelectedTime() {
-        LocalDate localDate = _dateMonthYear.getValue();
-        Integer hours = getSelection(_dateHour);
-        Integer minute = getSelection(_dateMinute);
-        Calendar currentDate = Calendar.getInstance();
+        final LocalDate localDate = _dateMonthYear.getValue();
+        final Integer hours = getSelection(_dateHour);
+        final Integer minute = getSelection(_dateMinute);
+        final Calendar currentDate = Calendar.getInstance();
         // offset value for month
         // Calendar class starts at 0
         currentDate.set(localDate.getYear(), localDate.getMonthValue()-1, 
                 localDate.getDayOfMonth(), hours, minute, 0);
-        Timestamp resTimestamp = new Timestamp(currentDate.getTimeInMillis());
+        final Timestamp resTimestamp = new Timestamp(currentDate.getTimeInMillis());
         return resTimestamp;
     }
     
     private void initokButton() {
         _okButton = new Button("save");
         _okButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent t) {
-                Timestamp selectedDate = getSelectedTime();
-                String name = getSelectedString(_pokemonName);
-                int life = getSpinnerValue(_lifeSpinner);
-                int attack = getSpinnerValue(_attackSpinner);
-                int defense = getSpinnerValue(_defenseSpinner);
+            @Override
+            public void handle(final ActionEvent t) {
+                final Timestamp selectedDate = getSelectedTime();
+                final String name = getSelectedString(_pokemonName);
+                final int life = getSpinnerValue(_lifeSpinner);
+                final int attack = getSpinnerValue(_attackSpinner);
+                final int defense = getSpinnerValue(_defenseSpinner);
                 _controller.endPopUpMarker(name, life, attack, defense, selectedDate);
                 // Only when cancel (and not create marker)
                 // map.cancelPopUpCreateMarker();
@@ -208,14 +210,14 @@ public abstract class AbstractMarkerChangePopUp extends AbstractMarkerPopUp {
     }
     
     private void placeWidgets() {
-        HBox boxDates = placeInRow(_dateHour, _dateHourLabel, _dateMinute, 
+        final HBox boxDates = placeInRow(_dateHour, _dateHourLabel, _dateMinute, 
                 _dateMinuteLabel);
-        VBox boxLife = placeInColumn(_lifeLabel, _lifeSpinner);
-        VBox boxAttack = placeInColumn(_attackLabel, _attackSpinner);
-        VBox boxDefense = placeInColumn(_defenseLabel, _defenseSpinner);
-        HBox boxStats = placeInRow(boxLife, boxAttack, boxDefense);
-        HBox boxButtons = placeInRow(_closeButton, _okButton);
-        VBox boxDataEntries = placeInColumn(_pokemonName, boxStats,
+        final VBox boxLife = placeInColumn(_lifeLabel, _lifeSpinner);
+        final VBox boxAttack = placeInColumn(_attackLabel, _attackSpinner);
+        final VBox boxDefense = placeInColumn(_defenseLabel, _defenseSpinner);
+        final HBox boxStats = placeInRow(boxLife, boxAttack, boxDefense);
+        final HBox boxButtons = placeInRow(_closeButton, _okButton);
+        final VBox boxDataEntries = placeInColumn(_pokemonName, boxStats,
                _dateMonthYear, boxDates, boxButtons);
         super.add(boxDataEntries);
     }

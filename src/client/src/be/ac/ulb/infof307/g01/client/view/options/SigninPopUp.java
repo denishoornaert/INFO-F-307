@@ -34,7 +34,7 @@ public class SigninPopUp extends AbstractPopUp {
     private Label _remarks;
     
 
-    public SigninPopUp(SigninPopUpController controller) {
+    public SigninPopUp(final SigninPopUpController controller) {
         super(controller);
         _controller = controller;
         initWidgets();
@@ -70,7 +70,7 @@ public class SigninPopUp extends AbstractPopUp {
         _vbox.setSpacing(10);
     }
     
-    private void setXExpandPolicy(Control control) {
+    private void setXExpandPolicy(final Control control) {
         HBox.setHgrow(control, Priority.ALWAYS);
         control.setMaxWidth(Double.MAX_VALUE);
     }
@@ -78,7 +78,8 @@ public class SigninPopUp extends AbstractPopUp {
     private void initLoginButton() {
         _submit = new Button("Submit");
         _submit.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent t) {
+            @Override
+            public void handle(final ActionEvent t) {
             	final String username = _usernameField.getText();
                 final String password = _passwordField.getText();
                 _controller.authenticate(username,password);
@@ -90,7 +91,7 @@ public class SigninPopUp extends AbstractPopUp {
         _cancel = getCloseButton("cancel", "danger");
     }
     
-    public void showError(String msg) {
+    public void showError(final String msg) {
         _remarks.setText(msg);
         _remarks.setTextFill(Color.web("#FF3333"));
     }

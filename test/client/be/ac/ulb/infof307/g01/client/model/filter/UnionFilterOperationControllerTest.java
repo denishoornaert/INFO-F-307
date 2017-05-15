@@ -13,14 +13,16 @@ public class UnionFilterOperationControllerTest extends AbstractFilterTest {
     
     @Test
     public void test_evaluateFilter_result() throws ParseException {
-        UnionFilterOperationModel filterTree = new UnionFilterOperationModel("NAME(P1),TYPE(FIRE)");
+        final UnionFilterOperationModel filterTree =
+                new UnionFilterOperationModel("NAME(P1),TYPE(FIRE)");
         assertEquals(filterTree.evaluateFilter(_allMarkers).size(), 2);
     }
     
     @Test
     public void test_evaluateFilter_multipleOperands() throws ParseException {
-        String expression = "TYPE(WATER),TYPE(FIRE),TYPE(BUG)";
-        UnionFilterOperationModel filterTree = new UnionFilterOperationModel(expression);
+        final String expression = "TYPE(WATER),TYPE(FIRE),TYPE(BUG)";
+        final UnionFilterOperationModel filterTree =
+                new UnionFilterOperationModel(expression);
         assertEquals(_allMarkers.size(), filterTree.evaluateFilter(_allMarkers).size());
     }
 }

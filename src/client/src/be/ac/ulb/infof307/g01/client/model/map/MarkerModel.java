@@ -28,8 +28,9 @@ public class MarkerModel extends MarkerSendableModel {
      * @param defense pokemon defense points
      * @param timestamp date and time of the marker
      */
-    public MarkerModel(PokemonSendableModel pokemon, CoordinateSendableModel coordinate,
-            String username, int life, int attack, int defense, Timestamp timestamp) 
+    public MarkerModel(final PokemonSendableModel pokemon, final CoordinateSendableModel coordinate,
+            final String username, final int life, final int attack, final int defense,
+            final Timestamp timestamp) 
             throws InvalidParameterException {
         this(pokemon, coordinate, username, life, attack, defense, timestamp, true);
         _serverQuery.insertMarker(this);
@@ -47,9 +48,9 @@ public class MarkerModel extends MarkerSendableModel {
      * @param timestamp date and time of the marker
      * @param loadDatabase TODO explain
      */
-    public MarkerModel(PokemonSendableModel pokemon, CoordinateSendableModel coordinate,
-            String username, int life, int attack, int defense, Timestamp timestamp,
-            boolean loadDatabase) {
+    public MarkerModel(final PokemonSendableModel pokemon, final CoordinateSendableModel coordinate,
+            final String username, final int life, final int attack, final int defense,
+            final Timestamp timestamp, final boolean loadDatabase) {
         super(0, username, pokemon, coordinate, timestamp.getTime(), life, attack, defense);
         if (loadDatabase) {
             _serverQuery = (MarkerQueryController) ServerQueryController.getInstance();
@@ -60,7 +61,7 @@ public class MarkerModel extends MarkerSendableModel {
      * Creates a MarkerModel from a MarkerSendableModel.
      * @param marker the MarkerSendableModel containing the marker's informations.
      */
-    public MarkerModel(MarkerSendableModel marker) {
+    public MarkerModel(final MarkerSendableModel marker) {
         super(marker);
         _serverQuery = (MarkerQueryController) ServerQueryController.getInstance();
         _pokemon = new PokemonModel(_pokemon);
@@ -85,8 +86,8 @@ public class MarkerModel extends MarkerSendableModel {
      * @param timestamp date and time of the marker
      * @throws IllegalArgumentException if the 
      */
-    public void update(PokemonModel pokemon, int life, int attack, int defense,
-            Timestamp timestamp) throws IllegalArgumentException {
+    public void update(final PokemonModel pokemon, final int life, final int attack,
+            final int defense, final Timestamp timestamp) throws IllegalArgumentException {
         setPokemon(pokemon);
         setTimestamp(timestamp);
         setLifePoints(life);
@@ -101,7 +102,7 @@ public class MarkerModel extends MarkerSendableModel {
      */
     public int getReputationScore() {
         int res = 0;
-        for(ReputationVoteSendableModel reputationVote : _reputation) {
+        for(final ReputationVoteSendableModel reputationVote : _reputation) {
             res += reputationVote.getIsUpVote() ? 1 : -1;
         }
         return res;
@@ -113,8 +114,8 @@ public class MarkerModel extends MarkerSendableModel {
      * @return a ReputationVote matching the user's vote, or null if the user
      * didn't vote on the marker
      */
-    public ReputationVoteSendableModel getUserVote(String username) {
-        for(ReputationVoteSendableModel vote : _reputation) {
+    public ReputationVoteSendableModel getUserVote(final String username) {
+        for(final ReputationVoteSendableModel vote : _reputation) {
             if(vote.getUsername().equals(username)) {
                 return vote;
             }
@@ -129,9 +130,10 @@ public class MarkerModel extends MarkerSendableModel {
      * @param username the user who adds the vote
      * @param isUpVote true if the vote is positive, false if negative
      */
-    public void addUserVote(String username, boolean isUpVote) throws InvalidParameterException {
-        ReputationVoteSendableModel reputation = new ReputationVoteSendableModel(username, isUpVote, _databaseId);
-        for(ReputationVoteSendableModel vote : _reputation) {
+    public void addUserVote(final String username, final boolean isUpVote) throws InvalidParameterException {
+        final ReputationVoteSendableModel reputation =
+                new ReputationVoteSendableModel(username, isUpVote, _databaseId);
+        for(final ReputationVoteSendableModel vote : _reputation) {
             if(vote.getUsername().equals(username)) {
                 _reputation.remove(vote);
                 break;
@@ -145,13 +147,13 @@ public class MarkerModel extends MarkerSendableModel {
      * Sets the marker's time and date.
      * @param newTimestamp timestamp representing the new time and date
      */
-    public void setTimestamp(Timestamp newTimestamp) {
+    public void setTimestamp(final Timestamp newTimestamp) {
         // TODO Check to call Super
         super.setLongTimestamp(newTimestamp.getTime());
     }
     
     public Timestamp getTimestamp() {
-        Timestamp timestamp;
+        final Timestamp timestamp;
         Long longTimestamp = super.getLongTimestamp();
         if(longTimestamp == null || longTimestamp == 0) {
             longTimestamp = System.currentTimeMillis();
@@ -191,7 +193,7 @@ public class MarkerModel extends MarkerSendableModel {
      * @return the URL
      */
     private String getGoogleMapsLink() {
-        CoordinateSendableModel coordinate = getCoordinate();
+        final CoordinateSendableModel coordinate = getCoordinate();
         return "https://www.google.com/maps/place/" + coordinate.getLatitude() + 
                 "," + coordinate.getLongitude();
     }

@@ -6,8 +6,8 @@ import static org.junit.Assert.assertEquals;
 public class PokemonTypeModelTest {
     @Test
     public void test_getTypeName() {
-        String name = "TEST"; // Must be upperCase
-        PokemonTypeModel pokemonType = new PokemonTypeModel(name);
+        final String name = "TEST"; // Must be upperCase
+        final PokemonTypeModel pokemonType = new PokemonTypeModel(name);
         assertEquals(pokemonType.getTypeName(), name);
     }
 }

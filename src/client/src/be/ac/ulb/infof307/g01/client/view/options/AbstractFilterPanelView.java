@@ -30,7 +30,7 @@ public abstract class AbstractFilterPanelView extends Tab {
     protected TextField _nameOfTheExpressionToSave;
     protected Label _remarks;
 
-    public AbstractFilterPanelView(FilterPanelController controller) {
+    public AbstractFilterPanelView(final FilterPanelController controller) {
         super();
         _controller =controller;
         initWidgets();
@@ -38,8 +38,8 @@ public abstract class AbstractFilterPanelView extends Tab {
         initStyle();
     }
     
-    protected void setXExpandPolicy(Control... controls) {
-        for(Control control : controls) {
+    protected void setXExpandPolicy(final Control... controls) {
+        for(final Control control : controls) {
             HBox.setHgrow(control, Priority.ALWAYS);
             control.setMaxWidth(208);
         }
@@ -65,8 +65,8 @@ public abstract class AbstractFilterPanelView extends Tab {
     protected void initExpressionToSaveButtonEvent() {
         _expressionToSaveButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent e) {
-                String expressionName = _nameOfTheExpressionToSave.getText();
+            public void handle(final ActionEvent e) {
+                final String expressionName = _nameOfTheExpressionToSave.getText();
                 saveFilter(expressionName);
             }
         });
@@ -85,7 +85,7 @@ public abstract class AbstractFilterPanelView extends Tab {
     protected abstract void placeFilterWidgets();
     
     private void placeBottomWidgets() {
-        HBox saveBox = new HBox(_nameOfTheExpressionToSave, _expressionToSaveButton);
+        final HBox saveBox = new HBox(_nameOfTheExpressionToSave, _expressionToSaveButton);
         _vbox.getChildren().addAll(saveBox, _applyFilterButton, _remarks);
     }
     
@@ -102,7 +102,7 @@ public abstract class AbstractFilterPanelView extends Tab {
             _applyFilterButton);
     }
     
-    public void showError(String msg) {
+    public void showError(final String msg) {
         _remarks.setText(msg);
         _remarks.setTextFill(Color.web("#FF3333"));
     }

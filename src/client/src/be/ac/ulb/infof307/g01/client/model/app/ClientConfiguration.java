@@ -51,7 +51,7 @@ public class ClientConfiguration extends ConfigurationModel {
     }
     
     @Override
-    protected String getAssetPath(String fileName) {
+    protected String getAssetPath(final String fileName) {
         return getAssetPath(fileName, false);
     }
     

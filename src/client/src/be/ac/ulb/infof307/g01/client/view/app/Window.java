@@ -23,14 +23,14 @@ public class Window extends Scene {
     
     private final WindowController _controller;
     
-    public Window(WindowController controller, BorderPane pane) {
+    public Window(final WindowController controller, final BorderPane pane) {
         super(pane);
         _controller = controller;
         initWidgets(pane);
         placeWidgets();
     }
     
-    private void initWidgets(BorderPane pane) {
+    private void initWidgets(final BorderPane pane) {
         _borderPane = pane;
         _stackPane = new StackPane();
         initShowHidePanelButton();
@@ -40,7 +40,7 @@ public class Window extends Scene {
         _showHidePanelButton = new Button("⚙");
         _showHidePanelButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent e) {
+            public void handle(final ActionEvent e) {
                 _controller.switchPanel();
             }
         });
@@ -51,7 +51,7 @@ public class Window extends Scene {
         _borderPane.setCenter(_stackPane);
     }
     
-    public void placeWidget(MapView map) {
+    public void placeWidget(final MapView map) {
         _stackPane.getChildren().add(map);
     }
     
@@ -60,7 +60,7 @@ public class Window extends Scene {
         StackPane.setAlignment(_showHidePanelButton, Pos.TOP_LEFT);
     }
 
-    public void showPanel(PanelView panel) {
+    public void showPanel(final PanelView panel) {
         _borderPane.setLeft(panel);
     }
 
