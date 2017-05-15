@@ -55,7 +55,7 @@ public class PanelController {
     }
     
     public void resetResearch() {
-        _filterPanelController.applyFilter("");
+        _filterPanelController.applyFilter("", null);
     }
     
     public PanelView getView() {
