@@ -20,7 +20,7 @@ public class ConfigurationModelTest {
     
     
     @Test
-    public void test_addFilePrefixWithPathWithoutPrefix(){
+    public void test_addFilePrefix_WithPathWithoutPrefix(){
         String baseString = TEST_PATH;
         String anotherString = ConfigurationModel.addFilePrefix(baseString);
         assertEquals(anotherString,FILE_PREFIX+baseString);
@@ -28,7 +28,7 @@ public class ConfigurationModelTest {
     }
     
     @Test
-    public void test_addFilePrefixWithPathWithtPrefix(){
+    public void test_addFilePrefix_WithPathWithtPrefix(){
         String baseString = FILE_PREFIX+TEST_PATH;
         String anotherString = ConfigurationModel.addFilePrefix(baseString);
         assertEquals(anotherString,baseString);
@@ -36,14 +36,14 @@ public class ConfigurationModelTest {
     }
     
     @Test
-    public void test_addJarPrefixWithPathWithtPrefix(){
+    public void test_addJarPrefix_WithPathWithtPrefix(){
         String baseString = FILE_PREFIX+TEST_PATH;
         String anotherString = ConfigurationModel.addJarPrefix(baseString);
         assertEquals(anotherString,JAR_PREFIX+baseString);
     }
     
     @Test
-    public void test_addJarPrefixWithPathWithJarPrefix(){
+    public void test_addJarPrefix_WithPathWithJarPrefix(){
         String baseString = JAR_PREFIX+TEST_PATH;
         String anotherString = ConfigurationModel.addJarPrefix(baseString);
         assertEquals(anotherString,baseString);
@@ -51,7 +51,7 @@ public class ConfigurationModelTest {
     }
     
     @Test
-    public void test_addJarPrefixWithPathWithoutPrefix(){
+    public void test_addJarPrefix_WithPathWithoutPrefix(){
         String baseString = TEST_PATH;
         String anotherString = ConfigurationModel.addJarPrefix(baseString);
         assertEquals(anotherString,baseString);
@@ -59,7 +59,7 @@ public class ConfigurationModelTest {
     }
     
     @Test
-    public void test_addJarOrFilePrefixWithPathWithoutPrefix(){
+    public void test_addJarOrFilePrefix_WithPathWithoutPrefix(){
         String baseString = TEST_PATH;
         String anotherString = ConfigurationModel.addJarOrFilePrefix(baseString);
         assertEquals(anotherString,FILE_PREFIX+baseString);
@@ -67,7 +67,7 @@ public class ConfigurationModelTest {
     }
     
     @Test
-    public void test_addJarOrFilePrefixWithPathWithPrefix(){
+    public void test_addJarOrFilePrefix_WithPathWithPrefix(){
         String baseString = FILE_PREFIX+TEST_PATH;
         String anotherString = ConfigurationModel.addJarOrFilePrefix(baseString);
         assertEquals(anotherString,JAR_PREFIX+baseString);
@@ -75,7 +75,7 @@ public class ConfigurationModelTest {
     }
     
     @Test
-    public void test_addJarOrFilePrefixWithPathWithJarPrefix(){
+    public void test_addJarOrFilePrefix_WithPathWithJarPrefix(){
         String baseString = JAR_PREFIX+TEST_PATH;
         String anotherString = ConfigurationModel.addJarOrFilePrefix(baseString);
         assertEquals(anotherString,FILE_PREFIX+baseString);
