@@ -1,6 +1,5 @@
 package be.ac.ulb.infof307.g01.client.model.filter;
 
-import be.ac.ulb.infof307.g01.client.model.filter.FilterOnType;
 import java.text.ParseException;
 import static junit.framework.TestCase.assertEquals;
 import org.junit.Test;

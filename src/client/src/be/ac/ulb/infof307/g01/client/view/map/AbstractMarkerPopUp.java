@@ -29,7 +29,7 @@ public abstract class AbstractMarkerPopUp extends AbstractPopUp {
     private HBox _widgets;
     private StackPane _stackPane;
     
-    private AbstractMarkerPopUpController _controller;
+    private final AbstractMarkerPopUpController _controller;
     protected final MarkerModel _markerModel;
     
     public AbstractMarkerPopUp(AbstractMarkerPopUpController controller, int markerId) {

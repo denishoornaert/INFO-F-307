@@ -1,6 +1,5 @@
 package be.ac.ulb.infof307.g01.client.view.map;
 
-import be.ac.ulb.infof307.g01.client.view.map.AbstractMarkerChangePopUp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;

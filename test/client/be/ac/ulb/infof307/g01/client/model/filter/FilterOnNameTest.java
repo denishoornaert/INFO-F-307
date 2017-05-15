@@ -1,6 +1,5 @@
 package be.ac.ulb.infof307.g01.client.model.filter;
 
-import be.ac.ulb.infof307.g01.client.model.filter.FilterOnName;
 import java.text.ParseException;
 import org.junit.Test;
 

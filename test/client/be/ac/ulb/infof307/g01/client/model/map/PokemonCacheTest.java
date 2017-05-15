@@ -1,8 +1,5 @@
 package be.ac.ulb.infof307.g01.client.model.map;
 
-import be.ac.ulb.infof307.g01.client.model.map.PokemonCache;
-import be.ac.ulb.infof307.g01.client.model.map.PokemonModel;
-import be.ac.ulb.infof307.g01.client.model.map.PokemonTypeModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
 import java.util.ArrayList;
@@ -52,7 +49,6 @@ public class PokemonCacheTest {
     @Test
     public void test_loadAllPokemonTypes(){
         loadCachePokemonTypeSendableTest();
-        PokemonTypeModel pokemonTypeModelTest = new PokemonTypeModel(POKEMON_TYPE_SENDABLE_TEST);
         assertEquals(POKEMON_CACHE.getAllPokemonTypes().size(),1);// load 1 Type with the function loadCachePokemonTypeSendableTest
         assertEquals(POKEMON_CACHE.getAllPokemonTypes().get(0).getTypeName(),POKEMON_TYPE_SENDABLE_TEST.getTypeName());
     }

@@ -1,9 +1,5 @@
 package be.ac.ulb.infof307.g01.client.model.filter;
 
-import be.ac.ulb.infof307.g01.client.model.filter.FilterOnName;
-import be.ac.ulb.infof307.g01.client.model.filter.FilterOnType;
-import be.ac.ulb.infof307.g01.client.model.filter.AbstractFilterModel;
-import be.ac.ulb.infof307.g01.client.model.filter.AbstractFilterExpressionModel;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;

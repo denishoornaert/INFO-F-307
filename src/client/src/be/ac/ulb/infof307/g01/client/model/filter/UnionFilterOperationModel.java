@@ -1,6 +1,5 @@
 package be.ac.ulb.infof307.g01.client.model.filter;
 
-import be.ac.ulb.infof307.g01.client.model.filter.AbstractFilterExpressionModel;
 import be.ac.ulb.infof307.g01.client.model.map.MarkerModel;
 import java.text.ParseException;
 import java.util.HashSet;

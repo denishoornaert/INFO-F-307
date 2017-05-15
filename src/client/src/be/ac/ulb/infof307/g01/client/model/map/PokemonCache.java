@@ -1,7 +1,5 @@
 package be.ac.ulb.infof307.g01.client.model.map;
 
-import be.ac.ulb.infof307.g01.client.model.map.PokemonModel;
-import be.ac.ulb.infof307.g01.client.model.map.PokemonTypeModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
 import java.util.ArrayList;

@@ -1,6 +1,5 @@
 package be.ac.ulb.infof307.g01.client.model.map;
 
-import be.ac.ulb.infof307.g01.client.model.map.PokemonTypeModel;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 

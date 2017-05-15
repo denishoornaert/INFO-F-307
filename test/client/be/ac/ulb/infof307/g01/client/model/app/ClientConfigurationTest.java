@@ -1,6 +1,5 @@
 package be.ac.ulb.infof307.g01.client.model.app;
 
-import be.ac.ulb.infof307.g01.client.model.app.ClientConfiguration;
 import java.io.File;
 import org.junit.Test;
 import static junit.framework.TestCase.assertTrue;
