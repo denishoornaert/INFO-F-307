@@ -63,6 +63,7 @@ public class BasicFilterPanelView extends AbstractFilterPanelView {
     
     @Override
     protected void initApplyFilterButtonEvent() {
+        BasicFilterPanelView currentInstance = this;
         _applyFilterButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
@@ -73,29 +74,24 @@ public class BasicFilterPanelView extends AbstractFilterPanelView {
                 boolean notType2 = _notPokemonTypeCombobox2.isSelected();
                 String type2 = (String) _pokemonTypeCombobox2.getValue();
                 boolean andIsSelected = _andButton.isSelected();
-                boolean orIsSelected = _orButton.isSelected();
-                _controller.applyFilter(notName, name, notType1, type1, notType2, type2, andIsSelected, orIsSelected);
+                _controller.applyFilter(notName, name, notType1, type1, notType2, 
+                        type2, andIsSelected, currentInstance);
             }
         });
     }
     
     @Override
-    protected void initExpressionToSaveButtonEvent() {
-        _expressionToSaveButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                String expressionName = _nameOfTheExpressionToSave.getText();
-                boolean notName = _notPokemonNameFilterEntry.isSelected();
-                String name = _pokemonNameFilterEntry.getText();
-                boolean notType1 = _notPokemonTypeCombobox1.isSelected();
-                String type1 = (String) _pokemonTypeCombobox1.getValue();
-                boolean notType2 = _notPokemonTypeCombobox2.isSelected();
-                String type2 = (String) _pokemonTypeCombobox2.getValue();
-                boolean andIsSelected = _andButton.isSelected();
-                boolean orIsSelected = _orButton.isSelected();
-                _controller.saveFilter(expressionName, notName, name, notType1, type1, notType2, type2, andIsSelected, orIsSelected);
-            }
-        });
+    protected void saveFilter(String expressionName) {
+        boolean notName = _notPokemonNameFilterEntry.isSelected();
+        String name = _pokemonNameFilterEntry.getText();
+        boolean notType1 = _notPokemonTypeCombobox1.isSelected();
+        String type1 = (String) _pokemonTypeCombobox1.getValue();
+        boolean notType2 = _notPokemonTypeCombobox2.isSelected();
+        String type2 = (String) _pokemonTypeCombobox2.getValue();
+        boolean andIsSelected = _andButton.isSelected();
+        boolean orIsSelected = _orButton.isSelected();
+        _controller.saveFilter(expressionName, notName, name, notType1, 
+                type1, notType2, type2, andIsSelected, orIsSelected);
     }
 
     @Override

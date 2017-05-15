@@ -84,7 +84,12 @@ public abstract class AbstractFilterExpressionModel {
      * @throws ParseException if the string has an incorrect syntax
      */
     static public AbstractFilterExpressionModel parse(String expression) throws ParseException {
-        String operation = AbstractFilterExpressionModel.getOperationName(expression);
+        String operation;
+        try {
+            operation = AbstractFilterExpressionModel.getOperationName(expression);
+        } catch(StringIndexOutOfBoundsException ex) {
+            throw new ParseException(expression, 0);
+        }
         AbstractFilterExpressionModel ret = null;
         String parenthesisContent = AbstractFilterExpressionModel.getParenthesisContent(expression);
         switch(operation) {

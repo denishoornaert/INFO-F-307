@@ -5,6 +5,7 @@ import be.ac.ulb.infof307.g01.client.model.filter.IdentityFilterOperationModel;
 import be.ac.ulb.infof307.g01.client.controller.map.MarkerController;
 import be.ac.ulb.infof307.g01.client.model.map.MarkerModel;
 import be.ac.ulb.infof307.g01.client.model.map.PokemonCache;
+import be.ac.ulb.infof307.g01.client.view.options.AbstractFilterPanelView;
 import be.ac.ulb.infof307.g01.client.view.options.AdvancedFilterPanelView;
 import be.ac.ulb.infof307.g01.client.view.options.BasicFilterPanelView;
 import be.ac.ulb.infof307.g01.client.view.options.FilterPanelView;
@@ -28,18 +29,19 @@ import java.util.logging.Logger;
  */
 public class FilterPanelController {
     
-    private final FilterPanelView _filterPanelView;
-    private SavedFilterPanelView _savedTab;
-    private BasicFilterPanelView _basicFilter;
-    private AdvancedFilterPanelView _advancedFilter;
     private static final String SAVED_EXPRESSION_LABEL = "Saved filter";
     private static final String BASIC_FILTER_LABEL = "Basic filter";
     private static final String ADVANCED_FILTER_LABEL = "Advanced filter";
+    
+    private final FilterPanelView _filterPanelView;
     private final MarkerController _markerController;
+    private SavedFilterPanelView _savedTab;
+    private BasicFilterPanelView _basicFilter;
+    private AdvancedFilterPanelView _advancedFilter;
     private HashMap<String, String> _savedFilters;
     
     public FilterPanelController(MarkerController markerController) {
-        _filterPanelView = new FilterPanelView(this);
+        _filterPanelView = new FilterPanelView();
         _markerController = markerController;
         initTabs();
         placeTabs();
@@ -79,20 +81,18 @@ public class FilterPanelController {
     
     /**
      * Transforms a set of parameters into a textual filter.
-     * //TODO complete JavaDoc
-     * @param notName
-     * @param name
-     * @param notType1
-     * @param type1
-     * @param notType2
-     * @param type2
-     * @param andIsSelected
-     * @param orIsSelected
-     * @return 
+     * 
+     * @param notName True if we will NOT this name, False otherwhise
+     * @param name string that we are looking
+     * @param notType1 True if we will NOT the type1, £False otherwhise
+     * @param type1 type that we are looking
+     * @param notType2 True if we will NOT the type2, False otherwhise
+     * @param type2 type that we are looking
+     * @param andIsSelected True if we must make an AND, OR otherwhise
+     * @return the expression
      */
     private String getRequest(boolean notName, String name, boolean notType1, 
-            String type1, boolean notType2, String type2, boolean andIsSelected, 
-            boolean orIsSelected) { // TODO denis "or" is not used
+            String type1, boolean notType2, String type2, boolean andIsSelected) {
         boolean somethingBefore = false;
         String expression = (andIsSelected) ? "AND" : "OR";
         expression += "(";
@@ -123,16 +123,26 @@ public class FilterPanelController {
     /**
      * Applies a filter to the map's markers, according to the filter expression.
      * Calls MarkerController.showHideMarkers().
+     * 
      * @param expression the textual expression representing the filter rules
+     * @param originFilterPanel the origin panel filter
      */
-    public void applyFilter(String expression) {
+    public void applyFilter(String expression, AbstractFilterPanelView originFilterPanel) {
         HashSet<MarkerModel> allMarkers = _markerController.getAllMarkers();
         HashSet<MarkerModel> res = allMarkers;
+        if(originFilterPanel != null) {
+            originFilterPanel.showError("");
+        }
+        
         try {
             IdentityFilterOperationModel filterExpression = new IdentityFilterOperationModel(expression);
             res = filterExpression.evaluateFilter(allMarkers);
         } catch (ParseException ex) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage());
+            if(originFilterPanel != null) {
+                originFilterPanel.showError("Filter not valid");
+            } else {
+                Logger.getLogger(getClass().getName()).log(Level.WARNING, ex.getMessage());
+            }
         }
         _markerController.displaySelectMarkers(res);
     }
@@ -169,14 +179,14 @@ public class FilterPanelController {
      * @param notType2
      * @param type2
      * @param andIsSelected
-     * @param orIsSelected 
+     * @param originFilterPanel
      */
     public void applyFilter(boolean notName, String name, boolean notType1, 
-            String type1, boolean notType2, String type2, boolean andIsSelected, 
-            boolean orIsSelected) {
+            String type1, boolean notType2, String type2, boolean andIsSelected,
+            AbstractFilterPanelView originFilterPanel) {
         String expression = getRequest(notName, name, notType1, type1, notType2, 
-                type2, andIsSelected, orIsSelected);
-        applyFilter(expression);
+                type2, andIsSelected);
+        applyFilter(expression, originFilterPanel);
     }
 
     /**
@@ -198,22 +208,24 @@ public class FilterPanelController {
             boolean notType1, String type1, boolean notType2, String type2, 
             boolean andIsSelected, boolean orIsSelected) {
         String expression = getRequest(notName, name, notType1, type1, notType2, 
-                type2, andIsSelected, orIsSelected);
+                type2, andIsSelected);
         saveFilter(expressionName, expression);
     }
 
     /**
      * Retrieves a named filter from the saved filters and applies it.
+     * 
      * @param name the descriptive name of the filter to apply
+     * @param originFilterPanel filter panel who this method is call
      */
-    public void applyFilterByName(String name) {
+    public void applyFilterByName(String name, AbstractFilterPanelView originFilterPanel) {
         String expression = _savedFilters.get(name);
         if(expression == null) {
             Logger.getLogger(getClass().getName()).log(Level.WARNING, 
                     "Could not get filter with name: {0} (array: {1})", 
                     new Object[]{name, _savedFilters});
         } else {
-            applyFilter(expression);
+            applyFilter(expression, originFilterPanel);
         }
     }
     

@@ -35,7 +35,7 @@ public class PanelView extends VBox {
     private VBox _emailBox;
     private ArrayList<Separator> separations;
 
-    private PanelController _controller;
+    private final PanelController _controller;
     
     public PanelView(PanelController panel) {
         _controller = panel;
@@ -143,7 +143,8 @@ public class PanelView extends VBox {
     }
     
     public void removeUser() {
-        getChildren().removeAll(_title2,_userBox,_userInfo,_emailBox,_emailInfo,separations.get(separations.size()-1));
+        getChildren().removeAll(_title2,_userBox,_userInfo,_emailBox,_emailInfo,
+                separations.get(separations.size()-1));
     }
     
     private VBox addAndDefinAlignementBaseLeft(Node node) {
