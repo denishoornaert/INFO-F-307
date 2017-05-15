@@ -12,6 +12,7 @@ import be.ac.ulb.infof307.g01.client.view.options.SavedFilterPanelView;
 import be.ac.ulb.infof307.g01.common.model.FilterSendableModel;
 import java.security.InvalidParameterException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -49,7 +50,9 @@ public class FilterPanelController {
         _savedTab = new SavedFilterPanelView(this);
         initSavedTab();
         _basicFilter = new BasicFilterPanelView(this);
-        _basicFilter.setComboBoxesContent(PokemonCache.getInstance().getAllPokemonTypesString());
+        ArrayList<String> allPokemonTypeSelectable = PokemonCache.getInstance().getAllPokemonTypesString();
+        allPokemonTypeSelectable.add(" ");
+        _basicFilter.setComboBoxesContent(allPokemonTypeSelectable);
         _advancedFilter = new AdvancedFilterPanelView(this);
     }
     
@@ -100,6 +103,7 @@ public class FilterPanelController {
             expression += booleanToString(notName)+"(NAME("+name+"))";
             somethingBefore = true;
         }
+        System.out.println("Type 1 = " + type1 + " Type 2 : " + type2);
         if(type1 != null) {
             expression += (somethingBefore) ? "," : "";
             expression += booleanToString(notType1)+"(TYPE("+type1+"))";
