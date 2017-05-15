@@ -54,6 +54,10 @@ public class PanelController {
         }
     }
     
+    public void resetResearch() {
+        _filterPanelController.applyFilter("");
+    }
+    
     public PanelView getView() {
         return _panelView;
     }
