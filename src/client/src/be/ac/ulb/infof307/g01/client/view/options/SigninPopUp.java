@@ -4,7 +4,6 @@ import be.ac.ulb.infof307.g01.client.controller.options.SigninPopUpController;
 import be.ac.ulb.infof307.g01.client.view.app.AbstractPopUp;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
@@ -61,7 +60,7 @@ public class SigninPopUp extends AbstractPopUp {
         setXExpandPolicy(_cancel);
         setXExpandPolicy(_submit);
         _hbox.setAlignment(Pos.CENTER);
-        _hbox.setPadding(new Insets(5, 0, 0, 0));
+        _hbox.setSpacing(5);
         _vbox.getChildren().addAll(_hbox, _remarks);
         super.add(_vbox);
     }
@@ -72,11 +71,13 @@ public class SigninPopUp extends AbstractPopUp {
     
     private void setXExpandPolicy(final Control control) {
         HBox.setHgrow(control, Priority.ALWAYS);
-        control.setMaxWidth(Double.MAX_VALUE);
+        control.setMaxWidth(150);
+        control.setMaxHeight(10);
     }
     
     private void initLoginButton() {
         _submit = new Button("Submit");
+        _submit.getStyleClass().add("primary");
         _submit.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(final ActionEvent t) {

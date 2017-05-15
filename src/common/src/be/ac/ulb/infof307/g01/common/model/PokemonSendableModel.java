@@ -3,13 +3,23 @@ package be.ac.ulb.infof307.g01.common.model;
 import java.util.Objects;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/** 
+ * Represents a pokemon.
+ * A pokemon has a name, two types and a corresponding image.
+ * The sendable keyword indicates the object can be serialized and sent 
+ * over the network
+ */
 @XmlRootElement
 public class PokemonSendableModel {    
     protected String _name;
     protected PokemonTypeSendableModel[] _types;
     protected String _imageName;
     
-    public PokemonSendableModel() { } // Must exist
+    /**
+     * Default constructor.
+     * Required by Jersey.
+     */
+    public PokemonSendableModel() {}
     
     public PokemonSendableModel(final String pokemonName, final String imagePath, 
             final PokemonTypeSendableModel pokemonType) {
@@ -31,10 +41,6 @@ public class PokemonSendableModel {
         this(other._name, other._imageName, other._types[0], other._types[1]);
     }
     
-    /**
-     * Return the name of the Pokemon
-     * @return the name of the Pokemon
-     */
     public String getName() {
         return _name;
     }
@@ -47,13 +53,17 @@ public class PokemonSendableModel {
     }
 
     /**
-     * Return the list of types assigned to the pokemon
-     * @return a list of types assigned to the pokemon
+     * Returns the pokemon's two types.
+     * @return an array of types
      */
     public PokemonTypeSendableModel[] getTypes() {
         return _types.clone();
     }
     
+    /**
+     * Returns the pokemon's two type names.
+     * @return an array of Strings
+     */
     public String[] getTypeNames() {
         String[] typeNames = new String[_types.length];
         for(int i = 0; i < _types.length; ++i) {
@@ -63,22 +73,23 @@ public class PokemonSendableModel {
     }
 
     /**
-     * @param _type the _types to set
+     * Assigns the pokemon's types.
+     * @param types the types to set
      */
     public void setTypes(final PokemonTypeSendableModel[] _type) {
         this._types = _type;
     }
 
     /**
-     * Return the path of the sprite of the Pokemon
-     * @return the path of the sprite of the Pokemon
+     * Return the path to the pokemon's image.
+     * @return an image path
      */
     public String getImagePath() {
         return _imageName;
     }
 
     /**
-     * @param _imageName the _imageName to set
+     * @param imageName the new pokemon's image name
      */
     public void setImagePath(final String _imageName) {
         this._imageName = _imageName;

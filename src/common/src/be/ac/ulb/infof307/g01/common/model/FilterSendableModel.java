@@ -2,9 +2,13 @@ package be.ac.ulb.infof307.g01.common.model;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- *
- * @author Groupe 1
+/** 
+ * Represents a marker filter, allowing the user to display markers
+ * based on their properties.
+ * Filters have a string expression using a prefix syntax with logical
+ * operators, as well as a descriptive name used to improve readability.
+ * The sendable keyword indicates the object can be serialized and sent 
+ * over the network
  */
 @XmlRootElement
 public class FilterSendableModel {
@@ -12,16 +16,17 @@ public class FilterSendableModel {
     private String _name;
     private String _expression;
     
-    public FilterSendableModel() {} // don't remove (see Jersey)
+    /**
+     * Default constructor.
+     * Required by Jersey.
+     */
+    public FilterSendableModel() {}
     
     public FilterSendableModel(final String name, final String filter) {
         _expression = filter;
         _name = name;
     }
     
-    /**
-     * @return the expression
-     */
     public String getExpression() {
         return _expression;
     }
@@ -33,9 +38,6 @@ public class FilterSendableModel {
         _expression = expression;
     }
 
-    /**
-     * @return the name
-     */
     public String getName() {
         return _name;
     }

@@ -8,9 +8,8 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 
 /**
- * Panel of the pokemons composing a certain cluster
- * 
- * @author Groupe01
+ * Represents a set of Pokemons.
+ * Each Pokemon is represented by a PokemonLabel.
  */
 public class PokemonPanel extends StackPane {
     

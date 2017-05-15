@@ -18,9 +18,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 /**
- * Abstract pop-up which will serve as a minimalist template for a Pokemon view
- * 
- * @author Groupe01
+ * Abstract class that serves as a template for all marker-related popups.
+ * Each of these popups are created and controled by specific classes.
  */
 public abstract class AbstractMarkerPopUp extends AbstractPopUp {
     

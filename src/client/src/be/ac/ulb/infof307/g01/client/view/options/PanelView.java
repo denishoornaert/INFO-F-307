@@ -160,6 +160,7 @@ public class PanelView extends VBox {
     public void setWidget(final FilterPanelView filterView) {
         add(filterView);
         final Button reset = new Button("Reset");
+        setXExpandPolicy(reset);
         reset.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(final ActionEvent t) {

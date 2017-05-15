@@ -11,10 +11,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Spinner;
 
 /**
- * Marker Pop-up for a new created Marker, must define the hours and minutes
- * when the pokemon was met
- * 
- * @author Groupe01
+ * Popup used to create a new marker with custom information. 
+ * This pop-up is used when the user click on the map.
  */
 public class MarkerCreationPopUp extends AbstractMarkerChangePopUp {
     

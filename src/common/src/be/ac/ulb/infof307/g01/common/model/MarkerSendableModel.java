@@ -4,11 +4,19 @@ import java.util.ArrayList;
 import java.util.Objects;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/** 
+ * Represents a pokemon marker, indicating a pokemon was spotted on the map.
+ * Markers contain many properties, detailing the pokemon that was spotted,
+ * as well as when and where it was spotted.
+ * The sendable keyword indicates the object can be serialized and sent 
+ * over the network
+ */
 @XmlRootElement
 public class MarkerSendableModel {
     
-    /** The ID of this marker in the database. With this attribute,
-     * DatabaseModel can know to which database entry this object corresponds.
+    /** 
+     * The ID of this marker in the database. 
+     * Allows DatabaseModel to know the instance's corresponding database entry.
      */
     protected int _databaseId;
     protected String _username;
@@ -18,21 +26,25 @@ public class MarkerSendableModel {
     protected ArrayList<ReputationVoteSendableModel> _reputation;
     protected int _lifePoints, _attack, _defense;
     
-    public MarkerSendableModel() {} // Should not be removed
+    /**
+     * Default constructor.
+     * Required by Jersey.
+     */
+    public MarkerSendableModel() {}
     
     /**
-     * Constructor to create marker in memory (not in database)
+     * Creates a marker in memory (not in database).
      * 
-     * @param databaseId id of the pokemon in database (0 if not exist)
+     * @param databaseId id of the pokemon in database (0 if not in database)
      * @param username of user who create this marker
-     * @param pokemon pokemon
-     * @param latitude x coordinate
-     * @param longitude y coordinate
-     * @param timestamp time when the pokemon has been witnessed
-     * @param reputation
-     * @param lifePoints pokemon life point
-     * @param attack pokemon attack stat
-     * @param defense pokemon defense stat
+     * @param pokemon pokemon model representing the spotted pokemon
+     * @param latitude latitudinal geographical coordinate
+     * @param longitude longitudinal geographical coordinate
+     * @param timestamp time when the pokemon was spotted
+     * @param reputation represents user's votes on this marker
+     * @param lifePoints pokemon life points
+     * @param attack pokemon attack points
+     * @param defense pokemon defense points
      */
     public MarkerSendableModel(final int databaseId, final String username, 
             final PokemonSendableModel pokemon, final double latitude, final double longitude, 
@@ -49,10 +61,10 @@ public class MarkerSendableModel {
      * @param username of user who create this marker
      * @param pokemon pokemon
      * @param coordinate location
-     * @param timestamp time when the pokemon has been witnessed
-     * @param lifePoints pokemon life point
-     * @param attack pokemon attack stat
-     * @param defense pokemon defense stat
+     * @param timestamp time when the pokemon was spotted
+     * @param lifePoints pokemon life points
+     * @param attack pokemon attack points
+     * @param defense pokemon defense points
      */
     protected MarkerSendableModel(final int databaseId, final String username, 
             final PokemonSendableModel pokemon, final CoordinateSendableModel coordinate, 
@@ -66,7 +78,7 @@ public class MarkerSendableModel {
      * 
      * @param databaseId id of the pokemon in database (0 if not exist)
      * @param username of user who create this marker
-     * @param pokemon pokemon
+     * @param pokemon pokemon model representing the spotted pokemon
      * @param coordinate location
      * @param timestamp time when the pokemon has been witnessed
      * @param reputation all reputation about this marker
@@ -105,29 +117,26 @@ public class MarkerSendableModel {
         _defense = other._defense;
     }
     
-    /** Get the database ID.
-     * This function should be used only by DatabaseModel, since the ID is 
-     * managed by it.
-     * 
+    /** 
+     * Get the database ID.
+     * This function should be used only by DatabaseModel, since it manages
+     * the IDs.
      * @return the id
      */
     public int getDatabaseId() {
         return _databaseId;
     }
 
-    /** Set the database ID.
-     * This function should be used only by DatabaseModel, since the ID is 
-     * managed by it.
-     * 
-     * @param databaseId the database id of this marker
+    /** 
+     * Sets the database ID.
+     * This function should be used only by DatabaseModel, since it manages
+     * the IDs.
+     * @param databaseId the new database id of this marker
      */
     public void setDatabaseId(final int databaseId) {
         this._databaseId = databaseId;
     }
 
-    /**
-     * @return the username
-     */
     public String getUsername() {
         return _username;
     }
@@ -139,16 +148,10 @@ public class MarkerSendableModel {
         this._username = _username;
     }
 
-    /**
-     * @return the pokemon
-     */
     public PokemonSendableModel getPokemon() {
         return _pokemon;
     }
     
-    /**
-     * @return the pokemon name
-     */
     public String getPokemonName() {
         return _pokemon.getName();
     }
@@ -160,9 +163,6 @@ public class MarkerSendableModel {
         this._pokemon = pokemon;
     }
 
-    /**
-     * @return the coordinate
-     */
     public CoordinateSendableModel getCoordinate() {
         return _coordinate;
     }
@@ -183,9 +183,8 @@ public class MarkerSendableModel {
     }
     
     /**
-     * All reputation about this marker
-     * 
-     * @return the reputation
+     * Gets the list of user votes on this marker.
+     * @return the list of votes defining the marker's reputation
      */
     public ArrayList<ReputationVoteSendableModel> getReputation() {
         return _reputation;
@@ -198,7 +197,6 @@ public class MarkerSendableModel {
                 ++reputation;
             }
         }
-        
         return reputation;
     }
 
@@ -219,9 +217,6 @@ public class MarkerSendableModel {
         this._reputation = reputation;
     }
 
-    /**
-     * @return the lifePoints
-     */
     public int getLifePoints() {
         return _lifePoints;
     }
@@ -233,9 +228,6 @@ public class MarkerSendableModel {
         this._lifePoints = lifePoints;
     }
 
-    /**
-     * @return the attack
-     */
     public int getAttack() {
         return _attack;
     }
@@ -247,9 +239,6 @@ public class MarkerSendableModel {
         _attack = attack;
     }
 
-    /**
-     * @return the defense
-     */
     public int getDefense() {
         return _defense;
     }
@@ -267,6 +256,12 @@ public class MarkerSendableModel {
         return hash;
     }
     
+    /**
+     * Determines if the marker has a valid database id.
+     * The absence of a database id should indicate the marker has not been
+     * inserted into the database (yet).
+     * @return true if the marker has a valid database id, false otherwise
+     */
     public boolean hasDatabaseId() {
         return _databaseId != 0;
     }
@@ -276,39 +271,19 @@ public class MarkerSendableModel {
         if (this == obj) {
             return true;
         }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
+        if(obj == null || getClass() != obj.getClass()) {
             return false;
         }
         final MarkerSendableModel other = (MarkerSendableModel) obj;
-        if (this._databaseId != other._databaseId && this.hasDatabaseId() && other.hasDatabaseId()) {
-            return false;
-        }
-        if (this._lifePoints != other._lifePoints) {
-            return false;
-        }
-        if (this._attack != other._attack) {
-            return false;
-        }
-        if (this._defense != other._defense) {
-            return false;
-        }
-        if (!Objects.equals(this._username, other._username)) {
-            return false;
-        }
-        if (!Objects.equals(this._pokemon, other._pokemon)) {
-            return false;
-        }
-        if (!Objects.equals(this._coordinate, other._coordinate)) {
-            return false;
-        }
-        if (!Objects.equals(this._longTimestamp, other._longTimestamp)) {
-            return false;
-        }
-        return true;
+        return ((this._databaseId == other._databaseId
+                    || !this.hasDatabaseId()
+                    || !other.hasDatabaseId())
+                && this._lifePoints == other._lifePoints
+                && this._attack == other._attack
+                && this._defense == other._defense
+                && Objects.equals(this._username, other._username)
+                && Objects.equals(this._pokemon, other._pokemon)
+                && Objects.equals(this._coordinate, other._coordinate)
+                && Objects.equals(this._longTimestamp, other._longTimestamp));
     }
-
-    
 }

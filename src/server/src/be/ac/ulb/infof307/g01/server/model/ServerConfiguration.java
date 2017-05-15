@@ -7,8 +7,6 @@ import java.net.URL;
 /**
  * Singleton class containing the magic numbers and strings required to 
  * configure the server program.
- *
- * @author Groupe01
  */
 public class ServerConfiguration extends ConfigurationModel {
     
@@ -80,9 +78,6 @@ public class ServerConfiguration extends ConfigurationModel {
         final String path = _propertiesFile.getProperty(SQL_SCRIPT_NAME_CONFIG, SQL_SCRIPT_NAME_DEFAULT);
         return getAssetPath(path);
     }
-    
-    
-    /////////////////// STATIC ///////////////////
     
     public static ServerConfiguration getInstance() {			
         if(_configuration == null) {

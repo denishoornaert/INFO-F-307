@@ -7,8 +7,6 @@ import java.util.ArrayList;
 /**
  * Singleton class containing the magic numbers and strings required to 
  * configure the client program.
- *
- * @author Groupe01
  */
 public class ClientConfiguration extends ConfigurationModel {
     
@@ -123,9 +121,6 @@ public class ClientConfiguration extends ConfigurationModel {
         return addJarOrFilePrefix(getAssetPath(_propertiesFile.getProperty(
                 TERMS_AND_CONDITIONS_CONFIG, TERMS_AND_CONDITIONS_DEFAULT)));
     }
-    
-    
-    /////////////////// STATIC ///////////////////
     
     public static ClientConfiguration getInstance() {			
         if(_configuration == null) {
