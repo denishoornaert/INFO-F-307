@@ -23,7 +23,7 @@ Pour *compiler*, il faut également disposer de :
 Pour *tester*, il faut également dispoer de :
  - [JUnit](http://junit.org/junit4/)
 
-## THème css
+## Thème css
 
 Le code source du thème css "bootsrap" utilisé dans ce projet est trouvable [ici](https://github.com/dicolar/jbootx)
 
