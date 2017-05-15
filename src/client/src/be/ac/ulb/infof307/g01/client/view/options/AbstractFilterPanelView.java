@@ -1,13 +1,17 @@
 package be.ac.ulb.infof307.g01.client.view.options;
 
 import be.ac.ulb.infof307.g01.client.controller.options.FilterPanelController;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 /**
  * Abstract view of the filter panel.
@@ -24,6 +28,7 @@ public abstract class AbstractFilterPanelView extends Tab {
     protected Button _expressionToSaveButton;
     protected Button _applyFilterButton;
     protected TextField _nameOfTheExpressionToSave;
+    protected Label _remarks;
 
     public AbstractFilterPanelView(FilterPanelController controller) {
         super();
@@ -41,9 +46,10 @@ public abstract class AbstractFilterPanelView extends Tab {
     }
 
     private void initWidgets() {
-        _vbox =new VBox();
+        _vbox = new VBox();
         initFilterWidgets();
         initBotomWidgets();
+        _remarks = new Label("");
     }
 
     protected abstract void initFilterWidgets();
@@ -56,8 +62,17 @@ public abstract class AbstractFilterPanelView extends Tab {
         _nameOfTheExpressionToSave = new TextField();
     }
     
-    protected abstract void initExpressionToSaveButtonEvent();
+    protected void initExpressionToSaveButtonEvent() {
+        _expressionToSaveButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                String expressionName = _nameOfTheExpressionToSave.getText();
+                saveFilter(expressionName);
+            }
+        });
+    }
     
+    protected abstract void saveFilter(String expressionName);
     protected abstract void initApplyFilterButtonEvent();
     
     protected void placeWidgets() {
@@ -71,7 +86,7 @@ public abstract class AbstractFilterPanelView extends Tab {
     
     private void placeBottomWidgets() {
         HBox saveBox = new HBox(_nameOfTheExpressionToSave, _expressionToSaveButton);
-        _vbox.getChildren().addAll(saveBox, _applyFilterButton);
+        _vbox.getChildren().addAll(saveBox, _applyFilterButton, _remarks);
     }
     
     private void initStyle() {
@@ -83,7 +98,12 @@ public abstract class AbstractFilterPanelView extends Tab {
     protected abstract void initFilterStyle();
 
     private void initBottomStyle() {
-        setXExpandPolicy(_nameOfTheExpressionToSave, _expressionToSaveButton, _applyFilterButton);
+        setXExpandPolicy(_nameOfTheExpressionToSave, _expressionToSaveButton, 
+            _applyFilterButton);
     }
     
+    public void showError(String msg) {
+        _remarks.setText(msg);
+        _remarks.setTextFill(Color.web("#FF3333"));
+    }
 }
