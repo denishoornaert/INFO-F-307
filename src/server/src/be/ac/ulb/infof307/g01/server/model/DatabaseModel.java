@@ -30,7 +30,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/** Class that interacts with the database.
+/** 
+ * Class that interacts with the database.
+ * 
  * This class implements all queries needed in the application. It is not
  * inteded to be used directly, but rather through one of the implemented
  * interfaces. This way, a class needing a database access is only allowed
@@ -75,13 +77,6 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
         return _instance;
     }
     
-    /**
-     * Initializes database
-     *
-     * @param pathToDatabase path to database
-     * @param pathToSql path to SQL file
-     * @throws IllegalAccessError if database haven't be load
-     */
     protected DatabaseModel(String pathToDatabase, String pathToSql) throws IllegalAccessError {
         try {
             createDatabase(pathToDatabase, pathToSql);
@@ -95,7 +90,7 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
     }
     
     /**
-     * Create the database file (.db from .sql)
+     * Create the database file (.db from .sql).
      *
      * @param databasePath path to database
      * @param sqlPath sql file to create database
@@ -110,23 +105,12 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
             fillDatabase(sqlPath);
         }
     }
-
-    /**
-     * Initialize the connection to the SQLite database
-     *
-     * @param pathToDatabase path to database
-     * @return true if database was properly loaded and false otherwise
-     */
+    
     private void connectToSqlite(String pathToDatabase) throws SQLException {
         _connection = DriverManager.getConnection(
                 "jdbc:sqlite:" + pathToDatabase);
     }
     
-    /**
-     * Get the content of .sql file
-     * 
-     * @return the file content
-     */
     private String[] getSQLQueriesFromFile(String filePath) throws FileNotFoundException, IOException {
         Path sqlPath = Paths.get(filePath);
         List<String> lines = Files.readAllLines(sqlPath);
@@ -158,9 +142,6 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
         }
     }
     
-    /**
-     * Properly close the connection to the database
-     */
     public void close() {
         try {
             _connection.close();
@@ -206,6 +187,7 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
     
     /**
      * Gets a pokemon type from its name in the database.
+     * 
      * /TODO This *may* be a serious performance issue when getting all markers:
      * getAllMarkers loads all markers
      * -> for each marker, all pokemons are retrieved in order to find the right one
@@ -245,6 +227,12 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
     }
 
     @Override
+    /**
+     * Query to get allPokemons from the database.
+     * 
+     * The function is called when the application is started and loads all the 
+     * pokemons on a PokemonSendableModel list.
+     */
     public List<PokemonSendableModel> getAllPokemons() {
         String query = "SELECT Pokemon.Name AS PName, Pokemon.ImagePath, "
                     + "FirstType.Name as T1Name, SecondType.Name as T2Name FROM Pokemon "
@@ -276,7 +264,7 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
     }
 
     /**
-     * Create a new marker in database
+     * Create a new marker in database.
      * @param marker the marker to create in database
      * @throws InvalidParameterException if an error occurred
      */
@@ -311,7 +299,7 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
     }
 
     /**
-     * Return all the markers that exist in database
+     * Return all the markers that exist in database.
      * @return a list of markers that are in database
      */
     @Override
@@ -338,6 +326,15 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
         return allMarkers;
     }
 
+    /**
+     * Create Marker objects from ResultSet.
+     * 
+     * The function create a new MarkerSendableModel based on the result of a 
+     * database query.
+     * @param cursor result from a query
+     * @return a new MarkerSendableModel
+     * @throws InvalidParameterException 
+     */
     private MarkerSendableModel createMarker(ResultSet cursor) throws InvalidParameterException {
     	try {
             int i = 0;
@@ -371,6 +368,11 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
         }
     }
     
+    /**
+     * Gets all votes directly linked with a marker.
+     * @param markerId to get the marker inside db
+     * @return a list of reputation votes
+     */
     private ArrayList<ReputationVoteSendableModel> getMarkerVotes(int markerId) {
         ArrayList<ReputationVoteSendableModel> res = new ArrayList<>();
         String query = "SELECT U.Username AS Username, V.IsUp AS IsUp FROM MarkerVote V "
@@ -396,8 +398,9 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
     }
 
     /**
-     * Changes or inserts a vote in the database. If the user did not yet voted
-     * on the marker, the vote is created. Otherwise, the vote is replaced.
+     * Changes or inserts a vote in the database. 
+     * If the user did not yet voted on the marker, the vote is created. 
+     * Otherwise, the vote is replaced.
      * @param reputationVote The vote model to add or update.
      */
     @Override
@@ -416,8 +419,7 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
     }
 
     /**
-     * Updates the information about a Marker.  Doesn't update the reputation !
-     * 
+     * Updates the information about a Marker. Doesn't update the reputation !
      * @param marker the marker to update
      */
     @Override
@@ -446,7 +448,6 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
     
     /**
      * Signs in (connects) a user.
-     * 
      * @param user all user informations
      */
     @Override
@@ -471,8 +472,7 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
     }
     
     /**
-     * Sign Up (register) a new user
-     * 
+     * Sign Up (register) a new user.
      * @param user all user informations
      */
     @Override

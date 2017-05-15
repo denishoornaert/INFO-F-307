@@ -12,9 +12,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
 /**
- * Picture and name of a pokemon, used by the PokemonPanel class
- * 
- * @author Groupe01
+ * Represents a pokemon, with its picture and name.
+ * Used by the PokemonPanel class
  */
 public class PokemonLabel extends BorderPane {
     

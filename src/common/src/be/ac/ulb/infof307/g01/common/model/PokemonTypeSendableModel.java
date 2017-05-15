@@ -3,16 +3,20 @@ package be.ac.ulb.infof307.g01.common.model;
 import java.util.Objects;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- *
- * @author Groupe 1
+/** 
+ * Represents a pokemon type.
+ * A pokemon type characterizes its abilities as well as some of its
+ * strengths and weaknesses.
+ * The sendable keyword indicates the object can be serialized and sent 
+ * over the network
  */
 @XmlRootElement
 public class PokemonTypeSendableModel {
     protected String _typeName;
     
     /**
-     * Constructor, needed by Jersey.
+     * Default constructor.
+     * Required by Jersey.
      */
     public PokemonTypeSendableModel() {
     }
@@ -25,19 +29,10 @@ public class PokemonTypeSendableModel {
         _typeName = typeName.toUpperCase();
     }
     
-    /**
-     * Return the name of the type
-     * @return the name of the type
-     */
     public String getTypeName() {
         return _typeName;
     }
     
-    /**
-     * Changes the type name.
-     * \note This is needed by Jersey, do not remove
-     * @param typeName the new name of the type
-     */
     public void setTypeName(String typeName) {
         _typeName = typeName;
     }

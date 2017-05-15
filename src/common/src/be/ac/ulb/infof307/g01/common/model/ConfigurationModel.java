@@ -7,8 +7,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * 
- * @author Groupe 1
+ * Abstract singleton class defining the common components of a configuration
+ * class.
  */
 public abstract class ConfigurationModel {
     
@@ -39,9 +39,6 @@ public abstract class ConfigurationModel {
     }
     
     protected abstract String getAssetPath(String fileName);
-    
-    
-    ////////////////// STATIC //////////////////
     
     /**
      * Add the "file:" prefix before file path if it's not already there.

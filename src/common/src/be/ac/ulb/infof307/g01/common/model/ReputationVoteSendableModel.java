@@ -3,7 +3,10 @@ package be.ac.ulb.infof307.g01.common.model;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /** 
- * A user's vote on the reputation of a marker, can be up or down.
+ * Represents a user's vote on the reputation of a marker.
+ * A vote can be positive of negative.
+ * The sendable keyword indicates the object can be serialized and sent 
+ * over the network.
  */
 @XmlRootElement
 public class ReputationVoteSendableModel {
@@ -12,13 +15,16 @@ public class ReputationVoteSendableModel {
     private boolean _isUpVote;
     private int _markerId;
     
-    public ReputationVoteSendableModel() { } // Could not be remove
+    /**
+     * Default constructor.
+     * Required by Jersey.
+     */
+    public ReputationVoteSendableModel() {}
     
-    /** Constructor
-     * 
-     * @param username the user
-     * @param isUpVote True if it's a positive vote
-     * @param markerId the id of the pokemon
+    /** 
+     * @param username the user that votes
+     * @param isUpVote true if it's a positive vote, false otherwise
+     * @param markerId the id of the marker
      */
     public ReputationVoteSendableModel(String username, boolean isUpVote, int markerId) {
         _username = username;
@@ -30,9 +36,6 @@ public class ReputationVoteSendableModel {
         return _username;
     }
 
-    /**
-     * @param username the username to set
-     */
     public void setUsername(String username) {
         this._username = username;
     }
@@ -41,23 +44,14 @@ public class ReputationVoteSendableModel {
         return _isUpVote;
     }
     
-    /**
-     * @param isUpVote the getIsUpVote to set
-     */
     public void setIsUpVote(boolean isUpVote) {
         this._isUpVote = isUpVote;
     }
 
-    /**
-     * @return the _markerId
-     */
     public int getMarkerId() {
         return _markerId;
     }
 
-    /**
-     * @param markerId the markerId to set
-     */
     public void setMarkerId(int markerId) {
         this._markerId = markerId;
     }

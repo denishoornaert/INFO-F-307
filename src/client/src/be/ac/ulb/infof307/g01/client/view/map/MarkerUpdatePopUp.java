@@ -12,10 +12,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 
 /**
- * Pop-up which appeared when a user want to update/change a marker that he
- * already created
- * 
- * @author Groupe01
+ * Popup used to display a marker's informations and allow the user to modify them. 
+ * This pop-up is used when the user click on a marker that he created.
  */
 public class MarkerUpdatePopUp extends AbstractMarkerChangePopUp {
     

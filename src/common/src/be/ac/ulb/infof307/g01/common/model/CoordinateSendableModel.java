@@ -3,7 +3,9 @@ package be.ac.ulb.infof307.g01.common.model;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /** 
- * Represents a geographical coordinate, such as for Marker location on the map. 
+ * Represents a geographical coordinate, pointing to a location on the map.
+ * The sendable keyword indicates the object can be serialized and sent 
+ * over the network
  */
 @XmlRootElement
 public class CoordinateSendableModel {
@@ -11,7 +13,11 @@ public class CoordinateSendableModel {
     private double _latitude;
     private double _longitude;
     
-    public CoordinateSendableModel() { // Must exist !
+    /**
+     * Default constructor.
+     * Required by Jersey.
+     */
+    public CoordinateSendableModel() {
         _latitude = 0;
         _longitude = 0;
     }
