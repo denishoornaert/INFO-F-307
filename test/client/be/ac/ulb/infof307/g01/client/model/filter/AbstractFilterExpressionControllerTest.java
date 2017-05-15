@@ -93,6 +93,20 @@ public class AbstractFilterExpressionControllerTest {
     }
     
     @Test
+    public void test_parseAcceptsSpaces() throws ParseException {
+        final String expression = "OR(NOT( TYPE(FIRE)), TYPE(FIRE))";
+        AbstractFilterExpressionModel.parse(expression);
+        // should not throw exception...
+    }
+    
+    @Test
+    public void test_parseCaseUnsensitive() throws ParseException {
+        final String expression = "tYpE(FIRE)";
+        AbstractFilterExpressionModel.parse(expression);
+        // should not throw exception
+    }
+    
+    @Test
     public void test_splitParameters() {
         final String[] initialParameters = {"A", "B", "CD", "E"};
         final String expression = String.join(",", initialParameters);
@@ -106,12 +120,5 @@ public class AbstractFilterExpressionControllerTest {
         final String expression = String.join(",", initialParameters);
         ArrayList<String> parameters = AbstractFilterExpressionModel.splitParameters(expression);
         assertEquals(Arrays.asList(initialParameters), parameters);
-    }
-    
-    @Test
-    public void test_splitParametersAcceptsSpaces() throws ParseException {
-        final String expression = "OR(NOT( TYPE(FIRE)), TYPE(FIRE))";
-        AbstractFilterExpressionModel.parse(expression);
-        // should not throw exception...
     }
 }
