@@ -107,4 +107,11 @@ public class AbstractFilterExpressionControllerTest {
         ArrayList<String> parameters = AbstractFilterExpressionModel.splitParameters(expression);
         assertEquals(Arrays.asList(initialParameters), parameters);
     }
+    
+    @Test
+    public void test_splitParametersAcceptsSpaces() throws ParseException {
+        final String expression = "OR(NOT( TYPE(FIRE)), TYPE(FIRE))";
+        AbstractFilterExpressionModel.parse(expression);
+        // should not throw exception...
+    }
 }
