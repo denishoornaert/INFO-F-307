@@ -103,13 +103,12 @@ public class FilterPanelController {
             expression += booleanToString(notName)+"(NAME("+name+"))";
             somethingBefore = true;
         }
-        System.out.println("Type 1 = " + type1 + " Type 2 : " + type2);
-        if(type1 != null) {
+        if(type1 != null || !" ".equals(type1)) {
             expression += (somethingBefore) ? "," : "";
             expression += booleanToString(notType1)+"(TYPE("+type1+"))";
             somethingBefore = true;
         }
-        if(type2 != null) {
+        if(type2 != null || !" ".equals(type1)) {
             expression += (somethingBefore) ? "," : "";
             expression += booleanToString(notType2)+"(TYPE("+type2+"))";
         }
