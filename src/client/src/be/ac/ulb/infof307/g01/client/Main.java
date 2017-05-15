@@ -21,8 +21,8 @@ public class Main extends Application {
      * @param stage the JavaFX stage for the main window
      */
     @Override
-    public void start(Stage stage) {
-        _stage = stage;
+    public void start(final Stage stage) {
+        Main._stage = stage;
         new WindowController();
         
         stage.show();
@@ -32,8 +32,8 @@ public class Main extends Application {
      * Sets the stage's scene, as well as the application title and icons.
      * @param scene the JavaFX scene to use.
      */
-    public static void setScene(Scene scene) {
-        _scene = scene;
+    public static void setScene(final Scene scene) {
+        Main._scene = scene;
         setApplicationTitle();
         setApplicationIcons();
         _stage.setScene(_scene);
@@ -43,7 +43,7 @@ public class Main extends Application {
      * Sets the desktop application's title, provided by ClientConfiguration.
      */
     public static void setApplicationTitle() {
-        String title = ClientConfiguration.getInstance().getApplicationTitle();
+        final String title = ClientConfiguration.getInstance().getApplicationTitle();
         _stage.setTitle(title);
     }
         
@@ -51,8 +51,8 @@ public class Main extends Application {
      * Sets the desktop application's icons, provided by ClientConfiguration.
      */
     private static void setApplicationIcons() {
-        ArrayList<String> iconsPaths = ClientConfiguration.getInstance().getApplicationIconsPaths();
-        for (String path : iconsPaths) {
+        final ArrayList<String> iconsPaths = ClientConfiguration.getInstance().getApplicationIconsPaths();
+        for(final String path : iconsPaths) {
             _stage.getIcons().add(new Image(path));
         }
     }
@@ -66,7 +66,7 @@ public class Main extends Application {
      * Requires access to Application.
      * @param link the web link to open
      */
-    public static void openInBrowser(String link) {
+    public static void openInBrowser(final String link) {
         try {
             new ProcessBuilder("x-www-browser", link).start();
         } catch (IOException e) {
@@ -79,7 +79,7 @@ public class Main extends Application {
      * Required by Java.
      * @param args the command-line arguments
      */
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         launch(args);
     }
 

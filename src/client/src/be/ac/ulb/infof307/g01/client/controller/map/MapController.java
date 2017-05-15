@@ -47,7 +47,7 @@ public class MapController {
      * @param latitude the latitude at which the marker has to be created
      * @param longitude the longitude at which the marker has to be created
      */
-    public void mapClicked(double latitude, double longitude) {
+    public void mapClicked(final double latitude, final double longitude) {
         try {
             new MarkerCreationPopUpController(getMarkerController(), latitude, longitude);
         } catch (InstantiationException ex) {
@@ -64,8 +64,8 @@ public class MapController {
      * If a blocking PopUp already exists, does nothing.
      * @param markerId the ID of the marker to edit or display
      */
-    public void markerClicked(int markerId) {
-        MarkerModel marker = getMarkerController().getMarkerModelFromId(markerId);
+    public void markerClicked(final int markerId) {
+        final MarkerModel marker = getMarkerController().getMarkerModelFromId(markerId);
         try {
             if (marker.getUsername().equals(UserController.getInstance().getUsername())) {
                 new MarkerUpdatePopUpController(getMarkerController(), markerId);
@@ -83,7 +83,7 @@ public class MapController {
      * Created a cluster information popup.
      * @param markersIds the IDs of the markers contained in the cluster
      */
-    public void clusterClicked(ArrayList<Integer> markersIds) {
+    public void clusterClicked(final ArrayList<Integer> markersIds) {
         try {
             new ClusterPopUpController(getMarkerController(), markersIds);
         } catch (InstantiationException ex) {

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
 
 /**
  * Singleton class which holds the client pokemon information sent by the server.
@@ -95,7 +96,7 @@ public class PokemonCache {
     public PokemonModel getPokemonByName(String pokemonName) {
         PokemonModel result = _allPokemons.get(pokemonName);
         if(result == null) {
-            throw new RuntimeException("No pokemon with such name: \"" + pokemonName + "\"");
+            throw new ValueException("No pokemon with such name: \"" + pokemonName + "\"");
         }
         return result;
     }
@@ -110,7 +111,7 @@ public class PokemonCache {
     public PokemonTypeModel getPokemonTypeByTypeName(String typeName) {
         PokemonTypeModel result = _allPokemonTypes.get(typeName);
         if(result == null) {
-            throw new RuntimeException("No pokemon type with such name: \"" + typeName + "\"");
+            throw new ValueException("No pokemon type with such name: \"" + typeName + "\"");
         }
         return result;
     }

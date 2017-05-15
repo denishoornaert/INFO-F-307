@@ -20,7 +20,6 @@ public class PopUpController {
         if(_aPopUpIsOpen && !acceptMultiplePopUps()) {
             throw new InstantiationException();
         }
-        _aPopUpIsOpen = true;
     }
     
     /**
@@ -37,7 +36,7 @@ public class PopUpController {
      * Closes the provided AbstractPopUp instance.
      * @param widget the instance to close
      */
-    public void close(AbstractPopUp widget) {
+    public void close(final AbstractPopUp widget) {
         // set to false only if the popUpConroller accepts multiple popups
         if(!acceptMultiplePopUps()) {
             _aPopUpIsOpen = false;

@@ -36,11 +36,12 @@ public class UserController {
      * @param username the user's username
      * @param password the user's password
     */
-    public void authenticate(String username, String password) throws InvalidParameterException {
+    public void authenticate(final String username, final String password)
+            throws InvalidParameterException {
         if(username.isEmpty() || password.isEmpty()) {
             throw new InvalidParameterException("All fields are required");
         }
-        UserSendableModel temporaryProfil = new UserSendableModel(username, password);
+        final UserSendableModel temporaryProfil = new UserSendableModel(username, password);
         _connection.signin(temporaryProfil);
         _user = temporaryProfil;
         Logger.getLogger(getClass().getName()).log(Level.INFO, 
@@ -56,12 +57,12 @@ public class UserController {
      * @param password the user's password
      * @param terms indicates if the user has accepted the terms of usage
      */
-    public void register(String email, String username, String password, 
-            boolean terms) throws InvalidParameterException {
+    public void register(final String email, final String username, 
+            final String password, final boolean terms) throws InvalidParameterException {
         if(email.isEmpty() || username.isEmpty() || password.isEmpty() || !terms) {
             throw new IllegalArgumentException("All fields are required");
         }
-        UserSendableModel temporaryProfil = new UserSendableModel(username, email, password);
+        final UserSendableModel temporaryProfil = new UserSendableModel(username, email, password);
         _connection.signup(temporaryProfil);
         Logger.getLogger(getClass().getName()).log(Level.INFO, 
                 "Your can check your mails and then login.");

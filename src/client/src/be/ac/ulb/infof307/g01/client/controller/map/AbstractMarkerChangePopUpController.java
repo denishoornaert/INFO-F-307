@@ -14,11 +14,13 @@ public abstract class AbstractMarkerChangePopUpController extends AbstractMarker
     protected AbstractMarkerChangePopUp _markerPopUp;
     protected String _defaultImagePath;
     
-    public AbstractMarkerChangePopUpController(MarkerController markerController) throws InstantiationException {
+    public AbstractMarkerChangePopUpController(final MarkerController markerController)
+            throws InstantiationException {
         this(markerController, DEFAULT_MARKER_ID);
     }
     
-    public AbstractMarkerChangePopUpController(MarkerController markerController, int markerid) throws InstantiationException  {
+    public AbstractMarkerChangePopUpController(final MarkerController markerController,
+            final int markerid) throws InstantiationException  {
         super(markerController, markerid);
         _defaultImagePath = ClientConfiguration.getInstance().getUnknownPokemonSpritePath();
     }
@@ -28,7 +30,7 @@ public abstract class AbstractMarkerChangePopUpController extends AbstractMarker
      * @param pokemonName the string to check
      * @return true if the string isn't empty nor null, false otherwise
      */
-    protected boolean isPokemonNameNotEmpty(String pokemonName) {
+    protected boolean isPokemonNameNotEmpty(final String pokemonName) {
         return (!"".equals(pokemonName) && pokemonName != null);
     }
     
@@ -47,7 +49,8 @@ public abstract class AbstractMarkerChangePopUpController extends AbstractMarker
      * @param defense
      * @param dateView 
      */
-    public void endPopUpMarker(String pokemonName, int lifePoint, int attack, int defense, Timestamp dateView) {
+    public void endPopUpMarker(final String pokemonName, final int lifePoint,
+            final int attack, final int defense, final Timestamp dateView) {
         if(isPokemonNameNotEmpty(pokemonName)) { 
             cancelPopUpCreateMarker();
         }
@@ -61,9 +64,9 @@ public abstract class AbstractMarkerChangePopUpController extends AbstractMarker
      * Called when the user selects a name among the combo box. 
      * @param selectedName the name of the selected pokemon.
      */
-    public void selectPokemon(String selectedName) {
-        PokemonModel pokemon = PokemonCache.getInstance().getPokemonByName(selectedName);
-        String path = pokemon.getImagePath();
+    public void selectPokemon(final String selectedName) {
+        final PokemonModel pokemon = PokemonCache.getInstance().getPokemonByName(selectedName);
+        final String path = pokemon.getImagePath();
         _markerPopUp.setPokemonView(path);
     }
     
