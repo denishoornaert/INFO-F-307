@@ -20,7 +20,8 @@ public class ReputationVoteSendableModel {
      * @param isUpVote True if it's a positive vote
      * @param markerId the id of the pokemon
      */
-    public ReputationVoteSendableModel(String username, boolean isUpVote, int markerId) {
+    public ReputationVoteSendableModel(final String username, 
+            final boolean isUpVote, final int markerId) {
         _username = username;
         _isUpVote = isUpVote;
         _markerId = markerId;
@@ -33,7 +34,7 @@ public class ReputationVoteSendableModel {
     /**
      * @param username the username to set
      */
-    public void setUsername(String username) {
+    public void setUsername(final String username) {
         this._username = username;
     }
 
@@ -44,7 +45,7 @@ public class ReputationVoteSendableModel {
     /**
      * @param isUpVote the getIsUpVote to set
      */
-    public void setIsUpVote(boolean isUpVote) {
+    public void setIsUpVote(final boolean isUpVote) {
         this._isUpVote = isUpVote;
     }
 
@@ -58,7 +59,7 @@ public class ReputationVoteSendableModel {
     /**
      * @param markerId the markerId to set
      */
-    public void setMarkerId(int markerId) {
+    public void setMarkerId(final int markerId) {
         this._markerId = markerId;
     }
 

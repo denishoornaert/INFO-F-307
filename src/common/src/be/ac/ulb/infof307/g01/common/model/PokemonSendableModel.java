@@ -11,15 +11,15 @@ public class PokemonSendableModel {
     
     public PokemonSendableModel() { } // Must exist
     
-    public PokemonSendableModel(String pokemonName, String imagePath, 
-            PokemonTypeSendableModel pokemonType) {
+    public PokemonSendableModel(final String pokemonName, final String imagePath, 
+            final PokemonTypeSendableModel pokemonType) {
         this(pokemonName, imagePath, pokemonType, 
             PokemonTypeSendableModel.getNoneType());
     }
     
-    public PokemonSendableModel(String pokemonName, String imagePath, 
-            PokemonTypeSendableModel pokemonTypeOne, 
-            PokemonTypeSendableModel pokemonTypeTwo) {
+    public PokemonSendableModel(final String pokemonName, final String imagePath, 
+            final PokemonTypeSendableModel pokemonTypeOne, 
+            final PokemonTypeSendableModel pokemonTypeTwo) {
         _name = pokemonName;
         _imageName = imagePath;
         _types = new PokemonTypeSendableModel[2];
@@ -27,7 +27,7 @@ public class PokemonSendableModel {
         _types[1] = pokemonTypeTwo;        
     }
     
-    public PokemonSendableModel(PokemonSendableModel other) {
+    public PokemonSendableModel(final PokemonSendableModel other) {
         this(other._name, other._imageName, other._types[0], other._types[1]);
     }
     
@@ -42,7 +42,7 @@ public class PokemonSendableModel {
     /**
      * @param _name the _name to set
      */
-    public void setName(String _name) {
+    public void setName(final String _name) {
         this._name = _name;
     }
 
@@ -65,7 +65,7 @@ public class PokemonSendableModel {
     /**
      * @param _type the _types to set
      */
-    public void setTypes(PokemonTypeSendableModel[] _type) {
+    public void setTypes(final PokemonTypeSendableModel[] _type) {
         this._types = _type;
     }
 
@@ -80,12 +80,12 @@ public class PokemonSendableModel {
     /**
      * @param _imageName the _imageName to set
      */
-    public void setImagePath(String _imageName) {
+    public void setImagePath(final String _imageName) {
         this._imageName = _imageName;
     }
     
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }

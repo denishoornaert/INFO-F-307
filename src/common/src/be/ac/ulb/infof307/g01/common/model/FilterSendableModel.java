@@ -14,7 +14,7 @@ public class FilterSendableModel {
     
     public FilterSendableModel() {} // don't remove (see Jersey)
     
-    public FilterSendableModel(String name, String filter) {
+    public FilterSendableModel(final String name, final String filter) {
         _expression = filter;
         _name = name;
     }
@@ -29,7 +29,7 @@ public class FilterSendableModel {
     /**
      * @param expression the expression to set
      */
-    public void setExpression(String expression) {
+    public void setExpression(final String expression) {
         _expression = expression;
     }
 
@@ -43,7 +43,7 @@ public class FilterSendableModel {
     /**
      * @param name the name to set
      */
-    public void setName(String name) {
+    public void setName(final String name) {
         _name = name;
     }
     

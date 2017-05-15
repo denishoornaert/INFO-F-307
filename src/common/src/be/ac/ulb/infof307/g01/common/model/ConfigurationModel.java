@@ -21,16 +21,16 @@ public abstract class ConfigurationModel {
     protected final boolean _isTest;
     
     
-    protected ConfigurationModel(boolean isTest) {
+    protected ConfigurationModel(final boolean isTest) {
         loadConfigurationFile(CONFIG_FILE);
         
         _isTest = isTest;
     }
     
-    private void loadConfigurationFile(String fileName) {
-        String configFilePath = addJarOrFilePrefix(getAssetPath(fileName));
+    private void loadConfigurationFile(final String fileName) {
+        final String configFilePath = addJarOrFilePrefix(getAssetPath(fileName));
         try {
-            URL path = new URL(configFilePath);
+            final URL path = new URL(configFilePath);
             _propertiesFile = new Properties();
             _propertiesFile.load(path.openStream());
         } catch (IOException ex) {

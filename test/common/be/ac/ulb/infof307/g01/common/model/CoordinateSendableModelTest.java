@@ -7,13 +7,13 @@ public class CoordinateSendableModelTest extends TestCase {
     
     @Test
     public void test_getLatitude() {
-        CoordinateSendableModel tmp = new CoordinateSendableModel(1, 0);
+        final CoordinateSendableModel tmp = new CoordinateSendableModel(1, 0);
         assertEquals(tmp.getLatitude(), 1.0);
     }
     
     @Test
     public void test_getLongitude() {
-        CoordinateSendableModel tmp = new CoordinateSendableModel(1, 0);
+        final CoordinateSendableModel tmp = new CoordinateSendableModel(1, 0);
         assertEquals(tmp.getLongitude(), 0.0);
     }
 }
