@@ -2,6 +2,8 @@ package be.ac.ulb.infof307.g01.client.view.options;
 
 import be.ac.ulb.infof307.g01.client.controller.options.FilterPanelController;
 import java.util.Collection;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.Tab;
@@ -40,10 +42,13 @@ public class SavedFilterPanelView extends Tab {
     }
     
     private void initSavedExpressionComboBoxEvent() {
-        _savedExpressionsComboBox.setOnAction((event) -> {
-            Object object = _savedExpressionsComboBox.getSelectionModel().getSelectedItem();
-            if (object != null) {
-                _controller.applyFilterByName((String)object);
+        _savedExpressionsComboBox.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Object object = _savedExpressionsComboBox.getSelectionModel().getSelectedItem();
+                if (object != null) {
+                    _controller.applyFilterByName((String)object, null);
+                }
             }
         });
     }

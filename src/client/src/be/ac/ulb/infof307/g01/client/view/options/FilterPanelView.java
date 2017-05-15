@@ -1,6 +1,5 @@
 package be.ac.ulb.infof307.g01.client.view.options;
 
-import be.ac.ulb.infof307.g01.client.controller.options.FilterPanelController;
 import javafx.geometry.Side;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -12,7 +11,7 @@ import javafx.scene.control.TabPane;
  */
 public class FilterPanelView extends TabPane {
     
-    public FilterPanelView(FilterPanelController controller) {
+    public FilterPanelView() {
         super();
         initStyle();
     } 

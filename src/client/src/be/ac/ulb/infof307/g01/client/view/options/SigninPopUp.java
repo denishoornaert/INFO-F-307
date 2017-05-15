@@ -36,7 +36,7 @@ public class SigninPopUp extends AbstractPopUp {
 
     public SigninPopUp(SigninPopUpController controller) {
         super(controller);
-	_controller = controller;
+        _controller = controller;
         initWidgets();
         placeWidgets();
         setStyle();

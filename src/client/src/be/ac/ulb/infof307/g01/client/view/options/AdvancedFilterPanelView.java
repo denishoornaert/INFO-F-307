@@ -31,25 +31,20 @@ public class AdvancedFilterPanelView extends AbstractFilterPanelView{
     
     @Override
     protected void initApplyFilterButtonEvent() {
+        AdvancedFilterPanelView currentInstance = this;
         _applyFilterButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
                 String expression = _advancedFilterTextArea.getText();
-                _controller.applyFilter(expression);
+                _controller.applyFilter(expression, currentInstance);
             }
         });
     }
     
     @Override
-    protected void initExpressionToSaveButtonEvent() {
-        _expressionToSaveButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                String expressionName = _nameOfTheExpressionToSave.getText();
-                String expression = _advancedFilterTextArea.getText();
-                _controller.saveFilter(expressionName, expression);
-            }
-        });
+    protected void saveFilter(String expressionName) {
+        String expression = _advancedFilterTextArea.getText();
+        _controller.saveFilter(expressionName, expression);
     }
 
     @Override
