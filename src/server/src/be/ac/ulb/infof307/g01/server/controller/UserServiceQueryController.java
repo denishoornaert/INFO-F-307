@@ -17,8 +17,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**
- *
- * @author Groupe 1
+ * Handles user-related client queries.
+ * Network communications follow the RESTFul protocol, using the Jersey library.
  */
 @Path("user")
 public class UserServiceQueryController {
