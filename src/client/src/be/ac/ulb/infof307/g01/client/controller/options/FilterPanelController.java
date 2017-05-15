@@ -64,7 +64,7 @@ public class FilterPanelController {
         for(final FilterSendableModel filter : allFilterModels) {
             _savedFilters.put(filter.getName(), filter.getExpression());
         }
-        _savedTab.addSavedFilters(_savedFilters.keySet());
+        _savedTab.setSavedFilters(_savedFilters.keySet());
     }
     
     private void placeTabs() {
@@ -118,7 +118,7 @@ public class FilterPanelController {
     
     private void addNewlySavedFilter(final FilterSendableModel filter) {
         _savedFilters.put(filter.getName(), filter.getExpression());
-        _savedTab.addSavedFilters(_savedFilters.keySet());
+        _savedTab.setSavedFilters(_savedFilters.keySet());
     }
     
     /**
