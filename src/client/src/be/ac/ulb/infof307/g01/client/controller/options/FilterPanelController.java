@@ -1,8 +1,8 @@
 package be.ac.ulb.infof307.g01.client.controller.options;
 
 import be.ac.ulb.infof307.g01.client.controller.app.ServerQueryController;
-import be.ac.ulb.infof307.g01.client.model.filter.IdentityFilterOperationModel;
 import be.ac.ulb.infof307.g01.client.controller.map.MarkerController;
+import be.ac.ulb.infof307.g01.client.model.filter.AbstractFilterExpressionModel;
 import be.ac.ulb.infof307.g01.client.model.map.MarkerModel;
 import be.ac.ulb.infof307.g01.client.model.map.PokemonCache;
 import be.ac.ulb.infof307.g01.client.view.options.AdvancedFilterPanelView;
@@ -107,7 +107,7 @@ public class FilterPanelController {
         }
         if(type2 != null) {
             expression += (somethingBefore) ? "," : "";
-            expression += booleanToString(notType2)+"(TYPE("+type2+")),";
+            expression += booleanToString(notType2)+"(TYPE("+type2+"))";
         }
         expression += ")";
         return expression;
@@ -134,8 +134,8 @@ public class FilterPanelController {
         HashSet<MarkerModel> allMarkers = _markerController.getAllMarkers();
         HashSet<MarkerModel> res = allMarkers;
         try {
-            IdentityFilterOperationModel filterExpression = new IdentityFilterOperationModel(expression);
-            res = filterExpression.evaluateFilter(allMarkers);
+            AbstractFilterExpressionModel filter = AbstractFilterExpressionModel.parse(expression);
+            res = filter.evaluateFilter(allMarkers);
         } catch (ParseException ex) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage());
         }
