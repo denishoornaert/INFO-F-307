@@ -1,0 +1,10 @@
+be.ac.ulb.infof307.g01.client
+be.ac.ulb.infof307.g01.client.controller.app
+be.ac.ulb.infof307.g01.client.controller.map
+be.ac.ulb.infof307.g01.client.controller.options
+be.ac.ulb.infof307.g01.client.model.app
+be.ac.ulb.infof307.g01.client.model.filter
+be.ac.ulb.infof307.g01.client.model.map
+be.ac.ulb.infof307.g01.client.view.app
+be.ac.ulb.infof307.g01.client.view.map
+be.ac.ulb.infof307.g01.client.view.options

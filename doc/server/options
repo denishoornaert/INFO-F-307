@@ -1,0 +1,24 @@
+-classpath
+'/home/remy/.m2/repository/javax/mail/mail/1.5.0-b01/mail-1.5.0-b01.jar:/home/remy/.m2/repository/javax/javaee-web-api/7.0/javaee-web-api-7.0.jar:/home/remy/.m2/repository/be/ac/ulb/infof307/g01/common/1.0/common-1.0.jar:/home/remy/.m2/repository/javax/activation/activation/1.1/activation-1.1.jar:/home/remy/.m2/repository/org/xerial/sqlite-jdbc/3.16.1/sqlite-jdbc-3.16.1.jar'
+-encoding
+'UTF-8'
+-protected
+-sourcepath
+'/home/remy/Documents/BA3/GénieLogiciel/Groupe01/src/server/src'
+-author
+-bottom
+'Copyright &#169; 2017. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'/home/remy/Documents/BA3/GénieLogiciel/Groupe01/src/server/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'server 1.0 API'
+-linkoffline
+'http://docs.oracle.com/javase/7/docs/api' '/home/remy/Documents/BA3/GénieLogiciel/Groupe01/src/server/target/javadoc-bundle-options'
+-use
+-version
+-windowtitle
+'server 1.0 API'
