@@ -1,8 +1,8 @@
 package be.ac.ulb.infof307.g01.client.controller.options;
 
 import be.ac.ulb.infof307.g01.client.controller.app.ServerQueryController;
-import be.ac.ulb.infof307.g01.client.model.filter.IdentityFilterOperationModel;
 import be.ac.ulb.infof307.g01.client.controller.map.MarkerController;
+import be.ac.ulb.infof307.g01.client.model.filter.AbstractFilterExpressionModel;
 import be.ac.ulb.infof307.g01.client.model.map.MarkerModel;
 import be.ac.ulb.infof307.g01.client.model.map.PokemonCache;
 import be.ac.ulb.infof307.g01.client.view.options.AbstractFilterPanelView;
@@ -13,6 +13,7 @@ import be.ac.ulb.infof307.g01.client.view.options.SavedFilterPanelView;
 import be.ac.ulb.infof307.g01.common.model.FilterSendableModel;
 import java.security.InvalidParameterException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -51,7 +52,9 @@ public class FilterPanelController {
         _savedTab = new SavedFilterPanelView(this);
         initSavedTab();
         _basicFilter = new BasicFilterPanelView(this);
-        _basicFilter.setComboBoxesContent(PokemonCache.getInstance().getAllPokemonTypesString());
+        ArrayList<String> allPokemonTypeSelectable = PokemonCache.getInstance().getAllPokemonTypesString();
+        allPokemonTypeSelectable.add(" ");
+        _basicFilter.setComboBoxesContent(allPokemonTypeSelectable);
         _advancedFilter = new AdvancedFilterPanelView(this);
     }
     
@@ -100,14 +103,14 @@ public class FilterPanelController {
             expression += booleanToString(notName)+"(NAME("+name+"))";
             somethingBefore = true;
         }
-        if(type1 != null) {
+        if(type1 != null || !" ".equals(type1)) {
             expression += (somethingBefore) ? "," : "";
             expression += booleanToString(notType1)+"(TYPE("+type1+"))";
             somethingBefore = true;
         }
-        if(type2 != null) {
+        if(type2 != null || !" ".equals(type1)) {
             expression += (somethingBefore) ? "," : "";
-            expression += booleanToString(notType2)+"(TYPE("+type2+")),";
+            expression += booleanToString(notType2)+"(TYPE("+type2+"))";
         }
         expression += ")";
         return expression;
@@ -140,8 +143,8 @@ public class FilterPanelController {
         }
         
         try {
-            IdentityFilterOperationModel filterExpression = new IdentityFilterOperationModel(expression);
-            res = filterExpression.evaluateFilter(allMarkers);
+            AbstractFilterExpressionModel filter = AbstractFilterExpressionModel.parse(expression);
+            res = filter.evaluateFilter(allMarkers);
         } catch (ParseException ex) {
             if(originFilterPanel != null) {
                 originFilterPanel.showError("Filter not valid");
