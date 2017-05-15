@@ -59,7 +59,7 @@ public class SavedFilterPanelView extends Tab {
         }
     }
     
-    public void setSavedFilters(Collection<String> filtersName) {
+    public void addSavedFilters(Collection<String> filtersName) {
         _savedExpressionsComboBox.getItems().addAll(filtersName);
     }
     
