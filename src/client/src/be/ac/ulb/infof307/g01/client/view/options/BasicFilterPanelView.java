@@ -1,6 +1,7 @@
 package be.ac.ulb.infof307.g01.client.view.options;
 
 import be.ac.ulb.infof307.g01.client.controller.options.FilterPanelController;
+import be.ac.ulb.infof307.g01.client.model.filter.BasicFilterParametersModel;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -77,27 +78,7 @@ public class BasicFilterPanelView extends AbstractFilterPanelView {
         _vbox.getChildren().addAll(operationsLine);
     }
     
-    @Override
-    protected void initApplyFilterButtonEvent() {
-        final BasicFilterPanelView currentInstance = this;
-        _applyFilterButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(final ActionEvent e) {
-                final boolean notName = _notPokemonNameFilterEntry.isSelected();
-                final String name = _pokemonNameFilterEntry.getText();
-                final boolean notType1 = _notPokemonTypeCombobox1.isSelected();
-                final String type1 = (String) _pokemonTypeCombobox1.getValue();
-                final boolean notType2 = _notPokemonTypeCombobox2.isSelected();
-                final String type2 = (String) _pokemonTypeCombobox2.getValue();
-                final boolean andIsSelected = _andButton.isSelected();
-                _controller.applyFilter(notName, name, notType1, type1, notType2, 
-                        type2, andIsSelected, currentInstance);
-            }
-        });
-    }
-    
-    @Override
-    protected void saveFilter(final String expressionName) {
+    private BasicFilterParametersModel getFilterParameters() {
         final boolean notName = _notPokemonNameFilterEntry.isSelected();
         final String name = _pokemonNameFilterEntry.getText();
         final boolean notType1 = _notPokemonTypeCombobox1.isSelected();
@@ -105,9 +86,26 @@ public class BasicFilterPanelView extends AbstractFilterPanelView {
         final boolean notType2 = _notPokemonTypeCombobox2.isSelected();
         final String type2 = (String) _pokemonTypeCombobox2.getValue();
         final boolean andIsSelected = _andButton.isSelected();
-        final boolean orIsSelected = _orButton.isSelected();
-        _controller.saveFilter(expressionName, notName, name, notType1, 
-                type1, notType2, type2, andIsSelected, orIsSelected);
+        return new BasicFilterParametersModel(notName, name, notType1, type1,
+                notType2, type2, andIsSelected);
+    }
+    
+    @Override
+    protected void initApplyFilterButtonEvent() {
+        final BasicFilterPanelView currentInstance = this;
+        _applyFilterButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(final ActionEvent e) {
+                final BasicFilterParametersModel filterParameters = getFilterParameters();
+                _controller.applyFilter(filterParameters, currentInstance);
+            }
+        });
+    }
+    
+    @Override
+    protected void saveFilter(final String expressionName) {
+                final BasicFilterParametersModel filterParameters = getFilterParameters();
+        _controller.saveFilter(expressionName, filterParameters);
     }
 
     @Override
