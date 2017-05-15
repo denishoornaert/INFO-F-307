@@ -131,11 +131,12 @@ public abstract class AbstractFilterExpressionModel {
             } else if(expression.charAt(idx) == ')') {
                 --parenthesisCounter;
             } else if(expression.charAt(idx) == ',' && parenthesisCounter == 0) {
-                parameters.add(expression.substring(substringStart, idx));
+                //parameters.add(expression.substring(substringStart, idx));
+                parameters.add(expression.substring(substringStart, idx).trim());
                 substringStart = idx + 1;
             }
         }
-        parameters.add(expression.substring(substringStart, expression.length()));
+        parameters.add(expression.substring(substringStart, expression.length()).trim());
         return parameters;
     }
 }
