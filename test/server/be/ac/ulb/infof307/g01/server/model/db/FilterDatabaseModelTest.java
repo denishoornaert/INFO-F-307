@@ -54,10 +54,10 @@ public class FilterDatabaseModelTest extends AbstractDatabaseTest {
     @Test
     public void test_getAllFilter_containsInsertedFilter() {
         _database.insertFilter(_filterToInsert);
-        List<FilterSendableModel> listAllFilter = _database.getAllFilter();
+        final List<FilterSendableModel> listAllFilter = _database.getAllFilter();
         
         boolean find = false;
-        for(FilterSendableModel filter : listAllFilter) {
+        for(final FilterSendableModel filter : listAllFilter) {
             if(filter.getName().equals(_filterToInsert.getName())) {
                 find = filter.getExpression().equals(_filterToInsert.getExpression());
             }

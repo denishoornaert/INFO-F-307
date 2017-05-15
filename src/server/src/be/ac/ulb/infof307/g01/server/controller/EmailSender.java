@@ -44,7 +44,7 @@ public class EmailSender {
      * Creates a session suitable to send mails with the SMTP protocol.
      */
     private Session createSmtpSession() {
-        Properties smtpProperties = new Properties();
+        final Properties smtpProperties = new Properties();
         smtpProperties.put("mail.smtp.host", SERVER_SMTP_HOST);
         smtpProperties.put("mail.smtp.auth", "true");
         smtpProperties.put("mail.smtp.port", String.valueOf(SERVER_SMTP_PORT));
@@ -64,16 +64,17 @@ public class EmailSender {
      * @param token The confirmation token.
      * @throws MessagingException If the mail couldn't be sent.
      */
-    public void sendConfirmationEmail(String userMailAddress, String username, String token) throws MessagingException {
+    public void sendConfirmationEmail(final String userMailAddress, final String username, 
+            final String token) throws MessagingException {
         // Create the message
-        Message message = new MimeMessage(SMTP_SESSION);
+        final Message message = new MimeMessage(SMTP_SESSION);
         message.setFrom(new InternetAddress(SERVER_MAIL_ADDRESS));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(userMailAddress));
         message.setSubject(CONFIRMATION_MAIL_TITLE);
         message.setText(String.format(CONFIRMATION_MAIL_CONTENT, username, token));
         
         // Instanciates a connection used to send the message
-        Transport transport = SMTP_SESSION.getTransport("smtps");
+        final Transport transport = SMTP_SESSION.getTransport("smtps");
         transport.connect(SERVER_SMTP_HOST, SERVER_SMTP_PORT, SERVER_MAIL_ADDRESS, SERVER_MAIL_PASSWORD);
         transport.sendMessage(message, message.getAllRecipients());
         transport.close();

@@ -29,7 +29,7 @@ public class MarkerDatabaseModelTest extends AbstractDatabaseTest {
     @Override
     public void setUp() {
         super.setUp();
-        PokemonSendableModel arceus = _database.getPokemonByName(_markerPokemonName);
+        final PokemonSendableModel arceus = _database.getPokemonByName(_markerPokemonName);
         final int id = 0;
         final double latitude = 250;
         final double longitude = 500;
@@ -64,7 +64,7 @@ public class MarkerDatabaseModelTest extends AbstractDatabaseTest {
     @Test
     public void test_getAllMarkers_containsInsertedMarker() {
         _database.insertMarker(_markerToInsert); // TODO (Loan & Stan) may be refactored with fail up
-        ArrayList<MarkerSendableModel> markers = _database.getAllMarkers();        
+        final ArrayList<MarkerSendableModel> markers = _database.getAllMarkers();        
         assertTrue(markers.contains(_markerToInsert));
     }
     
