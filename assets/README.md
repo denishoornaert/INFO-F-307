@@ -1,1 +1,1 @@
-Ce dossier contient l'ensemble des ressources utilisé par le programme.
+Ce dossier contient l'ensemble des ressources utilisées par le programme.

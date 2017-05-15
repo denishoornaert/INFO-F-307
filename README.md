@@ -1,10 +1,10 @@
 # Gotta Map'Em All : Projet de génie logiciel et gestion de projet (INFO-F-307)
 
 Le projet a pour but de permettre à un joueur d'un jeu tel que `Pokemon Go` de signaler aux autres utilisateurs de cette même application
-les pokemons qu'il rencontre.  Ce programme se veut donc fonctionnel sur les trois OS le plus connus/utilisés (Linux, Windows et MacOS).
+les pokemons qu'il rencontre. Ce programme se veut donc fonctionnel sur les trois OS le plus connus/utilisés (Linux, Windows et MacOS).
 
 
-# Utilisations
+# Utilisation
 
 ## Dépendances
 
@@ -13,11 +13,11 @@ Pour *fonctionner* (à partir d'un `.jar` déjà compilé), le projet a besoin d
  - [Java Runtime Environment 8](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html), pour exécuter le code Java
  - [SQLite 3](https://sqlite.org/download.html), pour gérer la base de données
  - [GlassFish](http://www.oracle.com/technetwork/middleware/glassfish/overview/index.html), pour gérer le serveur REST
- 
+
 Pour *compiler*, il faut également disposer de :
 
  - [Java Development Kit 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html), pour compiler le code Java
- - [Maven 3](https://maven.apache.org/download.cgi), permettant de gérer la structure et les dépendances du code 
+ - [Maven 3](https://maven.apache.org/download.cgi), permettant de gérer la structure et les dépendances du code
  - [Jersey](https://jersey.java.net/)
 
 Pour *tester*, il faut également dispoer de :
@@ -26,21 +26,21 @@ Pour *tester*, il faut également dispoer de :
 
 ## Compilation
 
-Une version du code source déjà compilée et compatible avec les plate-formes visées se trouve dans le dossier `dist/` du projet.
+Une version du code source déjà compilée et compatible avec les plateformes visées se trouve dans le dossier `dist/` du projet.
 
-Afin de compiler le code source, exécuter la commande suivante à la racine du projet :  
+Afin de compiler le code source, exécutez la commande suivante à la racine du projet :
 ```mvn compile```
 
-## Démarrage 
+## Démarrage
 
 ### Serveur
-Le serveur fonctionne avec GlassFish.  Pour démarrer GlassFish vous pouvez utilisez la commande suivante:
+Le serveur fonctionne avec GlassFish. Pour démarrer GlassFish, vous pouvez utiliser la commande suivante :
 ```
 ~/GlassFish_Server/bin/asadmin start-domain --verbose <domaine>
 ```
-Où `<domaine>` représente le domaine que vous avez configuré (par défaut: `domain1`).          
-          
-Pour ensuite déployez le projet, utilisez la commande suivante:
+Où `<domaine>` représente le domaine que vous avez configuré (par défaut: `domain1`).
+
+Pour ensuite déployer le projet, utilisez la commande suivante :
 ```
 ~/GlassFish_Server/bin/asadmin deploy ./dist/server.war
 ```
@@ -48,14 +48,14 @@ Pour ensuite déployez le projet, utilisez la commande suivante:
 
 ### Client
 
-Pour lancer l'exécution du programme côté client, il suffit d'exécuter :  
+Pour lancer l'exécution du programme du côté client, il suffit d'exécuter :
 ```java -jar client.jar```
 
 
 # Configuration
 
 ## Client
-La configuration se trouve ici: `assets/client/config.properties`            
+La configuration se trouve ici: `assets/client/config.properties`
 Elle se présente comme ceci:
 ```properties
 term-and-condition=terms_and_conditions.txt
@@ -74,7 +74,7 @@ server-url=http\://localhost\:8080/server/rest/
 
 
 ## Serveur
-La configuration se trouve ici: `assets/server/config.properties`             
+La configuration se trouve ici: `assets/server/config.properties`
 Elle se présente comme ceci:
 ```properties
 database-name=Database.db
@@ -83,7 +83,8 @@ SQL-script=Database.sql
 ```
 
 # Tests
-Les tests se trouvent dans le dossier `test/` où il est expliqué les convensions décidées à ce sujet.           
+Les tests se trouvent dans le dossier `test/` où sont expliquées les conventions décidées à ce sujet.
+
 Les tests fonctionnent avec Junit.
 
 
@@ -95,16 +96,16 @@ Les tests fonctionnent avec Junit.
 
 ## Screenshot
 
-![Interface Général](./team/images/demo0.png)                      
+![Interface Général](./team/images/demo0.png)
 
-![Information](./team/images/demo1.png)                      
+![Information](./team/images/demo1.png)
 
-![Start Server](./team/images/demo2.png)                      
+![Start Server](./team/images/demo2.png)
 
-![Sign In](./team/images/demo3.png)                      
+![Sign In](./team/images/demo3.png)
 
-![Sign Up](./team/images/demo4.png)                      
+![Sign Up](./team/images/demo4.png)
 
-![Terms and conditions](./team/images/demo5.png)                      
+![Terms and conditions](./team/images/demo5.png)
 
-![Create](./team/images/demo6.png)                      
+![Create](./team/images/demo6.png)
