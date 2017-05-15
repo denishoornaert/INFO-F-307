@@ -59,7 +59,7 @@ public class FilterPanelController {
         for(FilterSendableModel filter : allFilterModels) {
             _savedFilters.put(filter.getName(), filter.getExpression());
         }
-        _savedTab.setSavedFilters(_savedFilters.keySet());
+        _savedTab.addSavedFilters(_savedFilters.keySet());
     }
     
     private void placeTabs() {
@@ -113,6 +113,11 @@ public class FilterPanelController {
         return expression;
     }
     
+    private void addNewlySavedFilter(FilterSendableModel filter) {
+        _savedFilters.put(filter.getName(), filter.getExpression());
+        _savedTab.addSavedFilters(_savedFilters.keySet());
+    }
+    
     /**
      * @return the associated JavaFX view
      */
@@ -148,6 +153,7 @@ public class FilterPanelController {
             FilterSendableModel filter = new FilterSendableModel(expressionName, expression);
             try {
                 ServerQueryController.getInstance().insertFilter(filter);
+                addNewlySavedFilter(filter);
             } catch (InvalidParameterException error) {
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE, error.getMessage());
             }
