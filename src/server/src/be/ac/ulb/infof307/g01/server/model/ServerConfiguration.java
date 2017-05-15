@@ -5,8 +5,9 @@ import java.io.File;
 import java.net.URL;
 
 /**
- * Singleton required to configure server.
-*/
+ * Singleton class containing the magic numbers and strings required to 
+ * configure the server program.
+ */
 public class ServerConfiguration extends ConfigurationModel {
     
     private static ServerConfiguration _configuration = null;
@@ -77,9 +78,6 @@ public class ServerConfiguration extends ConfigurationModel {
         String path = _propertiesFile.getProperty(SQL_SCRIPT_NAME_CONFIG, SQL_SCRIPT_NAME_DEFAULT);
         return getAssetPath(path);
     }
-    
-    
-    /////////////////// STATIC ///////////////////
     
     public static ServerConfiguration getInstance() {			
         if(_configuration == null) {
