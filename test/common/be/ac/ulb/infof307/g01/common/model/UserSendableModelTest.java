@@ -34,7 +34,7 @@ public class UserSendableModelTest {
     
     @Test
     public void test_getPassword() {
-        String cryptPassword = _userSendable.cryptPassword(PASSWORD);
+        final String cryptPassword = _userSendable.cryptPassword(PASSWORD);
         assertEquals(_userSendable.getPassword(), cryptPassword);
         assertNotEquals(_userSendable.getPassword(), PASSWORD);
     }

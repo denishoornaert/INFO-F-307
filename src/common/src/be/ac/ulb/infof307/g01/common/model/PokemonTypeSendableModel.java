@@ -21,11 +21,11 @@ public class PokemonTypeSendableModel {
     public PokemonTypeSendableModel() {
     }
     
-    public PokemonTypeSendableModel(PokemonTypeSendableModel other) {
+    public PokemonTypeSendableModel(final PokemonTypeSendableModel other) {
         _typeName = other._typeName;
     }
     
-    public PokemonTypeSendableModel(String typeName) {
+    public PokemonTypeSendableModel(final String typeName) {
         _typeName = typeName.toUpperCase();
     }
     
@@ -33,7 +33,12 @@ public class PokemonTypeSendableModel {
         return _typeName;
     }
     
-    public void setTypeName(String typeName) {
+    /**
+     * Changes the type name.
+     * \note This is needed by Jersey, do not remove
+     * @param typeName the new name of the type
+     */
+    public void setTypeName(final String typeName) {
         _typeName = typeName;
     }
 
@@ -47,7 +52,7 @@ public class PokemonTypeSendableModel {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
@@ -58,10 +63,7 @@ public class PokemonTypeSendableModel {
             return false;
         }
         final PokemonTypeSendableModel other = (PokemonTypeSendableModel) obj;
-        if (!Objects.equals(this._typeName, other._typeName)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this._typeName, other._typeName);
     }
     
 }

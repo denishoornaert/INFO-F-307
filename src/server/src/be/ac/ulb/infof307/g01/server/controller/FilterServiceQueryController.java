@@ -25,7 +25,7 @@ public class FilterServiceQueryController {
     @POST
     @Consumes(MediaType.APPLICATION_XML)
     @Produces(MediaType.APPLICATION_XML)
-    public Response insertFilter(FilterSendableModel filter) {
+    public Response insertFilter(final FilterSendableModel filter) {
         Response response;
         Logger.getLogger(getClass().getName()).log(Level.INFO, "Insert filter: {0}", 
                 filter.getName());
@@ -44,7 +44,8 @@ public class FilterServiceQueryController {
     @GET
     @Produces(MediaType.APPLICATION_XML)
     public List<FilterSendableModel> getAllMarker() {
-        List<FilterSendableModel> arrayListFilter = DatabaseModel.getInstance().getAllFilter();
+        final List<FilterSendableModel> arrayListFilter = 
+                DatabaseModel.getInstance().getAllFilter();
         return arrayListFilter;
     }
     

@@ -46,10 +46,10 @@ public class MarkerSendableModel {
      * @param attack pokemon attack points
      * @param defense pokemon defense points
      */
-    public MarkerSendableModel(int databaseId, String username, 
-            PokemonSendableModel pokemon, double latitude, double longitude, 
-            Long timestamp, ArrayList<ReputationVoteSendableModel> reputation, 
-            int lifePoints, int attack, int defense) {
+    public MarkerSendableModel(final int databaseId, final String username, 
+            final PokemonSendableModel pokemon, final double latitude, final double longitude, 
+            final Long timestamp, final ArrayList<ReputationVoteSendableModel> reputation, 
+            final int lifePoints, final int attack, final int defense) {
         this(databaseId, username, pokemon, new CoordinateSendableModel(latitude, longitude), 
                 timestamp, reputation, lifePoints, attack, defense);
     }
@@ -66,9 +66,9 @@ public class MarkerSendableModel {
      * @param attack pokemon attack points
      * @param defense pokemon defense points
      */
-    protected MarkerSendableModel(int databaseId, String username, 
-            PokemonSendableModel pokemon, CoordinateSendableModel coordinate, 
-            Long timestamp, int lifePoints, int attack, int defense) {
+    protected MarkerSendableModel(final int databaseId, final String username, 
+            final PokemonSendableModel pokemon, final CoordinateSendableModel coordinate, 
+            final Long timestamp, final int lifePoints, final int attack, final int defense) {
         this(databaseId, username, pokemon, coordinate, timestamp, 
                 new ArrayList<>(), lifePoints, attack, defense);
     }
@@ -86,10 +86,10 @@ public class MarkerSendableModel {
      * @param attack pokemon attack stat
      * @param defense pokemon defense stat
      */
-    protected MarkerSendableModel(int databaseId, String username, 
-            PokemonSendableModel pokemon, CoordinateSendableModel coordinate, 
-            Long timestamp, ArrayList<ReputationVoteSendableModel> reputation, 
-            int lifePoints, int attack, int defense) {
+    protected MarkerSendableModel(final int databaseId, final String username, 
+            final PokemonSendableModel pokemon, final CoordinateSendableModel coordinate, 
+            final Long timestamp, final ArrayList<ReputationVoteSendableModel> reputation, 
+            final int lifePoints, final int attack, final int defense) {
         
     	_username = username;
         _databaseId = databaseId;
@@ -102,7 +102,7 @@ public class MarkerSendableModel {
         _defense = defense;
     }
     
-    protected MarkerSendableModel(MarkerSendableModel other) {
+    protected MarkerSendableModel(final MarkerSendableModel other) {
         _username = other._username;
         _databaseId = other._databaseId;
         _pokemon = other._pokemon;
@@ -133,7 +133,7 @@ public class MarkerSendableModel {
      * the IDs.
      * @param databaseId the new database id of this marker
      */
-    public void setDatabaseId(int databaseId) {
+    public void setDatabaseId(final int databaseId) {
         this._databaseId = databaseId;
     }
 
@@ -141,8 +141,11 @@ public class MarkerSendableModel {
         return _username;
     }
 
-    public void setUsername(String username) {
-        this._username = username;
+    /**
+     * @param _username the username to set
+     */
+    public void setUsername(final String _username) {
+        this._username = _username;
     }
 
     public PokemonSendableModel getPokemon() {
@@ -153,7 +156,10 @@ public class MarkerSendableModel {
         return _pokemon.getName();
     }
     
-    public void setPokemon(PokemonSendableModel pokemon) {
+    /**
+     * @param pokemon the pokemon to set
+     */
+    public void setPokemon(final PokemonSendableModel pokemon) {
         this._pokemon = pokemon;
     }
 
@@ -161,7 +167,10 @@ public class MarkerSendableModel {
         return _coordinate;
     }
 
-    public void setCoordinate(CoordinateSendableModel coordinate) {
+    /**
+     * @param coordinate the coordinate to set
+     */
+    public void setCoordinate(final CoordinateSendableModel coordinate) {
         this._coordinate = coordinate;
     }
     
@@ -169,7 +178,7 @@ public class MarkerSendableModel {
         return _longTimestamp;
     }
     
-    public void setLongTimestamp(Long newLongTimestamp) {
+    public void setLongTimestamp(final Long newLongTimestamp) {
         _longTimestamp = newLongTimestamp;
     }
     
@@ -183,7 +192,7 @@ public class MarkerSendableModel {
     
     public int getUpVotes() {
         int reputation = 0;
-        for(ReputationVoteSendableModel reputationVote : _reputation) {
+        for(final ReputationVoteSendableModel reputationVote : _reputation) {
             if(reputationVote.getIsUpVote()) {
                 ++reputation;
             }
@@ -193,7 +202,7 @@ public class MarkerSendableModel {
 
     public int getDownVotes() {
         int reputation = 0;
-        for(ReputationVoteSendableModel reputationVote : _reputation) {
+        for(final ReputationVoteSendableModel reputationVote : _reputation) {
             if(!reputationVote.getIsUpVote()) {
                 ++reputation;
             }
@@ -201,7 +210,10 @@ public class MarkerSendableModel {
         return reputation;
     }
     
-    public void setReputation(ArrayList<ReputationVoteSendableModel> reputation) {
+    /**
+     * @param reputation the reputation to set
+     */
+    public void setReputation(final ArrayList<ReputationVoteSendableModel> reputation) {
         this._reputation = reputation;
     }
 
@@ -209,7 +221,10 @@ public class MarkerSendableModel {
         return _lifePoints;
     }
 
-    public void setLifePoints(int lifePoints) {
+    /**
+     * @param lifePoints the lifePoints to set
+     */
+    public void setLifePoints(final int lifePoints) {
         this._lifePoints = lifePoints;
     }
 
@@ -217,7 +232,10 @@ public class MarkerSendableModel {
         return _attack;
     }
 
-    public void setAttack(int attack) {
+    /**
+     * @param attack the _attack to set
+     */
+    public void setAttack(final int attack) {
         _attack = attack;
     }
 
@@ -225,13 +243,16 @@ public class MarkerSendableModel {
         return _defense;
     }
 
-    public void setDefense(int defense) {
+    /**
+     * @param defense the defense to set
+     */
+    public void setDefense(final int defense) {
         _defense = defense;
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
+        final int hash = 3;
         return hash;
     }
     
@@ -246,8 +267,8 @@ public class MarkerSendableModel {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if(this == obj) {
+    public boolean equals(final Object obj) {
+        if (this == obj) {
             return true;
         }
         if(obj == null || getClass() != obj.getClass()) {

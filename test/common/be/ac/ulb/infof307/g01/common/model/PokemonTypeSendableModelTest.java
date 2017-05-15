@@ -10,8 +10,8 @@ public class PokemonTypeSendableModelTest extends TestCase {
     
     @Test
     public void test_modelCopyIsEqualToOriginal() {
-        PokemonTypeSendableModel original = new PokemonTypeSendableModel("AIR");
-        PokemonTypeSendableModel copy = new PokemonTypeSendableModel(original);
+        final PokemonTypeSendableModel original = new PokemonTypeSendableModel("AIR");
+        final PokemonTypeSendableModel copy = new PokemonTypeSendableModel(original);
         assertEquals(original, copy);
     }
 }

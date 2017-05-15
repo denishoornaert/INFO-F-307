@@ -22,7 +22,7 @@ public class CoordinateSendableModel {
         _longitude = 0;
     }
     
-    public CoordinateSendableModel(double latitude, double longitude) {
+    public CoordinateSendableModel(final double latitude, final double longitude) {
         _latitude = latitude;
         _longitude = longitude;
     }
@@ -37,7 +37,7 @@ public class CoordinateSendableModel {
     /**
      * @param latitude the latitude to set
      */
-    public void setLatitude(double latitude) {
+    public void setLatitude(final double latitude) {
         this._latitude = latitude;
     }
 
@@ -51,17 +51,18 @@ public class CoordinateSendableModel {
     /**
      * @param longitude the longitude to set
      */
-    public void setLongitude(double longitude) {
+    public void setLongitude(final double longitude) {
         this._longitude = longitude;
     }
     
     @Override
-    public boolean equals(Object object){
+    public boolean equals(final Object object){
         if(!(object instanceof CoordinateSendableModel)) {
             return false;
         }
-        CoordinateSendableModel other = (CoordinateSendableModel) object;
-        return getLatitude() == other.getLatitude() && getLongitude() == other.getLongitude();
+        final CoordinateSendableModel other = (CoordinateSendableModel) object;
+        return getLatitude() == other.getLatitude() && 
+                getLongitude() == other.getLongitude();
     }
     
     @Override

@@ -21,15 +21,15 @@ public class PokemonSendableModel {
      */
     public PokemonSendableModel() {}
     
-    public PokemonSendableModel(String pokemonName, String imagePath, 
-            PokemonTypeSendableModel pokemonType) {
+    public PokemonSendableModel(final String pokemonName, final String imagePath, 
+            final PokemonTypeSendableModel pokemonType) {
         this(pokemonName, imagePath, pokemonType, 
             PokemonTypeSendableModel.getNoneType());
     }
     
-    public PokemonSendableModel(String pokemonName, String imagePath, 
-            PokemonTypeSendableModel pokemonTypeOne, 
-            PokemonTypeSendableModel pokemonTypeTwo) {
+    public PokemonSendableModel(final String pokemonName, final String imagePath, 
+            final PokemonTypeSendableModel pokemonTypeOne, 
+            final PokemonTypeSendableModel pokemonTypeTwo) {
         _name = pokemonName;
         _imageName = imagePath;
         _types = new PokemonTypeSendableModel[2];
@@ -37,7 +37,7 @@ public class PokemonSendableModel {
         _types[1] = pokemonTypeTwo;        
     }
     
-    public PokemonSendableModel(PokemonSendableModel other) {
+    public PokemonSendableModel(final PokemonSendableModel other) {
         this(other._name, other._imageName, other._types[0], other._types[1]);
     }
     
@@ -45,8 +45,11 @@ public class PokemonSendableModel {
         return _name;
     }
 
-    public void setName(String name) {
-        this._name = name;
+    /**
+     * @param _name the _name to set
+     */
+    public void setName(final String _name) {
+        this._name = _name;
     }
 
     /**
@@ -73,8 +76,8 @@ public class PokemonSendableModel {
      * Assigns the pokemon's types.
      * @param types the types to set
      */
-    public void setTypes(PokemonTypeSendableModel[] types) {
-        this._types = types;
+    public void setTypes(final PokemonTypeSendableModel[] _type) {
+        this._types = _type;
     }
 
     /**
@@ -88,12 +91,12 @@ public class PokemonSendableModel {
     /**
      * @param imageName the new pokemon's image name
      */
-    public void setImagePath(String imageName) {
-        this._imageName = imageName;
+    public void setImagePath(final String _imageName) {
+        this._imageName = _imageName;
     }
     
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }

@@ -8,7 +8,7 @@ import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
  */
 public class PokemonTypeModel extends PokemonTypeSendableModel {
     
-    public PokemonTypeModel(PokemonTypeSendableModel pokemonType) {
+    public PokemonTypeModel(final PokemonTypeSendableModel pokemonType) {
         super(pokemonType);
     }
     
@@ -17,7 +17,7 @@ public class PokemonTypeModel extends PokemonTypeSendableModel {
      * @param typeName the name of the brand new type
      * @throws IllegalStateException if type already exists
      */
-    public PokemonTypeModel(String typeName) {
+    public PokemonTypeModel(final String typeName) {
         super(typeName);
     }
 }

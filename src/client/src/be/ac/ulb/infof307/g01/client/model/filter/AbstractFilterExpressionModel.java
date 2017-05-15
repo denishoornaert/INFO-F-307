@@ -25,13 +25,13 @@ public abstract class AbstractFilterExpressionModel {
      * @param expression The expression to parse
      * @throws ParseException if given expression has incorrect syntax
      */
-    public AbstractFilterExpressionModel(String expression) throws ParseException {
+    public AbstractFilterExpressionModel(final String expression) throws ParseException {
         this();
-        ArrayList<String> splitParam = splitParameters(expression);
+        final ArrayList<String> splitParam = splitParameters(expression);
         if(splitParam == null || splitParam.isEmpty()) {
             throw new ParseException("Could not split null/empty element", 0);
         }
-        for(String parameter : splitParam) {
+        for(final String parameter : splitParam) {
             _expressions.add(parse(parameter));
         }
     }
@@ -48,7 +48,7 @@ public abstract class AbstractFilterExpressionModel {
      * @param expression the textual expression to parse
      * @return the content of the first parenthesis
      */
-    static protected String getParenthesisContent(String expression) {
+    static protected String getParenthesisContent(final String expression) {
         return AbstractFilterExpressionModel.getParenthesisContent(expression, 0);
     }
     
@@ -58,7 +58,7 @@ public abstract class AbstractFilterExpressionModel {
      * @param index the index of the parenthesis to get (starts at 0)
      * @return the content of the requested parenthesis
      */
-    protected static String getParenthesisContent(String expression, int index) {
+    protected static String getParenthesisContent(final String expression, final int index) {
         int leftParenthesisIdx = -1;
         int rightParenthesisIdx = expression.length();
         for(int i = 0; i <= index; ++i) {
@@ -73,7 +73,7 @@ public abstract class AbstractFilterExpressionModel {
      * @param expression the textual expression to parse
      * @return the name of the first operation found in the expression
      */
-    static public String getOperationName(String expression) {
+    static public String getOperationName(final String expression) {
         return expression.substring(0, expression.indexOf('(')).toUpperCase();
     }
     
@@ -83,7 +83,7 @@ public abstract class AbstractFilterExpressionModel {
      * @return a filter object representing the whole filter
      * @throws ParseException if the string has an incorrect syntax
      */
-    static public AbstractFilterExpressionModel parse(String expression) throws ParseException {
+    static public AbstractFilterExpressionModel parse(final String expression) throws ParseException {
         String operation;
         try {
             operation = AbstractFilterExpressionModel.getOperationName(expression);
@@ -91,7 +91,7 @@ public abstract class AbstractFilterExpressionModel {
             throw new ParseException(expression, 0);
         }
         AbstractFilterExpressionModel ret = null;
-        String parenthesisContent = AbstractFilterExpressionModel.getParenthesisContent(expression);
+        final String parenthesisContent = AbstractFilterExpressionModel.getParenthesisContent(expression);
         switch(operation) {
             case "AND":
                 ret = new IntersectionFilterOperationModel(parenthesisContent);
@@ -123,11 +123,11 @@ public abstract class AbstractFilterExpressionModel {
      * @param expression the textual expression to parse
      * @return the list of parameters contained in the expression
      */
-    protected static ArrayList<String> splitParameters(String expression) {
+    protected static ArrayList<String> splitParameters(final String expression) {
         if(expression == null || expression.isEmpty()) {
             return null;
         }
-        ArrayList<String> parameters = new ArrayList<>();
+        final ArrayList<String> parameters = new ArrayList<>();
         int substringStart = 0;
         int parenthesisCounter = 0;
         for(int idx = 0; idx < expression.length(); ++idx) {

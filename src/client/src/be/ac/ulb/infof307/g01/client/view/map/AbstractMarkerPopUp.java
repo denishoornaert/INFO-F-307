@@ -28,10 +28,11 @@ public abstract class AbstractMarkerPopUp extends AbstractPopUp {
     private HBox _widgets;
     private StackPane _stackPane;
     
-    private AbstractMarkerPopUpController _controller;
+    private final AbstractMarkerPopUpController _controller;
     protected final MarkerModel _markerModel;
     
-    public AbstractMarkerPopUp(AbstractMarkerPopUpController controller, int markerId) {
+    public AbstractMarkerPopUp(final AbstractMarkerPopUpController controller,
+            final int markerId) {
         super(controller);
         _controller = controller;
         _markerModel = _controller.getMarker();
@@ -80,16 +81,16 @@ public abstract class AbstractMarkerPopUp extends AbstractPopUp {
         _selectedPokemonView.setImage(new Image(imagePath));
     }
     
-    protected VBox placeInColumn(Node... nodes) {
-        VBox vbox = new VBox();
-        ObservableList<Node> childrenV = vbox.getChildren();
+    protected VBox placeInColumn(final Node... nodes) {
+        final VBox vbox = new VBox();
+        final ObservableList<Node> childrenV = vbox.getChildren();
         childrenV.addAll(nodes);
         vbox.setSpacing(10);
         return vbox;
     }
     
-    protected HBox placeInRow(Node... nodes) {
-        HBox hbox = new HBox();
+    protected HBox placeInRow(final Node... nodes) {
+        final HBox hbox = new HBox();
         hbox.getChildren().addAll(nodes);
         hbox.setAlignment(Pos.CENTER);
         hbox.setSpacing(10);
@@ -97,12 +98,17 @@ public abstract class AbstractMarkerPopUp extends AbstractPopUp {
     }
     
     @Override
-    protected void add(Node node) {
-        ObservableList<Node> children = _widgets.getChildren();
+    protected void add(final Node node) {
+        final ObservableList<Node> children = _widgets.getChildren();
         children.addAll(node);
     }
     
-    protected void setXExpandPolicy(Control control) {
+    /**
+     * Set max width to widget
+     * 
+     * @param control the current gui element
+     */
+    protected void setXExpandPolicy(final Control control) {
         HBox.setHgrow(control, Priority.ALWAYS);
         control.setMaxWidth(Double.MAX_VALUE);
     }

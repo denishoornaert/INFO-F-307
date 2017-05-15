@@ -21,14 +21,14 @@ public class PokemonLabel extends BorderPane {
     private HBox _pokemonNameBox;
     private Label _pokemonName;
     
-    public PokemonLabel(PokemonModel pokemon) {
+    public PokemonLabel(final PokemonModel pokemon) {
         super();
         initWidgets(pokemon);
         initStyle();
         placeWidgets();
     }
 
-    private void initWidgets(PokemonModel pokemon) {
+    private void initWidgets(final PokemonModel pokemon) {
         String imagePath = pokemon.getImagePath();
         imagePath = ClientConfiguration.addFilePrefix(imagePath);
         _image = new ImageView(new Image(imagePath));

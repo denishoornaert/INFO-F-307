@@ -25,11 +25,11 @@ public class UserSendableModel {
      */
     public UserSendableModel() { }
 
-    public UserSendableModel(String username, String password) {
+    public UserSendableModel(final String username, final String password) {
         this(username, "", password);
     }
     
-    public UserSendableModel(String username, String email, String password) {
+    public UserSendableModel(final String username, final String email, final String password) {
         _username = username;
         _password = cryptPassword(password);
         _email = email;
@@ -47,10 +47,10 @@ public class UserSendableModel {
         return _email;
     }
     
-    public String cryptPassword(String password) {
+    public String cryptPassword(final String password) {
         String res = password;
         try {
-            MessageDigest algo = MessageDigest.getInstance("MD5");
+            final MessageDigest algo = MessageDigest.getInstance("MD5");
             res = new String(algo.digest(password.getBytes()));
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(getClass().getName()).log(Level.WARNING, 
@@ -59,16 +59,25 @@ public class UserSendableModel {
         return res;
     }
 
-    public void setUsername(String username) {
-        this._username = username;
+    /**
+     * @param _username the _username to set
+     */
+    public void setUsername(final String _username) {
+        this._username = _username;
     }
 
-    public void setPassword(String password) {
-        this._password = password;
+    /**
+     * @param _password the _password to set
+     */
+    public void setPassword(final String _password) {
+        this._password = _password;
     }
 
-    public void setEmail(String email) {
-        this._email = email;
+    /**
+     * @param _email the _email to set
+     */
+    public void setEmail(final String _email) {
+        this._email = _email;
     }
     
 }

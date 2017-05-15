@@ -10,16 +10,17 @@ public class PokemonTypeDatabaseModelTest extends AbstractDatabaseTest {
     
     @Test 
     public void test_getPokemonTypeByTypeName() {
-        String testString = "FIRE";  // must be an existing one
-        PokemonTypeSendableModel pokemonType = new PokemonTypeSendableModel(testString);
+        final String testString = "FIRE";  // must be an existing one
+        final PokemonTypeSendableModel pokemonType = new PokemonTypeSendableModel(testString);
         
-        assertEquals(_database.getPokemonTypeByTypeName(testString).getTypeName(), pokemonType.getTypeName());
+        assertEquals(_database.getPokemonTypeByTypeName(testString).getTypeName(), 
+                pokemonType.getTypeName());
     }
     
     @Test
     public void test_getTypeName_typeNameIsUpper() {
-        String testString = "bidon"; // arbitrary
-        PokemonTypeSendableModel pokemonType = new PokemonTypeSendableModel(testString);
+        final String testString = "bidon"; // arbitrary
+        final PokemonTypeSendableModel pokemonType = new PokemonTypeSendableModel(testString);
         
         assertEquals(pokemonType.getTypeName(), testString.toUpperCase());
     }

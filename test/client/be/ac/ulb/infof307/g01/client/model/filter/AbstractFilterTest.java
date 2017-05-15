@@ -57,12 +57,12 @@ public class AbstractFilterTest {
     
     private static int lifeCounter = 1;  // used so that all markers are different
     
-    private static MarkerModel makeMarkerModel(PokemonModel pokemon) {
+    private static MarkerModel makeMarkerModel(final PokemonModel pokemon) {
         return new MarkerModel(pokemon, COORD, "", ++lifeCounter, 0, 0, new Timestamp(new Date().getTime()), false);
     }
     
     private static void createMarkers() {
-        ArrayList<MarkerModel> markersList = new ArrayList<>();
+        final ArrayList<MarkerModel> markersList = new ArrayList<>();
         // two pokemons P1
         markersList.add(makeMarkerModel(_pokemons.get(0)));
         markersList.add(makeMarkerModel(_pokemons.get(0)));

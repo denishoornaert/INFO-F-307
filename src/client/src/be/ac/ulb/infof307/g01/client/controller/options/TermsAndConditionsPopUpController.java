@@ -32,7 +32,7 @@ public class TermsAndConditionsPopUpController extends PopUpController {
         BufferedReader br;
         String res = "";
         try {
-            URL path = new URL(ClientConfiguration.getInstance().getTermsAndConditionsPath());
+            final URL path = new URL(ClientConfiguration.getInstance().getTermsAndConditionsPath());
             fr = new InputStreamReader(path.openStream());
             br = new BufferedReader(fr);
             String sCurrentLine;

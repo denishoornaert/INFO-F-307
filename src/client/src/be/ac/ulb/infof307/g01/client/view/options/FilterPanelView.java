@@ -20,7 +20,7 @@ public class FilterPanelView extends TabPane {
         setSide(Side.LEFT);
     }
     
-    public void addTab(String newTabName, Tab newTab) {
+    public void addTab(final String newTabName, final Tab newTab) {
         newTab.setText(newTabName);
         getTabs().add(newTab);
     }

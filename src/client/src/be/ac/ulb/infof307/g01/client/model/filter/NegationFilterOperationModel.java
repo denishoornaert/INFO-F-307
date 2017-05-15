@@ -1,6 +1,5 @@
 package be.ac.ulb.infof307.g01.client.model.filter;
 
-import be.ac.ulb.infof307.g01.client.model.filter.AbstractFilterExpressionModel;
 import be.ac.ulb.infof307.g01.client.model.map.MarkerModel;
 import java.text.ParseException;
 import java.util.HashSet;
@@ -16,15 +15,15 @@ class NegationFilterOperationModel extends AbstractFilterExpressionModel {
      * @param expression the expression to parse
      * @throws ParseException if the expression has an incorrect syntax
      */
-    public NegationFilterOperationModel(String expression) throws ParseException {
+    public NegationFilterOperationModel(final String expression) throws ParseException {
         super(expression);
     }
 
     @Override
-    public HashSet<MarkerModel> evaluateFilter(HashSet<MarkerModel> allMarkers) {
-        AbstractFilterExpressionModel expression = _expressions.get(0);
+    public HashSet<MarkerModel> evaluateFilter(final HashSet<MarkerModel> allMarkers) {
+        final AbstractFilterExpressionModel expression = _expressions.get(0);
         
-        HashSet<MarkerModel> markersCopy = new HashSet<>(allMarkers);
+        final HashSet<MarkerModel> markersCopy = new HashSet<>(allMarkers);
         markersCopy.removeAll(expression.evaluateFilter(allMarkers));
         return markersCopy;
     }

@@ -25,7 +25,7 @@ public class ServerConfiguration extends ConfigurationModel {
         this(false);
     }
     
-    private ServerConfiguration(boolean isTest) { 
+    private ServerConfiguration(final boolean isTest) { 
         super(isTest);
     }
     
@@ -35,10 +35,10 @@ public class ServerConfiguration extends ConfigurationModel {
      * @return the asset file's absolute path
      */
     @Override
-    protected String getAssetPath(String fileName) {
+    protected String getAssetPath(final String fileName) {
         String result;
         if(_isTest) {
-            File file = new File("../../assets/server/");
+            final File file = new File("../../assets/server/");
             result = file.getAbsolutePath() + File.separatorChar + fileName;
         } else {
             result = Thread.currentThread().getContextClassLoader().getResource(fileName).getPath();
@@ -48,7 +48,7 @@ public class ServerConfiguration extends ConfigurationModel {
     
     public String getDatabasePath() {
         String path = _propertiesFile.getProperty(DATABASE_NAME_CONFIG, DATABASE_NAME_DEFAULT);
-        URL classLoader = Thread.currentThread().getContextClassLoader()
+        final URL classLoader = Thread.currentThread().getContextClassLoader()
                 .getResource(path);
         if(classLoader != null) {
             path = classLoader.getPath();
@@ -57,13 +57,13 @@ public class ServerConfiguration extends ConfigurationModel {
     }
     
     public String getTestDatabasePath() {
-        String path = _propertiesFile.getProperty(TEST_DATABASE_NAME_CONFIG, TEST_DATABASE_NAME_DEFAULT);
+        final String path = _propertiesFile.getProperty(TEST_DATABASE_NAME_CONFIG, TEST_DATABASE_NAME_DEFAULT);
         return getAssetPath(path);
     }
 
     public String getSqlPath() {
         String path = _propertiesFile.getProperty(SQL_SCRIPT_NAME_CONFIG, SQL_SCRIPT_NAME_DEFAULT);
-        URL ressource = Thread.currentThread().getContextClassLoader()
+        final URL ressource = Thread.currentThread().getContextClassLoader()
                 .getResource(path);
         if(ressource != null) {
             path = ressource.getPath();
@@ -75,7 +75,7 @@ public class ServerConfiguration extends ConfigurationModel {
     }
     
     public String getTestSqlPath() {
-        String path = _propertiesFile.getProperty(SQL_SCRIPT_NAME_CONFIG, SQL_SCRIPT_NAME_DEFAULT);
+        final String path = _propertiesFile.getProperty(SQL_SCRIPT_NAME_CONFIG, SQL_SCRIPT_NAME_DEFAULT);
         return getAssetPath(path);
     }
     

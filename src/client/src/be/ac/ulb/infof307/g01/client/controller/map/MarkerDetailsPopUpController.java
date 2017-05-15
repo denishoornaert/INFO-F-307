@@ -18,7 +18,7 @@ public class MarkerDetailsPopUpController extends AbstractMarkerPopUpController 
     
     private final MarkerDetailsPopUp _detailsPopUp;
     
-    public MarkerDetailsPopUpController(MarkerModel marker) throws InstantiationException {
+    public MarkerDetailsPopUpController(final MarkerModel marker) throws InstantiationException {
         super(marker);
         _detailsPopUp = new MarkerDetailsPopUp(this);
         _detailsPopUp.setPokemonView(_marker.getImagePath());
@@ -36,8 +36,8 @@ public class MarkerDetailsPopUpController extends AbstractMarkerPopUpController 
             _detailsPopUp.disableVoteButtons();
             
         } else {
-            String username = UserController.getInstance().getUsername();
-            ReputationVoteSendableModel reputationVote = _marker.getUserVote(username);
+            final String username = UserController.getInstance().getUsername();
+            final ReputationVoteSendableModel reputationVote = _marker.getUserVote(username);
             
             if(reputationVote != null) {
                 if(reputationVote.getIsUpVote()) {
@@ -53,7 +53,7 @@ public class MarkerDetailsPopUpController extends AbstractMarkerPopUpController 
      * Updates the marker reputation in the view.
      */
     private void updateVoteView() {
-        int vote = _marker.getReputationScore();
+        final int vote = _marker.getReputationScore();
         _detailsPopUp.updateVoteView(vote);
     }
     
@@ -62,7 +62,7 @@ public class MarkerDetailsPopUpController extends AbstractMarkerPopUpController 
      * Calls updateVoteView to and update the view accordingly
      * @param isUpVote true if the vote is positive, false if negative.
      */
-    public void addVote(boolean isUpVote) {
+    public void addVote(final boolean isUpVote) {
         try {
             _marker.addUserVote(UserController.getInstance().getUsername(), isUpVote);
         } catch(InvalidParameterException exception){

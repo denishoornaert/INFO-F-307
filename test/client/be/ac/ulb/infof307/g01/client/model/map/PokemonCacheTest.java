@@ -1,8 +1,5 @@
 package be.ac.ulb.infof307.g01.client.model.map;
 
-import be.ac.ulb.infof307.g01.client.model.map.PokemonCache;
-import be.ac.ulb.infof307.g01.client.model.map.PokemonModel;
-import be.ac.ulb.infof307.g01.client.model.map.PokemonTypeModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
 import java.util.ArrayList;
@@ -22,13 +19,13 @@ public class PokemonCacheTest {
             POKEMON_TYPE_SENDABLE_TEST);
      
     private static void loadCachePokemonSendableTest(){
-        List<PokemonSendableModel> pokemonList = new ArrayList<>();
+        final List<PokemonSendableModel> pokemonList = new ArrayList<>();
         pokemonList.add(POKEMON_SENDABLE_TEST);
         POKEMON_CACHE.loadAllPokemons(pokemonList);
     }
     
     private static void loadCachePokemonTypeSendableTest(){
-        List<PokemonTypeSendableModel> PokemonList = new ArrayList<>();
+        final List<PokemonTypeSendableModel> PokemonList = new ArrayList<>();
         PokemonList.add(POKEMON_TYPE_SENDABLE_TEST);
         POKEMON_CACHE.loadAllPokemonTypes(PokemonList);
     }
@@ -43,7 +40,7 @@ public class PokemonCacheTest {
     @Test
     public void test_getPokemonByName(){
         loadCachePokemonSendableTest();
-        PokemonModel pokemonModelTest = new PokemonModel(POKEMON_SENDABLE_TEST);
+        final PokemonModel pokemonModelTest = new PokemonModel(POKEMON_SENDABLE_TEST);
         assertEquals(POKEMON_CACHE.getPokemonByName("Arceus"),pokemonModelTest);
         
         
@@ -52,7 +49,6 @@ public class PokemonCacheTest {
     @Test
     public void test_loadAllPokemonTypes(){
         loadCachePokemonTypeSendableTest();
-        PokemonTypeModel pokemonTypeModelTest = new PokemonTypeModel(POKEMON_TYPE_SENDABLE_TEST);
         assertEquals(POKEMON_CACHE.getAllPokemonTypes().size(),1);// load 1 Type with the function loadCachePokemonTypeSendableTest
         assertEquals(POKEMON_CACHE.getAllPokemonTypes().get(0).getTypeName(),POKEMON_TYPE_SENDABLE_TEST.getTypeName());
     }
@@ -60,7 +56,7 @@ public class PokemonCacheTest {
     @Test
     public void test_getPokemonTypeByTypeName(){
         loadCachePokemonTypeSendableTest();
-        PokemonTypeModel pokemonTypeModelTest = new PokemonTypeModel(POKEMON_TYPE_SENDABLE_TEST);
+        final PokemonTypeModel pokemonTypeModelTest = new PokemonTypeModel(POKEMON_TYPE_SENDABLE_TEST);
         assertEquals(POKEMON_CACHE.getPokemonTypeByTypeName("FIRE").getTypeName(),pokemonTypeModelTest.getTypeName());
     }
 }

@@ -27,7 +27,7 @@ public class UserServiceQueryController {
     @POST
     @Consumes(MediaType.APPLICATION_XML)
     @Produces(MediaType.APPLICATION_XML)
-    public Response userSignin(UserSendableModel user) {
+    public Response userSignin(final UserSendableModel user) {
         try {
             DatabaseModel.getInstance().signin(user);
             return Response.status(Response.Status.OK).entity(user).build();
@@ -40,8 +40,8 @@ public class UserServiceQueryController {
     @GET
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_HTML)
-    public String confirmAccount(@QueryParam("username") String username,
-            @QueryParam("token") String token) {
+    public String confirmAccount(@QueryParam("username") final String username,
+            @QueryParam("token") final String token) {
         String htmlPage = "<html> " + "<title>" + "User Account Conrfirmation" + "</title><body>"
                 + "<h1>" + "Validate Account" + "</h1>";
         try {
@@ -57,16 +57,16 @@ public class UserServiceQueryController {
     @POST
     @Consumes(MediaType.APPLICATION_XML)
     @Produces(MediaType.APPLICATION_XML)
-    public Response userSignup(UserSendableModel user) {
+    public Response userSignup(final UserSendableModel user) {
         try {
             DatabaseModel.getInstance().signup(user);
         } catch (InvalidParameterException exception) {
             return Response.status(Response.Status.NOT_ACCEPTABLE).build();
         }
         
-        String token = generateToken();
+        final String token = generateToken();
         try {
-            EmailSender sender = new EmailSender();
+            final EmailSender sender = new EmailSender();
             sender.sendConfirmationEmail(user.getEmail(), user.getUsername(), token);
         } catch (MessagingException ex) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage());

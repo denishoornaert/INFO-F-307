@@ -17,12 +17,13 @@ import javafx.scene.control.DatePicker;
  */
 public class MarkerUpdatePopUp extends AbstractMarkerChangePopUp {
     
-    public MarkerUpdatePopUp(MarkerUpdatePopUpController controller, ArrayList<String> pokemonsName, int markerId) {
+    public MarkerUpdatePopUp(final MarkerUpdatePopUpController controller,
+            final ArrayList<String> pokemonsName, final int markerId) {
         super(controller, pokemonsName, markerId);
     }
     
-    private Calendar getCalendar(Timestamp time) {
-        Calendar calendar = Calendar.getInstance();
+    private Calendar getCalendar(final Timestamp time) {
+        final Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(time.getTime());
         return calendar;
     }
@@ -49,8 +50,8 @@ public class MarkerUpdatePopUp extends AbstractMarkerChangePopUp {
     
     @Override
     protected Calendar initCalendar() {
-        Date date = new Date();
-        Calendar calendar = GregorianCalendar.getInstance();
+        final Date date = new Date();
+        final Calendar calendar = GregorianCalendar.getInstance();
         calendar.setTime(date);
         return calendar;
     }
@@ -63,30 +64,31 @@ public class MarkerUpdatePopUp extends AbstractMarkerChangePopUp {
      * @param limit The maximum value the comboBox can have, as an enum value
      * in Calendar.
      */
-    private void initComboBoxTime(ComboBox timeWidget, int limit, int value) {
-        Calendar calendar = getCalendar(_markerModel.getTimestamp());
+    private void initComboBoxTime(final ComboBox timeWidget, final int limit,
+            final int value) {
+        final Calendar calendar = getCalendar(_markerModel.getTimestamp());
         setComboBox(timeWidget, calendar.get(limit), value);
         timeWidget.setPromptText(Integer.toString(value));
     }
     
     @Override
-    protected void initComboBoxHour(int hour) {
+    protected void initComboBoxHour(final int hour) {
         _dateHour = new ComboBox();
         initComboBoxTime(_dateHour, Calendar.HOUR, hour);
         
     }
 
     @Override
-    protected void initComboBoxMinutes(int minute) {
+    protected void initComboBoxMinutes(final int minute) {
         _dateMinute = new ComboBox();
         initComboBoxTime(_dateMinute, Calendar.MINUTE, minute);
     }
     
     @Override
-    protected void setDatePicker(DatePicker picker) {
-        Timestamp date1 = _markerModel.getTimestamp();
-        LocalDateTime date2 = date1.toLocalDateTime();
-        LocalDate date3 = date2.toLocalDate();
+    protected void setDatePicker(final DatePicker picker) {
+        final Timestamp date1 = _markerModel.getTimestamp();
+        final LocalDateTime date2 = date1.toLocalDateTime();
+        final LocalDate date3 = date2.toLocalDate();
         picker.setValue(date3);
     }
     

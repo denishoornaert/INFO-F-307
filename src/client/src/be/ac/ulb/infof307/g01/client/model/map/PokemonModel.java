@@ -10,7 +10,7 @@ import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
  */
 public class PokemonModel extends PokemonSendableModel {
     
-    public PokemonModel(PokemonSendableModel pokemon) {
+    public PokemonModel(final PokemonSendableModel pokemon) {
         super(pokemon);
         // Convert all types to client model instances
         for(int i = 0; i < _types.length; ++i) {
@@ -31,7 +31,7 @@ public class PokemonModel extends PokemonSendableModel {
      * @param isTest true if the path is requested during a test
      * @return the image's path
      */
-    public String getImagePath(boolean isTest) {
+    public String getImagePath(final boolean isTest) {
         String assetFolder;
         if(isTest) {
             assetFolder = ClientConfiguration.getTestInstance().getSpritePath();

@@ -1,13 +1,12 @@
 package be.ac.ulb.infof307.g01.client.model.map;
 
-import be.ac.ulb.infof307.g01.client.model.map.PokemonModel;
-import be.ac.ulb.infof307.g01.client.model.map.PokemonTypeModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
 
 /**
  * Singleton class which holds the client pokemon information sent by the server.
@@ -42,9 +41,9 @@ public class PokemonCache {
      * @param allPokemons the new list of pokemons used to replace the previous
      * one
      */
-    public void loadAllPokemons(List<PokemonSendableModel> allPokemons) {
+    public void loadAllPokemons(final List<PokemonSendableModel> allPokemons) {
         _allPokemons.clear();
-        for (PokemonSendableModel pokemon : allPokemons) {
+        for (final PokemonSendableModel pokemon : allPokemons) {
             _allPokemons.put(pokemon.getName(), new PokemonModel(pokemon));
         }
     }
@@ -54,9 +53,9 @@ public class PokemonCache {
      * @param allPokemonTypes the new list of pokemon types used to replace the
      * previous one.
      */
-    public void loadAllPokemonTypes(List<PokemonTypeSendableModel> allPokemonTypes) {
+    public void loadAllPokemonTypes(final List<PokemonTypeSendableModel> allPokemonTypes) {
         _allPokemonTypes.clear();
-        for (PokemonTypeSendableModel pokemonType : allPokemonTypes) {
+        for (final PokemonTypeSendableModel pokemonType : allPokemonTypes) {
             _allPokemonTypes.put(pokemonType.getTypeName().toUpperCase(), new PokemonTypeModel(pokemonType));
         }
     }
@@ -79,9 +78,9 @@ public class PokemonCache {
      * @return a list of all cached pokemon type names, as strings
      */
     public ArrayList<String> getAllPokemonTypesString() {
-        ArrayList<PokemonTypeModel> tmp = getAllPokemonTypes();
-        ArrayList<String> pokemonTypesString = new ArrayList<>();
-        for(PokemonTypeModel pokemonType : tmp) {
+        final ArrayList<PokemonTypeModel> tmp = getAllPokemonTypes();
+        final ArrayList<String> pokemonTypesString = new ArrayList<>();
+        for(final PokemonTypeModel pokemonType : tmp) {
             pokemonTypesString.add(pokemonType.getTypeName());
         }
         return pokemonTypesString;
@@ -94,10 +93,10 @@ public class PokemonCache {
      * @return the PokemonModel instance
      * @throws RuntimeException if no pokemon with such name has been found
      */
-    public PokemonModel getPokemonByName(String pokemonName) {
-        PokemonModel result = _allPokemons.get(pokemonName);
+    public PokemonModel getPokemonByName(final String pokemonName) {
+        final PokemonModel result = _allPokemons.get(pokemonName);
         if(result == null) {
-            throw new RuntimeException("No pokemon with such name: \"" + pokemonName + "\"");
+            throw new ValueException("No pokemon with such name: \"" + pokemonName + "\"");
         }
         return result;
     }
@@ -109,10 +108,10 @@ public class PokemonCache {
      * @return the PokemonTypeModel instance.
      * @throws RuntimeException if no type with such name has been found.
      */
-    public PokemonTypeModel getPokemonTypeByTypeName(String typeName) {
-        PokemonTypeModel result = _allPokemonTypes.get(typeName);
+    public PokemonTypeModel getPokemonTypeByTypeName(final String typeName) {
+        final PokemonTypeModel result = _allPokemonTypes.get(typeName);
         if(result == null) {
-            throw new RuntimeException("No pokemon type with such name: \"" + typeName + "\"");
+            throw new ValueException("No pokemon type with such name: \"" + typeName + "\"");
         }
         return result;
     }

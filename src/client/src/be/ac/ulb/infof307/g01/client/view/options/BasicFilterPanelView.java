@@ -31,7 +31,7 @@ public class BasicFilterPanelView extends AbstractFilterPanelView {
     private ToggleButton _andButton;
     private ToggleButton _orButton;
 
-    public BasicFilterPanelView(FilterPanelController controller) {
+    public BasicFilterPanelView(final FilterPanelController controller) {
         super(controller);
     }
 
@@ -71,7 +71,7 @@ public class BasicFilterPanelView extends AbstractFilterPanelView {
         _vbox.getChildren().add(new HBox(_notPokemonNameFilterEntry, _pokemonNameFilterEntry));
         _vbox.getChildren().add(new HBox(_notPokemonTypeCombobox1, _pokemonTypeCombobox1));
         _vbox.getChildren().add(new HBox(_notPokemonTypeCombobox2, _pokemonTypeCombobox2));
-        HBox operationsLine = new HBox(_andButton, _orButton);
+        final HBox operationsLine = new HBox(_andButton, _orButton);
         operationsLine.setAlignment(Pos.CENTER);
         operationsLine.setSpacing(20);
         _vbox.getChildren().addAll(operationsLine);
@@ -79,17 +79,17 @@ public class BasicFilterPanelView extends AbstractFilterPanelView {
     
     @Override
     protected void initApplyFilterButtonEvent() {
-        BasicFilterPanelView currentInstance = this;
+        final BasicFilterPanelView currentInstance = this;
         _applyFilterButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent e) {
-                boolean notName = _notPokemonNameFilterEntry.isSelected();
-                String name = _pokemonNameFilterEntry.getText();
-                boolean notType1 = _notPokemonTypeCombobox1.isSelected();
-                String type1 = (String) _pokemonTypeCombobox1.getValue();
-                boolean notType2 = _notPokemonTypeCombobox2.isSelected();
-                String type2 = (String) _pokemonTypeCombobox2.getValue();
-                boolean andIsSelected = _andButton.isSelected();
+            public void handle(final ActionEvent e) {
+                final boolean notName = _notPokemonNameFilterEntry.isSelected();
+                final String name = _pokemonNameFilterEntry.getText();
+                final boolean notType1 = _notPokemonTypeCombobox1.isSelected();
+                final String type1 = (String) _pokemonTypeCombobox1.getValue();
+                final boolean notType2 = _notPokemonTypeCombobox2.isSelected();
+                final String type2 = (String) _pokemonTypeCombobox2.getValue();
+                final boolean andIsSelected = _andButton.isSelected();
                 _controller.applyFilter(notName, name, notType1, type1, notType2, 
                         type2, andIsSelected, currentInstance);
             }
@@ -97,15 +97,15 @@ public class BasicFilterPanelView extends AbstractFilterPanelView {
     }
     
     @Override
-    protected void saveFilter(String expressionName) {
-        boolean notName = _notPokemonNameFilterEntry.isSelected();
-        String name = _pokemonNameFilterEntry.getText();
-        boolean notType1 = _notPokemonTypeCombobox1.isSelected();
-        String type1 = (String) _pokemonTypeCombobox1.getValue();
-        boolean notType2 = _notPokemonTypeCombobox2.isSelected();
-        String type2 = (String) _pokemonTypeCombobox2.getValue();
-        boolean andIsSelected = _andButton.isSelected();
-        boolean orIsSelected = _orButton.isSelected();
+    protected void saveFilter(final String expressionName) {
+        final boolean notName = _notPokemonNameFilterEntry.isSelected();
+        final String name = _pokemonNameFilterEntry.getText();
+        final boolean notType1 = _notPokemonTypeCombobox1.isSelected();
+        final String type1 = (String) _pokemonTypeCombobox1.getValue();
+        final boolean notType2 = _notPokemonTypeCombobox2.isSelected();
+        final String type2 = (String) _pokemonTypeCombobox2.getValue();
+        final boolean andIsSelected = _andButton.isSelected();
+        final boolean orIsSelected = _orButton.isSelected();
         _controller.saveFilter(expressionName, notName, name, notType1, 
                 type1, notType2, type2, andIsSelected, orIsSelected);
     }
@@ -115,8 +115,8 @@ public class BasicFilterPanelView extends AbstractFilterPanelView {
         setXExpandPolicy(_pokemonNameFilterEntry, _pokemonTypeCombobox1, _pokemonTypeCombobox2);
     }
     
-    public void setComboBoxesContent(ArrayList<String> pokemonTypes) {
-        ObservableList<String> pokemonTypesList = FXCollections.observableArrayList(pokemonTypes);
+    public void setComboBoxesContent(final ArrayList<String> pokemonTypes) {
+        final ObservableList<String> pokemonTypesList = FXCollections.observableArrayList(pokemonTypes);
         _pokemonTypeCombobox1.setItems(pokemonTypesList);
         _pokemonTypeCombobox2.setItems(pokemonTypesList);
     }

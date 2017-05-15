@@ -11,21 +11,23 @@ import java.sql.Timestamp;
  */
 public class MarkerUpdatePopUpController extends AbstractMarkerChangePopUpController {
     
-    private int _markerId;
+    private final int _markerId;
     
-    public MarkerUpdatePopUpController(MarkerController markerController, int markerId) throws InstantiationException {
+    public MarkerUpdatePopUpController(final MarkerController markerController,
+            final int markerId) throws InstantiationException {
         super(markerController, markerId);
         _markerId = markerId;
         _markerPopUp = new MarkerUpdatePopUp(this, PokemonCache.getInstance().getAllPokemonNames(), markerId);
-        String imagePath = _marker.getImagePath();
+        final String imagePath = _marker.getImagePath();
         _markerPopUp.setPokemonView(imagePath);
     }
     
     @Override
-    public void endPopUpMarker(String pokemonName, int lifePoint, int attack, int defense, Timestamp dateView) {
+    public void endPopUpMarker(final String pokemonName, final int lifePoint,
+            final int attack, final int defense, final Timestamp dateView) {
         super.endPopUpMarker(pokemonName, lifePoint, attack, defense, dateView);
         if(isPokemonNameNotEmpty(pokemonName)) { 
-            PokemonModel pokemon = PokemonCache.getInstance().getPokemonByName(pokemonName);
+            final PokemonModel pokemon = PokemonCache.getInstance().getPokemonByName(pokemonName);
             _markerController.updateMarker(_markerId, pokemon, lifePoint, attack, defense, dateView);
         } 
     }

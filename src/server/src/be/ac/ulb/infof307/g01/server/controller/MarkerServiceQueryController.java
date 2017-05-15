@@ -27,7 +27,7 @@ public class MarkerServiceQueryController {
     @POST
     @Consumes(MediaType.APPLICATION_XML)
     @Produces(MediaType.APPLICATION_XML)
-    public Response insertMarker(MarkerSendableModel marker) {
+    public Response insertMarker(final MarkerSendableModel marker) {
         Response response;
         Logger.getLogger(getClass().getName()).log(Level.INFO, 
                 "Insert Marker: {0} - {1} - {2}", 
@@ -48,7 +48,8 @@ public class MarkerServiceQueryController {
     @GET
     @Produces(MediaType.APPLICATION_XML)
     public List<MarkerSendableModel> getAllMarker() {
-        ArrayList<MarkerSendableModel> arrayListMarker = DatabaseModel.getInstance().getAllMarkers();
+        final ArrayList<MarkerSendableModel> arrayListMarker = 
+                DatabaseModel.getInstance().getAllMarkers();
         return arrayListMarker;
     }
     
@@ -56,7 +57,7 @@ public class MarkerServiceQueryController {
     @POST
     @Consumes(MediaType.APPLICATION_XML)
     @Produces(MediaType.APPLICATION_XML)
-    public Response updateMarker(MarkerSendableModel marker) {
+    public Response updateMarker(final MarkerSendableModel marker) {
         Response response;
         Logger.getLogger(getClass().getName()).log(Level.INFO, "Update marker: {0} - {1}", 
                 new Object[]{marker.getPokemonName(), marker.getLongTimestamp()});
@@ -74,7 +75,7 @@ public class MarkerServiceQueryController {
     @Path("updateReputation")
     @POST
     @Consumes(MediaType.APPLICATION_XML)
-    public Response updateMarkerReputation(ReputationVoteSendableModel reputationVote) {
+    public Response updateMarkerReputation(final ReputationVoteSendableModel reputationVote) {
         Response response;
         try {
             DatabaseModel.getInstance().updateMarkerReputation(reputationVote);

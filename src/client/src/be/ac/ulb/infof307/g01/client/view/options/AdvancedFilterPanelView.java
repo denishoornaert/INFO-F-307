@@ -14,7 +14,7 @@ public class AdvancedFilterPanelView extends AbstractFilterPanelView{
     
     private TextArea _advancedFilterTextArea;
 
-    public AdvancedFilterPanelView(FilterPanelController controller) {
+    public AdvancedFilterPanelView(final FilterPanelController controller) {
         super(controller);
     }
 
@@ -31,19 +31,19 @@ public class AdvancedFilterPanelView extends AbstractFilterPanelView{
     
     @Override
     protected void initApplyFilterButtonEvent() {
-        AdvancedFilterPanelView currentInstance = this;
+        final AdvancedFilterPanelView currentInstance = this;
         _applyFilterButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent e) {
-                String expression = _advancedFilterTextArea.getText();
+            public void handle(final ActionEvent e) {
+                final String expression = _advancedFilterTextArea.getText();
                 _controller.applyFilter(expression, currentInstance);
             }
         });
     }
     
     @Override
-    protected void saveFilter(String expressionName) {
-        String expression = _advancedFilterTextArea.getText();
+    protected void saveFilter(final String expressionName) {
+        final String expression = _advancedFilterTextArea.getText();
         _controller.saveFilter(expressionName, expression);
     }
 

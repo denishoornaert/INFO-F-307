@@ -28,7 +28,7 @@ public abstract class AbstractPopUp extends Stage {
         this(new PopUpController());
     }
     
-    public AbstractPopUp(PopUpController controller) {
+    public AbstractPopUp(final PopUpController controller) {
         super.initStyle(StageStyle.TRANSPARENT);
         _layout = new StackPane();
         _scene = new Scene(_layout);
@@ -46,11 +46,12 @@ public abstract class AbstractPopUp extends Stage {
      * @param style the style of the button widget
      * @return the created button
      */
-    protected Button getCloseButton(String text, String style) {
-        Button button = new Button(text);
-        AbstractPopUp instance = this;
+    protected Button getCloseButton(final String text, final String style) {
+        final Button button = new Button(text);
+        final AbstractPopUp instance = this;
         button.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent t) {
+            @Override
+            public void handle(final ActionEvent t) {
                 _controller.close(instance);
             }
         });
@@ -62,8 +63,8 @@ public abstract class AbstractPopUp extends Stage {
      * Adds a JavaFX node to the popup layout.
      * @param node the Node to add
      */
-    protected void add(Node node) {
-        ObservableList<Node> children = _layout.getChildren();
+    protected void add(final Node node) {
+        final ObservableList<Node> children = _layout.getChildren();
         children.add(node);        
     }
 
@@ -77,7 +78,7 @@ public abstract class AbstractPopUp extends Stage {
         );
     }
 
-    protected void setSize(int x, int y) {
+    protected void setSize(final int x, final int y) {
         _layout.setPrefSize(x, y);
     }
     

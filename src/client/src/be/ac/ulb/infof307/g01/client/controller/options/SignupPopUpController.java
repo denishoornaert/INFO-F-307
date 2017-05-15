@@ -25,7 +25,8 @@ public class SignupPopUpController extends PopUpController {
      * @param password the user's password
      * @param acceptedTerms indicates if the user accepted the terms of usage
      */
-    public void submit(String email, String username, String password, boolean acceptedTerms) {
+    public void submit(final String email, final String username,
+            final String password, final boolean acceptedTerms) {
         try {
             UserController.getInstance().register(email, username, password, acceptedTerms);
             close(_signup);

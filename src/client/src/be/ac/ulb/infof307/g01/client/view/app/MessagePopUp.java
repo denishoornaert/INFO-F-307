@@ -20,7 +20,8 @@ public class MessagePopUp extends AbstractPopUp {
     private Button _closeButton;
     private VBox _vbox;
 
-    public MessagePopUp(MessagePopUpController controller, Level severity, String message) {
+    public MessagePopUp(final MessagePopUpController controller,
+            final Level severity, final String message) {
         super(controller);
         _message = severity.getLocalizedName() + ": " + message;
         _severity = severity;
@@ -51,7 +52,7 @@ public class MessagePopUp extends AbstractPopUp {
      */
     private void setStyle() {
         _closeButton.getStyleClass().remove("danger");
-        String  closeButtonCssClass;
+        final String  closeButtonCssClass;
         switch(_severity.toString()) {
             case "WARNING":
                 closeButtonCssClass = "warning";

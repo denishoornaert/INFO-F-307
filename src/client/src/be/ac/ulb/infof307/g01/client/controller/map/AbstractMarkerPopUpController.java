@@ -11,14 +11,16 @@ public abstract class AbstractMarkerPopUpController extends PopUpController {
     
     protected MarkerController _markerController;
     protected MarkerModel _marker;
-    protected static int DEFAULT_MARKER_ID = 0;
+    protected static final int DEFAULT_MARKER_ID = 0;
     
-    public AbstractMarkerPopUpController(MarkerModel marker) throws InstantiationException {
+    public AbstractMarkerPopUpController(final MarkerModel marker)
+            throws InstantiationException {
         super();
         _marker = marker;
     }
     
-    public AbstractMarkerPopUpController(MarkerController controller, int markerid) throws InstantiationException {
+    public AbstractMarkerPopUpController(final MarkerController controller,
+            final int markerid) throws InstantiationException {
         _markerController = controller;
         _marker = controller.getMarkerModelFromId(markerid);
     }
@@ -31,7 +33,7 @@ public abstract class AbstractMarkerPopUpController extends PopUpController {
      * Shares the marker's information and location on twitter.
      */
     public void sendTwitterPost() {
-        String link = _marker.getTwitterLink();
+        final String link = _marker.getTwitterLink();
         Main.openInBrowser(link);
     }
 

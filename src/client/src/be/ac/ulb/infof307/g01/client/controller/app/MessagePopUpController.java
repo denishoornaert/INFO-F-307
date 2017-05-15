@@ -15,7 +15,7 @@ public class MessagePopUpController extends PopUpController {
      * @throws InstantiationException if another open popup prevented this one
      * from being opened.
      */
-    public MessagePopUpController(Level severity, String message) throws InstantiationException {
+    public MessagePopUpController(final Level severity, final String message) throws InstantiationException {
         super();
         new MessagePopUp(this, severity, message);
     }
@@ -27,7 +27,7 @@ public class MessagePopUpController extends PopUpController {
      * @param severity the importance of the popup message
      * @param message the message to display in the popup
      */
-    public static void createPopUpOrLog(Level severity, String message){
+    public static void createPopUpOrLog(final Level severity, final String message){
         try {
             new MessagePopUpController(severity, message);
         } catch (InstantiationException ex) {

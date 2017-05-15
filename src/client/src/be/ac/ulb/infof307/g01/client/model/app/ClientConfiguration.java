@@ -36,7 +36,7 @@ public class ClientConfiguration extends ConfigurationModel {
         this(false);
     }
     
-    private ClientConfiguration(boolean isTest) {
+    private ClientConfiguration(final boolean isTest) {
         super(isTest);
         
         _allResolution = new ArrayList<>();
@@ -49,7 +49,7 @@ public class ClientConfiguration extends ConfigurationModel {
     }
     
     @Override
-    protected String getAssetPath(String fileName) {
+    protected String getAssetPath(final String fileName) {
         return getAssetPath(fileName, false);
     }
     
@@ -59,10 +59,10 @@ public class ClientConfiguration extends ConfigurationModel {
      * @param forceAddFile True if we would like to have FILE_PREFIX before the path
      * @return the asset file's absolute path
      */
-    private String getAssetPath(String fileName, boolean forceAddFile) {
+    private String getAssetPath(final String fileName, final boolean forceAddFile) {
         String result;
         if(_isTest) {
-            File file = new File("../../assets/client/");
+            final File file = new File("../../assets/client/");
             result = file.getAbsolutePath() + File.separatorChar + fileName;
         } else {
             result = Thread.currentThread().getContextClassLoader().getResource(fileName).getPath();
@@ -102,9 +102,9 @@ public class ClientConfiguration extends ConfigurationModel {
     }
     
     public ArrayList<String> getApplicationIconsPaths() {
-        ArrayList<String> result = new ArrayList<>();
+        final ArrayList<String> result = new ArrayList<>();
         for (int i = 0; i < _allResolution.size(); ++i) {
-            String number = _allResolution.get(i);
+            final String number = _allResolution.get(i);
             
             result.add(getAssetPath(_propertiesFile.getProperty(ICON_PATH_CONFIG + i,
                 ICON_PATH_DEFAULT + number + ICON_PATH_DEFAULT_SUFFIX), true));

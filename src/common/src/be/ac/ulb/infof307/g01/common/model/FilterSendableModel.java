@@ -22,7 +22,7 @@ public class FilterSendableModel {
      */
     public FilterSendableModel() {}
     
-    public FilterSendableModel(String name, String filter) {
+    public FilterSendableModel(final String name, final String filter) {
         _expression = filter;
         _name = name;
     }
@@ -31,7 +31,10 @@ public class FilterSendableModel {
         return _expression;
     }
 
-    public void setExpression(String expression) {
+    /**
+     * @param expression the expression to set
+     */
+    public void setExpression(final String expression) {
         _expression = expression;
     }
 
@@ -39,7 +42,10 @@ public class FilterSendableModel {
         return _name;
     }
 
-    public void setName(String name) {
+    /**
+     * @param name the name to set
+     */
+    public void setName(final String name) {
         _name = name;
     }
     

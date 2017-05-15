@@ -18,15 +18,15 @@ public class FilterOnName extends AbstractFilterModel {
      * Creates a FilterOnName instance for the provided pokemon name.
      * @param name the pokemon name to filter
      */
-    public FilterOnName(String name) {
+    public FilterOnName(final String name) {
         super();
         _name = name;
     }
 
     @Override
-    public HashSet<MarkerModel> evaluateFilter(HashSet<MarkerModel> allMarkers) {
-        HashSet<MarkerModel> markersToReturn = new HashSet<>();
-        for(MarkerModel marker : allMarkers) {
+    public HashSet<MarkerModel> evaluateFilter(final HashSet<MarkerModel> allMarkers) {
+        final HashSet<MarkerModel> markersToReturn = new HashSet<>();
+        for(final MarkerModel marker : allMarkers) {
             if(marker.getPokemonName().equals(_name)) {
                 markersToReturn.add(marker);
             }

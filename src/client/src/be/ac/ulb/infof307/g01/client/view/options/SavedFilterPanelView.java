@@ -21,7 +21,7 @@ public class SavedFilterPanelView extends Tab {
     private ComboBox _savedExpressionsComboBox;
     private FilterPanelController _controller;
 
-    public SavedFilterPanelView(FilterPanelController controller) {
+    public SavedFilterPanelView(final FilterPanelController controller) {
         _controller = controller;
         initWidgets();
         placeWidgets();
@@ -34,7 +34,7 @@ public class SavedFilterPanelView extends Tab {
     }
 
     private void placeWidgets() {
-        VBox savedExpressions = new VBox();
+        final VBox savedExpressions = new VBox();
         savedExpressions.getChildren().add(_savedExpressionsComboBox);
         savedExpressions.setSpacing(10);
         setContent(savedExpressions);
@@ -44,8 +44,8 @@ public class SavedFilterPanelView extends Tab {
     private void initSavedExpressionComboBoxEvent() {
         _savedExpressionsComboBox.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent event) {
-                Object object = _savedExpressionsComboBox.getSelectionModel().getSelectedItem();
+            public void handle(final ActionEvent event) {
+                final Object object = _savedExpressionsComboBox.getSelectionModel().getSelectedItem();
                 if (object != null) {
                     _controller.applyFilterByName((String)object, null);
                 }
@@ -57,14 +57,14 @@ public class SavedFilterPanelView extends Tab {
         setXExpandPolicy(_savedExpressionsComboBox);
     }
     
-    private void setXExpandPolicy(Control... controls) {
-        for(Control control : controls) {
+    private void setXExpandPolicy(final Control... controls) {
+        for(final Control control : controls) {
             HBox.setHgrow(control, Priority.ALWAYS);
             control.setMaxWidth(208);
         }
     }
     
-    public void addSavedFilters(Collection<String> filtersName) {
+    public void addSavedFilters(final Collection<String> filtersName) {
         _savedExpressionsComboBox.getItems().addAll(filtersName);
     }
     

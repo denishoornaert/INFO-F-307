@@ -43,7 +43,7 @@ public class MapView extends StackPane {
             new HashMap<Integer, MarkerModel>();
     
 
-    public MapView(MapController mapController) {     
+    public MapView(final MapController mapController) {     
         super();
         _mapController = mapController;
         
@@ -61,53 +61,54 @@ public class MapView extends StackPane {
     private void bindJavaBridge() {
         _webEngine.getLoadWorker().stateProperty().addListener(new ChangeListener<Worker.State>() {
             @Override
-            public void changed(ObservableValue ov, Worker.State oldState, Worker.State newState) {
+            public void changed(final ObservableValue ov,
+                    final Worker.State oldState, final Worker.State newState) {
                 if (newState == Worker.State.SUCCEEDED) {
-                    JSObject jsobj = (JSObject) _webEngine.executeScript("window");
+                    final JSObject jsobj = (JSObject) _webEngine.executeScript("window");
                     jsobj.setMember("bridge", _bridge);
                 }
             }
         });
     }
     
-    public void createMarker(MarkerModel marker, int pinId) {
+    public void createMarker(final MarkerModel marker, final int pinId) {
         if(!_bridge.isJavaScriptMapLoad()) { // If JavaScript map is not loaded
             _cacheMarkerModel.put(pinId, marker);
             
         } else { // If JavaScript map is loaded
-            CoordinateSendableModel markerCoordinates = marker.getCoordinate();
-            double latitude = markerCoordinates.getLatitude();
-            double longitude = markerCoordinates.getLongitude();
-            String pokemonName = marker.getPokemonName();
+            final CoordinateSendableModel markerCoordinates = marker.getCoordinate();
+            final double latitude = markerCoordinates.getLatitude();
+            final double longitude = markerCoordinates.getLongitude();
+            final String pokemonName = marker.getPokemonName();
             String imagePath = marker.getImagePath();
             
-            JSObject window = (JSObject) _webEngine.executeScript("window");
+            final JSObject window = (JSObject) _webEngine.executeScript("window");
             imagePath = ClientConfiguration.addJarPrefix(imagePath);
             window.call("addMarker", latitude, longitude, pokemonName, imagePath, pinId);
         }
     }
     
     private void loadAllCachedMarkerModel() {
-        for(int pinId : _cacheMarkerModel.keySet()) {
-            MarkerModel marker = _cacheMarkerModel.get(pinId);
+        for(final int pinId : _cacheMarkerModel.keySet()) {
+            final MarkerModel marker = _cacheMarkerModel.get(pinId);
             createMarker(marker, pinId);
         }
         _cacheMarkerModel.clear();
     }
 
-    public void displayMarker(Integer id) {
+    public void displayMarker(final Integer id) {
         if(_bridge.isJavaScriptMapLoad()) { // If JavaScript map is not loaded
-            JSObject window = (JSObject) _webEngine.executeScript("window");
+            final JSObject window = (JSObject) _webEngine.executeScript("window");
             window.call("showMarker", id);
         }
     }
 
-    public void hideMaker(Integer id) {
+    public void hideMaker(final Integer id) {
         if(!_bridge.isJavaScriptMapLoad()) { // If JavaScript map is not loaded
             Logger.getLogger(getClass().getName()).log(Level.WARNING, 
                 "Could not hide marker: {0}", id);
         } else {
-            JSObject window = (JSObject) _webEngine.executeScript("window");
+            final JSObject window = (JSObject) _webEngine.executeScript("window");
             window.call("hideMarker", id);
         }
         
@@ -130,9 +131,9 @@ public class MapView extends StackPane {
             return isLoaded;
         }
         
-        public void onMarkerClusterClick(JSObject markersIdArray) {
-            int arraySize = (int) markersIdArray.getMember("length");
-            ArrayList<Integer> markersIds = new ArrayList<Integer>();
+        public void onMarkerClusterClick(final JSObject markersIdArray) {
+            final int arraySize = (int) markersIdArray.getMember("length");
+            final ArrayList<Integer> markersIds = new ArrayList<Integer>();
             for (int index = 0; index < arraySize; index++) {
                 markersIds.add((Integer) markersIdArray.getSlot(index));
             }
@@ -144,17 +145,17 @@ public class MapView extends StackPane {
          * Calls createMarker function on MapView.
          * @param coordinates of the event
          */
-        public void onMapRightClick(JSObject coordinates) {
-            double latitude = (double) coordinates.call("lat");
-            double longitude = (double) coordinates.call("lng");
+        public void onMapRightClick(final JSObject coordinates) {
+            final double latitude = (double) coordinates.call("lat");
+            final double longitude = (double) coordinates.call("lng");
             _mapController.mapClicked(latitude, longitude);
         }
         
-        public void onMarkerLeftClick(int markerId) {
+        public void onMarkerLeftClick(final int markerId) {
             _mapController.markerClicked(markerId);
         }
         
-        public void log(String message) {
+        public void log(final String message) {
             System.out.println("Message JS: " + message);
         }
     }

@@ -1,7 +1,5 @@
 package be.ac.ulb.infof307.g01.client.model.map;
 
-import be.ac.ulb.infof307.g01.client.model.map.PokemonModel;
-import be.ac.ulb.infof307.g01.client.model.map.PokemonTypeModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonSendableModel;
 import be.ac.ulb.infof307.g01.common.model.PokemonTypeSendableModel;
 import java.io.File;
@@ -45,8 +43,8 @@ public class PokemonModelTest {
     
     @Test
     public void test_getImagePath() {
-        String path = arceus.getImagePath(true);
-        File file = new File(path);
+        final String path = arceus.getImagePath(true);
+        final File file = new File(path);
         
         assertTrue(file.exists());
     }

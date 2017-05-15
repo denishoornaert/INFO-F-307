@@ -16,7 +16,8 @@ public class ClusterPopUpController extends PopUpController {
     private final MarkerController _markerController;
     private ArrayList<PokemonModel> _pokemonList;
     
-    public ClusterPopUpController(MarkerController controller, ArrayList<Integer> markersIds) throws InstantiationException {
+    public ClusterPopUpController(final MarkerController controller,
+            final ArrayList<Integer> markersIds) throws InstantiationException {
         super();
         _view = new ClusterPopUp(this);
         _markerController = controller;
@@ -28,10 +29,10 @@ public class ClusterPopUpController extends PopUpController {
      * Initializes the markers contained in the cluster from their IDs.
      * @param markersIds the list of IDs identifying the cluster's markers
      */
-    private void initPokemonList(ArrayList<Integer> markersIds) {
+    private void initPokemonList(final ArrayList<Integer> markersIds) {
         _pokemonList = new ArrayList<>();
-        for (Integer id : markersIds) {
-            MarkerModel marker = _markerController.getMarkerModelFromId(id);
+        for (final Integer id : markersIds) {
+            final MarkerModel marker = _markerController.getMarkerModelFromId(id);
             _pokemonList.add(marker.getPokemon());
         }
     }
