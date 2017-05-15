@@ -74,6 +74,7 @@ public class SignupPopUp extends AbstractPopUp {
         setXExpandPolicy(_cancel);
         setXExpandPolicy(_submit);
         _containerHClose.setAlignment(Pos.CENTER);
+        _containerHClose.setSpacing(5);
         _containerHClose.setPadding(new Insets(5, 0, 0, 0));
         _containerV.getChildren().addAll(_containerHTerms, _containerHClose, _remarks);
         super.add(_containerV);
@@ -85,7 +86,8 @@ public class SignupPopUp extends AbstractPopUp {
     
     private void setXExpandPolicy(Control control) {
         HBox.setHgrow(control, Priority.ALWAYS);
-        control.setMaxWidth(Double.MAX_VALUE);
+        control.setMaxWidth(150);
+        control.setMaxHeight(10);
     }
     
     private void initCancelButton() {
@@ -94,6 +96,7 @@ public class SignupPopUp extends AbstractPopUp {
     
     private void initSubmitButton() {
         _submit = new Button("Submit");
+        _submit.getStyleClass().add("primary");
         _submit.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent t) {
                 final String username = _username.getText();
