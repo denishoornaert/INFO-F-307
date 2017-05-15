@@ -37,19 +37,35 @@ public class BasicFilterPanelView extends AbstractFilterPanelView {
 
     @Override
     protected void initFilterWidgets() {
+        initDataInputs();
+        initCheckBoxes();
+        initButtons();
+    }
+
+    private void initDataInputs() {
         _pokemonNameFilterEntry = new TextField();
         _pokemonTypeCombobox1 = new ComboBox();
         _pokemonTypeCombobox2 = new ComboBox();
+    }
+    
+    private void initCheckBoxes() {
         _notPokemonNameFilterEntry = new CheckBox();
+        _notPokemonNameFilterEntry.setSelected(true);
         _notPokemonTypeCombobox1 = new CheckBox();
+        _notPokemonTypeCombobox1.setSelected(true);
         _notPokemonTypeCombobox2 = new CheckBox();
+        _notPokemonTypeCombobox2.setSelected(true);
+    }
+    
+    private void initButtons() {
         _buttonGroup = new ToggleGroup();
         _andButton = new ToggleButton("AND");
         _andButton.setToggleGroup(_buttonGroup);
+        _andButton.setSelected(true);
         _orButton = new ToggleButton("OR");
         _orButton.setToggleGroup(_buttonGroup);
     }
-
+    
     @Override
     protected void placeFilterWidgets() {
         _vbox.getChildren().add(new HBox(_notPokemonNameFilterEntry, _pokemonNameFilterEntry));
