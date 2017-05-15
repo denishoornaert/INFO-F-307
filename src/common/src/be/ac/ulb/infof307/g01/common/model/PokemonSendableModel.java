@@ -46,10 +46,10 @@ public class PokemonSendableModel {
     }
 
     /**
-     * @param _name the _name to set
+     * @param name the name to set
      */
-    public void setName(final String _name) {
-        this._name = _name;
+    public void setName(final String name) {
+        this._name = name;
     }
 
     /**
@@ -76,8 +76,8 @@ public class PokemonSendableModel {
      * Assigns the pokemon's types.
      * @param types the types to set
      */
-    public void setTypes(final PokemonTypeSendableModel[] _type) {
-        this._types = _type;
+    public void setTypes(final PokemonTypeSendableModel[] types) {
+        this._types = types;
     }
 
     /**
@@ -91,8 +91,8 @@ public class PokemonSendableModel {
     /**
      * @param imageName the new pokemon's image name
      */
-    public void setImagePath(final String _imageName) {
-        this._imageName = _imageName;
+    public void setImagePath(final String imageName) {
+        this._imageName = imageName;
     }
     
     @Override

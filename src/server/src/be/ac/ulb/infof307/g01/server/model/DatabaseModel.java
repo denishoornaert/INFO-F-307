@@ -212,15 +212,16 @@ public class DatabaseModel implements PokemonQueryController, PokemonTypeQueryCo
     /**
      * Gets a pokemon type from its name in the database.
      * 
-     * /TODO This *may* be a serious performance issue when getting all markers:
-     * getAllMarkers loads all markers
-     * -> for each marker, all pokemons are retrieved in order to find the right one
-     *    -> for each pokemon, all types are loaded for the same reason...
      * @param name The type name
-     * @return An pokemon type object
+     * @return an pokemon type object
      * @throws IndexOutOfBoundsException If no type has been found with this name
      */
     public PokemonTypeSendableModel getPokemonTypeByTypeName(final String name) {
+        /* TODO This *may* be a serious performance issue when getting all markers:
+        * getAllMarkers loads all markers
+        * -> for each marker, all pokemons are retrieved in order to find the right one
+        *    -> for each pokemon, all types are loaded for the same reason...
+        */
         final List<PokemonTypeSendableModel> types = getAllPokemonTypes();
         for(final PokemonTypeSendableModel type : types) {
             if(type.getTypeName().equals(name)) {
