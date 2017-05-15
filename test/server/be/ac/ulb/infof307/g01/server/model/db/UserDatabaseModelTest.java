@@ -27,7 +27,7 @@ public class UserDatabaseModelTest extends AbstractDatabaseTest {
         _user = new UserSendableModel("name", "mail", "pass");
     }
     
-    private boolean insertCorrectUser(UserSendableModel user){
+    private boolean insertCorrectUser(final UserSendableModel user){
         try {
             _database.signup(user);
             _database.addTokenToUser(user, _token);
@@ -38,7 +38,7 @@ public class UserDatabaseModelTest extends AbstractDatabaseTest {
         return true;
     }
     
-    private UserSendableModel newUser(String subStr) {
+    private UserSendableModel newUser(final String subStr) {
         return new UserSendableModel(_user.getUsername() + subStr,
                 _user.getEmail() + subStr, _user.getPassword() + subStr);
     }
@@ -62,21 +62,21 @@ public class UserDatabaseModelTest extends AbstractDatabaseTest {
     
     @Test
     public void test_signin_userNotInDatabase(){
-        UserSendableModel user = newUser("6");
+        final UserSendableModel user = newUser("6");
         _expected.expect(InvalidParameterException.class);
         _database.signin(user);
     }
     
     @Test
     public void test_signin_userInDatabase(){
-        UserSendableModel user = newUser("5");
+        final UserSendableModel user = newUser("5");
         insertCorrectUser(user);
         _database.signin(user);
     }
     
     @Test
     public void test_signin_withTokenNotConfirmed(){
-        UserSendableModel user = newUser("4");
+        final UserSendableModel user = newUser("4");
         _database.signup(user);
         _database.addTokenToUser(user, _token);
         _expected.expect(InvalidParameterException.class);
@@ -85,14 +85,14 @@ public class UserDatabaseModelTest extends AbstractDatabaseTest {
     
     @Test
     public void test_signup_correctCreation(){
-        UserSendableModel user = newUser("3");
+        final UserSendableModel user = newUser("3");
         _database.signup(user);
         _database.addTokenToUser(user, _token);
     }
     
     @Test
     public void test_signup_notCorrectBecauseSameUsername(){
-        UserSendableModel user = newUser("");
+        final UserSendableModel user = newUser("");
         insertCorrectUser(user);
         user.setEmail(user.getEmail()+"2");
         user.setPassword(user.getPassword()+"2");
@@ -101,7 +101,7 @@ public class UserDatabaseModelTest extends AbstractDatabaseTest {
     
     @Test
     public void test_signup_notCorrectBecauseSameEmail(){
-        UserSendableModel user = newUser("");
+        final UserSendableModel user = newUser("");
         insertCorrectUser(user);
         user.setUsername(user.getUsername()+"1");
         user.setPassword(user.getPassword()+"1");
@@ -110,7 +110,7 @@ public class UserDatabaseModelTest extends AbstractDatabaseTest {
     
     @Test
     public void test_signup_notCorrectBecauseNullValues(){
-        UserSendableModel user = newUser("6");
+        final UserSendableModel user = newUser("6");
         user.setUsername(null);
         user.setPassword(null);
         user.setEmail(null);

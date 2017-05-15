@@ -32,7 +32,7 @@ public class EmailSenderTest {
         _testAccountPassword = _emailSender.getServerAccountPassword();
         
         // Connect to the server
-        Session imapSession = createImapSession();
+        final Session imapSession = createImapSession();
         _store = imapSession.getStore("imap");
         _store.connect(TEST_IMAP_HOST, _testAccountEmailAddress, _testAccountPassword);
         
@@ -42,10 +42,10 @@ public class EmailSenderTest {
     }
     
     private Session createImapSession() {
-        Properties imapProperties = new Properties();
-	imapProperties.setProperty("mail.imap.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-	imapProperties.setProperty("mail.imap.socketFactory.fallback", "false");
-	imapProperties.setProperty("mail.imap.socketFactory.port", String.valueOf(TEST_IMAP_PORT));
+        final Properties imapProperties = new Properties();
+        imapProperties.setProperty("mail.imap.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        imapProperties.setProperty("mail.imap.socketFactory.fallback", "false");
+        imapProperties.setProperty("mail.imap.socketFactory.port", String.valueOf(TEST_IMAP_PORT));
         return Session.getInstance(imapProperties, null);
     }
     
@@ -55,7 +55,7 @@ public class EmailSenderTest {
         _mailBox.close(true);
         _store.close();
     }
-
+    
     @Test
     public void test_sendConfirmationEmail_mailIsReceived() throws MessagingException, InterruptedException {
         // The email sender requires the generated user token and username,
@@ -80,12 +80,12 @@ public class EmailSenderTest {
         // Put all the requirements together
         final SearchTerm searchTerms = new AndTerm(new SearchTerm[]{senderSearchTerm, notReadSearchTerm, titleSearchTerm});
         
-        Message messages[] = _mailBox.search(searchTerms);
+        final Message messages[] = _mailBox.search(searchTerms);
         
-        int nbrReceive = messages.length;
+        final int nbrReceive = messages.length;
         
         // Delete the message, so that we can re-run the test
-        for(Message msg : messages) {
+        for(final Message msg : messages) {
             msg.setFlag(Flags.Flag.DELETED, true);
         }
         
