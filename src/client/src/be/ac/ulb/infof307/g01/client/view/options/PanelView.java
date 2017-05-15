@@ -155,6 +155,13 @@ public class PanelView extends VBox {
     
     public void setWidget(FilterPanelView filterView) {
         add(filterView);
+        Button reset = new Button("Reset");
+        reset.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent t) {
+            	_controller.resetResearch();
+            }
+        });
+        reset.getStyleClass().add("primary");
+        add(reset);
     }
-    
 }
